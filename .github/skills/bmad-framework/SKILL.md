@@ -63,6 +63,7 @@ Enforcement is strict — no direct agent activation without delegation check.
 - Never commit to `main` directly
 - Branch naming: `feature/{description}-{date}` or `fix/{description}-{date}`
 - Always push + create PR after commit
+- **PRs MUST have a description** — always use `gh pr create --title "..." --body "..."`, never rely on the GitHub compare URL (it creates empty-body PRs)
 - Full workflow: `_bmad/core/workflows/git-workflow/workflow.md`
 
 ## Manifests

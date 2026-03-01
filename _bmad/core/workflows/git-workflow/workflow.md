@@ -191,11 +191,15 @@ fix(docs): correct README link formatting
 
 ### Step 5: Create Pull Request
 
+**MANDATORY:** ALWAYS use `gh pr create` with a fully populated `--body`. NEVER rely on the push URL (`https://github.com/.../compare/...`) — that route creates a PR with an empty description.
+
 **System Actions:**
-1. Generate PR title from commit message
-2. Generate PR description from commit details and changed files
-3. Open PR on GitHub: `https://github.com/zavrocKk/zav-sandbox/compare/main...{branch_name}`
+1. Generate PR title from commit message (first line of commit msg)
+2. Fill body template from commit details and changed files
+3. Run: `gh pr create --title "{pr_title}" --body "{pr_body}" --base main`
 4. Display PR URL to user
+
+**If `gh` is not available:** Open `https://github.com/zavrocKk/zav-sandbox/compare/main...{branch_name}` AND paste the filled body template into the description field.
 
 **PR Template:**
 ```

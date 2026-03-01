@@ -130,6 +130,7 @@ I need to commit changes following the Git Workflow
 - The `{project-root}` variable resolves to the workspace root at runtime
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_bmad/core/workflows/delegation/workflow.md` for any agent-based capability request.
 - **GIT COMMITS**: Always use the Git Workflow (`_bmad/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
+- **PR DESCRIPTION**: Every PR MUST have a filled description body. Use `gh pr create --title "..." --body "..."` — NEVER rely on the GitHub compare URL, which creates PRs with empty descriptions.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to bmad-master.
 - **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY BMAD agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_bmad/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
 
