@@ -1,6 +1,6 @@
 name,description,module,path
 "brainstorming","Facilitate interactive brainstorming sessions using diverse creative techniques and ideation methods. Use when the user says help me brainstorm or help me ideate.","core","_bmad/core/workflows/brainstorming/workflow.md"
-"party-mode","Orchestrates group discussions between all installed BMAD agents, enabling natural multi-agent conversations. Use when user requests party mode.","core","_bmad/core/workflows/party-mode/workflow.md"
+"party-mode","Smart selective multi-agent discussion orchestrated by BMad Master. Loads a lightweight agent index JIT and selects 2-3 relevant agents per turn based on topic — never pre-loads all profiles. Use when user requests party mode.","core","_bmad/core/workflows/party-mode/workflow.md"
 "create-agent","Create a new BMAD agent with best practices and compliance","bmb","_bmad/bmb/workflows/agent/workflow-create-agent.md"
 "edit-agent","Edit existing BMAD agents while maintaining compliance","bmb","_bmad/bmb/workflows/agent/workflow-edit-agent.md"
 "validate-agent","Validate existing BMAD agents and offer to improve deficiencies","bmb","_bmad/bmb/workflows/agent/workflow-validate-agent.md"
