@@ -1,0 +1,16 @@
+# BMAD Sandbox — .gitignore
+
+# Workspace artifacts
+instructions.md
+
+# Large generated outputs (commit only intentionally)
+_bmad-output/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.swp
+*.swo

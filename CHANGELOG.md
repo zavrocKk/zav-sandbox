@@ -17,6 +17,36 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** Audit A1 — correction de 46 slash commands `/bmad-*` non fonctionnels (chemin déprécié)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_bmad/bmm/config.yaml` (inexistant) → `_bmad/core/config.yaml`
+- Résultat: Tous les slash commands Copilot Chat fonctionnels
+
+**[feat]** Audit A1 — agents Léo (bmad-optimizer) et Aria (qa-bmad) activables dans Copilot
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/bmad-agent-core-bmad-optimizer.agent.md`, `.github/agents/bmad-agent-bmb-qa-bmad.agent.md`
+- Impact: `.github/prompts/bmad-bmad-optimizer.prompt.md`, `.github/prompts/bmad-qa-bmad.prompt.md`
+
+**[feat]** Audit A1 — slash command `/bmad-git-workflow` créé (référencé mais manquant)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/prompts/bmad-git-workflow.prompt.md`
+
+**[feat]** Audit A1 — Skill cognitive-flywheel ajoutée
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/skills/cognitive-flywheel/SKILL.md`
+
+**[fix]** Audit A1 — `ides/github-copilot.yaml` : Léo, Aria et Murat ajoutés à la liste agents
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/_config/ides/github-copilot.yaml`
+
+**[fix]** Audit A1 — `bmad-help.csv` : entrées manquantes pour Léo et Aria ajoutées
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/_config/bmad-help.csv`
+
+**[feat]** Audit A1 — `.gitignore` créé (instructions.md + _bmad-output/ + OS artifacts)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.gitignore`
+
 **[feat]** Cognitive Flywheel — cycle d'auto-amélioration complet
 - Agent: BMad Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `_bmad/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_bmad/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`

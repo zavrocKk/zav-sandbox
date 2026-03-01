@@ -20,6 +20,15 @@ configuration:
     - name: bmad-workflow-builder
       description: "Wendy — Expert en création et validation de workflows BMAD."
       activation_file: "_bmad/bmb/agents/workflow-builder.md"
+    - name: bmad-optimizer
+      description: "Léo — BMAD Framework Optimizer: token analysis, session metrics, framework improvement."
+      activation_file: "_bmad/core/agents/bmad-optimizer.md"
+    - name: bmad-qa-bmad
+      description: "Aria — BMAD Quality Assurance Specialist: workflow validation, compliance, persona regression detection."
+      activation_file: "_bmad/bmb/agents/qa-bmad.md"
+    - name: bmad-tea
+      description: "Murat — Master Test Architect: ATDD, CI/CD, test design, quality gates."
+      activation_file: "_bmad/tea/agents/tea.md"
 
   # Context files always injected into Copilot context window
   context_files:
