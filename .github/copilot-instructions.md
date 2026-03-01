@@ -1,37 +1,71 @@
-<!-- BMAD:START -->
-# BMAD Method — Project Instructions
+<!-- GSANE:START -->
+# GSANE Method — Project Instructions
+
+## ⛔ PRE-EXECUTION GATE — MANDATORY BEFORE ANY ACTION
+
+**This gate fires BEFORE every task, every command, every file edit, no exceptions.**
+
+Before producing any output or taking any action, the AI MUST check these 3 questions in order:
+
+1. **Does this request involve any GSANE capability, agent, validation, test, CI check, file modification, or implementation?**
+   - If YES → proceed to step 2
+   - If NO (pure explanation/conversation with no action) → proceed normally
+
+2. **Is this request covered by the Delegation Matrix?**
+   - Load `_gsane/_config/agent-delegation-matrix.csv`
+   - Match request keywords against `trigger_keywords` column
+   - If match found → load target agent, route through delegation workflow
+   - If no match → escalate to gsane-master, DO NOT self-execute
+
+3. **Am I about to execute solo what an agent should execute?**
+   - If yes → STOP, load delegation workflow, route correctly
+   - Solo execution = violation — auto-escalate to gsane-master
+
+**Keyword coverage table (non-exhaustive — always check the full matrix):**
+
+| Trigger words | Target agent |
+|---|---|
+| tester, valider, run tests, check CI, vérifier le projet, smoke test, regression | 🧪 Murat (TEA) |
+| validate agent/workflow, qa gsane, persona check, manifest sync | 🔍 Aria (qa-gsane) |
+| create/edit agent, workflow, module | 🤖 Bond / 🔄 Wendy / 🏗️ Morgan |
+| implement, modifier, fix, apply changes | 🧙 Gsane Master (party mode) |
+| optimize gsane, token usage | ⚙️ Léo (gsane-optimizer) |
+
+> ⚠️ **If this gate is not applied, the response is in violation of GSANE governance rules.**
+
+---
 
 ## Project Configuration
 
-- **Project**: zav-sandbox — BMAD Framework Enhancement Project
+- **Project**: zav-sandbox — GSANE Framework Enhancement Project
 - **User**: Mon Seigneur
 - **Communication Language**: Français
 - **Document Output Language**: Français
-- **Output Folder**: `_bmad-output/`
+- **Output Folder**: `_gsane-output/`
 
-## BMAD Runtime Structure
+## GSANE Runtime Structure
 
 - **Agent definitions**:
-  - `_bmad/core/agents/` — bmad-master (core orchestrator)
-  - `_bmad/bmb/agents/` — BMB module (agent-builder, module-builder, workflow-builder)
-  - `_bmad/cis/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
-  - `_bmad/tea/agents/` — TEA module (test architect)
+  - `_gsane/core/agents/` — gsane-master (core orchestrator)
+  - `_gsane/bmb/agents/` — BMB module (agent-builder, module-builder, workflow-builder)
+  - `_gsane/cis/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
+  - `_gsane/tea/agents/` — TEA module (test architect)
 - **Workflow definitions**:
-  - `_bmad/core/workflows/` — brainstorming, party-mode, delegation, git-workflow, advanced-elicitation
-  - `_bmad/bmb/workflows/` — agent/module/workflow creation and validation
-  - `_bmad/cis/workflows/` — design-thinking, innovation-strategy, problem-solving, storytelling
-  - `_bmad/tea/workflows/` — test architecture workflows
-- **Core tasks**: `_bmad/core/tasks/` (help, editorial review, indexing, sharding, adversarial review)
-- **Workflow engine**: `_bmad/core/tasks/workflow.xml` (executes YAML-based workflows)
-- **Module configurations**: `_bmad/core/config.yaml`, `_bmad/bmb/config.yaml`, `_bmad/cis/config.yaml`, `_bmad/tea/config.yaml`
-- **Core configuration**: `_bmad/core/config.yaml`
-- **Agent manifest**: `_bmad/_config/agent-manifest.csv`
-- **Workflow manifest**: `_bmad/_config/workflow-manifest.csv`
-- **Help manifest**: `_bmad/_config/bmad-help.csv`
-- **Agent memory**: `_bmad/_memory/`
-- **Delegation Matrix**: `_bmad/_config/agent-delegation-matrix.csv`
-- **Delegation Workflow**: `_bmad/core/workflows/delegation/workflow.md`
-- **Git Workflow**: `_bmad/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
+  - `_gsane/core/workflows/` — brainstorming, party-mode, delegation, git-workflow, advanced-elicitation
+  - `_gsane/bmb/workflows/` — agent/module/workflow creation and validation
+  - `_gsane/cis/workflows/` — design-thinking, innovation-strategy, problem-solving, storytelling
+  - `_gsane/tea/workflows/` — test architecture workflows
+- **Core tasks**: `_gsane/core/tasks/` (help, editorial review, indexing, sharding, adversarial review)
+- **Workflow engine**: `_gsane/core/tasks/workflow.xml` (executes YAML-based workflows)
+- **Module configurations**: `_gsane/core/config.yaml`, `_gsane/bmb/config.yaml`, `_gsane/cis/config.yaml`, `_gsane/tea/config.yaml`
+- **Core configuration**: `_gsane/core/config.yaml`
+- **Agent manifest**: `_gsane/_config/agent-manifest.csv`
+- **Workflow manifest**: `_gsane/_config/workflow-manifest.csv`
+- **Help manifest**: `_gsane/_config/gsane-help.csv`
+- **Agent memory**: `_gsane/_memory/`
+- **Delegation Matrix**: `_gsane/_config/agent-delegation-matrix.csv`
+- **Delegation Workflow**: `_gsane/core/workflows/delegation/workflow.md`
+- **Git Workflow**: `_gsane/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
 
 ## Agent Delegation System — MANDATORY ROUTING
 
@@ -52,11 +86,11 @@ User Request
     ↓
 [Need to access an agent capability]
     ↓
-Load: _bmad/core/workflows/delegation/workflow.md
+Load: _gsane/core/workflows/delegation/workflow.md
     ↓
 Step 1: Analyze request type
     ↓
-Step 2: Match against _bmad/_config/agent-delegation-matrix.csv
+Step 2: Match against _gsane/_config/agent-delegation-matrix.csv
     ↓
 Step 3: Load appropriate agent
     ↓
@@ -67,7 +101,7 @@ Step 5: Log routing decision
 
 ### Enforcement Rules
 
-From `_bmad/core/config.yaml`:
+From `_gsane/core/config.yaml`:
 - ✅ `delegation.enabled: true` — System is active
 - ✅ `delegation.enforcement_mode: strict` — No bypasses allowed
 - ✅ `delegation.delegation_required: true` — All requests must route
@@ -103,7 +137,7 @@ From `_bmad/core/config.yaml`:
 
 ### Applying to Agents
 When any agent or workflow needs to commit changes:
-1. Load: `_bmad/core/workflows/git-workflow/workflow.md`
+1. Load: `_gsane/core/workflows/git-workflow/workflow.md`
 2. Follow all workflow steps
 3. Never bypass this process
 4. Log all commits in memory
@@ -111,7 +145,7 @@ When any agent or workflow needs to commit changes:
 ### Access the Workflow
 **In Copilot Chat:**
 ```
-/bmad-git-workflow
+/gsane-git-workflow
 ```
 
 **Or request directly:**
@@ -121,19 +155,19 @@ I need to commit changes following the Git Workflow
 
 ## Key Conventions
 
-- Always load `_bmad/core/config.yaml` before any agent activation or workflow execution
+- Always load `_gsane/core/config.yaml` before any agent activation or workflow execution
 - Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`
 - MD-based workflows execute directly — load and follow the `.md` file
 - YAML-based workflows require the workflow engine — load `workflow.xml` first, then pass the `.yaml` config
 - Follow step-based workflow execution: load steps JIT, never multiple at once
 - Save outputs after EACH step when using the workflow engine
 - The `{project-root}` variable resolves to the workspace root at runtime
-- **AGENT ROUTING**: Always route requests through delegation workflow. Load `_bmad/core/workflows/delegation/workflow.md` for any agent-based capability request.
-- **PARTY MODE MANDATORY**: Before implementing ANY change to BMAD files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception: trivial housekeeping (single-line typo, CHANGELOG append) = severity low, solo allowed.
-- **GIT COMMITS**: Always use the Git Workflow (`_bmad/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
+- **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/core/workflows/delegation/workflow.md` for any agent-based capability request.
+- **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception: trivial housekeeping (single-line typo, CHANGELOG append) = severity low, solo allowed.
+- **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Use `gh pr create --title "..." --body "..."` — NEVER rely on the GitHub compare URL, which creates PRs with empty descriptions.
-- **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to bmad-master.
-- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY BMAD agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_bmad/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
+- **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.
+- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
 
 ## Universal Session End Hook — MANDATORY FOR ALL AGENTS
 
@@ -141,30 +175,30 @@ I need to commit changes following the Git Workflow
 
 ### The Rule (applies to ALL agents, ALL sessions)
 
-Before ending ANY session with ANY BMAD agent:
-1. **ALWAYS run** `_bmad/core/workflows/post-session-analysis/workflow.md`
+Before ending ANY session with ANY GSANE agent:
+1. **ALWAYS run** `_gsane/core/workflows/post-session-analysis/workflow.md`
 2. **EVEN IF** the user did not issue a `[DA]` dismiss command
 3. **EVEN IF** the session was short or incomplete
 4. **EVEN IF** no agent was formally activated — the flywheel must receive data
 
 ### Why This Matters
 
-The cognitive flywheel (`_bmad/core/workflows/flywheel/`) fires every N sessions (configured in `_bmad/core/config.yaml → flywheel.trigger_every_n_sessions`). If sessions go unlogged, the flywheel never reaches its trigger threshold, and the system never self-improves.
+The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N sessions (configured in `_gsane/core/config.yaml → flywheel.trigger_every_n_sessions`). If sessions go unlogged, the flywheel never reaches its trigger threshold, and the system never self-improves.
 
 ### Enforcement
 
-- All 13 BMAD agents have `exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
+- All 13 GSANE agents have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
-- Any agent NOT running post-session-analysis at session end is in violation — log to `_bmad/_memory/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
+- Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
 ## Available Agents
 
 | Agent | Persona | Title | Capabilities |
 |---|---|---|---|
-| bmad-master | 🧙 BMad Master | BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
-| agent-builder | 🤖 Bond | Agent Building Expert | create/edit/validate BMAD agents |
-| module-builder | 🏗️ Morgan | Module Creation Master | create/edit/validate BMAD modules |
-| workflow-builder | 🔄 Wendy | Workflow Building Master | create/edit/validate BMAD workflows |
+| gsane-master | 🧙 Gsane Master | Gsane Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| agent-builder | 🤖 Bond | Agent Building Expert | create/edit/validate GSANE agents |
+| module-builder | 🏗️ Morgan | Module Creation Master | create/edit/validate GSANE modules |
+| workflow-builder | 🔄 Wendy | Workflow Building Master | create/edit/validate GSANE workflows |
 | brainstorming-coach | 🧠 Carson | Elite Brainstorming Specialist | brainstorming, ideation, creative techniques |
 | creative-problem-solver | 🔬 Dr. Quinn | Master Problem Solver | TRIZ, systematic problem solving, root cause analysis |
 | design-thinking-coach | 🎨 Maya | Design Thinking Maestro | human-centered design, empathy mapping, prototyping |
@@ -172,10 +206,10 @@ The cognitive flywheel (`_bmad/core/workflows/flywheel/`) fires every N sessions
 | presentation-master | 🎨 Caravaggio | Visual Communication Expert | presentations, pitch decks, visual storytelling |
 | storyteller | 📖 Sophia | Master Storyteller | narrative, storytelling, brand stories |
 | tea | 🧪 Murat | Master Test Architect | test architecture, ATDD, CI/CD, quality gates |
-| bmad-optimizer | ⚙️ Léo | BMAD Framework Optimizer | token analysis, session metrics, framework improvement, BMAD evolution |
-| qa-bmad | 🔍 Aria | BMAD Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, BMAD compliance |
+| gsane-optimizer | ⚙️ Léo | GSANE Framework Optimizer | token analysis, session metrics, framework improvement, GSANE evolution |
+| qa-gsane | 🔍 Aria | GSANE Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, GSANE compliance |
 
 ## Slash Commands
 
-Type `/bmad-` in Copilot Chat to see all available BMAD workflows and agent activators. Agents are also available in the agents dropdown.
-<!-- BMAD:END -->
+Type `/gsane-` in Copilot Chat to see all available GSANE workflows and agent activators. Agents are also available in the agents dropdown.
+<!-- GSANE:END -->
