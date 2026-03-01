@@ -59,7 +59,7 @@ In party mode, BMad Master is the sole orchestrator:
 4. Generate response, discard profile data
 5. Never load full `.md` files during party mode
 
-## Sub-Agent Declaration (NBC Copilot)
+## Sub-Agent Declaration (GitHub Copilot)
 
 For GitHub Copilot agent files (`.agent.md`), sub-agents must declare:
 ```yaml

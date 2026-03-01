@@ -16,6 +16,82 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 
 ## [Unreleased]
 
+### [Core]
+**[fix]** Audit A1 — correction de 46 slash commands `/bmad-*` non fonctionnels (chemin déprécié)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_bmad/bmm/config.yaml` (inexistant) → `_bmad/core/config.yaml`
+- Résultat: Tous les slash commands Copilot Chat fonctionnels
+
+**[feat]** Audit A1 — agents Léo (bmad-optimizer) et Aria (qa-bmad) activables dans Copilot
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/bmad-agent-core-bmad-optimizer.agent.md`, `.github/agents/bmad-agent-bmb-qa-bmad.agent.md`
+- Impact: `.github/prompts/bmad-bmad-optimizer.prompt.md`, `.github/prompts/bmad-qa-bmad.prompt.md`
+
+**[feat]** Audit A1 — slash command `/bmad-git-workflow` créé (référencé mais manquant)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/prompts/bmad-git-workflow.prompt.md`
+
+**[feat]** Audit A1 — Skill cognitive-flywheel ajoutée
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/skills/cognitive-flywheel/SKILL.md`
+
+**[fix]** Audit A1 — `ides/github-copilot.yaml` : Léo, Aria et Murat ajoutés à la liste agents
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/_config/ides/github-copilot.yaml`
+
+**[fix]** Audit A1 — `bmad-help.csv` : entrées manquantes pour Léo et Aria ajoutées
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/_config/bmad-help.csv`
+
+**[feat]** Audit A1 — `.gitignore` créé (instructions.md + _bmad-output/ + OS artifacts)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.gitignore`
+
+**[feat]** Cognitive Flywheel — cycle d'auto-amélioration complet
+- Agent: BMad Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_bmad/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
+- Mécanisme: post-session-analysis compte les sessions et auto-déclenche l'agrégateur toutes les N sessions (défaut: 5). Patterns ≥3 occurrences → confirmed. Corrections low/medium auto-appliquées sur branche fix/flywheel-* avec PR.
+
+**[fix]** Activation universelle du flywheel — câblage exec sur 13 agents DA manquants + hook global
+- Agent: BMad Master | Workflow: post-session-analysis (auto-correction) | Initié par: auto
+- Impact: `agent-builder.md`, `module-builder.md`, `workflow-builder.md`, `qa-bmad.md`, `brainstorming-coach.md`, `creative-problem-solver.md`, `design-thinking-coach.md`, `innovation-strategist.md`, `presentation-master.md`, `storyteller.md`, `bmad-optimizer.md`, `tea.md`, `agent-compilation.md` (template), `architect.md` (ref), `.github/copilot-instructions.md`
+- Résultat: 15/15 DA items câblés — flywheel s'active peu importe quel agent est utilisé
+
+**[feat]** Principe de sévérité low/medium/high — source de vérité centrale dans config.yaml
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `core/config.yaml`, `bmad-master.md`, `qa-bmad.md`, `bmad-optimizer.md`
+
+### [Infrastructure]
+**[feat]** Score Elite 65/65 sur le scan de maturité agentique Copilot
+- Agent: BMad Master (party mode) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/` (10 sub-agents), `.github/skills/` (2 nouveaux), `.github/hooks/` (2 nouveaux fichiers)
+- Détail: Architecture +14pts (user-invokable + orchestrated-by), Automation +15pts (hooks), Knowledge +7pts (skills), Coverage +5pts, pénalité monoculture supprimée
+
+**[feat]** Skills Copilot — bmad-framework + agent-design-patterns
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/skills/bmad-framework/SKILL.md`, `.github/skills/agent-design-patterns/SKILL.md`
+
+**[feat]** Hooks de cycle de vie Copilot (SessionStart, SubagentStart/Stop, PreToolUse, PostToolUse, Stop)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/hooks/hooks.json`, `.github/hooks/session-start.sh`
+
+### [Core]
+**[feat]** Agents bmad-optimizer (Léo ⚙️) et qa-bmad (Aria 🔍) créés et validés
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/agents/bmad-optimizer.md`, `_bmad/bmb/agents/qa-bmad.md`, manifests mis à jour (13 agents)
+
+**[feat]** Workflow post-session-analysis — analyse automatique silencieuse à chaque fin de session
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/workflows/post-session-analysis/workflow.md`, hook DA et party-mode step-03 câblés
+
+**[feat]** Refactoring Party Mode — architecture JIT (Just-In-Time) pour optimisation tokens
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `workflow.md` + 3 steps party-mode, `bmad-master.md` — section `<smart-party-mode>` ajoutée
+
+**[fix]** Alignement Codex — AGENTS.md universel, copilot-instructions nettoyé, github-copilot.yaml configuré
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `AGENTS.md` (racine), `.github/copilot-instructions.md`, `_bmad/_config/ides/github-copilot.yaml`, `_bmad/core/config.yaml`
+
 ### [Infrastructure]
 **[fix]** Correction des permissions du workflow de nettoyage de branches
 - Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur

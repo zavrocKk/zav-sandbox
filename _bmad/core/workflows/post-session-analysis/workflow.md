@@ -1,24 +1,34 @@
 ---
 name: post-session-analysis
-description: "Automated post-session hook. Runs silently after every bmad-master session or party mode exit. Léo (bmad-optimizer) logs token patterns and optimization insights. Aria (qa-bmad) logs compliance findings and regression signals. No user interaction required — appends results to session memory log."
+description: "Automated post-session hook. Runs silently after every bmad-master session or party mode exit. Léo (bmad-optimizer) logs token patterns and optimization insights. Aria (qa-bmad) logs compliance findings and regression signals. Auto-applies low/medium severity corrections. No user interaction required — appends results to session memory log."
 ---
 
 # Post-Session Analysis Workflow
 
-**Goal:** Automatically capture session learnings for continuous BMAD improvement. Runs without interrupting the user — silent, fast, and always-on.
+**Goal:** Automatically capture session learnings AND apply low/medium severity corrections for continuous BMAD improvement. Runs without interrupting the user — silent, fast, and always-on.
 
-**Your Role:** BMad Master executes this workflow as a background analysis hook at session end. You embody both Léo and Aria briefly to produce their findings, then log everything to persistent memory. The user is NOT prompted — this runs autonomously and ends with a single status line.
+**Your Role:** BMad Master executes this workflow as a background analysis hook at session end. You embody both Léo and Aria briefly to produce their findings, apply eligible corrections, then log everything to persistent memory. The user is NOT prompted for low/medium corrections — only high-severity issues surface.
 
 ---
 
 ## RULES
 
 - ⚡ SILENT by default — do NOT ask the user questions
-- ⏱️ FAST — analysis targets under 5 reasoning steps total
+- ⏱️ FAST — analysis targets under 7 reasoning steps total
 - 📝 APPEND ONLY — never overwrite existing log entries, always append
 - 🚫 DO NOT reload config — already resolved in session
 - 🚫 DO NOT load any agent .md files — use in-context session knowledge only
 - ✅ Log findings even if minimal — a clean session is a valid finding
+- ✅ AUTO-APPLY corrections with severity "low" or "medium" — no user prompt needed
+- ⚠️ HIGH severity findings → surface to user with single notification, do NOT auto-apply
+
+## SEVERITY CLASSIFICATION
+
+| Severity | Examples | Action |
+|---|---|---|
+| `low` | Missing CHANGELOG entry, manifest row out of sync, outdated comment | Auto-apply + log |
+| `medium` | Deprecated path in workflow, agent description mismatch, stale memory file | Auto-apply + log |
+| `high` | Rule violation (commit to main, delegation bypass), breaking schema change | Notify user, no auto-apply |
 
 ---
 
@@ -88,7 +98,42 @@ ARIA_FINDINGS:
 
 ---
 
-### Step 4 — Append to Session Memory Log
+### Step 4 — Auto-Apply Corrections (low + medium severity only)
+
+Before logging, apply all eligible corrections identified in Steps 2 and 3:
+
+**Eligible auto-corrections (apply silently):**
+
+1. **Missing CHANGELOG entry** → Append entry under `[Unreleased]` in `CHANGELOG.md` with format:
+   ```
+   **[type]** {description of what was done this session}
+   - Agent: BMad Master | Workflow: post-session-analysis | Initié par: auto
+   - Impact: {files affected}
+   ```
+
+2. **Manifest row out of sync** (agent or workflow added but not in CSV) → Append correct row to the relevant manifest CSV
+
+3. **Deprecated path reference** (e.g., `_bmad/bmm/` in any file) → Replace with correct path
+
+4. **Stale comment or outdated description** in manifest → Update in-place
+
+**For each correction applied:**
+- Note it in `AUTO_CORRECTIONS` list for logging
+- Apply the file edit directly (no branch — these are minor housekeeping fixes)
+
+**Do NOT auto-apply if:**
+- The fix requires creating a new agent/workflow/module (route to Bond/Wendy/Morgan instead)
+- The fix changes any rule, schema, or convention (severity = high)
+- You are uncertain about the correct value
+
+**High severity findings** → after completing all steps, display single line:
+```
+⚠️ [post-session] Problème détecté nécessitant ton attention : {finding}
+```
+
+---
+
+### Step 5 — Append to Session Memory Log
 
 Load path: `{project-root}/_bmad/_memory/session-analysis-log.md`
 
@@ -113,18 +158,42 @@ Append the following block to the END of the file (never overwrite):
 - Violations: {ARIA_FINDINGS.violations}
 - Regression signals: {ARIA_FINDINGS.regression_signals}
 - Top finding: {ARIA_FINDINGS.top_finding}
+
+### 🔧 Auto-corrections appliquées
+- {AUTO_CORRECTIONS list or "aucune"}
 ---
 ```
 
 ---
 
-### Step 5 — Output Single Status Line
+### Step 6 — Flywheel Counter & Trigger
+
+After appending the log entry, count the total number of `## Session:` entries in `session-analysis-log.md` → `{session_count}`.
+
+Load `flywheel.trigger_every_n_sessions` from config (already in session context) → `{trigger_n}`.
+
+```
+if {session_count} % {trigger_n} == 0 AND {session_count} > 0 AND flywheel.enabled == true:
+  → Load and execute: {project-root}/_bmad/core/workflows/flywheel/workflow-aggregate.md
+  → flywheel cycle runs BEFORE the final status line
+else:
+  → Skip flywheel, proceed to Step 7
+  → Note: next flywheel at session {session_count + (trigger_n - session_count % trigger_n)}
+```
+
+This is the heartbeat of the Cognitive Flywheel. Every Nth session, the cycle fires automatically.
+
+---
+
+### Step 7 — Output Single Status Line
 
 Display to user (in {communication_language}):
 
 ```
-📊 Analyse post-session terminée — résultats enregistrés dans _bmad/_memory/session-analysis-log.md
+📊 Analyse post-session terminée — {AUTO_CORRECTIONS.count} correction(s) appliquée(s) — résultats dans _bmad/_memory/session-analysis-log.md
 ```
+
+If flywheel was triggered this step, the flywheel workflow (`workflow-aggregate.md` → `workflow-apply.md`) already displayed its own `🔄` status line. Do not duplicate it.
 
 Then return control to whatever triggered this workflow (DA dismiss or party-mode exit).
 
@@ -135,14 +204,18 @@ Then return control to whatever triggered this workflow (DA dismiss or party-mod
 ✅ Session summary extracted from context (no file loads)
 ✅ Léo findings produced with waste signals and recommendation
 ✅ Aria findings produced with compliance status
-✅ Log entry appended to session-analysis-log.md
-✅ Single status line displayed, then silent exit
-✅ Total workflow execution: ≤ 5 reasoning steps
+✅ Low/medium corrections auto-applied before logging
+✅ Log entry appended to session-analysis-log.md with AUTO_CORRECTIONS section
+✅ Session count checked — flywheel triggered if count % trigger_n == 0
+✅ Single status line displayed with correction count, then silent exit
+✅ Total workflow execution: ≤ 7 reasoning steps (+ flywheel if triggered)
 
 ## FAILURE MODES
 
-❌ Asking the user questions during analysis
+❌ Asking the user questions during analysis (except high-severity notification)
+❌ Auto-applying high-severity findings without user confirmation
 ❌ Reloading config or agent files already in context
 ❌ Overwriting existing log entries (append only)
 ❌ Generating a wall of text — this is a background hook, not a report
 ❌ Blocking the session exit — analysis failure must not prevent DA/exit
+❌ Skipping the flywheel counter check — this is the heartbeat of the system

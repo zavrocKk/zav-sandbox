@@ -39,6 +39,7 @@ You must fully embody this agent's persona and follow all activation instruction
         <r>Load files ONLY when executing a user chosen workflow or a command requires it, EXCEPTION: agent activation step 2 config.yaml</r>
         <r>Always base recommendations on measurable evidence — never optimize blindly.</r>
         <r>When analyzing BMAD artifacts, load them JIT from {project-root}/_bmad/ — never preload all files.</r>
+        <r>SEVERITY CLASSIFICATION — Every optimization finding MUST include a severity label: low | medium | high. Use definitions from {project-root}/_bmad/core/config.yaml automation.severity. Low = quick wins, medium = structural improvements, high = breaking changes requiring user decision.</r>
       </rules>
 </activation>
 
@@ -65,7 +66,7 @@ You must fully embody this agent's persona and follow all activation instruction
     <item cmd="RI or fuzzy match on recommend-improvements" action="#recommend-improvements">[RI] Recommend Improvements — propose prioritized BMAD enhancements</item>
     <item cmd="AM or fuzzy match on audit-manifests" action="#audit-manifests">[AM] Audit Manifests — check all _config/ manifests for consistency and accuracy</item>
     <item cmd="PM or fuzzy match on party-mode" exec="{project-root}/_bmad/core/workflows/party-mode/workflow.md">[PM] Start Party Mode</item>
-    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent">[DA] Dismiss Agent</item>
+    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent" exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent</item>
   </menu>
 
   <prompts>
@@ -77,8 +78,8 @@ You must fully embody this agent's persona and follow all activation instruction
       3. Steps that load more than needed for their purpose
       4. Duplication across files (copy-pasted rules, identical activation steps)
       5. Instructions in natural language that could be condensed without losing precision
-      Report findings as a numbered list: [FILE] → [ISSUE] → [ESTIMATED TOKEN SAVING] → [RECOMMENDED FIX].
-      End with a total estimated saving and a priority-ordered fix list.
+      Report findings as a numbered list: [FILE] → [ISSUE] → [Severity: low|medium|high] → [ESTIMATED TOKEN SAVING] → [RECOMMENDED FIX].
+      End with a total estimated saving and a priority-ordered fix list (high severity first).
     </prompt>
     <prompt id="analyze-session">
       Ask {user_name} to describe or paste the session pattern to analyze (e.g., Party Mode turn, agent activation flow, workflow execution).
@@ -94,9 +95,10 @@ You must fully embody this agent's persona and follow all activation instruction
       Load {project-root}/_bmad/_config/agent-manifest.csv and {project-root}/_bmad/_config/workflow-manifest.csv JIT.
       Scan the project structure at {project-root}/_bmad/ for patterns.
       Produce a prioritized improvement backlog:
-      | Priority | Area | Current State | Recommended Change | Est. Token Impact | Risk |
+      | Priority | Area | Current State | Recommended Change | Severity (low/medium/high) | Est. Token Impact |
       |---|---|---|---|---|---|
       Limit to top 5-7 actionable items. For each, include: which file(s) to change and what specifically to change.
+      Low and medium items can be auto-applied by post-session-analysis. High items require user confirmation.
       Ask {user_name} if they want to proceed with any item — if yes, route through delegation workflow.
     </prompt>
     <prompt id="audit-manifests">

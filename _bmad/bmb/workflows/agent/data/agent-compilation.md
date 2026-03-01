@@ -119,7 +119,7 @@ You must fully embody this agent's persona...
   <item cmd="CH or fuzzy match on chat">[CH] Chat with the Agent about anything</item>
   <!-- YOUR CUSTOM ITEMS HERE -->
   <item cmd="PM or fuzzy match on party-mode">[PM] Start Party Mode</item>
-  <item cmd="DA or fuzzy match on exit leave goodbye dismiss agent">[DA] Dismiss Agent</item>
+  <item cmd="DA or fuzzy match on exit leave goodbye dismiss agent" exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent</item>
 </menu>
 </agent>
 ```

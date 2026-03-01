@@ -130,7 +130,31 @@ I need to commit changes following the Git Workflow
 - The `{project-root}` variable resolves to the workspace root at runtime
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_bmad/core/workflows/delegation/workflow.md` for any agent-based capability request.
 - **GIT COMMITS**: Always use the Git Workflow (`_bmad/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
+- **PR DESCRIPTION**: Every PR MUST have a filled description body. Use `gh pr create --title "..." --body "..."` — NEVER rely on the GitHub compare URL, which creates PRs with empty descriptions.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to bmad-master.
+- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY BMAD agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_bmad/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
+
+## Universal Session End Hook — MANDATORY FOR ALL AGENTS
+
+**This is CRITICAL:** The cognitive flywheel depends on post-session data being logged after EVERY session.
+
+### The Rule (applies to ALL agents, ALL sessions)
+
+Before ending ANY session with ANY BMAD agent:
+1. **ALWAYS run** `_bmad/core/workflows/post-session-analysis/workflow.md`
+2. **EVEN IF** the user did not issue a `[DA]` dismiss command
+3. **EVEN IF** the session was short or incomplete
+4. **EVEN IF** no agent was formally activated — the flywheel must receive data
+
+### Why This Matters
+
+The cognitive flywheel (`_bmad/core/workflows/flywheel/`) fires every N sessions (configured in `_bmad/core/config.yaml → flywheel.trigger_every_n_sessions`). If sessions go unlogged, the flywheel never reaches its trigger threshold, and the system never self-improves.
+
+### Enforcement
+
+- All 13 BMAD agents have `exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
+- This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
+- Any agent NOT running post-session-analysis at session end is in violation — log to `_bmad/_memory/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
 ## Available Agents
 
