@@ -27,6 +27,20 @@ context_file: ''
 
 This uses **sequential validation** for disciplined execution:
 
+```mermaid
+flowchart LR
+    A([Start]) --> B{On main?}
+    B -->|No| FIX[Checkout main first]
+    B -->|Yes| C[Create feature/fix branch\nfeature/name-YYYY-MM-DD]
+    FIX --> C
+    C --> D[Make changes]
+    D --> E[git add + commit\nwith conventional message]
+    E --> F[git push origin branch]
+    F --> G[gh pr create\n--title ... --body ...]
+    G --> H([PR ready for review])
+    G -.->|gh not auth'd| GH[Open compare URL\n+ paste body template]
+```
+
 - Branch creation with type-based naming
 - Change verification before commit
 - PR creation with automatic linking

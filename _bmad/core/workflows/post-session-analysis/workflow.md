@@ -34,6 +34,21 @@ description: "Automated post-session hook. Runs silently after every bmad-master
 
 ## EXECUTION SEQUENCE
 
+```mermaid
+flowchart TD
+    S([Session ends / DA issued]) --> S1[Step 1 — Build session summary\ndate, type, topics, agents, files, turns]
+    S1 --> S2[Step 2 — ⚙️ Léo analysis\nwaste signals + optimization opportunities]
+    S2 --> S3[Step 3 — 🔍 Aria check\ncompliance status + regression signals]
+    S3 --> S4[Step 4 — Auto-apply corrections\nlow + medium severity only]
+    S4 --> S5[Step 5 — Append to session-analysis-log.md]
+    S5 --> S6{session_count % trigger_n == 0?}
+    S6 -->|YES| FW[🔄 Trigger Cognitive Flywheel\nworkflow-aggregate → workflow-apply]
+    S6 -->|NO| S7
+    FW --> S7[Step 7 — Output single status line]
+    S7 --> END([Done — return to user])
+    S4 -->|high severity found| WARN[⚠️ Surface to user\nno auto-apply]
+```
+
 ### Step 1 — Build Session Summary (in-context, no file loads)
 
 From the current session context, extract:

@@ -33,7 +33,7 @@
 
 ---
 ## Session: 2026-03-01 | Type: party-mode
-**Topics:** NBC-score, skills, hooks, agent-subagents
+**Topics:** score, skills, hooks, agent-subagents
 **Agents invoked:** bmad-master, bond, morgan, wendy, murat, aria, leo
 **Workflows run:** party-mode, post-session-analysis
 **Files loaded (est.):** 14 | **Turns:** 18

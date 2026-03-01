@@ -10,24 +10,30 @@ The Cognitive Flywheel is BMAD's self-improvement engine. Every session generate
 
 ## The Loop
 
-```
-Session ends
-    ↓
-post-session-analysis/workflow.md runs (always, every session)
-    ↓
-Léo + Aria analyze: token waste signals, compliance issues
-    ↓
-Results appended to _bmad/_memory/session-analysis-log.md
-    ↓
-session_count % trigger_n == 0 ?
-    ├── YES → flywheel fires
-    │       ↓
-    │   workflow-aggregate.md: extract recurring patterns (≥3 = CONFIRMED)
-    │       ↓
-    │   workflow-apply.md: auto-apply low/medium corrections (max 5 per cycle)
-    │       ↓
-    │   Results in flywheel-report.md + flywheel-history.md
-    └── NO → skip, next check at session N
+```mermaid
+flowchart TD
+    A([Session ends]) --> B[post-session-analysis runs]
+    B --> LEO[⚙️ Léo — token waste signals]
+    B --> ARIA[🔍 Aria — compliance check]
+    LEO --> LOG[(session-analysis-log.md)]
+    ARIA --> LOG
+    LOG --> CNT{session_count % N == 0?}
+    CNT -->|NO| SKIP[Skip flywheel\nnote next trigger]
+    SKIP --> END([Done])
+    CNT -->|YES| AGG[workflow-aggregate.md]
+    AGG --> PAT{Pattern count?}
+    PAT -->|≥3| CONF[CONFIRMED → correction]
+    PAT -->|2| WATCH[WATCH → next cycle]
+    PAT -->|1| NOISE[NOISE → log only]
+    CONF --> APP[workflow-apply.md]
+    APP --> SEV{Severity?}
+    SEV -->|low| AUTO1[auto-apply silently]
+    SEV -->|medium| AUTO2[auto-apply + log]
+    SEV -->|high| NOTIF[notify user only]
+    AUTO1 --> PR[fix/flywheel-* branch + PR]
+    AUTO2 --> PR
+    PR --> HIST[(flywheel-history.md)]
+    HIST --> END
 ```
 
 ## Configuration

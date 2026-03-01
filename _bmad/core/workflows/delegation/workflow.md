@@ -23,6 +23,22 @@ context_file: ''
 
 This uses **intelligent matching and controlled delegation**:
 
+```mermaid
+flowchart TD
+    REQ([User Request]) --> ANA[Analyze request\ntype + keywords]
+    ANA --> MATRIX[Load agent-delegation-matrix.csv]
+    MATRIX --> MATCH{Match type?}
+    MATCH -->|perfect match| LOAD[Load target agent .md]
+    MATCH -->|fuzzy match| RANK[Rank by keyword relevance]
+    RANK --> LOAD
+    MATCH -->|no match| ESC[Escalate to bmad-master]
+    LOAD --> ACT[Follow agent activation sequence]
+    ACT --> EXEC[Agent executes workflow]
+    EXEC --> LOG[Log routing decision\nto delegation-audit.md]
+    LOG --> OUT([Result returned])
+    ESC --> NOTIFY[Notify user — cannot route]
+```
+
 - Request analysis and classification
 - Delegation Matrix lookup
 - Fuzzy matching on trigger keywords

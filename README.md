@@ -96,11 +96,20 @@ Tous les slash commands `/bmad-*` sont disponibles dans `.github/prompts/` (49 f
 
 Chaque session alimente automatiquement un cycle d'auto-amélioration :
 
-```
-SESSION  →  post-session-analysis  →  session-analysis-log.md
-   ↑                                          ↓ (toutes les 5 sessions)
-   └─ Skills enrichis ─ Prompts affinés ─ workflow-aggregate → flywheel-report.md
-      Workflows patchés ─ Manifests syncés ─  workflow-apply  → fix/flywheel-* PR
+```mermaid
+flowchart LR
+    S([Session]) --> PSA[post-session-analysis]
+    PSA --> LEO[⚙️ Léo\ntoken analysis]
+    PSA --> ARIA[🔍 Aria\ncompliance check]
+    LEO --> LOG[(session-analysis-log.md)]
+    ARIA --> LOG
+    LOG -->|every N sessions| AGG[workflow-aggregate.md]
+    AGG --> RPT[(flywheel-report.md)]
+    RPT --> APP[workflow-apply.md]
+    APP -->|low/medium auto-apply| FIX[fix/flywheel-* PR]
+    APP -->|high severity| USR[👤 notify user]
+    FIX --> HIST[(flywheel-history.md)]
+    FIX --> S
 ```
 
 - **Léo** analyse les signaux de gaspillage token — **Aria** valide la conformité BMAD
