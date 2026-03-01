@@ -26,6 +26,45 @@
 - **Workflow manifest**: `_bmad/_config/workflow-manifest.csv`
 - **Help manifest**: `_bmad/_config/bmad-help.csv`
 - **Agent memory**: `_bmad/_memory/`
+- **Git Workflow**: `_bmad/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
+
+## Git Workflow — MANDATORY FOR ALL COMMITS
+
+**This is CRITICAL:** Every commit in this project MUST follow the Git Workflow. No exceptions.
+
+### The Single Rule
+- **NEVER commit directly to `main`**
+- **ALWAYS create a branch first** (feature/* or fix/*)
+- **ALWAYS create a PR after commit**
+
+### Branch Naming
+- `feature/{description}-{date}` — New code, updates, deployments
+- `fix/{description}-{date}` — Corrections, bug fixes
+
+### Workflow Steps
+1. Create feature/fix branch
+2. Make changes and commit
+3. Push branch to remote
+4. Create pull request
+5. Merge after review
+
+### Applying to Agents
+When any agent or workflow needs to commit changes:
+1. Load: `_bmad/core/workflows/git-workflow/workflow.md`
+2. Follow all workflow steps
+3. Never bypass this process
+4. Log all commits in memory
+
+### Access the Workflow
+**In Copilot Chat:**
+```
+/bmad-git-workflow
+```
+
+**Or request directly:**
+```
+I need to commit changes following the Git Workflow
+```
 
 ## Key Conventions
 
@@ -36,6 +75,7 @@
 - Follow step-based workflow execution: load steps JIT, never multiple at once
 - Save outputs after EACH step when using the workflow engine
 - The `{project-root}` variable resolves to the workspace root at runtime
+- **GIT COMMITS**: Always use the Git Workflow (`_bmad/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 
 ## Available Agents
 
