@@ -24,11 +24,17 @@
     {
       "event": "Stop",
       "description": "Trigger post-session analysis workflow before exit"
+    },
+    {
+      "event": "FlywheelTrigger",
+      "description": "Fired by post-session-analysis when session_count % flywheel.trigger_every_n_sessions == 0. Executes workflow-aggregate.md then workflow-apply.md. Controlled by flywheel.enabled in config.yaml."
     }
   ],
   "config": {
     "sessionOutputPath": "_bmad-output/",
     "logLevel": "info",
-    "postSessionAnalysis": "_bmad/core/workflows/post-session-analysis/workflow.md"
+    "postSessionAnalysis": "_bmad/core/workflows/post-session-analysis/workflow.md",
+    "flywheelAggregate": "_bmad/core/workflows/flywheel/workflow-aggregate.md",
+    "flywheelApply": "_bmad/core/workflows/flywheel/workflow-apply.md"
   }
 }

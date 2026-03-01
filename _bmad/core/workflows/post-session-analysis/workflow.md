@@ -166,13 +166,34 @@ Append the following block to the END of the file (never overwrite):
 
 ---
 
-### Step 6 — Output Single Status Line
+### Step 6 — Flywheel Counter & Trigger
+
+After appending the log entry, count the total number of `## Session:` entries in `session-analysis-log.md` → `{session_count}`.
+
+Load `flywheel.trigger_every_n_sessions` from config (already in session context) → `{trigger_n}`.
+
+```
+if {session_count} % {trigger_n} == 0 AND {session_count} > 0 AND flywheel.enabled == true:
+  → Load and execute: {project-root}/_bmad/core/workflows/flywheel/workflow-aggregate.md
+  → flywheel cycle runs BEFORE the final status line
+else:
+  → Skip flywheel, proceed to Step 7
+  → Note: next flywheel at session {session_count + (trigger_n - session_count % trigger_n)}
+```
+
+This is the heartbeat of the Cognitive Flywheel. Every Nth session, the cycle fires automatically.
+
+---
+
+### Step 7 — Output Single Status Line
 
 Display to user (in {communication_language}):
 
 ```
 📊 Analyse post-session terminée — {AUTO_CORRECTIONS.count} correction(s) appliquée(s) — résultats dans _bmad/_memory/session-analysis-log.md
 ```
+
+If flywheel was triggered this step, the flywheel workflow (`workflow-aggregate.md` → `workflow-apply.md`) already displayed its own `🔄` status line. Do not duplicate it.
 
 Then return control to whatever triggered this workflow (DA dismiss or party-mode exit).
 
@@ -185,8 +206,9 @@ Then return control to whatever triggered this workflow (DA dismiss or party-mod
 ✅ Aria findings produced with compliance status
 ✅ Low/medium corrections auto-applied before logging
 ✅ Log entry appended to session-analysis-log.md with AUTO_CORRECTIONS section
+✅ Session count checked — flywheel triggered if count % trigger_n == 0
 ✅ Single status line displayed with correction count, then silent exit
-✅ Total workflow execution: ≤ 7 reasoning steps
+✅ Total workflow execution: ≤ 7 reasoning steps (+ flywheel if triggered)
 
 ## FAILURE MODES
 
@@ -196,3 +218,4 @@ Then return control to whatever triggered this workflow (DA dismiss or party-mod
 ❌ Overwriting existing log entries (append only)
 ❌ Generating a wall of text — this is a background hook, not a report
 ❌ Blocking the session exit — analysis failure must not prevent DA/exit
+❌ Skipping the flywheel counter check — this is the heartbeat of the system

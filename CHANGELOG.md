@@ -16,6 +16,16 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 
 ## [Unreleased]
 
+### [Core]
+**[feat]** Cognitive Flywheel — cycle d'auto-amélioration complet
+- Agent: BMad Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_bmad/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
+- Mécanisme: post-session-analysis compte les sessions et auto-déclenche l'agrégateur toutes les N sessions (défaut: 5). Patterns ≥3 occurrences → confirmed. Corrections low/medium auto-appliquées sur branche fix/flywheel-* avec PR.
+
+**[feat]** Principe de sévérité low/medium/high — source de vérité centrale dans config.yaml
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `core/config.yaml`, `bmad-master.md`, `qa-bmad.md`, `bmad-optimizer.md`
+
 ### [Infrastructure]
 **[feat]** Score Elite 65/65 sur le scan de maturité agentique Copilot
 - Agent: BMad Master (party mode) | Workflow: git-workflow | Initié par: Mon Seigneur

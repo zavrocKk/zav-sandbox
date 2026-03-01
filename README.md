@@ -74,7 +74,26 @@ Les outputs des workflows sont générés dans `_bmad-output/` :
 - [`_tmad/core/config.yaml`](_bmad/core/config.yaml) - Configuration du mode BMAD
 
 ---
+## 🔄 Cognitive Flywheel
 
+*Execution creates data. Data creates learning. Learning creates better execution. The cycle never ends.*
+
+Chaque session alimente automatiquement un cycle d'auto-amélioration :
+
+```
+SESSION  →  post-session-analysis  →  session-analysis-log.md
+   ↑                                          ↓ (toutes les 5 sessions)
+   └─ Skills enrichis ─ Prompts affinés ─ workflow-aggregate → flywheel-report.md
+      Workflows patchs ─ Manifests syncés ─   workflow-apply → fix/flywheel-* PR
+```
+
+- **Léo** analyse les patterns de tokens — **Aria** valide la conformité
+- Corrections `low/medium` appliquées automatiquement (max 5/cycle)
+- Corrections `high` → notification seulement, décision manuelle
+- Historique dans `_bmad/_memory/flywheel-history.md`
+- Cadence configurable : `config.yaml → flywheel.trigger_every_n_sessions`
+
+---
 ## 🧪 Testing & Validation
 
 This project includes comprehensive systems for:

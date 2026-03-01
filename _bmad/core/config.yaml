@@ -46,3 +46,19 @@ automation:
     high:
       description: "Rule violation (commit to main, delegation bypass), breaking schema change, data loss risk"
       action: "notify user only — do NOT auto-apply under any circumstances"
+
+## Cognitive Flywheel
+# Controls the self-improvement cycle: execution → data → learning → better execution.
+flywheel:
+  enabled: true
+  trigger_every_n_sessions: 5          # Run aggregate+apply every N sessions
+  max_auto_corrections_per_cycle: 5    # Gate: never apply more than 5 corrections per cycle
+  aggregate_workflow: "{project-root}/_bmad/core/workflows/flywheel/workflow-aggregate.md"
+  apply_workflow: "{project-root}/_bmad/core/workflows/flywheel/workflow-apply.md"
+  report_path: "{project-root}/_bmad/_memory/flywheel-report.md"
+  history_path: "{project-root}/_bmad/_memory/flywheel-history.md"
+  targets:
+    - skills: ".github/skills/**"
+    - prompts: ".github/prompts/**"
+    - workflows: "_bmad/**/workflows/**/workflow.md"
+    - manifests: "_bmad/_config/*.csv"
