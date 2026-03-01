@@ -17,6 +17,41 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 ## [Unreleased]
 
 ### [Core]
+**[feat]** Cognitive Flywheel — scoreboard par agent, workflow et prompt
+- Agent: BMad Master (party: Aria, Léo, Wendy, Murat, Bond, Dr. Quinn) | Workflow: post-session-analysis | Initié par: Mon Seigneur
+- Impact: `_bmad/_memory/scoreboard.md` créé — scores A+/A/B/C par agent, exécutions par workflow, santé des prompts
+- Impact: `workflow-aggregate.md` Step 5b — calcul automatique du scoreboard à chaque cycle flywheel
+
+**[feat]** Cognitive Flywheel — tracking des améliorations de prompts (`prompt_improvement_signals`)
+- Agent: BMad Master | Workflow: post-session-analysis | Initié par: Mon Seigneur
+- Impact: `post-session-analysis/workflow.md` Step 2 — Léo détecte prompt-quality-up, prompt-efficiency-up, flywheel-prompt-confirmed
+- Résultat: Le flywheel peut maintenant corréler les gains observés par l'utilisateur avec les corrections appliquées
+
+**[feat]** Cognitive Flywheel — marker `FLYWHEEL TRIGGERED` dans le log de sessions
+- Agent: BMad Master | Workflow: post-session-analysis | Initié par: auto
+- Impact: `post-session-analysis/workflow.md` Step 6 — marker écrit avant déclenchement + status mis à jour après
+- Impact: `workflow-aggregate.md` Step 5b — marker status mis à jour après completion
+- Résultat: Auditabilité complète — on sait exactement quand et pourquoi le flywheel a tiré
+
+**[feat]** Cognitive Flywheel — `session_count` dans chaque entrée de log
+- Agent: BMad Master | Workflow: post-session-analysis | Initié par: auto
+- Impact: `post-session-analysis/workflow.md` Step 5 template — `| Count: {session_count}` dans le header
+- Impact: `session-analysis-log.md` — 6 entrées existantes rétroactivement mises à jour
+- Résultat: Comptage O(1) sans scanner tout le fichier
+
+**[feat]** Cognitive Flywheel — checklist de test end-to-end (6 tests)
+- Agent: BMad Master (Murat) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_bmad/core/workflows/flywheel/flywheel-test-checklist.md` — T1 compteur, T2 report, T3 corrections, T4 prompt signals, T5 scoreboard, T6 régression
+
+**[fix]** workflow-apply — PR créée avec body complet (règle PR description)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: auto
+- Impact: `workflow-apply.md` Step 5 — `gh pr create --body` avec template complet incluant Prompt Improvements Confirmed
+
+**[docs]** Diagrammes Mermaid ajoutés dans 5 fichiers clés (0 → 5 Mermaid)
+- Agent: BMad Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: README.md, cognitive-flywheel/SKILL.md, delegation/workflow.md, git-workflow/workflow.md, post-session-analysis/workflow.md
+
+### [Core]
 **[fix]** Audit A1 — correction de 46 slash commands `/bmad-*` non fonctionnels (chemin déprécié)
 - Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_bmad/bmm/config.yaml` (inexistant) → `_bmad/core/config.yaml`

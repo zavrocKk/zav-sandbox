@@ -143,13 +143,95 @@ Then immediately proceed to `workflow-apply.md`.
 
 ---
 
-## SUCCESS METRICS
+### Step 5b — Calculate Scoreboard
+
+From all session entries in the log, compute per-entity performance metrics:
+
+**Per-agent scoring** (from `agents_invoked` + Aria sections):
+```
+for each unique agent in all session entries:
+  sessions_active = count of sessions where agent appears in agents_invoked
+  pass_count = count of PASS compliance in those sessions
+  compliance_rate = pass_count / sessions_active * 100
+  avg_token_impact = most frequent token impact level when agent is active
+  prompt_signals = collect all prompt_improvement_signals from those sessions
+  score = A+ if compliance_rate == 100% AND avg_token_impact == low
+          A  if compliance_rate >= 80%
+          B  if compliance_rate >= 60% OR avg_token_impact == medium
+          C  if compliance_rate < 60% OR high severity flagged
+```
+
+**Per-workflow scoring** (from `workflows_run` fields):
+```
+for each unique workflow in all session entries:
+  executions = total count across all sessions
+  corrections_generated = count of auto-corrections linked to that workflow
+  avg_turns = average turns_count when workflow was active
+```
+
+**Per-prompt health** (from corrections applied to `.github/prompts/**`):
+```
+corrections_this_cycle = count of workflow-apply corrections targeting prompts
+prompt_improvement_confirmed = count of flywheel-prompt-confirmed signals across sessions
+```
+
+Write scores to `{project-root}/_bmad/_memory/scoreboard.md` (overwrite each cycle):
+
+```markdown
+# BMAD Scoreboard
+> Généré automatiquement par flywheel-aggregate — ne pas éditer manuellement.
+> Cycle: {today_date} | Sessions analysées: {sessions_this_cycle} | Total: {total_sessions}
+
+---
+## 📊 Agent Performance
+
+| Agent | Sessions Actives | Compliance | Token Impact | Prompt Signals | Score |
+|---|---|---|---|---|---|
+{for each agent: | {name} | {sessions_active} | {compliance_rate}% | {avg_token_impact} | {prompt_signals_summary} | {score} |}
+
+---
+## 📋 Workflow Performance
+
+| Workflow | Exécutions | Corrections Générées | Score |
+|---|---|---|---|
+{for each workflow: | {name} | {executions} | {corrections_generated} | {score} |}
+
+---
+## 📝 Prompt Health
+
+| Catégorie | Total | Corrections ce cycle | Améliorations confirmées | Santé |
+|---|---|---|---|---|
+| agents (.github/prompts/bmad-agent-*) | {count} | {corrections} | {confirmed} | {health_icon} |
+| workflows (.github/prompts/bmad-*workflow*) | {count} | {corrections} | {confirmed} | {health_icon} |
+| skills (.github/skills/**) | {count} | {corrections} | {confirmed} | {health_icon} |
+
+---
+## 🔄 Flywheel Métriques
+
+- Cycle actuel: {session_count / trigger_n}
+- Sessions par cycle: {trigger_n}
+- Compliance globale: {global_compliance_rate}%
+- Trend: {trend}
+- Dernier cycle: {today_date}
+- Prochain déclenchement: session {session_count + trigger_n}
+```
+
+Also update the FLYWHEEL TRIGGERED marker in session-analysis-log.md (find the entry written by post-session-analysis Step 6 with `Status: running`) and update it:
+```
+Status: running → workflow-aggregate.md
+```
+→ replace with:
+```
+Status: ✅ completé — {applied_count} corrections appliquées | scoreboard à jour
+```
 
 ✅ Session log read and all entries parsed
 ✅ Patterns extracted with occurrence counts
 ✅ Only CONFIRMED patterns (≥3) included in report
 ✅ Flywheel score calculated with trend
 ✅ `flywheel-report.md` written
+✅ `scoreboard.md` written with per-agent, per-workflow, per-prompt scores
+✅ FLYWHEEL TRIGGERED marker updated in session-analysis-log.md
 ✅ `workflow-apply.md` called
 
 ## FAILURE MODES
@@ -158,3 +240,4 @@ Then immediately proceed to `workflow-apply.md`.
 ❌ Including NOISE patterns (count=1) in corrections
 ❌ Overwriting flywheel-history.md (aggregate writes report only)
 ❌ Asking the user questions
+❌ Skipping scoreboard.md write — scoreboard is the visible output of flywheel health
