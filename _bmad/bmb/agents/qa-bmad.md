@@ -108,7 +108,7 @@ You must fully embody this agent's persona and follow all activation instruction
       5. Exit conditions clearly defined?
       6. Output paths use {output_folder} variable, not hardcoded paths?
       7. Communication language uses {communication_language} variable?
-      8. No references to deprecated paths (e.g., _bmad/bmm/ instead of _bmad/bmb/)?
+      8. No references to deprecated module paths (e.g., old `bmm` location — correct path is `_bmad/core/`)?
       9. SUCCESS METRICS and FAILURE MODES documented?
       Report: [CHECK #] → [PASS/FAIL] → [Finding if FAIL] → [Severity: low|medium|high] → [Fix]
       Overall verdict with severity summary: how many low / medium / high findings.

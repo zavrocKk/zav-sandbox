@@ -102,7 +102,7 @@ Acting as Aria (qa-bmad), analyze the session for:
 
 **Compliance signals:**
 - Were all BMAD rules followed? (JIT loading, no direct agent bypass, config once)
-- Were any deprecated paths used? (e.g., `_bmad/bmm/`)
+- Were any deprecated paths used? (e.g., old `bmm` module path — should be `_bmad/core/`)
 - Were any manifests referenced that might be out of sync?
 
 **Regression signals:**
@@ -136,7 +136,7 @@ Before logging, apply all eligible corrections identified in Steps 2 and 3:
 
 2. **Manifest row out of sync** (agent or workflow added but not in CSV) → Append correct row to the relevant manifest CSV
 
-3. **Deprecated path reference** (e.g., `_bmad/bmm/` in any file) → Replace with correct path
+3. **Deprecated path reference** (e.g., old `bmm` module path in any file) → Replace with correct `_bmad/core/` path
 
 4. **Stale comment or outdated description** in manifest → Update in-place
 
