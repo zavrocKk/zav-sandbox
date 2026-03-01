@@ -17,6 +17,10 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 ## [Unreleased]
 
 ### [Infrastructure]
+**[fix]** Correction des permissions du workflow de nettoyage de branches
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `cleanup-branches.yml` — remplacement de `dawidd6/action-delete-branch` par `actions/github-script` avec permissions `contents: write` explicites
+
 **[feat]** Ajout du pipeline CI/CD avec validation automatique des PRs
 - Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: Toutes les PRs vers `main` — validation CHANGELOG, structure BMAD, et état Git obligatoires avant merge
