@@ -1,4 +1,5 @@
 name,description,module,path
+"post-session-analysis","Automated post-session hook. Runs silently after every bmad-master session or party mode exit. Léo logs token patterns and optimization insights. Aria logs compliance and regression signals. Appends to _bmad/_memory/session-analysis-log.md. No user interaction required.","core","_bmad/core/workflows/post-session-analysis/workflow.md"
 "brainstorming","Facilitate interactive brainstorming sessions using diverse creative techniques and ideation methods. Use when the user says help me brainstorm or help me ideate.","core","_bmad/core/workflows/brainstorming/workflow.md"
 "party-mode","Smart selective multi-agent discussion orchestrated by BMad Master. Loads a lightweight agent index JIT and selects 2-3 relevant agents per turn based on topic — never pre-loads all profiles. Use when user requests party mode.","core","_bmad/core/workflows/party-mode/workflow.md"
 "create-agent","Create a new BMAD agent with best practices and compliance","bmb","_bmad/bmb/workflows/agent/workflow-create-agent.md"

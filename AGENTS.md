@@ -114,6 +114,8 @@ AGENTS.md                     ← This file — universal agent entry point
 | presentation-master | 🎨 Caravaggio | cis | Presentations, visual communication |
 | storyteller | 📖 Sophia | cis | Narrative, storytelling |
 | tea | 🧪 Murat | tea | Test architecture, quality |
+| bmad-optimizer | ⚙️ Léo | core | Token analysis, BMAD optimization, framework improvement |
+| qa-bmad | 🔍 Aria | bmb | BMAD quality assurance, persona regression, workflow compliance |
 
 ---
 

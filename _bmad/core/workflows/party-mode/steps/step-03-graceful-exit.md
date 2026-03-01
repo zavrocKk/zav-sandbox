@@ -82,7 +82,16 @@ Thank you for bringing our BMAD agents together in this unique collaborative exp
 
 **Until next time - keep collaborating, keep innovating, and keep enjoying the power of multi-agent teamwork!** 🚀"
 
-### 5. Complete Workflow Exit
+### 5. Automated Post-Session Analysis (MANDATORY — Silent)
+
+Before updating frontmatter or exiting, execute the post-session analysis hook:
+
+> ⚠️ This step is **mandatory and automatic**. It does NOT require user input.
+> Load and follow: `{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md`
+> Wait for the single status line output (📊) before proceeding to step 6.
+> If the workflow fails for any reason, log a minimal error note to `_bmad/_memory/session-analysis-log.md` and continue to step 6 without blocking exit.
+
+### 6. Complete Workflow Exit
 
 Final workflow completion steps:
 

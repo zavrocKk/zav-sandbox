@@ -136,7 +136,19 @@ I need to commit changes following the Git Workflow
 
 | Agent | Persona | Title | Capabilities |
 |---|---|---|---|
-| bmad-master | BMad Master | BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| bmad-master | 🧙 BMad Master | BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| agent-builder | 🤖 Bond | Agent Building Expert | create/edit/validate BMAD agents |
+| module-builder | 🏗️ Morgan | Module Creation Master | create/edit/validate BMAD modules |
+| workflow-builder | 🔄 Wendy | Workflow Building Master | create/edit/validate BMAD workflows |
+| brainstorming-coach | 🧠 Carson | Elite Brainstorming Specialist | brainstorming, ideation, creative techniques |
+| creative-problem-solver | 🔬 Dr. Quinn | Master Problem Solver | TRIZ, systematic problem solving, root cause analysis |
+| design-thinking-coach | 🎨 Maya | Design Thinking Maestro | human-centered design, empathy mapping, prototyping |
+| innovation-strategist | ⚡ Victor | Disruptive Innovation Oracle | innovation strategy, business model disruption |
+| presentation-master | 🎨 Caravaggio | Visual Communication Expert | presentations, pitch decks, visual storytelling |
+| storyteller | 📖 Sophia | Master Storyteller | narrative, storytelling, brand stories |
+| tea | 🧪 Murat | Master Test Architect | test architecture, ATDD, CI/CD, quality gates |
+| bmad-optimizer | ⚙️ Léo | BMAD Framework Optimizer | token analysis, session metrics, framework improvement, BMAD evolution |
+| qa-bmad | 🔍 Aria | BMAD Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, BMAD compliance |
 
 ## Slash Commands
 

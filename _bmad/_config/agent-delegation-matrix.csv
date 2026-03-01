@@ -12,3 +12,5 @@ design-thinking,design-thinking-coach,cis,_bmad/cis/agents/design-thinking-coach
 innovate,innovation-strategist,cis,_bmad/cis/agents/innovation-strategist.md,⚡,Develop innovation and business strategies,innovate;strategy;disruption;business model
 present,presentation-master,cis,_bmad/cis/agents/presentation-master.md,🎨,Design presentations and visual communication,present;presentation;visual design;pitch deck
 storytelling,storyteller,cis,_bmad/cis/agents/storyteller/storyteller.md,📖,Craft narratives and stories,tell story;narrative;storytelling;story structure
+optimize-bmad,bmad-optimizer,core,_bmad/core/agents/bmad-optimizer.md,⚙️,Analyze and optimize BMAD token usage and framework improvements,optimize bmad;token usage;analyze tokens;bmad improvement;framework optimization;session analysis;audit manifests;recommend improvements
+qa-bmad,qa-bmad,bmb,_bmad/bmb/agents/qa-bmad.md,🔍,Validate BMAD artifact quality and detect regressions,qa bmad;quality check;persona check;personality regression;workflow compliance;manifest sync;regression check;validate bmad
