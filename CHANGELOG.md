@@ -1,9 +1,9 @@
 # CHANGELOG
 
-Toutes les modifications notables du projet zav-sandbox BMAD sont documentées ici.
+Toutes les modifications notables du projet zav-sandbox GSANE sont documentées ici.
 
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-adapté à l'architecture multi-agents et multi-modules du framework BMAD.
+adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 > **Format d'entrée:**
 > ```
@@ -17,146 +17,156 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** PRE-EXECUTION GATE ajouté en tête de `copilot-instructions.md` — bloque toute exécution solo avant check obligatoire de la matrice de délégation
+- Agent: Gsane Master (party: Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `.github/copilot-instructions.md` — gate en 3 étapes avec table de keywords visibles avant toute autre règle
+- Résultat: L'IA ne peut plus ignorer le routing sans violer une règle explicite et prioritaire
+
+**[fix]** Matrice de délégation — 2 entrées manquantes ajoutées : `run-tests` et `project-audit` → TEA (Murat)
+- Agent: Aria (qa-gsane) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/_config/agent-delegation-matrix.csv` — requêtes `tester/valider le projet/check ci/smoke test/regression check/audit projet` routent désormais vers Murat
+- Résultat: Angle mort de délégation fermé — couverture complète des requêtes de type test/validation
+
 **[feat]** Cognitive Flywheel — scoreboard par agent, workflow et prompt
-- Agent: BMad Master (party: Aria, Léo, Wendy, Murat, Bond, Dr. Quinn) | Workflow: post-session-analysis | Initié par: Mon Seigneur
-- Impact: `_bmad/_memory/scoreboard.md` créé — scores A+/A/B/C par agent, exécutions par workflow, santé des prompts
+- Agent: Gsane Master (party: Aria, Léo, Wendy, Murat, Bond, Dr. Quinn) | Workflow: post-session-analysis | Initié par: Mon Seigneur
+- Impact: `_gsane/_memory/scoreboard.md` créé — scores A+/A/B/C par agent, exécutions par workflow, santé des prompts
 - Impact: `workflow-aggregate.md` Step 5b — calcul automatique du scoreboard à chaque cycle flywheel
 
 **[feat]** Cognitive Flywheel — tracking des améliorations de prompts (`prompt_improvement_signals`)
-- Agent: BMad Master | Workflow: post-session-analysis | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: post-session-analysis | Initié par: Mon Seigneur
 - Impact: `post-session-analysis/workflow.md` Step 2 — Léo détecte prompt-quality-up, prompt-efficiency-up, flywheel-prompt-confirmed
 - Résultat: Le flywheel peut maintenant corréler les gains observés par l'utilisateur avec les corrections appliquées
 
 **[feat]** Cognitive Flywheel — marker `FLYWHEEL TRIGGERED` dans le log de sessions
-- Agent: BMad Master | Workflow: post-session-analysis | Initié par: auto
+- Agent: Gsane Master | Workflow: post-session-analysis | Initié par: auto
 - Impact: `post-session-analysis/workflow.md` Step 6 — marker écrit avant déclenchement + status mis à jour après
 - Impact: `workflow-aggregate.md` Step 5b — marker status mis à jour après completion
 - Résultat: Auditabilité complète — on sait exactement quand et pourquoi le flywheel a tiré
 
 **[feat]** Cognitive Flywheel — `session_count` dans chaque entrée de log
-- Agent: BMad Master | Workflow: post-session-analysis | Initié par: auto
+- Agent: Gsane Master | Workflow: post-session-analysis | Initié par: auto
 - Impact: `post-session-analysis/workflow.md` Step 5 template — `| Count: {session_count}` dans le header
 - Impact: `session-analysis-log.md` — 6 entrées existantes rétroactivement mises à jour
 - Résultat: Comptage O(1) sans scanner tout le fichier
 
 **[feat]** Cognitive Flywheel — checklist de test end-to-end (6 tests)
-- Agent: BMad Master (Murat) | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_bmad/core/workflows/flywheel/flywheel-test-checklist.md` — T1 compteur, T2 report, T3 corrections, T4 prompt signals, T5 scoreboard, T6 régression
+- Agent: Gsane Master (Murat) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/flywheel/flywheel-test-checklist.md` — T1 compteur, T2 report, T3 corrections, T4 prompt signals, T5 scoreboard, T6 régression
 
 **[fix]** workflow-apply — PR créée avec body complet (règle PR description)
-- Agent: BMad Master | Workflow: git-workflow | Initié par: auto
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: auto
 - Impact: `workflow-apply.md` Step 5 — `gh pr create --body` avec template complet incluant Prompt Improvements Confirmed
 
 **[docs]** Diagrammes Mermaid ajoutés dans 5 fichiers clés (0 → 5 Mermaid)
-- Agent: BMad Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: README.md, cognitive-flywheel/SKILL.md, delegation/workflow.md, git-workflow/workflow.md, post-session-analysis/workflow.md
 
 ### [Core]
-**[fix]** Audit A1 — correction de 46 slash commands `/bmad-*` non fonctionnels (chemin déprécié)
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_bmad/bmm/config.yaml` (inexistant) → `_bmad/core/config.yaml`
+**[fix]** Audit A1 — correction de 46 slash commands `/gsane-*` non fonctionnels (chemin déprécié)
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_gsane/bmm/config.yaml` (inexistant) → `_gsane/core/config.yaml`
 - Résultat: Tous les slash commands Copilot Chat fonctionnels
 
-**[feat]** Audit A1 — agents Léo (bmad-optimizer) et Aria (qa-bmad) activables dans Copilot
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `.github/agents/bmad-agent-core-bmad-optimizer.agent.md`, `.github/agents/bmad-agent-bmb-qa-bmad.agent.md`
-- Impact: `.github/prompts/bmad-bmad-optimizer.prompt.md`, `.github/prompts/bmad-qa-bmad.prompt.md`
+**[feat]** Audit A1 — agents Léo (gsane-optimizer) et Aria (qa-gsane) activables dans Copilot
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/gsane-agent-core-gsane-optimizer.agent.md`, `.github/agents/gsane-agent-bmb-qa-gsane.agent.md`
+- Impact: `.github/prompts/gsane-gsane-optimizer.prompt.md`, `.github/prompts/gsane-qa-gsane.prompt.md`
 
-**[feat]** Audit A1 — slash command `/bmad-git-workflow` créé (référencé mais manquant)
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `.github/prompts/bmad-git-workflow.prompt.md`
+**[feat]** Audit A1 — slash command `/gsane-git-workflow` créé (référencé mais manquant)
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/prompts/gsane-git-workflow.prompt.md`
 
 **[feat]** Audit A1 — Skill cognitive-flywheel ajoutée
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `.github/skills/cognitive-flywheel/SKILL.md`
 
 **[fix]** Audit A1 — `ides/github-copilot.yaml` : Léo, Aria et Murat ajoutés à la liste agents
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_bmad/_config/ides/github-copilot.yaml`
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/_config/ides/github-copilot.yaml`
 
-**[fix]** Audit A1 — `bmad-help.csv` : entrées manquantes pour Léo et Aria ajoutées
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_bmad/_config/bmad-help.csv`
+**[fix]** Audit A1 — `gsane-help.csv` : entrées manquantes pour Léo et Aria ajoutées
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/_config/gsane-help.csv`
 
-**[feat]** Audit A1 — `.gitignore` créé (instructions.md + _bmad-output/ + OS artifacts)
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+**[feat]** Audit A1 — `.gitignore` créé (instructions.md + _gsane-output/ + OS artifacts)
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `.gitignore`
 
 **[feat]** Cognitive Flywheel — cycle d'auto-amélioration complet
-- Agent: BMad Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_bmad/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_bmad/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
+- Agent: Gsane Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_gsane/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
 - Mécanisme: post-session-analysis compte les sessions et auto-déclenche l'agrégateur toutes les N sessions (défaut: 5). Patterns ≥3 occurrences → confirmed. Corrections low/medium auto-appliquées sur branche fix/flywheel-* avec PR.
 
 **[fix]** Activation universelle du flywheel — câblage exec sur 13 agents DA manquants + hook global
-- Agent: BMad Master | Workflow: post-session-analysis (auto-correction) | Initié par: auto
-- Impact: `agent-builder.md`, `module-builder.md`, `workflow-builder.md`, `qa-bmad.md`, `brainstorming-coach.md`, `creative-problem-solver.md`, `design-thinking-coach.md`, `innovation-strategist.md`, `presentation-master.md`, `storyteller.md`, `bmad-optimizer.md`, `tea.md`, `agent-compilation.md` (template), `architect.md` (ref), `.github/copilot-instructions.md`
+- Agent: Gsane Master | Workflow: post-session-analysis (auto-correction) | Initié par: auto
+- Impact: `agent-builder.md`, `module-builder.md`, `workflow-builder.md`, `qa-gsane.md`, `brainstorming-coach.md`, `creative-problem-solver.md`, `design-thinking-coach.md`, `innovation-strategist.md`, `presentation-master.md`, `storyteller.md`, `gsane-optimizer.md`, `tea.md`, `agent-compilation.md` (template), `architect.md` (ref), `.github/copilot-instructions.md`
 - Résultat: 15/15 DA items câblés — flywheel s'active peu importe quel agent est utilisé
 
 **[feat]** Principe de sévérité low/medium/high — source de vérité centrale dans config.yaml
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `core/config.yaml`, `bmad-master.md`, `qa-bmad.md`, `bmad-optimizer.md`
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `core/config.yaml`, `gsane-master.md`, `qa-gsane.md`, `gsane-optimizer.md`
 
 ### [Infrastructure]
 **[feat]** Score Elite 65/65 sur le scan de maturité agentique Copilot
-- Agent: BMad Master (party mode) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master (party mode) | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `.github/agents/` (10 sub-agents), `.github/skills/` (2 nouveaux), `.github/hooks/` (2 nouveaux fichiers)
 - Détail: Architecture +14pts (user-invokable + orchestrated-by), Automation +15pts (hooks), Knowledge +7pts (skills), Coverage +5pts, pénalité monoculture supprimée
 
-**[feat]** Skills Copilot — bmad-framework + agent-design-patterns
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `.github/skills/bmad-framework/SKILL.md`, `.github/skills/agent-design-patterns/SKILL.md`
+**[feat]** Skills Copilot — gsane-framework + agent-design-patterns
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/skills/gsane-framework/SKILL.md`, `.github/skills/agent-design-patterns/SKILL.md`
 
 **[feat]** Hooks de cycle de vie Copilot (SessionStart, SubagentStart/Stop, PreToolUse, PostToolUse, Stop)
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `.github/hooks/hooks.json`, `.github/hooks/session-start.sh`
 
 ### [Core]
-**[feat]** Agents bmad-optimizer (Léo ⚙️) et qa-bmad (Aria 🔍) créés et validés
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_bmad/core/agents/bmad-optimizer.md`, `_bmad/bmb/agents/qa-bmad.md`, manifests mis à jour (13 agents)
+**[feat]** Agents gsane-optimizer (Léo ⚙️) et qa-gsane (Aria 🔍) créés et validés
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/core/agents/gsane-optimizer.md`, `_gsane/bmb/agents/qa-gsane.md`, manifests mis à jour (13 agents)
 
 **[feat]** Workflow post-session-analysis — analyse automatique silencieuse à chaque fin de session
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_bmad/core/workflows/post-session-analysis/workflow.md`, hook DA et party-mode step-03 câblés
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/post-session-analysis/workflow.md`, hook DA et party-mode step-03 câblés
 
 **[feat]** Refactoring Party Mode — architecture JIT (Just-In-Time) pour optimisation tokens
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `workflow.md` + 3 steps party-mode, `bmad-master.md` — section `<smart-party-mode>` ajoutée
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `workflow.md` + 3 steps party-mode, `gsane-master.md` — section `<smart-party-mode>` ajoutée
 
 **[fix]** Alignement Codex — AGENTS.md universel, copilot-instructions nettoyé, github-copilot.yaml configuré
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `AGENTS.md` (racine), `.github/copilot-instructions.md`, `_bmad/_config/ides/github-copilot.yaml`, `_bmad/core/config.yaml`
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `AGENTS.md` (racine), `.github/copilot-instructions.md`, `_gsane/_config/ides/github-copilot.yaml`, `_gsane/core/config.yaml`
 
 ### [Infrastructure]
 **[fix]** Correction des permissions du workflow de nettoyage de branches
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `cleanup-branches.yml` — remplacement de `dawidd6/action-delete-branch` par `actions/github-script` avec permissions `contents: write` explicites
 
 **[feat]** Ajout du pipeline CI/CD avec validation automatique des PRs
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: Toutes les PRs vers `main` — validation CHANGELOG, structure BMAD, et état Git obligatoires avant merge
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Toutes les PRs vers `main` — validation CHANGELOG, structure GSANE, et état Git obligatoires avant merge
 
 **[feat]** Nettoyage automatique des branches après merge
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: Toutes les branches `feature/*` et `fix/*` — suppression automatique post-merge
 
 **[feat]** Branch protection rules activées sur `main`
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: Branche `main` — push direct bloqué, PR obligatoire, status checks requis
 
 ### [Core]
 **[docs]** Section Testing & Validation ajoutée au README
-- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: Documentation projet — références vers Git Workflow, CHANGELOG et Delegation System
 
 ---
 
 ## [1.0.0-alpha.1] - 2026-03-01
 
-### Release initiale — Fondations BMAD
+### Release initiale — Fondations GSANE
 
 #### [Core]
-**[feat]** Agent BMad Master 🧙 et système d'orchestration
+**[feat]** Agent Gsane Master 🧙 et système d'orchestration
 - Exécuteur principal, gestionnaire de workflows et gardien de la connaissance
 
 **[feat]** Système de configuration central (`config.yaml`)
@@ -176,11 +186,11 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 - Convention de nommage: `feature/{desc}-YYYY-MM-DD` / `fix/{desc}-YYYY-MM-DD`
 
 #### [BMB] — Builder Module
-**[feat]** Agent Bond 🤖 (Agent Builder) — Création et validation d'agents BMAD
+**[feat]** Agent Bond 🤖 (Agent Builder) — Création et validation d'agents GSANE
 
 **[feat]** Agent Wendy 🔄 (Workflow Builder) — Design et validation de workflows
 
-**[feat]** Agent Morgan 🏗️ (Module Builder) — Construction de modules BMAD complets
+**[feat]** Agent Morgan 🏗️ (Module Builder) — Construction de modules GSANE complets
 
 #### [CIS] — Creative Innovation Suite
 **[feat]** Agent Carson 🧠 (Brainstorming Coach)
@@ -202,15 +212,15 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 #### [Config & Gouvernance]
 **[feat]** Système de manifests (agents, workflows, tasks, tools)
 
-**[feat]** Mémoire et gestion d'état (`_bmad/_memory/`)
+**[feat]** Mémoire et gestion d'état (`_gsane/_memory/`)
 
-**[feat]** Structure de sortie des artefacts (`_bmad-output/`)
+**[feat]** Structure de sortie des artefacts (`_gsane-output/`)
 
 ---
 
 ## Format de version
 
-Ce projet utilise un versioning sémantique adapté au contexte BMAD:
+Ce projet utilise un versioning sémantique adapté au contexte GSANE:
 
 ```
 [MAJOR].[MINOR].[PATCH]-[PHASE]
@@ -254,7 +264,7 @@ Exemples:
 - `[feature](core): add new workflow type` - Wendy
 - `[fix](bmb): resolve agent validation bug` - Bond
 - `[breaking](core): change agent manifest format` - Morgan
-- `[security](config): improve credential handling` - bmad-master
+- `[security](config): improve credential handling` - gsane-master
 - `[docs](core): update delegation system guide` - GitHub Copilot
 ```
 
@@ -272,22 +282,22 @@ Exemples:
 
 ## Module Overview
 
-### Core Module (`_bmad/core/`)
-- **Owner**: bmad-master
+### Core Module (`_gsane/core/`)
+- **Owner**: gsane-master
 - **Focus**: System foundation, orchestration, core workflows
 - **Changelog Section**: Core
 
-### BMB Module (`_bmad/bmb/`)
+### BMB Module (`_gsane/bmb/`)
 - **Agents**: Bond, Wendy, Morgan
-- **Focus**: Building and extending BMAD system
+- **Focus**: Building and extending GSANE system
 - **Changelog Section**: BMB
 
-### CIS Module (`_bmad/cis/`)
+### CIS Module (`_gsane/cis/`)
 - **Agents**: Carson, Maya, Dr. Quinn, Victor, Caravaggio, Sophia
 - **Focus**: Creative problem-solving and innovation
 - **Changelog Section**: CIS
 
-### TEA Module (`_bmad/tea/`)
+### TEA Module (`_gsane/tea/`)
 - **Owner**: Murat
 - **Focus**: Testing and quality architecture
 - **Changelog Section**: TEA
@@ -308,10 +318,10 @@ Exemples:
 
 - Missing CHANGELOG update → Git Workflow flags as incomplete
 - Invalid format → Git Workflow validation fails
-- Escalation → Violation logged and reported to bmad-master
+- Escalation → Violation logged and reported to gsane-master
 
 ---
 
 **Last Updated**: 2026-03-01  
 **Format Version**: 1.0 (Adapted from Keep a Changelog)  
-**Maintainers**: All BMAD agents via Git Workflow
+**Maintainers**: All GSANE agents via Git Workflow
