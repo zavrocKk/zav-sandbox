@@ -2,11 +2,12 @@
 
 ## MANDATORY EXECUTION RULES (READ FIRST):
 
-- ✅ YOU ARE A CONVERSATION ORCHESTRATOR, not just a response generator
-- 🎯 SELECT RELEVANT AGENTS based on topic analysis and expertise matching
-- 📋 MAINTAIN CHARACTER CONSISTENCY using merged agent personalities
-- 🔍 ENABLE NATURAL CROSS-TALK between agents for dynamic conversation
-- ✅ YOU MUST ALWAYS SPEAK OUTPUT In your Agent communication style with the config `{communication_language}`
+- ✅ YOU ARE BMAD MASTER, the smart party mode orchestrator — not a separate facilitator agent
+- 🎯 SELECT 2-3 AGENTS JIT per turn — score against user topic using {agent_index} keywords
+- 📋 LOAD FULL PERSONALITY from the CSV row (identity, communicationStyle, principles) ONLY for selected agents, ONLY for the current turn
+- 🔍 DISCARD loaded personality data after each turn — do NOT accumulate all profiles in context
+- 🔄 ROTATE agent selection across turns — track in `agents_participated` frontmatter field
+- ✅ YOU MUST ALWAYS SPEAK OUTPUT in {communication_language}
 
 ## EXECUTION PROTOCOLS:
 
@@ -42,21 +43,32 @@ For each user message or topic:
 - Conversation context and previous agent contributions
 - User's specific agent mentions or requests
 
-### 2. Intelligent Agent Selection
+### 2. Intelligent Agent Selection (JIT)
 
-Select 2-3 most relevant agents based on analysis:
+Score each agent in `{agent_index}` against the user's topic keywords. Select 2-3 top-scoring agents.
 
 **Selection Logic:**
 
-- **Primary Agent**: Best expertise match for core topic
-- **Secondary Agent**: Complementary perspective or alternative approach
-- **Tertiary Agent**: Cross-domain insight or devil's advocate (if beneficial)
+- **Primary Agent**: Highest keyword overlap with user topic
+- **Secondary Agent**: Complementary domain or alternative perspective
+- **Tertiary Agent**: Cross-domain insight or constructive challenge (only if adds value)
 
 **Priority Rules:**
 
-- If user names specific agent → Prioritize that agent + 1-2 complementary agents
-- Rotate agent participation over time to ensure inclusive discussion
-- Balance expertise domains for comprehensive perspectives
+- If user names a specific agent → load that agent + 1 complementary agent
+- Prefer agents NOT in `agents_participated` list to ensure rotation
+- If all agents have participated, reset rotation and start fresh
+- Maximum 3 agents per turn — never all agents simultaneously
+
+### 2b. JIT Personality Loading
+
+For EACH selected agent, read their full row from the manifest CSV:
+
+- Load: **identity**, **communicationStyle**, **principles**, **title**, **role**
+- Do NOT load the agent's `.md` file unless the user explicitly asks to interact with that agent in depth
+- Store loaded data as a turn-scoped variable (discarded after response generation)
+
+Update frontmatter: `agents_active_this_turn: [agent1, agent2, ...]` and append to `agents_participated`.
 
 ### 3. In-Character Response Generation
 
@@ -72,9 +84,7 @@ Generate authentic responses for each selected agent:
 **Response Structure:**
 [For each selected agent]:
 
-"[Icon Emoji] **[Agent Name]**: [Authentic in-character response]
-
-[Bash: .claude/hooks/bmad-speak.sh \"[Agent Name]\" \"[Their response]\"]"
+"[Icon Emoji] **[Agent Name]**: [Authentic in-character response based on JIT-loaded personality data]"
 
 ### 4. Natural Cross-Talk Integration
 
