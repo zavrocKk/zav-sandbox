@@ -39,18 +39,18 @@ jobs:
           if [[ -z "$PR_BODY" || "$PR_BODY" == "null" ]]; then
             echo "❌ ERROR: PR body is empty!"
             echo "Every PR MUST have a filled description (copilot-instructions.md — PR DESCRIPTION convention)."
-            echo "Use: gh pr create --title '...' --body '...' — never use the compare URL alone."
+            echo "Open the compare URL and fill the description field before submitting the PR."
             exit 1
           fi
           echo "✅ PR body is present (${#PR_BODY} characters)."
 
       - name: Scan for deprecated paths
         run: |
-          echo "🔍 Scanning for deprecated _bmad/bmm/ references..."
-          HITS=$(grep -rl "_bmad/bmm/" .github/prompts/ _bmad/ 2>/dev/null | wc -l)
+          echo "🔍 Scanning for deprecated _gsane/bmm/ references..."
+          HITS=$(grep -rl "_gsane/bmm/" .github/prompts/ _gsane/ 2>/dev/null | wc -l)
           if [[ "$HITS" -gt 0 ]]; then
-            echo "❌ ERROR: $HITS file(s) still reference deprecated path _bmad/bmm/:"
-            grep -rl "_bmad/bmm/" .github/prompts/ _bmad/ 2>/dev/null
+            echo "❌ ERROR: $HITS file(s) still reference deprecated path _gsane/bmm/:"
+            grep -rl "_gsane/bmm/" .github/prompts/ _gsane/ 2>/dev/null
             exit 1
           fi
           echo "✅ No deprecated paths found."
@@ -65,12 +65,12 @@ jobs:
           fi
           echo "✅ Agent manifest check complete."
 
-      - name: Validate BMAD Structure
+      - name: Validate GSANE Structure
         run: |
-          echo "🔍 Checking BMAD directory structure..."
+          echo "🔍 Checking GSANE directory structure..."
           required_dirs=(
-            "_bmad" "_bmad/core" "_bmad/core/agents" "_bmad/core/workflows"
-            "_bmad/_config" "_bmad/_memory" ".github/agents" ".github/prompts" ".github/skills"
+            "_gsane" "_gsane/core" "_gsane/core/agents" "_gsane/core/workflows"
+            "_gsane/_config" "_gsane/_memory" ".github/agents" ".github/prompts" ".github/skills"
           )
           for dir in "${required_dirs[@]}"; do
             if [ ! -d "$dir" ]; then
@@ -78,7 +78,7 @@ jobs:
               exit 1
             fi
           done
-          echo "✅ BMAD structure is valid!"
+          echo "✅ GSANE structure is valid!"
 
       - name: Validate branch naming
         run: |
@@ -96,8 +96,8 @@ jobs:
           echo "✅ ================ VALIDATION PASSED ================"
           echo "✅ CHANGELOG.md exists and is properly formatted"
           echo "✅ PR body is not empty"
-          echo "✅ No deprecated paths (_bmad/bmm/) detected"
+          echo "✅ No deprecated paths (_gsane/bmm/) detected"
           echo "✅ Agent .agent.md count verified"
-          echo "✅ BMAD directory structure complete"
+          echo "✅ GSANE directory structure complete"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="
