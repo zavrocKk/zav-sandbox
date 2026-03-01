@@ -17,6 +17,11 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[chore]** Suppression de tous les fichiers résiduels `_bmad*` du tracking Git — dossiers fantômes retirés de GitHub
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/bmad-*`, `.github/prompts/bmad-*`, `.github/skills/bmad-framework/`, `_bmad/`, `_bmad-output/` — `git add -u` + commit de purge
+- Résultat: Aucun dossier `_bmad` visible sur GitHub après push
+
 **[docs]** README — refonte section Installation & Setup en 5 étapes détaillées
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `README.md` — prérequis, hook pre-commit, session-start.sh, activation VS Code, vérification complète PowerShell

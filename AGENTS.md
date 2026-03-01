@@ -5,27 +5,27 @@
 
 ## What Is This Project?
 
-**zav-sandbox** is a BMAD (Better Method for AI-Driven Development) framework enhancement project.
-The goal is to continuously improve the BMAD multi-agent system — optimizing token usage, agent orchestration, workflows, and developer experience.
+**zav-sandbox** is a GSANE (Better Method for AI-Driven Development) framework enhancement project.
+The goal is to continuously improve the GSANE multi-agent system — optimizing token usage, agent orchestration, workflows, and developer experience.
 
 **Owner**: Mon Seigneur  
 **Communication language**: Français (all user-facing output must be in French)  
-**Output folder**: `_bmad-output/`
+**Output folder**: `_gsane-output/`
 
 ---
 
 ## Repository Structure
 
 ```
-_bmad/                        ← BMAD framework root
+_gsane/                        ← GSANE framework root
   _config/                    ← Manifests and config (CSV-based registry)
     agent-manifest.csv        ← All agents: name, persona, capabilities
     workflow-manifest.csv     ← All workflows: name, description, path
     task-manifest.csv         ← All tasks: name, description, path
     agent-delegation-matrix.csv ← Request routing rules
   _memory/                    ← Persistent agent memory across sessions
-  core/                       ← Core module: bmad-master agent + orchestration workflows
-    agents/bmad-master.md     ← Primary orchestrator agent
+  core/                       ← Core module: gsane-master agent + orchestration workflows
+    agents/gsane-master.md     ← Primary orchestrator agent
     config.yaml               ← Global project config (user_name, language, output_folder)
     tasks/                    ← Reusable tasks (editorial review, help, indexing, sharding)
     workflows/                ← Core workflows (party-mode, delegation, brainstorming, git)
@@ -40,7 +40,7 @@ _bmad/                        ← BMAD framework root
   tea/                        ← TEA module: test architecture
     agents/tea.md             ← Murat (test architect)
     workflows/testarch/       ← ATDD, CI, coverage, NFR, framework, review, trace workflows
-_bmad-output/                 ← Generated artifacts (never commit large outputs to main)
+_gsane-output/                 ← Generated artifacts (never commit large outputs to main)
 .github/
   copilot-instructions.md     ← GitHub Copilot-specific instructions (subset of this file)
 AGENTS.md                     ← This file — universal agent entry point
@@ -52,35 +52,35 @@ AGENTS.md                     ← This file — universal agent entry point
 
 | Goal | Where to look |
 |---|---|
-| Find an agent | `_bmad/_config/agent-manifest.csv` |
-| Find a workflow | `_bmad/_config/workflow-manifest.csv` |
-| Find a task | `_bmad/_config/task-manifest.csv` |
-| Understand routing rules | `_bmad/_config/agent-delegation-matrix.csv` |
-| Global config (user, language) | `_bmad/core/config.yaml` |
-| Agent memory/state | `_bmad/_memory/` |
-| Generated outputs | `_bmad-output/` |
+| Find an agent | `_gsane/_config/agent-manifest.csv` |
+| Find a workflow | `_gsane/_config/workflow-manifest.csv` |
+| Find a task | `_gsane/_config/task-manifest.csv` |
+| Understand routing rules | `_gsane/_config/agent-delegation-matrix.csv` |
+| Global config (user, language) | `_gsane/core/config.yaml` |
+| Agent memory/state | `_gsane/_memory/` |
+| Generated outputs | `_gsane-output/` |
 
 ---
 
 ## Key Conventions
 
 ### Config Loading
-- **Always** load `_bmad/core/config.yaml` first — it defines `{user_name}`, `{communication_language}`, `{output_folder}`
+- **Always** load `_gsane/core/config.yaml` first — it defines `{user_name}`, `{communication_language}`, `{output_folder}`
 - If config is already in session context, **never reload it** — use the cached values
 - `{project-root}` resolves to the workspace root at runtime
 
 ### Agent Activation
-- All agent requests **must** route through `_bmad/core/workflows/delegation/workflow.md`
+- All agent requests **must** route through `_gsane/core/workflows/delegation/workflow.md`
 - Never activate an agent directly without checking the delegation matrix first
-- BMad Master (`_bmad/core/agents/bmad-master.md`) is the entry point for all operations
+- Gsane Master (`_gsane/core/agents/gsane-master.md`) is the entry point for all operations
 
 ### Workflow Execution
 - `.md` workflows → execute directly by reading and following the file
-- `.yaml` workflows → require the workflow engine: load `_bmad/core/tasks/workflow.xml` first
+- `.yaml` workflows → require the workflow engine: load `_gsane/core/tasks/workflow.xml` first
 - Load steps **JIT** (just-in-time) — never preload multiple steps at once
 
 ### Party Mode (Smart JIT)
-- BMad Master is the sole orchestrator — no separate coordinator agent
+- Gsane Master is the sole orchestrator — no separate coordinator agent
 - Initialization loads only a lightweight index (name, icon, capabilities) — NOT full profiles
 - Per turn: score agents against topic keywords, select 2-3 max, load their CSV row, generate response, discard profile data
 - Full agent `.md` files are never loaded during party mode unless explicitly requested
@@ -89,7 +89,7 @@ AGENTS.md                     ← This file — universal agent entry point
 - **Never commit directly to `main`**
 - Always create a branch: `feature/{description}-{date}` or `fix/{description}-{date}`
 - Always create a PR after pushing
-- Full workflow: `_bmad/core/workflows/git-workflow/workflow.md`
+- Full workflow: `_gsane/core/workflows/git-workflow/workflow.md`
 
 ### Token Efficiency Rules
 - Load resources at runtime only — never preload
@@ -103,10 +103,10 @@ AGENTS.md                     ← This file — universal agent entry point
 
 | Agent | Persona | Module | Specialty |
 |---|---|---|---|
-| bmad-master | 🧙 BMad Master | core | Orchestration, task execution, party mode |
-| agent-builder | 🤖 Bond | bmb | Create/edit/validate BMAD agents |
-| module-builder | 🏗️ Morgan | bmb | Create/edit/validate BMAD modules |
-| workflow-builder | 🔄 Wendy | bmb | Create/edit/validate BMAD workflows |
+| gsane-master | 🧙 Gsane Master | core | Orchestration, task execution, party mode |
+| agent-builder | 🤖 Bond | bmb | Create/edit/validate GSANE agents |
+| module-builder | 🏗️ Morgan | bmb | Create/edit/validate GSANE modules |
+| workflow-builder | 🔄 Wendy | bmb | Create/edit/validate GSANE workflows |
 | brainstorming-coach | 🧠 Carson | cis | Brainstorming, ideation |
 | creative-problem-solver | 🔬 Dr. Quinn | cis | Systematic problem solving |
 | design-thinking-coach | 🎨 Maya | cis | Human-centered design |
@@ -114,25 +114,25 @@ AGENTS.md                     ← This file — universal agent entry point
 | presentation-master | 🎨 Caravaggio | cis | Presentations, visual communication |
 | storyteller | 📖 Sophia | cis | Narrative, storytelling |
 | tea | 🧪 Murat | tea | Test architecture, quality |
-| bmad-optimizer | ⚙️ Léo | core | Token analysis, BMAD optimization, framework improvement |
-| qa-bmad | 🔍 Aria | bmb | BMAD quality assurance, persona regression, workflow compliance |
+| gsane-optimizer | ⚙️ Léo | core | Token analysis, GSANE optimization, framework improvement |
+| qa-gsane | 🔍 Aria | bmb | GSANE quality assurance, persona regression, workflow compliance |
 
 ---
 
 ## Slash Commands (GitHub Copilot Chat)
 
-Type `/bmad-` in Copilot Chat to see all available commands. Key ones:
+Type `/gsane-` in Copilot Chat to see all available commands. Key ones:
 
-- `/bmad-master` — Activate BMad Master orchestrator
-- `/bmad-help` — Get advice on what to do next
-- `/bmad-git-workflow` — Follow mandatory git workflow
+- `/gsane-master` — Activate Gsane Master orchestrator
+- `/gsane-help` — Get advice on what to do next
+- `/gsane-git-workflow` — Follow mandatory git workflow
 
 ---
 
 ## Do Not
 
-- ❌ Modify files in `_bmad/_config/` without updating related manifests
-- ❌ Commit generated outputs in `_bmad-output/` to main unless explicitly requested
+- ❌ Modify files in `_gsane/_config/` without updating related manifests
+- ❌ Commit generated outputs in `_gsane-output/` to main unless explicitly requested
 - ❌ Skip the delegation workflow when activating agents
 - ❌ Commit directly to `main`
 - ❌ Reload config if already resolved in session

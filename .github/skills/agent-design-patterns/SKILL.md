@@ -1,12 +1,12 @@
 ---
 name: agent-design-patterns
-description: Patterns and standards for designing BMAD-compatible agents — frontmatter, menus, prompts, persona, workflow types, and party mode behavior.
+description: Patterns and standards for designing GSANE-compatible agents — frontmatter, menus, prompts, persona, workflow types, and party mode behavior.
 applyTo: "**"
 ---
 
 # Agent Design Patterns
 
-Standards for creating and maintaining agents in the BMAD framework.
+Standards for creating and maintaining agents in the GSANE framework.
 
 ## Agent File Structure
 
@@ -30,7 +30,7 @@ description: 'Persona — Title: capabilities'
 
 - `name` — kebab-case identifier matching the filename
 - `description` — format: `'PersonaName — Title: capability1, capability2'`
-- Config reference: always `{project-root}/_bmad/core/config.yaml` or module config
+- Config reference: always `{project-root}/_gsane/core/config.yaml` or module config
 
 ## Menu Item Pattern
 
@@ -48,11 +48,11 @@ description: 'Persona — Title: capabilities'
 | Type | Execution |
 |---|---|
 | `.md` workflow | Load and follow directly |
-| `.yaml` workflow | Requires workflow engine — load `_bmad/core/tasks/workflow.xml` first |
+| `.yaml` workflow | Requires workflow engine — load `_gsane/core/tasks/workflow.xml` first |
 
 ## Party Mode Agent Protocol
 
-In party mode, BMad Master is the sole orchestrator:
+In party mode, Gsane Master is the sole orchestrator:
 1. Init: load CSV index (name, icon, capabilities) only
 2. Per turn: score agents against keywords, select 2-3 max
 3. Load CSV row for selected agents only
@@ -64,10 +64,10 @@ In party mode, BMad Master is the sole orchestrator:
 For GitHub Copilot agent files (`.agent.md`), sub-agents must declare:
 ```yaml
 user-invokable: false
-orchestrated-by: bmad-master
+orchestrated-by: gsane-master
 ```
 
-The main orchestrator (`bmad-master`) must NOT have `user-invokable: false`.
+The main orchestrator (`gsane-master`) must NOT have `user-invokable: false`.
 
 ## Validation Checklist
 
@@ -76,4 +76,4 @@ The main orchestrator (`bmad-master`) must NOT have `user-invokable: false`.
 - [ ] All menu items have valid `cmd` shortcuts
 - [ ] `exec` paths use `{project-root}` variable
 - [ ] Rules include language constraint
-- [ ] Agent passes Aria (qa-bmad) validation
+- [ ] Agent passes Aria (qa-gsane) validation

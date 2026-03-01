@@ -1,12 +1,12 @@
 ---
 name: cognitive-flywheel
-description: Architecture and operation of the BMAD Cognitive Flywheel — self-managing improvement cycle that turns session data into learning and auto-corrections.
+description: Architecture and operation of the GSANE Cognitive Flywheel — self-managing improvement cycle that turns session data into learning and auto-corrections.
 applyTo: "**"
 ---
 
 # Cognitive Flywheel
 
-The Cognitive Flywheel is BMAD's self-improvement engine. Every session generates data. Every N sessions, the flywheel fires and applies corrections automatically.
+The Cognitive Flywheel is GSANE's self-improvement engine. Every session generates data. Every N sessions, the flywheel fires and applies corrections automatically.
 
 ## The Loop
 
@@ -38,7 +38,7 @@ flowchart TD
 
 ## Configuration
 
-In `_bmad/core/config.yaml`:
+In `_gsane/core/config.yaml`:
 ```yaml
 flywheel:
   enabled: true
@@ -64,21 +64,21 @@ flywheel:
 
 | File | Purpose |
 |---|---|
-| `_bmad/_memory/session-analysis-log.md` | Persistent log of all session findings |
-| `_bmad/_memory/flywheel-report.md` | Latest flywheel cycle report |
-| `_bmad/_memory/flywheel-history.md` | All past cycles with corrections applied |
+| `_gsane/_memory/session-analysis-log.md` | Persistent log of all session findings |
+| `_gsane/_memory/flywheel-report.md` | Latest flywheel cycle report |
+| `_gsane/_memory/flywheel-history.md` | All past cycles with corrections applied |
 
 ## Workflow Files
 
 | File | Purpose |
 |---|---|
-| `_bmad/core/workflows/post-session-analysis/workflow.md` | Session hook — runs after every session |
-| `_bmad/core/workflows/flywheel/workflow-aggregate.md` | Aggregation — extracts patterns, calculates score |
-| `_bmad/core/workflows/flywheel/workflow-apply.md` | Application — applies corrections, creates branch + PR |
+| `_gsane/core/workflows/post-session-analysis/workflow.md` | Session hook — runs after every session |
+| `_gsane/core/workflows/flywheel/workflow-aggregate.md` | Aggregation — extracts patterns, calculates score |
+| `_gsane/core/workflows/flywheel/workflow-apply.md` | Application — applies corrections, creates branch + PR |
 
 ## Universal Activation
 
-Every agent has `exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md"` wired
+Every agent has `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired
 to its `[DA]` dismiss item. The global fallback in `.github/copilot-instructions.md` covers sessions
 where `[DA]` is never explicitly issued.
 
