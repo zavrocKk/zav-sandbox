@@ -9,6 +9,12 @@ adapted for the BMAD framework's multi-agent, multi-module architecture.
 
 ## [Unreleased]
 
+### Config
+- `[config](ci): add GitHub Actions workflows for PR validation and cleanup` - GitHub Copilot (Setup GitHub Actions)
+  - Created `.github/workflows/validate-pr.yml` - Validates CHANGELOG, BMAD structure, and Git state on every PR
+  - Created `.github/workflows/cleanup-branches.yml` - Automatically deletes merged feature/fix branches
+  - Implements automated CI/CD pipeline with status checks blocking merges on failure
+
 ### Docs
 - `[docs](docs): add testing section to README` - GitHub Copilot (Git Workflow test)
   - Added references to Git Workflow, CHANGELOG, and Agent Delegation systems

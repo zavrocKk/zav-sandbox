@@ -1,0 +1,73 @@
+name: Validate Pull Request
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      
+      - name: Verify CHANGELOG.md exists
+        run: |
+          echo "🔍 Checking if CHANGELOG.md exists..."
+          if [ ! -f CHANGELOG.md ]; then
+            echo "❌ ERROR: CHANGELOG.md not found!"
+            echo "CHANGELOG.md is REQUIRED for all commits (Git Workflow Step 3.5)"
+            exit 1
+          fi
+          echo "✅ CHANGELOG.md found!"
+      
+      - name: Validate CHANGELOG Format
+        run: |
+          echo "🔍 Validating CHANGELOG format..."
+          if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
+            echo "❌ ERROR: CHANGELOG.md missing [Unreleased] section!"
+            exit 1
+          fi
+          echo "✅ CHANGELOG format is valid!"
+      
+      - name: Validate BMAD Structure
+        run: |
+          echo "🔍 Checking BMAD directory structure..."
+          required_dirs=("_bmad" "_bmad/core" "_bmad/core/agents" "_bmad/core/workflows")
+          for dir in "${required_dirs[@]}"; do
+            if [ ! -d "$dir" ]; then
+              echo "❌ ERROR: Required directory '$dir' missing!"
+              exit 1
+            fi
+          done
+          echo "✅ BMAD structure is valid!"
+      
+      - name: Check Git state is clean
+        run: |
+          echo "🔍 Validating Git state..."
+          if ! git diff-index --quiet HEAD --; then
+            echo "❌ ERROR: Uncommitted changes detected!"
+            exit 1
+          fi
+          echo "✅ Git state is clean!"
+      
+      - name: Validate branch naming
+        run: |
+          echo "🔍 Checking branch naming convention..."
+          branch_name="${{ github.head_ref }}"
+          if [[ ! "$branch_name" =~ ^(feature|fix)\/[a-z0-9\-]+\-[0-9]{4}\-[0-9]{2}\-[0-9]{2}$ ]]; then
+            echo "⚠️  WARNING: Branch name '$branch_name' doesn't follow convention"
+            echo "Expected format: feature/{description}-YYYY-MM-DD or fix/{description}-YYYY-MM-DD"
+          fi
+          echo "✅ Branch naming check complete!"
+
+      - name: Validation Summary
+        run: |
+          echo ""
+          echo "✅ ================ VALIDATION PASSED ================"
+          echo "✅ CHANGELOG.md exists and is properly formatted"
+          echo "✅ BMAD directory structure is valid"
+          echo "✅ Git state is clean"
+          echo "✅ All checks passed - Ready for merge!"
+          echo "✅ ===================================================="

@@ -1,0 +1,26 @@
+name: Cleanup Merged Branches
+
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  delete-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    
+    steps:
+      - name: Delete feature/fix branch
+        run: |
+          echo "🗑️  Cleaning up merged branch: ${{ github.event.pull_request.head.ref }}"
+        
+      - name: Use dawidd6 delete action
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{ github.token }}
+          branches: ${{ github.event.pull_request.head.ref }}
+      
+      - name: Confirm deletion
+        run: |
+          echo "✅ Branch ${{ github.event.pull_request.head.ref }} has been automatically deleted"
+          echo "✅ Prevents confusion from old/stale branches"
