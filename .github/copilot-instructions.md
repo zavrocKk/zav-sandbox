@@ -26,8 +26,53 @@
 - **Workflow manifest**: `_bmad/_config/workflow-manifest.csv`
 - **Help manifest**: `_bmad/_config/bmad-help.csv`
 - **Agent memory**: `_bmad/_memory/`
+- **CHANGELOG**: `CHANGELOG.md` (project root, tracks all changes)
+- **Git Workflow**: `_bmad/core/workflows/git-workflow/workflow.md` (standardized commits)
 
-## Key Conventions
+## CHANGELOG System — PROJECT TRACKING
+
+**This is CRITICAL:** All changes MUST be documented in CHANGELOG.md. It's the single source of truth for project evolution.
+
+### The CHANGELOG Rule
+
+Every commit via Git Workflow includes **Step 3.5: Update CHANGELOG.md**
+
+1. **Open**: `CHANGELOG.md` at project root
+2. **Find**: `[Unreleased]` section
+3. **Add entry**: `` - `[{type}]({module}): {description}` - {agent} ``
+4. **Types**: `[feature]`, `[fix]`, `[breaking]`, `[security]`, `[docs]`
+5. **Modules**: `core`, `bmb`, `cis`, `tea`, `config`, `docs`
+
+### Format
+
+```markdown
+## [Unreleased]
+
+### Core
+- `[feature](core): implement agent delegation` - Bond, Wendy, Morgan
+- `[fix](core): resolve config parsing` - bmad-master
+
+### CMB
+- `[feature](bmb): enhance agent builder` - Bond
+```
+
+### Enforcement
+
+From `_bmad/core/config.yaml`:
+- ✅ `changelog.enabled: true` — System active
+- ✅ `changelog.required_for_commits: true` — Mandatory  
+- ✅ `changelog.enforcement_mode: strict` — No bypasses
+- ✅ `changelog.validation: true` — Format validated
+
+### Git Workflow Integration
+
+The Git Workflow **cannot proceed past Step 3.5** without:
+- ✅ CHANGELOG.md updated
+- ✅ Entry added to [Unreleased]
+- ✅ Correct format used
+- ✅ File staged for commit
+
+## Git Workflow — MANDATORY FOR ALL COMMITS
 
 - Always load `_bmad/bmm/config.yaml` before any agent activation or workflow execution
 - Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`, `{planning_artifacts}`, `{implementation_artifacts}`, `{project_knowledge}`
