@@ -75,6 +75,17 @@ Les outputs des workflows sont générés dans `_bmad-output/` :
 
 ---
 
+## 🧪 Testing & Validation
+
+This project includes comprehensive systems for:
+- **[Git Workflow](_bmad/core/workflows/git-workflow/workflow.md)** - Standardized commits with feature/fix branches
+- **[CHANGELOG.md](CHANGELOG.md)** - Centralized change tracking integrated into Git Workflow
+- **[Agent Delegation](_bmad/core/workflows/delegation/workflow.md)** - Intelligent request routing to appropriate agents
+
+All changes follow the Git Workflow Steps 1-6, including mandatory Step 3.5 (CHANGELOG update).
+
+---
+
 **Utilisateur** : Mon Seigneur  
 **Langue** : Français  
 **Version BMAD** : 6.0.4
