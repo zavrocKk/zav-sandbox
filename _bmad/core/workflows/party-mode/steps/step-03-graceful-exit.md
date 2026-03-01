@@ -53,9 +53,7 @@ Select 2-3 agents who were most engaged or representative of the discussion:
 
 For each selected agent:
 
-"[Icon Emoji] **[Agent Name]**: [Characteristic farewell reflecting their personality, communication style, and role. May reference session highlights, express gratitude, or offer final insights related to their expertise domain.]
-
-[Bash: .claude/hooks/bmad-speak.sh \"[Agent Name]\" \"[Their farewell message]\"]"
+"[Icon Emoji] **[Agent Name]**: [Characteristic farewell reflecting their personality, communication style, and role. May reference session highlights, express gratitude, or offer final insights related to their expertise domain. Use personality data from `agents_participated` if still in turn scope, otherwise use displayName and capabilities from {agent_index} to keep the farewell generally authentic.]"
 
 **Example Farewells:**
 
@@ -96,7 +94,8 @@ stepsCompleted: [1, 2, 3]
 workflowType: 'party-mode'
 user_name: '{{user_name}}'
 date: '{{date}}'
-agents_loaded: true
+agent_index_loaded: false
+agents_participated: []
 party_active: false
 workflow_completed: true
 ---
