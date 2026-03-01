@@ -9,35 +9,10 @@ adapted for the BMAD framework's multi-agent, multi-module architecture.
 
 ## [Unreleased]
 
-### Core
-- `[feature](core): implement CHANGELOG system for project tracking` - Bond, Wendy, Morgan
-  - Created CHANGELOG.md with Keep a Changelog format adapted for BMAD
-  - Integrated CHANGELOG updates into Git Workflow Step 3.5
-  - Added enforcement rules and validation
-  - Established per-module change tracking
-
-- `[feature](core): integrate CHANGELOG into Git Workflow (Step 3.5)` - Wendy
-  - Updated Git Workflow v2 with mandatory CHANGELOG update step
-  - CHANGELOG.md must be updated before any commit
-  - Validation ensures proper formatting
-  - Step 3.5 blocks workflow if CHANGELOG not updated
-
 ### Docs
-- `[feature](docs): create CHANGELOG Integration Guide` - Bond, Wendy, Morgan
-  - Guide for agents and users on maintaining CHANGELOG.md
-  - Format examples and step-by-step instructions
-  - Release process documentation
-  - Validation rules and common scenarios
-
-- `[docs](core): add CHANGELOG configuration to core config.yaml` - GitHub Copilot
-  - Added changelog system configuration
-  - Enabled strict enforcement mode
-  - Configured module section ordering
-
-- `[docs](docs): update copilot-instructions with CHANGELOG system` - GitHub Copilot
-  - Documented CHANGELOG tracking system
-  - Added enforcement rules and format specifications
-  - Integrated with Git Workflow documentation
+- `[docs](docs): add testing section to README` - GitHub Copilot (Git Workflow test)
+  - Added references to Git Workflow, CHANGELOG, and Agent Delegation systems
+  - Documented integrated systems for standardized development
 
 ---
 
