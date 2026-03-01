@@ -22,6 +22,11 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 - Impact: `_bmad/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_bmad/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
 - Mécanisme: post-session-analysis compte les sessions et auto-déclenche l'agrégateur toutes les N sessions (défaut: 5). Patterns ≥3 occurrences → confirmed. Corrections low/medium auto-appliquées sur branche fix/flywheel-* avec PR.
 
+**[fix]** Activation universelle du flywheel — câblage exec sur 13 agents DA manquants + hook global
+- Agent: BMad Master | Workflow: post-session-analysis (auto-correction) | Initié par: auto
+- Impact: `agent-builder.md`, `module-builder.md`, `workflow-builder.md`, `qa-bmad.md`, `brainstorming-coach.md`, `creative-problem-solver.md`, `design-thinking-coach.md`, `innovation-strategist.md`, `presentation-master.md`, `storyteller.md`, `bmad-optimizer.md`, `tea.md`, `agent-compilation.md` (template), `architect.md` (ref), `.github/copilot-instructions.md`
+- Résultat: 15/15 DA items câblés — flywheel s'active peu importe quel agent est utilisé
+
 **[feat]** Principe de sévérité low/medium/high — source de vérité centrale dans config.yaml
 - Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `core/config.yaml`, `bmad-master.md`, `qa-bmad.md`, `bmad-optimizer.md`
