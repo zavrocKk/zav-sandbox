@@ -17,6 +17,19 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[docs]** README — refonte section Installation & Setup en 5 étapes détaillées
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `README.md` — prérequis, hook pre-commit, session-start.sh, activation VS Code, vérification complète PowerShell
+
+**[docs]** Création de `CONTRIBUTING.md` — guide de contribution complet pour le projet
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Nouveau fichier racine — couvre branches, CHANGELOG, PR body, sévérité, CI checks
+
+**[fix]** Suppression complète des références GitHub CLI (`gh`) — workflow PR via URL compare GitHub
+- Agent: Gsane Master (party: Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `git-workflow/workflow.md`, `flywheel/workflow-apply.md`, `README.md`, `copilot-instructions.md`, `validate-pr.yml`, `gsane-framework/SKILL.md`, `hooks/hooks.json`
+- Résultat: Aucune dépendance `gh` CLI — les PRs se créent via l'URL compare GitHub + body template collé manuellement
+
 **[fix]** PRE-EXECUTION GATE ajouté en tête de `copilot-instructions.md` — bloque toute exécution solo avant check obligatoire de la matrice de délégation
 - Agent: Gsane Master (party: Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: `.github/copilot-instructions.md` — gate en 3 étapes avec table de keywords visibles avant toute autre règle

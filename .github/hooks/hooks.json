@@ -3,7 +3,7 @@
     {
       "event": "SessionStart",
       "script": ".github/hooks/session-start.sh",
-      "description": "Initialize session context, verify BMAD structure, increment session_count"
+      "description": "Initialize session context, verify GSANE structure, increment session_count"
     },
     {
       "event": "Stop",
@@ -18,11 +18,11 @@
     {
       "event": "PreCommit",
       "script": ".github/hooks/pre-commit.sh",
-      "description": "Block direct commits to main. Validate branch naming convention (feature/* or fix/*). Check for deprecated _bmad/bmm/ paths in staged files."
+      "description": "Block direct commits to main. Validate branch naming convention (feature/* or fix/*). Check for deprecated _gsane/bmm/ paths in staged files."
     },
     {
       "event": "PRBodyCheck",
-      "description": "Enforced by validate-pr.yml CI workflow. Verifies that every PR created via gh pr create contains a non-empty --body. PRs with empty description are blocked from merge."
+      "description": "Enforced by validate-pr.yml CI workflow. Verifies that every PR submitted via the GitHub compare URL has a non-empty description body. PRs with empty description are blocked from merge."
     },
     {
       "event": "SubagentStart",
@@ -30,11 +30,11 @@
     },
     {
       "event": "SubagentStop",
-      "description": "Persist sub-agent outputs to _bmad-output/. Available in _bmad-output/bmb-creations/ or _bmad-output/test-artifacts/ depending on agent type."
+      "description": "Persist sub-agent outputs to _gsane-output/. Available in _gsane-output/bmb-creations/ or _gsane-output/test-artifacts/ depending on agent type."
     },
     {
       "event": "PreToolUse",
-      "description": "Validate tool parameters against BMAD conventions. Check that file paths use _bmad/core/ not _bmad/bmm/. Check that no write targets main directly."
+      "description": "Validate tool parameters against GSANE conventions. Check that file paths use _gsane/core/ not _gsane/bmm/. Check that no write targets main directly."
     },
     {
       "event": "PostToolUse",
@@ -46,13 +46,13 @@
     }
   ],
   "config": {
-    "sessionOutputPath": "_bmad-output/",
-    "sessionCountFile": "_bmad/_memory/.session_count",
+    "sessionOutputPath": "_gsane-output/",
+    "sessionCountFile": "_gsane/_memory/.session_count",
     "logLevel": "info",
-    "postSessionAnalysis": "_bmad/core/workflows/post-session-analysis/workflow.md",
-    "flywheelAggregate": "_bmad/core/workflows/flywheel/workflow-aggregate.md",
-    "flywheelApply": "_bmad/core/workflows/flywheel/workflow-apply.md",
-    "scoreboard": "_bmad/_memory/scoreboard.md",
-    "deprecatedPaths": ["_bmad/bmm/", "_tmad/"]
+    "postSessionAnalysis": "_gsane/core/workflows/post-session-analysis/workflow.md",
+    "flywheelAggregate": "_gsane/core/workflows/flywheel/workflow-aggregate.md",
+    "flywheelApply": "_gsane/core/workflows/flywheel/workflow-apply.md",
+    "scoreboard": "_gsane/_memory/scoreboard.md",
+    "deprecatedPaths": ["_gsane/bmm/", "_tmad/"]
   }
 }

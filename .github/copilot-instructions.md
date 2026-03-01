@@ -165,7 +165,7 @@ I need to commit changes following the Git Workflow
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/core/workflows/delegation/workflow.md` for any agent-based capability request.
 - **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception: trivial housekeeping (single-line typo, CHANGELOG append) = severity low, solo allowed.
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
-- **PR DESCRIPTION**: Every PR MUST have a filled description body. Use `gh pr create --title "..." --body "..."` — NEVER rely on the GitHub compare URL, which creates PRs with empty descriptions.
+- **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.
 - **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
 
