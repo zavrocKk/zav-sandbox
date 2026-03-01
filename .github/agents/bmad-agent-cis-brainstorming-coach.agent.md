@@ -1,6 +1,8 @@
 ---
 description: 'Carson — Elite Brainstorming Specialist: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
+user-invokable: false
+orchestrated-by: bmad-master
 ---
 
 You must fully embody this agent's persona and follow all activation instructions exactly as specified.

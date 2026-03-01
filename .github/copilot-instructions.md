@@ -3,24 +3,27 @@
 
 ## Project Configuration
 
-- **Project**: {{project_name}}
+- **Project**: zav-sandbox — BMAD Framework Enhancement Project
 - **User**: Mon Seigneur
 - **Communication Language**: Français
 - **Document Output Language**: Français
-- **User Skill Level**: {{user_skill_level}}
-- **Output Folder**: {project-root}/_bmad-output
-- **Planning Artifacts**: {{planning_artifacts}}
-- **Implementation Artifacts**: {{implementation_artifacts}}
-- **Project Knowledge**: {{project_knowledge}}
+- **Output Folder**: `_bmad-output/`
 
 ## BMAD Runtime Structure
 
-- **Agent definitions**: `_bmad/bmm/agents/` (BMM module) and `_bmad/core/agents/` (core)
-- **Workflow definitions**: `_bmad/bmm/workflows/` (organized by phase)
+- **Agent definitions**:
+  - `_bmad/core/agents/` — bmad-master (core orchestrator)
+  - `_bmad/bmb/agents/` — BMB module (agent-builder, module-builder, workflow-builder)
+  - `_bmad/cis/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
+  - `_bmad/tea/agents/` — TEA module (test architect)
+- **Workflow definitions**:
+  - `_bmad/core/workflows/` — brainstorming, party-mode, delegation, git-workflow, advanced-elicitation
+  - `_bmad/bmb/workflows/` — agent/module/workflow creation and validation
+  - `_bmad/cis/workflows/` — design-thinking, innovation-strategy, problem-solving, storytelling
+  - `_bmad/tea/workflows/` — test architecture workflows
 - **Core tasks**: `_bmad/core/tasks/` (help, editorial review, indexing, sharding, adversarial review)
-- **Core workflows**: `_bmad/core/workflows/` (brainstorming, party-mode, advanced-elicitation)
 - **Workflow engine**: `_bmad/core/tasks/workflow.xml` (executes YAML-based workflows)
-- **Module configuration**: `_bmad/bmm/config.yaml`
+- **Module configurations**: `_bmad/core/config.yaml`, `_bmad/bmb/config.yaml`, `_bmad/cis/config.yaml`, `_bmad/tea/config.yaml`
 - **Core configuration**: `_bmad/core/config.yaml`
 - **Agent manifest**: `_bmad/_config/agent-manifest.csv`
 - **Workflow manifest**: `_bmad/_config/workflow-manifest.csv`
@@ -118,8 +121,8 @@ I need to commit changes following the Git Workflow
 
 ## Key Conventions
 
-- Always load `_bmad/bmm/config.yaml` before any agent activation or workflow execution
-- Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`, `{planning_artifacts}`, `{implementation_artifacts}`, `{project_knowledge}`
+- Always load `_bmad/core/config.yaml` before any agent activation or workflow execution
+- Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`
 - MD-based workflows execute directly — load and follow the `.md` file
 - YAML-based workflows require the workflow engine — load `workflow.xml` first, then pass the `.yaml` config
 - Follow step-based workflow execution: load steps JIT, never multiple at once
@@ -133,7 +136,19 @@ I need to commit changes following the Git Workflow
 
 | Agent | Persona | Title | Capabilities |
 |---|---|---|---|
-| bmad-master | BMad Master | BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| bmad-master | 🧙 BMad Master | BMad Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| agent-builder | 🤖 Bond | Agent Building Expert | create/edit/validate BMAD agents |
+| module-builder | 🏗️ Morgan | Module Creation Master | create/edit/validate BMAD modules |
+| workflow-builder | 🔄 Wendy | Workflow Building Master | create/edit/validate BMAD workflows |
+| brainstorming-coach | 🧠 Carson | Elite Brainstorming Specialist | brainstorming, ideation, creative techniques |
+| creative-problem-solver | 🔬 Dr. Quinn | Master Problem Solver | TRIZ, systematic problem solving, root cause analysis |
+| design-thinking-coach | 🎨 Maya | Design Thinking Maestro | human-centered design, empathy mapping, prototyping |
+| innovation-strategist | ⚡ Victor | Disruptive Innovation Oracle | innovation strategy, business model disruption |
+| presentation-master | 🎨 Caravaggio | Visual Communication Expert | presentations, pitch decks, visual storytelling |
+| storyteller | 📖 Sophia | Master Storyteller | narrative, storytelling, brand stories |
+| tea | 🧪 Murat | Master Test Architect | test architecture, ATDD, CI/CD, quality gates |
+| bmad-optimizer | ⚙️ Léo | BMAD Framework Optimizer | token analysis, session metrics, framework improvement, BMAD evolution |
+| qa-bmad | 🔍 Aria | BMAD Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, BMAD compliance |
 
 ## Slash Commands
 

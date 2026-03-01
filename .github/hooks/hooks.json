@@ -1,0 +1,34 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "script": ".github/hooks/session-start.sh",
+      "description": "Initialize session context and verify BMAD structure"
+    },
+    {
+      "event": "SubagentStart",
+      "description": "Log sub-agent activation via delegation matrix"
+    },
+    {
+      "event": "SubagentStop",
+      "description": "Persist sub-agent outputs to _bmad-output/"
+    },
+    {
+      "event": "PreToolUse",
+      "description": "Validate tool parameters against BMAD conventions"
+    },
+    {
+      "event": "PostToolUse",
+      "description": "Log tool results and update session state"
+    },
+    {
+      "event": "Stop",
+      "description": "Trigger post-session analysis workflow before exit"
+    }
+  ],
+  "config": {
+    "sessionOutputPath": "_bmad-output/",
+    "logLevel": "info",
+    "postSessionAnalysis": "_bmad/core/workflows/post-session-analysis/workflow.md"
+  }
+}
