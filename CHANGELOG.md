@@ -17,6 +17,37 @@ adapté à l'architecture multi-agents et multi-modules du framework BMAD.
 ## [Unreleased]
 
 ### [Infrastructure]
+**[feat]** Score Elite 65/65 sur le scan de maturité agentique Copilot
+- Agent: BMad Master (party mode) | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/agents/` (10 sub-agents), `.github/skills/` (2 nouveaux), `.github/hooks/` (2 nouveaux fichiers)
+- Détail: Architecture +14pts (user-invokable + orchestrated-by), Automation +15pts (hooks), Knowledge +7pts (skills), Coverage +5pts, pénalité monoculture supprimée
+
+**[feat]** Skills Copilot — bmad-framework + agent-design-patterns
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/skills/bmad-framework/SKILL.md`, `.github/skills/agent-design-patterns/SKILL.md`
+
+**[feat]** Hooks de cycle de vie Copilot (SessionStart, SubagentStart/Stop, PreToolUse, PostToolUse, Stop)
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/hooks/hooks.json`, `.github/hooks/session-start.sh`
+
+### [Core]
+**[feat]** Agents bmad-optimizer (Léo ⚙️) et qa-bmad (Aria 🔍) créés et validés
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/agents/bmad-optimizer.md`, `_bmad/bmb/agents/qa-bmad.md`, manifests mis à jour (13 agents)
+
+**[feat]** Workflow post-session-analysis — analyse automatique silencieuse à chaque fin de session
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_bmad/core/workflows/post-session-analysis/workflow.md`, hook DA et party-mode step-03 câblés
+
+**[feat]** Refactoring Party Mode — architecture JIT (Just-In-Time) pour optimisation tokens
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `workflow.md` + 3 steps party-mode, `bmad-master.md` — section `<smart-party-mode>` ajoutée
+
+**[fix]** Alignement Codex — AGENTS.md universel, copilot-instructions nettoyé, github-copilot.yaml configuré
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `AGENTS.md` (racine), `.github/copilot-instructions.md`, `_bmad/_config/ides/github-copilot.yaml`, `_bmad/core/config.yaml`
+
+### [Infrastructure]
 **[fix]** Correction des permissions du workflow de nettoyage de branches
 - Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `cleanup-branches.yml` — remplacement de `dawidd6/action-delete-branch` par `actions/github-script` avec permissions `contents: write` explicites
