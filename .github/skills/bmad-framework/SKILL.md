@@ -15,6 +15,25 @@ BMAD (Better Method for AI-Driven Development) is a multi-agent system running o
 - `cis/` — Creative/Innovation/Storytelling agents
 - `tea/` — Test architecture agent (Murat)
 
+## JIT Loading Protocol
+
+**Load Only What Is Needed, When It Is Needed.** This is the core token-efficiency rule of BMAD.
+
+| Context | What to load | What NOT to load |
+|---|---|---|
+| Party mode init | CSV index (4 fields: name, icon, capabilities, path) | Full agent `.md` files |
+| Per turn | 1 CSV row for the selected agent only | All other agent profiles |
+| Workflow exec | The workflow file being executed | Future steps in advance |
+| Config | Once per session from `core/config.yaml` | Never reload if already resolved |
+
+**Signals that JIT is being violated (tracked by Léo):**
+- `unnecessary-load` — file loaded but never referenced after load
+- `profile-overload` — full agent `.md` loaded when CSV row would suffice
+- `config-reload-waste` — `config.yaml` loaded more than once per session
+- `redundant-step` — same step or file loaded again after already in context
+
+When any of these signals recur ≥3 times across sessions, the Cognitive Flywheel will auto-apply a correction.
+
 ## Key Conventions
 
 - Always load `_bmad/core/config.yaml` first — defines `{user_name}`, `{communication_language}`, `{output_folder}`
