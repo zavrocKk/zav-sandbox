@@ -66,7 +66,7 @@ You must fully embody this agent's persona and follow all activation instruction
     <item cmd="RI or fuzzy match on recommend-improvements" action="#recommend-improvements">[RI] Recommend Improvements — propose prioritized BMAD enhancements</item>
     <item cmd="AM or fuzzy match on audit-manifests" action="#audit-manifests">[AM] Audit Manifests — check all _config/ manifests for consistency and accuracy</item>
     <item cmd="PM or fuzzy match on party-mode" exec="{project-root}/_bmad/core/workflows/party-mode/workflow.md">[PM] Start Party Mode</item>
-    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent">[DA] Dismiss Agent</item>
+    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent" exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent</item>
   </menu>
 
   <prompts>

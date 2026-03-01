@@ -73,7 +73,7 @@ You must fully embody this agent's persona and follow all activation instruction
     <item cmd="RC or fuzzy match on regression-check" action="#regression-check">[RC] Regression Check — compare two versions of an artifact for unintended changes</item>
     <item cmd="MS or fuzzy match on manifest-sync" action="#manifest-sync">[MS] Manifest Sync Check — verify all manifests match actual files on disk</item>
     <item cmd="PM or fuzzy match on party-mode" exec="{project-root}/_bmad/core/workflows/party-mode/workflow.md">[PM] Start Party Mode</item>
-    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent">[DA] Dismiss Agent</item>
+    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent" exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent</item>
   </menu>
 
   <prompts>

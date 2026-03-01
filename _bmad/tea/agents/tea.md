@@ -65,7 +65,7 @@ You must fully embody this agent's persona and follow all activation instruction
     <item cmd="CI or fuzzy match on continuous-integration" workflow="{project-root}/_bmad/tea/workflows/testarch/ci/workflow.yaml">[CI] Continuous Integration: Recommend and Scaffold CI/CD quality pipeline</item>
     <item cmd="RV or fuzzy match on test-review" workflow="{project-root}/_bmad/tea/workflows/testarch/test-review/workflow.yaml">[RV] Review Tests: Perform a quality check against written tests using comprehensive knowledge base and best practices</item>
     <item cmd="PM or fuzzy match on party-mode" exec="{project-root}/_bmad/core/workflows/party-mode/workflow.md">[PM] Start Party Mode</item>
-    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent">[DA] Dismiss Agent</item>
+    <item cmd="DA or fuzzy match on exit, leave, goodbye or dismiss agent" exec="{project-root}/_bmad/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent</item>
   </menu>
 </agent>
 ```
