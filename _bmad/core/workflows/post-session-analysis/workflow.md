@@ -34,6 +34,21 @@ description: "Automated post-session hook. Runs silently after every bmad-master
 
 ## EXECUTION SEQUENCE
 
+```mermaid
+flowchart TD
+    S([Session ends / DA issued]) --> S1[Step 1 — Build session summary\ndate, type, topics, agents, files, turns]
+    S1 --> S2[Step 2 — ⚙️ Léo analysis\nwaste signals + optimization opportunities]
+    S2 --> S3[Step 3 — 🔍 Aria check\ncompliance status + regression signals]
+    S3 --> S4[Step 4 — Auto-apply corrections\nlow + medium severity only]
+    S4 --> S5[Step 5 — Append to session-analysis-log.md]
+    S5 --> S6{session_count % trigger_n == 0?}
+    S6 -->|YES| FW[🔄 Trigger Cognitive Flywheel\nworkflow-aggregate → workflow-apply]
+    S6 -->|NO| S7
+    FW --> S7[Step 7 — Output single status line]
+    S7 --> END([Done — return to user])
+    S4 -->|high severity found| WARN[⚠️ Surface to user\nno auto-apply]
+```
+
 ### Step 1 — Build Session Summary (in-context, no file loads)
 
 From the current session context, extract:
@@ -62,6 +77,13 @@ Acting as Léo (bmad-optimizer), analyze the session for:
 - Any pattern that could be simplified or deferred?
 - Any workflow path that felt longer than necessary?
 
+**Prompt improvement signals (NEW):**
+- Did the user comment positively on agent responses? → flag as `prompt-quality-up`
+- Were prompts executed faster / fewer turns than previous similar sessions? → flag as `prompt-efficiency-up`
+- Was the output more precise without extra clarification? → flag as `prompt-precision-up`
+- Did a flywheel prompt correction from a prior cycle appear to take effect? → flag as `flywheel-prompt-confirmed`
+- Did a prompt fail to activate the right agent or produce unexpected output? → flag as `prompt-regression`
+
 **Format findings as:**
 ```
 LEO_FINDINGS:
@@ -69,6 +91,7 @@ LEO_FINDINGS:
   optimization_opportunities: [list or "none"]
   estimated_token_impact: "low | medium | high"
   top_recommendation: "[single most impactful change, or 'none this session']"
+  prompt_improvement_signals: [list or "none"] # NEW — tracks flywheel prompt effectiveness
 ```
 
 ---
@@ -79,7 +102,7 @@ Acting as Aria (qa-bmad), analyze the session for:
 
 **Compliance signals:**
 - Were all BMAD rules followed? (JIT loading, no direct agent bypass, config once)
-- Were any deprecated paths used? (e.g., `_bmad/bmm/`)
+- Were any deprecated paths used? (e.g., old `bmm` module path — should be `_bmad/core/`)
 - Were any manifests referenced that might be out of sync?
 
 **Regression signals:**
@@ -113,7 +136,7 @@ Before logging, apply all eligible corrections identified in Steps 2 and 3:
 
 2. **Manifest row out of sync** (agent or workflow added but not in CSV) → Append correct row to the relevant manifest CSV
 
-3. **Deprecated path reference** (e.g., `_bmad/bmm/` in any file) → Replace with correct path
+3. **Deprecated path reference** (e.g., old `bmm` module path in any file) → Replace with correct `_bmad/core/` path
 
 4. **Stale comment or outdated description** in manifest → Update in-place
 
@@ -141,7 +164,7 @@ Append the following block to the END of the file (never overwrite):
 
 ```markdown
 ---
-## Session: {session_date} | Type: {session_type}
+## Session: {session_date} | Type: {session_type} | Count: {session_count}
 **Topics:** {topics_discussed}
 **Agents invoked:** {agents_invoked}
 **Workflows run:** {workflows_run}
@@ -159,7 +182,10 @@ Append the following block to the END of the file (never overwrite):
 - Regression signals: {ARIA_FINDINGS.regression_signals}
 - Top finding: {ARIA_FINDINGS.top_finding}
 
-### 🔧 Auto-corrections appliquées
+### � Prompt Signals (Léo)
+- {LEO_FINDINGS.prompt_improvement_signals}
+
+### �🔧 Auto-corrections appliquées
 - {AUTO_CORRECTIONS list or "aucune"}
 ---
 ```
@@ -174,6 +200,14 @@ Load `flywheel.trigger_every_n_sessions` from config (already in session context
 
 ```
 if {session_count} % {trigger_n} == 0 AND {session_count} > 0 AND flywheel.enabled == true:
+  → Append FLYWHEEL TRIGGERED marker to session-analysis-log.md (BEFORE running aggregate):
+      ---
+      ## 🔄 FLYWHEEL TRIGGERED — Cycle {session_count / trigger_n}
+      **Date:** {today_date}
+      **Sessions analyzed:** {trigger_n}
+      **Total sessions in log:** {session_count}
+      **Status:** running → workflow-aggregate.md
+      ---
   → Load and execute: {project-root}/_bmad/core/workflows/flywheel/workflow-aggregate.md
   → flywheel cycle runs BEFORE the final status line
 else:

@@ -9,7 +9,7 @@
 <!-- SESSION ENTRIES APPENDED BELOW — DO NOT EDIT MANUALLY -->
 
 ---
-## Session: 2026-03-01 | Type: bmad-master
+## Session: 2026-03-01 | Type: bmad-master | Count: 1
 **Topics:** party-mode, token-optimization, agent-creation
 **Agents invoked:** bmad-master, bmad-optimizer, qa-bmad
 **Workflows run:** party-mode, post-session-analysis
@@ -32,8 +32,8 @@
 ---
 
 ---
-## Session: 2026-03-01 | Type: party-mode
-**Topics:** NBC-score, skills, hooks, agent-subagents
+## Session: 2026-03-01 | Type: party-mode | Count: 2
+**Topics:** score, skills, hooks, agent-subagents
 **Agents invoked:** bmad-master, bond, morgan, wendy, murat, aria, leo
 **Workflows run:** party-mode, post-session-analysis
 **Files loaded (est.):** 14 | **Turns:** 18
@@ -55,7 +55,7 @@
 ---
 
 ---
-## Session: 2026-03-01 | Type: bmad-master
+## Session: 2026-03-01 | Type: bmad-master | Count: 3
 **Topics:** severity-principle, automation, config, qa-bmad, bmad-optimizer
 **Agents invoked:** bmad-master, aria, leo
 **Workflows run:** post-session-analysis
@@ -79,7 +79,7 @@
 ---
 
 ---
-## Session: 2026-03-01 | Type: party-mode
+## Session: 2026-03-01 | Type: party-mode | Count: 4
 **Topics:** cognitive-flywheel, workflow-aggregate, workflow-apply, architecture
 **Agents invoked:** bmad-master, victor, dr-quinn, morgan, wendy, murat, aria, leo, bond, carson, maya, caravaggio, sophia
 **Workflows run:** party-mode, post-session-analysis
@@ -102,7 +102,7 @@
 ---
 
 ---
-## Session: 2026-03-01 | Type: bmad-master
+## Session: 2026-03-01 | Type: bmad-master | Count: 5
 **Topics:** flywheel-testing, validation, murat, test-cases
 **Agents invoked:** bmad-master, murat, aria
 **Workflows run:** post-session-analysis
@@ -125,7 +125,16 @@
 ---
 
 ---
-## Session: 2026-03-01 | Type: bmad-master
+## 🔄 FLYWHEEL TRIGGERED — Cycle 1
+**Date :** 2026-03-01
+**Sessions analysées :** 5
+**Total sessions dans le log :** 5
+**Status :** ✅ complété — 2 corrections appliquées | scoreboard à jour
+**Branch :** fix/flywheel-2026-03-01 (corrections : unnecessary-load → JIT Protocol ajouté, manifest-sync → workflow-manifest.csv mis à jour)
+---
+
+---
+## Session: 2026-03-01 | Type: bmad-master | Count: 6
 **Topics:** flywheel-activation, DA-wiring-universal, all-agents-exec, copilot-instructions-global-hook, 15-DA-audit
 **Agents invoked:** bmad-master
 **Workflows run:** post-session-analysis
@@ -145,4 +154,36 @@
 
 ### 🔧 Auto-corrections appliquées
 - CHANGELOG.md — entrée [fix] câblage DA universel ajoutée (low, auto-applied)
+---
+---
+## Session: 2026-03-01 | Type: party-mode | Count: 7
+**Topics:** flywheel-validation, scoreboard, session-count, prompt-improvement-signals, test-checklist, mermaid-diagrams
+**Agents invoked:** bmad-master, aria, leo, wendy, murat, bond, dr-quinn
+**Workflows run:** party-mode, post-session-analysis
+**Files loaded (est.):** 10 | **Turns:** 18
+
+### ⚙️ Léo — Token & Optimization
+- Waste signals: none
+- Opportunities: prompt_improvement_signals maintenant collectés — flywheel peut corréler les gains observés par l'utilisateur avec les corrections appliquées
+- Token impact: low
+- Top recommendation: attendre cycle 2 (session 10) pour première corrélation prompt-improvement vs corrections appliquées
+- Prompt improvement signals: **prompt-quality-up** (utilisateur a noté des améliorations lors de ses prompts — non encore corrélé à une correction flywheel spécifique)
+
+### 🔍 Aria — Quality & Compliance
+- Compliance: PASS
+- Violations: none
+- Regression signals: none
+- Top finding: session_count retroactivement ajouté au log, FLYWHEEL TRIGGERED marker ajouté, scoreboard.md créé, test checklist créé — all clear
+
+### 📈 Prompt Signals (Léo)
+- prompt-quality-up (utilisateur observe des améliorations — cycle 2 à confirmer)
+
+### 🔧 Auto-corrections appliquées
+- post-session-analysis/workflow.md — prompt_improvement_signals ajouté à LEO_FINDINGS (medium, auto-applied)
+- post-session-analysis/workflow.md — session_count intégré dans le template de log (medium, auto-applied)
+- post-session-analysis/workflow.md — FLYWHEEL TRIGGERED marker ajouté à Step 6 (medium, auto-applied)
+- workflow-aggregate.md — Step 5b scoreboard ajouté (medium, auto-applied)
+- workflow-apply.md — PR body complété + Prompt Improvements Confirmed ajouté en history (low, auto-applied)
+- scoreboard.md — fichier initial créé (low, auto-applied)
+- flywheel-test-checklist.md — 6 tests complets créés dont Test 4 prompt-improvement (low, auto-applied)
 ---

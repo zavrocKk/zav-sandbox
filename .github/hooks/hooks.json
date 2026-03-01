@@ -3,38 +3,56 @@
     {
       "event": "SessionStart",
       "script": ".github/hooks/session-start.sh",
-      "description": "Initialize session context and verify BMAD structure"
-    },
-    {
-      "event": "SubagentStart",
-      "description": "Log sub-agent activation via delegation matrix"
-    },
-    {
-      "event": "SubagentStop",
-      "description": "Persist sub-agent outputs to _bmad-output/"
-    },
-    {
-      "event": "PreToolUse",
-      "description": "Validate tool parameters against BMAD conventions"
-    },
-    {
-      "event": "PostToolUse",
-      "description": "Log tool results and update session state"
+      "description": "Initialize session context, verify BMAD structure, increment session_count"
     },
     {
       "event": "Stop",
-      "description": "Trigger post-session analysis workflow before exit"
+      "script": ".github/hooks/session-stop.sh",
+      "description": "Trigger post-session-analysis workflow before exit. Ensures flywheel heartbeat on every session end, even without DA command."
     },
     {
       "event": "FlywheelTrigger",
-      "description": "Fired by post-session-analysis when session_count % flywheel.trigger_every_n_sessions == 0. Executes workflow-aggregate.md then workflow-apply.md. Controlled by flywheel.enabled in config.yaml."
+      "script": ".github/hooks/flywheel-trigger.sh",
+      "description": "Fired by post-session-analysis Step 6 when session_count % flywheel.trigger_every_n_sessions == 0. Executes workflow-aggregate.md then workflow-apply.md."
+    },
+    {
+      "event": "PreCommit",
+      "script": ".github/hooks/pre-commit.sh",
+      "description": "Block direct commits to main. Validate branch naming convention (feature/* or fix/*). Check for deprecated _bmad/bmm/ paths in staged files."
+    },
+    {
+      "event": "PRBodyCheck",
+      "description": "Enforced by validate-pr.yml CI workflow. Verifies that every PR created via gh pr create contains a non-empty --body. PRs with empty description are blocked from merge."
+    },
+    {
+      "event": "SubagentStart",
+      "description": "Log sub-agent activation via delegation matrix. Validates that routing went through agent-delegation-matrix.csv before execution."
+    },
+    {
+      "event": "SubagentStop",
+      "description": "Persist sub-agent outputs to _bmad-output/. Available in _bmad-output/bmb-creations/ or _bmad-output/test-artifacts/ depending on agent type."
+    },
+    {
+      "event": "PreToolUse",
+      "description": "Validate tool parameters against BMAD conventions. Check that file paths use _bmad/core/ not _bmad/bmm/. Check that no write targets main directly."
+    },
+    {
+      "event": "PostToolUse",
+      "description": "Log tool results and update session state. If file write: check Gate 3 (Aria) basic validation before confirm."
+    },
+    {
+      "event": "NotifyUser",
+      "description": "Fired when high-severity finding detected in post-session-analysis or flywheel-apply. Surfaces single notification line to user. Never auto-applies high severity."
     }
   ],
   "config": {
     "sessionOutputPath": "_bmad-output/",
+    "sessionCountFile": "_bmad/_memory/.session_count",
     "logLevel": "info",
     "postSessionAnalysis": "_bmad/core/workflows/post-session-analysis/workflow.md",
     "flywheelAggregate": "_bmad/core/workflows/flywheel/workflow-aggregate.md",
-    "flywheelApply": "_bmad/core/workflows/flywheel/workflow-apply.md"
+    "flywheelApply": "_bmad/core/workflows/flywheel/workflow-apply.md",
+    "scoreboard": "_bmad/_memory/scoreboard.md",
+    "deprecatedPaths": ["_bmad/bmm/", "_tmad/"]
   }
 }

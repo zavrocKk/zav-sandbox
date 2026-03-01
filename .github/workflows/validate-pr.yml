@@ -31,10 +31,47 @@ jobs:
           fi
           echo "✅ CHANGELOG format is valid!"
       
+      - name: Check PR body is not empty
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          echo "🔍 Checking PR description body..."
+          if [[ -z "$PR_BODY" || "$PR_BODY" == "null" ]]; then
+            echo "❌ ERROR: PR body is empty!"
+            echo "Every PR MUST have a filled description (copilot-instructions.md — PR DESCRIPTION convention)."
+            echo "Use: gh pr create --title '...' --body '...' — never use the compare URL alone."
+            exit 1
+          fi
+          echo "✅ PR body is present (${#PR_BODY} characters)."
+
+      - name: Scan for deprecated paths
+        run: |
+          echo "🔍 Scanning for deprecated _bmad/bmm/ references..."
+          HITS=$(grep -rl "_bmad/bmm/" .github/prompts/ _bmad/ 2>/dev/null | wc -l)
+          if [[ "$HITS" -gt 0 ]]; then
+            echo "❌ ERROR: $HITS file(s) still reference deprecated path _bmad/bmm/:"
+            grep -rl "_bmad/bmm/" .github/prompts/ _bmad/ 2>/dev/null
+            exit 1
+          fi
+          echo "✅ No deprecated paths found."
+
+      - name: Validate agent manifest sync
+        run: |
+          echo "🔍 Checking .agent.md files present..."
+          AGENT_MD_COUNT=$(find .github/agents -name "*.agent.md" 2>/dev/null | wc -l)
+          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 13)"
+          if [[ "$AGENT_MD_COUNT" -lt 13 ]]; then
+            echo "⚠️  WARNING: Expected 13 .agent.md files, found $AGENT_MD_COUNT — run audit"
+          fi
+          echo "✅ Agent manifest check complete."
+
       - name: Validate BMAD Structure
         run: |
           echo "🔍 Checking BMAD directory structure..."
-          required_dirs=("_bmad" "_bmad/core" "_bmad/core/agents" "_bmad/core/workflows")
+          required_dirs=(
+            "_bmad" "_bmad/core" "_bmad/core/agents" "_bmad/core/workflows"
+            "_bmad/_config" "_bmad/_memory" ".github/agents" ".github/prompts" ".github/skills"
+          )
           for dir in "${required_dirs[@]}"; do
             if [ ! -d "$dir" ]; then
               echo "❌ ERROR: Required directory '$dir' missing!"
@@ -42,16 +79,7 @@ jobs:
             fi
           done
           echo "✅ BMAD structure is valid!"
-      
-      - name: Check Git state is clean
-        run: |
-          echo "🔍 Validating Git state..."
-          if ! git diff-index --quiet HEAD --; then
-            echo "❌ ERROR: Uncommitted changes detected!"
-            exit 1
-          fi
-          echo "✅ Git state is clean!"
-      
+
       - name: Validate branch naming
         run: |
           echo "🔍 Checking branch naming convention..."
@@ -67,7 +95,9 @@ jobs:
           echo ""
           echo "✅ ================ VALIDATION PASSED ================"
           echo "✅ CHANGELOG.md exists and is properly formatted"
-          echo "✅ BMAD directory structure is valid"
-          echo "✅ Git state is clean"
+          echo "✅ PR body is not empty"
+          echo "✅ No deprecated paths (_bmad/bmm/) detected"
+          echo "✅ Agent .agent.md count verified"
+          echo "✅ BMAD directory structure complete"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="

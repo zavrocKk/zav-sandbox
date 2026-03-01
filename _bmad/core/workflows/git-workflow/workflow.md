@@ -27,11 +27,59 @@ context_file: ''
 
 This uses **sequential validation** for disciplined execution:
 
+```mermaid
+flowchart LR
+    A([Start]) --> B{On main?}
+    B -->|No| FIX[Checkout main first]
+    B -->|Yes| C[Create feature/fix branch\nfeature/name-YYYY-MM-DD]
+    FIX --> C
+    C --> D[Make changes]
+    D --> E[git add + commit\nwith conventional message]
+    E --> F[git push origin branch]
+    F --> G[gh pr create\n--title ... --body ...]
+    G --> H([PR ready for review])
+    G -.->|gh not auth'd| GH[Open compare URL\n+ paste body template]
+```
+
 - Branch creation with type-based naming
 - Change verification before commit
 - PR creation with automatic linking
 - MR review and merge protocol
 - Document state in git history
+
+---
+
+## PREREQUISITES
+
+Avant d'exécuter ce workflow, vérifier que les outils suivants sont disponibles et configurés :
+
+### 1. GitHub CLI (`gh`) — Requis pour créer des PRs
+
+```bash
+# Vérifier si gh est authentifié
+gh auth status
+
+# Si non authentifié ou absent :
+gh auth login
+# Choisir : GitHub.com → HTTPS → Authenticate with browser
+```
+
+> **Pourquoi ?** `gh pr create --body` est la seule commande garantissant un body de PR complet.
+> Sans `gh` authé, les PRs créées via URL GitHub compare arrivent **sans description** — ce qui bloque le check CI `validate-pr.yml`.
+
+**À faire une seule fois** par machine. Ensuite, toutes les sessions fonctionnent sans friction.
+
+### 2. Git configuré avec remote `origin`
+
+```bash
+git remote -v   # doit afficher origin -> github.com/zavrocKk/zav-sandbox
+```
+
+### 3. Branche de départ = `main`
+
+```bash
+git checkout main && git pull origin main
+```
 
 ---
 

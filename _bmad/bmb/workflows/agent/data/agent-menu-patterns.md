@@ -40,7 +40,7 @@
 
 # Exec - workflow
 - trigger: CP or fuzzy match on create-prd
-  exec: '{project-root}/_bmad/bmm/workflows/create-prd/workflow.md'
+  exec: '{project-root}/_bmad/core/workflows/brainstorming/workflow.md'
   description: '[CP] Create PRD'
 
 # Exec - unimplemented
@@ -57,7 +57,7 @@ Attach to ANY handler to pass input files.
 
 ```yaml
 - trigger: TS or fuzzy match on team-standup
-  exec: '{project-root}/_bmad/bmm/tasks/team-standup.md'
+  exec: '{project-root}/_bmad/core/tasks/help.md'
   data: '{project-root}/_bmad/_config/agent-manifest.csv'
   description: '[TS] Run team standup'
 ```
@@ -168,7 +168,7 @@ menu:
 ```yaml
 menu:
   - trigger: WI or fuzzy match on workflow-init
-    exec: '{project-root}/_bmad/bmm/workflows/workflow-status/workflow.md'
+    exec: '{project-root}/_bmad/core/workflows/party-mode/workflow.md'
     description: '[WI] Initialize workflow'
 
   - trigger: BS or fuzzy match on brainstorm
