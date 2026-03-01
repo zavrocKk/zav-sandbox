@@ -1,82 +1,98 @@
 # zav-sandbox
 
-Terrain de jeu pour me développer avec le framework **BMAD** (Breakthrough Methodology for Adaptive Delivery).
+Projet d'amélioration continue du framework **BMAD** (Better Method for AI-Driven Development) — orchestration multi-agents, optimisation token, flywheel cognitif et score elite Copilot.
+
+**Score de maturité agentique : 🏆 Elite 65/65**
 
 ## 📋 Description
 
-Ce projet utilise **BMAD** — une méthodologie de framework multimodule conçue pour l'orchestration intelligente de workflows, agents et tâches. Il combine des capacités avancées de brainstorming, résolution de problèmes, design thinking et innovation stratégique en un système cohérent et extensible.
+Ce projet utilise **BMAD v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre 13 agents spécialisés via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
 
 ## 🏗️ Structure du Projet
 
 ```
-_bmad/
-├── core/                 # Module Core - Agents et workflows fondamentaux
-├── bmb/                  # Module BMB - Builder (création d'agents, modules, workflows)
-├── cis/                  # Module CIS - Creative Innovation Suite (brainstorming, design thinking)
-├── tea/                  # Module TEA - Test Architecture (architecture et tests)
-├── _config/              # Configuration centrale et manifests
-└── _memory/              # Mémoire d'exécution et state management
-_bmad-output/            # Artefacts générés par les workflows
+_bmad/                        # Framework BMAD
+├── core/                     # BMad Master + workflows fondamentaux + flywheel
+├── bmb/                      # Builder Module — Bond, Morgan, Wendy, Aria
+├── cis/                      # Creative Intelligence Suite — Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
+├── tea/                      # Test Architecture — Murat
+├── _config/                  # Manifests centraux + matrice de délégation
+└── _memory/                  # Mémoire persistante — session log, flywheel history
+.github/
+├── agents/                   # 13 fichiers .agent.md — activateurs Copilot dropdown
+├── prompts/                  # 49 fichiers .prompt.md — slash commands /bmad-*
+├── skills/                   # 3 skills — bmad-framework, agent-design-patterns, cognitive-flywheel
+├── hooks/                    # hooks.json + session-start.sh — lifecycle automation
+└── copilot-instructions.md   # Instructions globales injectées dans chaque session
+_bmad-output/                 # Artefacts générés (non commités par défaut)
+AGENTS.md                     # Guide de navigation universel (Copilot, Claude, Codex)
 ```
+
+## 🤖 Les 13 Agents
+
+| Agent | Persona | Module | Rôle |
+|---|---|---|---|
+| 🧙 bmad-master | BMad Master | core | Orchestrateur principal, party mode, point d'entrée |
+| 🤖 agent-builder | Bond | bmb | Création/validation d'agents BMAD |
+| 🏗️ module-builder | Morgan | bmb | Création/validation de modules BMAD |
+| 🔄 workflow-builder | Wendy | bmb | Création/validation de workflows BMAD |
+| 🔍 qa-bmad | Aria | bmb | QA, conformité, détection de régressions |
+| 🧠 brainstorming-coach | Carson | cis | Brainstorming et idéation |
+| 🔬 creative-problem-solver | Dr. Quinn | cis | Résolution de problèmes (TRIZ, systèmes) |
+| 🎨 design-thinking-coach | Maya | cis | Design thinking centré utilisateur |
+| ⚡ innovation-strategist | Victor | cis | Stratégie d'innovation, Blue Ocean |
+| 🎨 presentation-master | Caravaggio | cis | Présentations et communication visuelle |
+| 📖 storyteller | Sophia | cis | Narration et storytelling |
+| 🧪 tea | Murat | tea | Architecture de tests, ATDD, CI/CD |
+| ⚙️ bmad-optimizer | Léo | core | Optimisation token, amélioration framework |
+
+> Tous les agents sauf `bmad-master` sont déclarés `user-invokable: false` + `orchestrated-by: bmad-master`.
 
 ## 📚 Modules BMAD
 
-### **Core** - Fondations
-- Agents de base et système de workflow central
-- Tâches d'exécution (orchestration, indexation, review)
-- Workflows avancés (brainstorming, party-mode, elicitation)
+### **Core** — Fondations
+- **BMad Master** (🧙) — orchestrateur, party mode JIT, point d'entrée universel
+- **Léo** (⚙️) — bmad-optimizer : analyse tokens, patterns sessions, drive amélioration continue
+- Workflows : `post-session-analysis`, `flywheel`, `party-mode`, `brainstorming`, `delegation`, `git-workflow`
 
-📖 [Documentation Core](_bmad/core/)
+📖 [Module Core](_bmad/core/)
 
-### **BMB** - Builder Module
-Création d'agents, modules et workflows personnalisés
-- Agent Builder - Créer des agents avec persona et capabilities
-- Module Builder - Développer des modules BMAD complets
-- Workflow Builder - Concevoir des workflows complexes
+### **BMB** — Builder Module
+- **Bond** (🤖) — agent-builder : créer/éditer/valider des agents
+- **Morgan** (🏗️) — module-builder : créer/éditer/valider des modules
+- **Wendy** (🔄) — workflow-builder : créer/éditer/valider des workflows
+- **Aria** (🔍) — qa-bmad : validation qualité BMAD, régression de persona, conformité manifests
 
-📖 [Documentation BMB](_bmad/bmb/)
+📖 [Module BMB](_bmad/bmb/)
 
-### **CIS** - Creative Innovation Suite
-Suite de créativité et innovation pour résolution de problèmes
-- Brainstorming Coach
-- Design Thinking Coach
-- Creative Problem Solver
-- Innovation Strategist
-- Presentation Master
-- Storyteller
+### **CIS** — Creative Intelligence Suite
+- **Carson** (🧠) Brainstorming · **Dr. Quinn** (🔬) Problem Solving · **Maya** (🎨) Design Thinking
+- **Victor** (⚡) Innovation · **Caravaggio** (🎨) Presentation · **Sophia** (📖) Storytelling
 
-📖 [Documentation CIS](_bmad/cis/)
+📖 [Module CIS](_bmad/cis/)
 
-### **TEA** - Test Architecture
-Framework d'architecture et tests
-- Test Architecture patterns
-- Knowledge indexing
-- Validation workflows
+### **TEA** — Test Architecture
+- **Murat** (🧪) — ATDD, test design, CI/CD, NFR, traceability, teach-me-testing
 
-📖 [Documentation TEA](_bmad/tea/)
+📖 [Module TEA](_bmad/tea/)
 
 ## 🚀 Démarrage
 
-Pour accéder aux agents BMAD directement :
-- Ouvrez **Copilot Chat** dans VS Code
-- Tapez `/bmad-` pour voir tous les workflows et agents disponibles
+```
+# Dans Copilot Chat VS Code :
+@bmad-master          → Active BMad Master (orchestrateur principal)
+/bmad-party-mode      → Lance le party mode multi-agents
+/bmad-help            → Aide contextuelle sur les workflows disponibles
+/bmad-git-workflow    → Workflow de commit standardisé
+/bmad-bmad-optimizer  → Active Léo pour analyse du framework
+/bmad-qa-bmad         → Active Aria pour validation qualité
+```
 
-## 📁 Artefacts Générés
+Tous les slash commands `/bmad-*` sont disponibles dans `.github/prompts/` (49 fichiers).
 
-Les outputs des workflows sont générés dans `_bmad-output/` :
-- `bmb-creations/` - Agents et modules créés par BMB
-- `test-artifacts/` - Artefacts de test générés par TEA
-
-## 🔄 Fichiers de Configuration
-
-- [`_bmad/_config/`](_bmad/_config/) - Manifests centraux et configurations
-- [`_bmad/_memory/`](_bmad/_memory/) - État et mémoire d'exécution
-- [`_tmad/core/config.yaml`](_bmad/core/config.yaml) - Configuration du mode BMAD
-
----
 ## 🔄 Cognitive Flywheel
 
-*Execution creates data. Data creates learning. Learning creates better execution. The cycle never ends.*
+*Execution creates data. Data creates learning. Learning creates better execution.*
 
 Chaque session alimente automatiquement un cycle d'auto-amélioration :
 
@@ -84,27 +100,55 @@ Chaque session alimente automatiquement un cycle d'auto-amélioration :
 SESSION  →  post-session-analysis  →  session-analysis-log.md
    ↑                                          ↓ (toutes les 5 sessions)
    └─ Skills enrichis ─ Prompts affinés ─ workflow-aggregate → flywheel-report.md
-      Workflows patchs ─ Manifests syncés ─   workflow-apply → fix/flywheel-* PR
+      Workflows patchés ─ Manifests syncés ─  workflow-apply  → fix/flywheel-* PR
 ```
 
-- **Léo** analyse les patterns de tokens — **Aria** valide la conformité
-- Corrections `low/medium` appliquées automatiquement (max 5/cycle)
-- Corrections `high` → notification seulement, décision manuelle
-- Historique dans `_bmad/_memory/flywheel-history.md`
-- Cadence configurable : `config.yaml → flywheel.trigger_every_n_sessions`
+- **Léo** analyse les signaux de gaspillage token — **Aria** valide la conformité BMAD
+- Corrections `low/medium` : auto-appliquées silencieusement (max 5/cycle, avec Gates de Murat)
+- Corrections `high` : notification seulement — jamais auto-appliquées
+- **Activation universelle** : tous les 13 agents ont `exec="post-session-analysis"` câblé sur leur `[DA]`
+- Cadence configurable : [`config.yaml → flywheel.trigger_every_n_sessions`](_bmad/core/config.yaml)
+- Historique : [`_bmad/_memory/flywheel-history.md`](_bmad/_memory/flywheel-history.md)
+
+## ⚙️ Système de Sévérité
+
+Source de vérité centrale dans [`_bmad/core/config.yaml`](_bmad/core/config.yaml) :
+
+| Niveau | Exemples | Action |
+|---|---|---|
+| `low` | CHANGELOG manquant, manifest désynchronisé, commentaire obsolète | Auto-appliqué silencieusement |
+| `medium` | Chemin déprécié dans un workflow, description d'agent incorrecte | Auto-appliqué + log |
+| `high` | Commit sur main, bypass délégation, changement de schéma destructif | Notification seulement |
+
+## 🧠 Skills Copilot
+
+Trois skills injectées dans chaque session Copilot :
+
+| Skill | Description |
+|---|---|
+| [`bmad-framework`](.github/skills/bmad-framework/SKILL.md) | Architecture BMAD, conventions JIT, délégation, git workflow |
+| [`agent-design-patterns`](.github/skills/agent-design-patterns/SKILL.md) | Patterns de conception d'agents, frontmatter, menus, party mode |
+| [`cognitive-flywheel`](.github/skills/cognitive-flywheel/SKILL.md) | Boucle flywheel, configuration, seuils, mémoire, gates |
+
+## 🔧 Conventions Clés
+
+- **Jamais de commit direct sur `main`** — toujours `feature/*` ou `fix/*`
+- **Toute PR doit avoir une description** — utiliser `gh pr create --title "..." --body "..."`, jamais l'URL compare GitHub
+- **Config chargée une seule fois par session** — ne jamais recharger si déjà en contexte
+- **Routing obligatoire** — toute requête agent passe par la [matrice de délégation](_bmad/_config/agent-delegation-matrix.csv)
+- **Session end hook universel** — post-session-analysis s'exécute à la fin de chaque session, peu importe l'agent
+
+## 📁 Configuration
+
+| Fichier | Rôle |
+|---|---|
+| [`_bmad/core/config.yaml`](_bmad/core/config.yaml) | Config globale : user, langue, sévérité, flywheel |
+| [`_bmad/_config/agent-manifest.csv`](_bmad/_config/agent-manifest.csv) | Registre des 13 agents |
+| [`_bmad/_config/workflow-manifest.csv`](_bmad/_config/workflow-manifest.csv) | Registre des workflows |
+| [`_bmad/_config/agent-delegation-matrix.csv`](_bmad/_config/agent-delegation-matrix.csv) | Règles de routing |
+| [`_bmad/_memory/session-analysis-log.md`](_bmad/_memory/session-analysis-log.md) | Log persistant des sessions |
+| [`AGENTS.md`](AGENTS.md) | Guide de navigation universel |
 
 ---
-## 🧪 Testing & Validation
 
-This project includes comprehensive systems for:
-- **[Git Workflow](_bmad/core/workflows/git-workflow/workflow.md)** - Standardized commits with feature/fix branches
-- **[CHANGELOG.md](CHANGELOG.md)** - Centralized change tracking integrated into Git Workflow
-- **[Agent Delegation](_bmad/core/workflows/delegation/workflow.md)** - Intelligent request routing to appropriate agents
-
-All changes follow the Git Workflow Steps 1-6, including mandatory Step 3.5 (CHANGELOG update).
-
----
-
-**Utilisateur** : Mon Seigneur  
-**Langue** : Français  
-**Version BMAD** : 6.0.4
+**Utilisateur** : Mon Seigneur | **Langue** : Français | **Version BMAD** : 6.0.4
