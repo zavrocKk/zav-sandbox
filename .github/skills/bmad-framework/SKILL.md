@@ -8,6 +8,22 @@ applyTo: "**"
 
 BMAD (Better Method for AI-Driven Development) is a multi-agent system running on GitHub Copilot Chat. Agents are organized in modules and orchestrated by BMad Master.
 
+## Setup Requirements (one-time per machine)
+
+| Tool | Purpose | Setup command |
+|---|---|---|
+| **GitHub CLI `gh`** | `gh pr create --body` — PRs with filled description | `gh auth login` (choose GitHub.com → HTTPS → browser) |
+| **Git** | Branch management, commits, push | `git remote -v` to verify origin |
+
+> Without `gh auth login`, every PR created by agents will have an **empty description** and be **blocked by `validate-pr.yml` CI**. This is a one-time setup.
+
+## PR Body Rule
+
+Every PR MUST be created with `gh pr create --title "..." --body "..."` — never using the GitHub compare URL alone (which creates PRs with empty descriptions). This is enforced by:
+- `validate-pr.yml` CI check (blocks merge if body empty)
+- `git-workflow/workflow.md` Step 5 (mandatory `gh pr create` command)
+- `copilot-instructions.md` PR DESCRIPTION convention
+
 ## Module Structure
 
 - `core/` — BMad Master orchestrator + shared tasks + core workflows

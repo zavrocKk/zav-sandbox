@@ -4,6 +4,25 @@ Projet d'amélioration continue du framework **BMAD** (Better Method for AI-Driv
 
 **Score de maturité agentique : 🏆 Elite 65/65**
 
+## 🔧 Prérequis & Setup
+
+> À faire **une seule fois** par machine. Ensuite, toutes les sessions sont sans friction.
+
+```bash
+# 1. GitHub CLI — requis pour gh pr create --body (PRs avec description)
+gh auth status               # vérifier si déjà authentifié
+gh auth login                # si non : choisir GitHub.com → HTTPS → browser
+
+# 2. Cloner le repo
+git clone https://github.com/zavrocKk/zav-sandbox.git
+cd zav-sandbox
+
+# 3. Vérifier la structure BMAD
+bash .github/hooks/session-start.sh
+```
+
+> **Pourquoi `gh auth` ?** Toutes les PRs BMAD passent par `gh pr create --body` pour garantir une description complète. Sans `gh` authentifié, le check CI `validate-pr.yml` bloque les PRs sans body.
+
 ## 📋 Description
 
 Ce projet utilise **BMAD v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre 13 agents spécialisés via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
