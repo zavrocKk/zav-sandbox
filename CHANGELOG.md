@@ -1,102 +1,137 @@
 # CHANGELOG
 
-All notable changes to the zav-sandbox BMAD project are documented in this file.
+Toutes les modifications notables du projet zav-sandbox BMAD sont documentées ici.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-adapted for the BMAD framework's multi-agent, multi-module architecture.
+Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+adapté à l'architecture multi-agents et multi-modules du framework BMAD.
+
+> **Format d'entrée:**
+> ```
+> **[Type]** Description fonctionnelle
+> - Agent: {nom_agent} | Workflow: {workflow_utilisé} | Initié par: {initiateur}
+> - Impact: {agents/workflows affectés}
+> ```
 
 ---
 
 ## [Unreleased]
 
-### Config
-- `[config](ci): add GitHub Actions workflows for PR validation and cleanup` - GitHub Copilot (Setup GitHub Actions)
-  - Created `.github/workflows/validate-pr.yml` - Validates CHANGELOG, BMAD structure, and Git state on every PR
-  - Created `.github/workflows/cleanup-branches.yml` - Automatically deletes merged feature/fix branches
-  - Implements automated CI/CD pipeline with status checks blocking merges on failure
+### [Infrastructure]
+**[feat]** Ajout du pipeline CI/CD avec validation automatique des PRs
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Toutes les PRs vers `main` — validation CHANGELOG, structure BMAD, et état Git obligatoires avant merge
 
-### Docs
-- `[docs](docs): add testing section to README` - GitHub Copilot (Git Workflow test)
-  - Added references to Git Workflow, CHANGELOG, and Agent Delegation systems
-  - Documented integrated systems for standardized development
+**[feat]** Nettoyage automatique des branches après merge
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Toutes les branches `feature/*` et `fix/*` — suppression automatique post-merge
+
+**[feat]** Branch protection rules activées sur `main`
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Branche `main` — push direct bloqué, PR obligatoire, status checks requis
+
+### [Core]
+**[docs]** Section Testing & Validation ajoutée au README
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Documentation projet — références vers Git Workflow, CHANGELOG et Delegation System
 
 ---
 
 ## [1.0.0-alpha.1] - 2026-03-01
 
-### Initial Release - BMAD Foundation
+### Release initiale — Fondations BMAD
 
-#### Core
-- BMad Master agent and orchestration system
-- Core configuration system
-- Task execution framework (editorial review, indexing, adversarial review)
-- Core workflows (brainstorming, party-mode, advanced-elicitation)
-- Workflow engine support
+#### [Core]
+**[feat]** Agent BMad Master 🧙 et système d'orchestration
+- Exécuteur principal, gestionnaire de workflows et gardien de la connaissance
 
-#### BMB (Builder Module)
-- Agent Builder (Bond) - Create and validate BMAD agents
-- Workflow Builder (Wendy) - Design and validate BMAD workflows
-- Module Builder (Morgan) - Build complete BMAD modules
-- Full build pipeline with validation
+**[feat]** Système de configuration central (`config.yaml`)
+- Variables de session, langue, dossier de sortie, gouvernance
 
-#### CIS (Creative Innovation Suite)
-- Brainstorming Coach (Carson)
-- Design Thinking Coach (Maya)
-- Creative Problem Solver (Dr. Quinn)
-- Innovation Strategist (Victor)
-- Presentation Master (Caravaggio)
-- Storyteller (Sophia)
-- Team collaboration workflows
+**[feat]** Workflows fondamentaux
+- `brainstorming`, `party-mode`, `advanced-elicitation`
+- Moteur de workflow (`workflow.xml`) pour workflows YAML
 
-#### TEA (Test Architecture)
-- Master Test Architect (Murat)
-- Test architecture patterns and best practices
-- Quality gate framework
+**[feat]** Système de délégation d'agents
+- Matrice de délégation (14 types de requêtes → agents)
+- Workflow de routage obligatoire (`delegation/workflow.md`)
+- Mode enforcement: `strict` — aucun bypass autorisé
 
-#### Configuration & Governance
-- Manifest system for agents, workflows, and tasks
-- Memory and state management
-- Project output structure
+**[feat]** Git Workflow v2.0
+- Steps 1-6 standardisés avec Step 3.5 CHANGELOG obligatoire
+- Convention de nommage: `feature/{desc}-YYYY-MM-DD` / `fix/{desc}-YYYY-MM-DD`
+
+#### [BMB] — Builder Module
+**[feat]** Agent Bond 🤖 (Agent Builder) — Création et validation d'agents BMAD
+
+**[feat]** Agent Wendy 🔄 (Workflow Builder) — Design et validation de workflows
+
+**[feat]** Agent Morgan 🏗️ (Module Builder) — Construction de modules BMAD complets
+
+#### [CIS] — Creative Innovation Suite
+**[feat]** Agent Carson 🧠 (Brainstorming Coach)
+
+**[feat]** Agent Maya 🎨 (Design Thinking Coach)
+
+**[feat]** Agent Dr. Quinn 🔬 (Creative Problem Solver)
+
+**[feat]** Agent Victor ⚡ (Innovation Strategist)
+
+**[feat]** Agent Caravaggio 🎨 (Presentation Master)
+
+**[feat]** Agent Sophia 📖 (Storyteller)
+
+#### [TEA] — Test Architecture
+**[feat]** Agent Murat 🧪 (Master Test Architect)
+- Architecture de tests, quality gates, CI/CD governance
+
+#### [Config & Gouvernance]
+**[feat]** Système de manifests (agents, workflows, tasks, tools)
+
+**[feat]** Mémoire et gestion d'état (`_bmad/_memory/`)
+
+**[feat]** Structure de sortie des artefacts (`_bmad-output/`)
 
 ---
 
-## Version Format
+## Format de version
 
-This project uses a modified semantic versioning with BMAD context:
+Ce projet utilise un versioning sémantique adapté au contexte BMAD:
 
 ```
 [MAJOR].[MINOR].[PATCH]-[PHASE]
 
-Examples:
-- 1.0.0-alpha.1  (Early development)
-- 1.0.0-beta.1   (Feature complete)
-- 1.0.0          (Stable release)
-- 1.1.0          (New features)
-- 1.1.1          (Bugfixes)
+Exemples:
+- 1.0.0-alpha.1  (Développement initial)
+- 1.0.0-beta.1   (Fonctionnalités complètes)
+- 1.0.0          (Release stable)
+- 1.1.0          (Nouvelles fonctionnalités)
+- 1.1.1          (Corrections)
 ```
 
 ---
 
-## Release Planning
+## Planning de release
 
-- **Alpha Phase**: Core system establishment (current)
-- **Beta Phase**: Multi-agent coordination validation
-- **GA (1.0.0)**: Production ready
-- **Post-1.0**: Feature expansion and optimization
+- **Phase Alpha**: Établissement du système Core (actuel)
+- **Phase Beta**: Validation de la coordination multi-agents
+- **GA (1.0.0)**: Prêt pour production
+- **Post-1.0**: Expansion de fonctionnalités et optimisation
 
 ---
 
-## Guidelines for Maintaining This File
+## Guide de maintenance
 
-### Adding Entries
+### Ajouter une entrée (Step 3.5 du Git Workflow)
 
-When committing changes via the Git Workflow:
-
-1. **Update CHANGELOG.md** in Step 3.5 of the Git Workflow
-2. **Add entry to [Unreleased]** section under appropriate module
-3. **Format**: `` - `[{type}]({module}): {description}` - {agent_name} ``
-4. **Types**: `[feature]`, `[fix]`, `[breaking]`, `[security]`, `[docs]`, `[refactor]`
-5. **Modules**: `core`, `bmb`, `cis`, `tea`, `config`, `docs`
+1. Ajouter sous `[Unreleased]` dans la section du bon module: `[Core]`, `[BMB]`, `[CIS]`, `[TEA]`, `[Infrastructure]`
+2. Utiliser le format:
+   ```
+   **[type]** Description fonctionnelle (agents/workflows impactés)
+   - Agent: {nom} | Workflow: {workflow} | Initié par: {initié_par}
+   - Impact: {ce qui est affecté}
+   ```
+3. **Types**: `[feat]`, `[fix]`, `[breaking]`, `[security]`, `[refactor]`, `[docs]`, `[chore]`
+4. **Modules**: `[Core]`, `[BMB]`, `[CIS]`, `[TEA]`, `[Infrastructure]`
 
 ### Examples
 

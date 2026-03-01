@@ -138,6 +138,44 @@ fix(docs): correct README link formatting
 
 ---
 
+### Step 3.5: 🚨 MANDATORY — Update CHANGELOG.md
+
+> ⚠️ **CRITIQUE:** Cette étape NE PEUT PAS être ignorée. Aucun commit n'est valide sans mise à jour du CHANGELOG.
+
+**System Actions:**
+1. Ouvrir `{project-root}/CHANGELOG.md`
+2. Localiser la section `## [Unreleased]`
+3. Identifier le bon module: `[Core]`, `[BMB]`, `[CIS]`, `[TEA]`, `[Infrastructure]`
+4. Ajouter l'entrée avec le format BMAD (voir ci-dessous)
+5. Sauvegarder et stager: `git add CHANGELOG.md`
+
+**Format d'entrée BMAD:**
+```markdown
+### [Module]
+**[type]** Description fonctionnelle (agents/workflows impactés)
+- Agent: {nom_agent} | Workflow: {workflow_utilisé} | Initié par: {user_name}
+- Impact: {agents ou systèmes affectés par ce changement}
+```
+
+**Types valides:** `[feat]`, `[fix]`, `[breaking]`, `[security]`, `[refactor]`, `[docs]`, `[chore]`
+
+**Modules valides:** `[Core]`, `[BMB]`, `[CIS]`, `[TEA]`, `[Infrastructure]`
+
+**Exemple:**
+```markdown
+### [Core]
+**[feat]** Ajout du système de délégation d'agents avec enforcement strict
+- Agent: BMad Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: Tous les agents — routage obligatoire via matrice de délégation
+```
+
+**Output:**
+- Confirmer que CHANGELOG.md a été mis à jour
+- Afficher l'entrée ajoutée
+- Confirmer que le fichier est stagé
+
+---
+
 ### Step 4: Push Branch to Remote
 
 **System Actions:**
