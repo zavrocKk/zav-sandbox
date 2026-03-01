@@ -31,3 +31,18 @@ system:
   require_valid_workflow: true                              # All executed workflows must be validated
   require_activation_sequence: true                         # Agents must follow full activation sequence
   trace_all_delegations: true                               # Log every delegation decision
+
+## Automation Severity
+# Defines how agents (Léo, Aria, BMad Master) classify and handle corrections.
+# All agents MUST use these severity levels when reporting findings.
+automation:
+  severity:
+    low:
+      description: "Missing CHANGELOG entry, manifest row out of sync, outdated comment or description"
+      action: "auto-apply silently — no user prompt required"
+    medium:
+      description: "Deprecated path in workflow, agent description mismatch, stale memory file, minor rule drift"
+      action: "auto-apply + single log line in status output"
+    high:
+      description: "Rule violation (commit to main, delegation bypass), breaking schema change, data loss risk"
+      action: "notify user only — do NOT auto-apply under any circumstances"
