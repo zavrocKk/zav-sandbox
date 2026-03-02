@@ -17,6 +17,13 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** Flywheel sous-actif — severity enforcement + solo-creep/party-mode-bypass signals
+- `workflow-aggregate.md` : règle SEVERITY ENFORCEMENT ajoutée — medium=auto-apply obligatoire, "requires verification" interdit
+- `workflow-apply.md` : même enforcement dans Step 4 (non-négociable)
+- `post-session-analysis/workflow.md` : signaux nommés `solo-creep`, `party-mode-bypass`, `trivial-abuse` ajoutés dans Aria compliance check
+- Agent: Party Mode (Aria, Wendy, Léo, Dr. Quinn) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: workflow-aggregate.md, workflow-apply.md, post-session-analysis/workflow.md
+
 **[fix]** SOLO TRIP WIRE — règle explicite dans gsane-master.md, copilot-instructions.md et AGENTS.md : checkpoint obligatoire avant tout outil d'écriture sur un artefact GSANE
 - Agent: Party Mode (Aria, Wendy, Léo, Dr. Quinn) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: gsane-master.md, copilot-instructions.md, AGENTS.md
