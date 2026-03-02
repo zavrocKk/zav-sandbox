@@ -19,6 +19,7 @@ description: "Cognitive Flywheel — Aggregation cycle. Reads session-analysis-l
 - 🔢 MAX 10 recommendations in report (prioritize by occurrence count + severity)
 - 📝 OVERWRITE `flywheel-report.md` (not append — it's a point-in-time report)
 - ✅ Always call `workflow-apply.md` after writing the report
+- ⚠️ SEVERITY ENFORCEMENT — Every CONFIRMED pattern with severity=low or medium MUST appear in the report with `status: pending`. NEVER write "requires verification" or defer medium items at this stage — deferral logic belongs exclusively in workflow-apply.md Gates 1+2. "Requires verification" is not a valid status here — it is a violation of the severity principle.
 
 ---
 
