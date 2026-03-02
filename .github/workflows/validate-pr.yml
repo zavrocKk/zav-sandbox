@@ -93,44 +93,47 @@ jobs:
       - name: Validate workflow manifest integrity
         run: |
           echo "🔍 Checking workflow manifest file integrity..."
-          ERRORS=0
-          while IFS=',' read -r name desc module path || [ -n "$name" ]; do
-            [[ "$name" == "name" ]] && continue
-            clean_path=$(echo "$path" | tr -d '"' | tr -d "'" | xargs)
-            if [[ -z "$clean_path" ]]; then continue; fi
-            if [ ! -f "$clean_path" ]; then
-              echo "❌ ERROR: workflow-manifest.csv references missing file: $clean_path"
-              ERRORS=$((ERRORS + 1))
-            fi
-          done < _gsane/_config/workflow-manifest.csv
-          if [[ "$ERRORS" -gt 0 ]]; then
-            echo "❌ $ERRORS missing workflow file(s) detected!"
-            exit 1
-          fi
-          echo "✅ All workflow manifest files exist!"
+          python3 - <<'EOF'
+import csv, sys, os
+errors = 0
+with open('_gsane/_config/workflow-manifest.csv', newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        path = row.get('path', '').strip()
+        if not path:
+            continue
+        if not os.path.isfile(path):
+            print(f"❌ ERROR: workflow-manifest.csv references missing file: {path}")
+            errors += 1
+if errors > 0:
+    print(f"❌ {errors} missing workflow file(s) detected!")
+    sys.exit(1)
+print("✅ All workflow manifest files exist!")
+EOF
 
       - name: Validate agent persona fields
         run: |
           echo "🔍 Checking agent manifest persona fields..."
-          ERRORS=0
-          while IFS=',' read -r name displayName title icon capabilities role identity communicationStyle principles module path || [ -n "$name" ]; do
-            [[ "$name" == "name" ]] && continue
-            clean_cs=$(echo "$communicationStyle" | tr -d '"')
-            clean_pr=$(echo "$principles" | tr -d '"')
-            if [[ -z "$clean_cs" ]]; then
-              echo "❌ ERROR: Agent '$name' has empty communicationStyle"
-              ERRORS=$((ERRORS + 1))
-            fi
-            if [[ -z "$clean_pr" ]]; then
-              echo "❌ ERROR: Agent '$name' has empty principles"
-              ERRORS=$((ERRORS + 1))
-            fi
-          done < _gsane/_config/agent-manifest.csv
-          if [[ "$ERRORS" -gt 0 ]]; then
-            echo "❌ $ERRORS agent persona field(s) empty!"
-            exit 1
-          fi
-          echo "✅ All agent persona fields populated!"
+          python3 - <<'EOF'
+import csv, sys
+errors = 0
+with open('_gsane/_config/agent-manifest.csv', newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        name = row.get('name', '').strip()
+        cs = row.get('communicationStyle', '').strip()
+        pr = row.get('principles', '').strip()
+        if not cs:
+            print(f"❌ ERROR: Agent '{name}' has empty communicationStyle")
+            errors += 1
+        if not pr:
+            print(f"❌ ERROR: Agent '{name}' has empty principles")
+            errors += 1
+if errors > 0:
+    print(f"❌ {errors} agent persona field(s) empty!")
+    sys.exit(1)
+print("✅ All agent persona fields populated!")
+EOF
 
       - name: Validation Summary
         run: |
