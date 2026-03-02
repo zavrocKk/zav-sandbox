@@ -90,6 +90,51 @@ jobs:
           fi
           echo "✅ Branch naming check complete!"
 
+      - name: Validate workflow manifest integrity
+        run: |
+          echo "🔍 Checking workflow manifest file integrity..."
+          python3 - <<'EOF'
+import csv, sys, os
+errors = 0
+with open('_gsane/_config/workflow-manifest.csv', newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        path = row.get('path', '').strip()
+        if not path:
+            continue
+        if not os.path.isfile(path):
+            print(f"❌ ERROR: workflow-manifest.csv references missing file: {path}")
+            errors += 1
+if errors > 0:
+    print(f"❌ {errors} missing workflow file(s) detected!")
+    sys.exit(1)
+print("✅ All workflow manifest files exist!")
+EOF
+
+      - name: Validate agent persona fields
+        run: |
+          echo "🔍 Checking agent manifest persona fields..."
+          python3 - <<'EOF'
+import csv, sys
+errors = 0
+with open('_gsane/_config/agent-manifest.csv', newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        name = row.get('name', '').strip()
+        cs = row.get('communicationStyle', '').strip()
+        pr = row.get('principles', '').strip()
+        if not cs:
+            print(f"❌ ERROR: Agent '{name}' has empty communicationStyle")
+            errors += 1
+        if not pr:
+            print(f"❌ ERROR: Agent '{name}' has empty principles")
+            errors += 1
+if errors > 0:
+    print(f"❌ {errors} agent persona field(s) empty!")
+    sys.exit(1)
+print("✅ All agent persona fields populated!")
+EOF
+
       - name: Validation Summary
         run: |
           echo ""
@@ -99,5 +144,8 @@ jobs:
           echo "✅ No deprecated paths (_gsane/bmm/) detected"
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
+          echo "✅ Branch naming convention checked"
+          echo "✅ Workflow manifest file integrity verified (T9)"
+          echo "✅ Agent persona fields populated (T10)"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="
