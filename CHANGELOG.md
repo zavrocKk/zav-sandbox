@@ -17,6 +17,12 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[docs]** Règle de réutilisation de branche ajoutée — une branche = une unité logique ; seule exception : corriger une erreur ou ajouter un oubli sur une PR non encore mergée
+- Agent: Gsane Master (party: Aria, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/git-workflow/workflow.md` — callout ⚠️ ajouté dans Step 2
+- Impact: `CONTRIBUTING.md` — nouvelle règle §3 avec exemples ✅/❌, ancien §3 renommé §4
+- Branche: `fix/branch-reuse-rule-2026-03-01`
+
 **[fix]** Step 0 governance ajouté dans `git-workflow/workflow.md` — blocage PRE-EXECUTION GATE avant tout `git add/commit/push` sur fichiers GSANE (sévérité MEDIUM/HIGH → Party Mode obligatoire)
 - Agent: Gsane Master (party: Aria, Léo, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: `_gsane/core/workflows/git-workflow/workflow.md` — Step 0 checklist de gouvernance
