@@ -17,6 +17,15 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** Migration complète bmad → gsane — correction du texte acronyme cassé, suppression du dossier `bmad-framework` dupliqué, désindexation de `_bmad/` du tracking git + ajout dans `.gitignore`
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `README.md` — acronyme `Better Method for AI-Driven Development` → `Governance System for AI-Native Execution`
+- Impact: `.github/skills/gsane-framework/SKILL.md` — même correction d'acronyme
+- Impact: `.github/skills/bmad-framework/` — dossier skill dupliqué supprimé du tracking git et du disque
+- Impact: `_bmad/` — 482 fichiers désindexés du tracking git (`git rm -r --cached`), ajouté dans `.gitignore`
+- Impact: `AGENTS.md` — 6 sections mises à jour (description, structure, navigation, conventions, agents, slash commands)
+- Branche: `fix/agents-md-bmad-to-gsane-2026-03-01`
+
 **[docs]** Règle de réutilisation de branche ajoutée — une branche = une unité logique ; seule exception : corriger une erreur ou ajouter un oubli sur une PR non encore mergée
 - Agent: Gsane Master (party: Aria, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: `_gsane/core/workflows/git-workflow/workflow.md` — callout ⚠️ ajouté dans Step 2
@@ -31,7 +40,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Résultat: Toute action git sur fichiers GSANE DOIT passer par Party Mode — violation = log dans violations.log
 - Branche: `fix/delegation-gate-git-workflow-2026-03-01`
 
-**[fix]** Tracking Git complet du répertoire `_gsane/` — ajout de 507 fichiers non trackés (`_gsane/`, `.github/agents/gsane-*`, `.github/prompts/gsane-*`), suppression de 41 fichiers `bmad-*` obsolètes
+**[fix]** Tracking Git complet du répertoire `_gsane/` — ajout de 507 fichiers non trackés (`_gsane/`, `.github/agents/gsane-*`, `.github/prompts/gsane-*`), suppression de 41 fichiers `gsane-*` obsolètes
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: CI check T5 `_gsane/core/agents` présent, T4 `13 .agent.md files` valides
 - Branche: `fix/track-gsane-directory-2026-03-01`

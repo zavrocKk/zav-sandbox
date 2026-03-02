@@ -4,9 +4,9 @@
 set -euo pipefail
 
 WORKSPACE_ROOT="${GITHUB_WORKSPACE:-$(pwd)}"
-AGGREGATE_WF="$WORKSPACE_ROOT/_bmad/core/workflows/flywheel/workflow-aggregate.md"
-APPLY_WF="$WORKSPACE_ROOT/_bmad/core/workflows/flywheel/workflow-apply.md"
-SESSION_COUNT_FILE="$WORKSPACE_ROOT/_bmad/_memory/.session_count"
+AGGREGATE_WF="$WORKSPACE_ROOT/_gsane/core/workflows/flywheel/workflow-aggregate.md"
+APPLY_WF="$WORKSPACE_ROOT/_gsane/core/workflows/flywheel/workflow-apply.md"
+SESSION_COUNT_FILE="$WORKSPACE_ROOT/_gsane/_memory/.session_count"
 
 SESSION_COUNT=$(cat "$SESSION_COUNT_FILE" 2>/dev/null || echo "unknown")
 
@@ -22,9 +22,9 @@ if [[ ! -f "$APPLY_WF" ]]; then
   exit 1
 fi
 
-# Note: L'exécution des workflows est gérée par l'agent (bmad-master).
+# Note: L'exécution des workflows est gérée par l'agent (gsane-master).
 # Ce script valide que les fichiers cibles existent et loggue le déclenchement.
 echo "[FlywheelTrigger] ✅ Targets verified:"
 echo "  aggregate: $AGGREGATE_WF"
 echo "  apply:     $APPLY_WF"
-echo "[FlywheelTrigger] Flywheel execution handed to bmad-master."
+echo "[FlywheelTrigger] Flywheel execution handed to gsane-master."

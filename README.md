@@ -1,6 +1,6 @@
 # zav-sandbox
 
-Projet d'amélioration continue du framework **GSANE** (Better Method for AI-Driven Development) — orchestration multi-agents, optimisation token, flywheel cognitif et score elite Copilot.
+Projet d'amélioration continue du framework **GSANE** (Governance System for AI-Native Execution) — orchestration multi-agents, optimisation token, flywheel cognitif et score elite Copilot.
 
 **Score de maturité agentique : 🏆 Elite 65/65**
 

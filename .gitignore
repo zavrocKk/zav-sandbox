@@ -1,10 +1,13 @@
-# BMAD Sandbox — .gitignore
+# gsane Sandbox — .gitignore
+
+# Legacy (pre-GSANE) — kept local only, not tracked
+_bmad/
 
 # Workspace artifacts
 instructions.md
 
 # Large generated outputs (commit only intentionally)
-_bmad-output/
+_gsane-output/
 
 # OS artifacts
 .DS_Store
