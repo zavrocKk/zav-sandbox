@@ -17,6 +17,16 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[feat]** GSANE Tier 1 Improvements — Failure Museum, Decision Log, Completion Contract, Plan/Act Mode, [THINK] Extended Thinking
+- Agent: Gsane Master (party: Aria, Léo, Murat, Victor, Dr. Quinn, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/_memory/failure-museum.md` — NOUVEAU: catalogue des défaillances avec FM-001–FM-004
+- Impact: `_gsane/_memory/decision-log.md` — NOUVEAU: journal des décisions architecturales DL-001–DL-004
+- Impact: `_gsane/core/workflows/cc-verify/workflow.md` — NOUVEAU: Completion Contract en 20 checks (Sections A–E)
+- Impact: `_gsane/core/agents/gsane-master.md` — 4 nouvelles règles: Plan/Act Mode, [THINK], CC, Failure Museum; menu [CC] ajouté
+- Impact: `_gsane/core/workflows/post-session-analysis/workflow.md` — Step 2b ajouté: détection violations HIGH → ajout automatique au Failure Museum
+- Impact: `_gsane/_config/workflow-manifest.csv` — `cc-verify` ajouté
+- Branche: `feature/gsane-tier1-improvements-2026-03-01`
+
 **[docs]** Règle de réutilisation de branche ajoutée — une branche = une unité logique ; seule exception : corriger une erreur ou ajouter un oubli sur une PR non encore mergée
 - Agent: Gsane Master (party: Aria, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: `_gsane/core/workflows/git-workflow/workflow.md` — callout ⚠️ ajouté dans Step 2

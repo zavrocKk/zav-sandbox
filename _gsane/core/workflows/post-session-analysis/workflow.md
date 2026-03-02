@@ -96,6 +96,29 @@ LEO_FINDINGS:
 
 ---
 
+### Step 2b — 🏛️ Failure Museum Check
+
+Acting as Gsane Master, check the session for new HIGH severity violations:
+
+1. Scan `ARIA_FINDINGS.violations` (from Step 3 below — run Step 3 mentally first, then return here)
+2. For each violation that is HIGH severity AND not already in `_gsane/_memory/failure-museum.md`:
+   - Generate a new `FM-XXX` entry using the format from the museum
+   - Append it to `{project-root}/_gsane/_memory/failure-museum.md`
+   - Note: `FM-001` through `FM-004` are pre-seeded — start from `FM-005`
+3. If no new HIGH violations → log: `failure_museum_updates: "none"`
+
+**Format result as:**
+```
+FAILURE_MUSEUM:
+  new_entries: [FM-XXX list or "none"]
+  patterns_matched: [list of existing FM IDs that recurred, or "none"]
+```
+
+> ⚠️ If `patterns_matched` is not empty → this is a recurring failure. Surface to user:
+> `⚠️ [post-session] Pattern récurrent détecté : FM-XXX a déjà été corrigé mais s'est reproduit.`
+
+---
+
 ### Step 3 — 🔍 Aria's Quality & Compliance Check
 
 Acting as Aria (qa-gsane), analyze the session for:
@@ -184,7 +207,9 @@ Append the following block to the END of the file (never overwrite):
 
 ### � Prompt Signals (Léo)
 - {LEO_FINDINGS.prompt_improvement_signals}
-
+### 🏛️ Failure Museum
+- New entries: {FAILURE_MUSEUM.new_entries}
+- Recurring patterns: {FAILURE_MUSEUM.patterns_matched}
 ### �🔧 Auto-corrections appliquées
 - {AUTO_CORRECTIONS list or "aucune"}
 ---
