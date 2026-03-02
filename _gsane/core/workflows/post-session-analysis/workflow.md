@@ -126,6 +126,9 @@ Acting as Aria (qa-gsane), analyze the session for:
 - Were all GSANE rules followed? (JIT loading, no direct agent bypass, config once)
 - Were any deprecated paths used? (e.g., old `bmm` module path — should be `_gsane/core/`)
 - Were any manifests referenced that might be out of sync?
+- Did Gsane Master modify a GSANE file without party mode validation? → flag as `solo-creep` (HIGH)
+- Was party mode skipped when a GSANE artifact was about to be written? → flag as `party-mode-bypass` (HIGH)
+- Was the "trivial" exception invoked to avoid party mode on a non-trivial change? → flag as `trivial-abuse` (MEDIUM)
 
 **Regression signals:**
 - Did any agent respond out of character?

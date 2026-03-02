@@ -74,6 +74,8 @@ If branch creation fails → abort, log error in history, notify user as high.
 
 For each item in `to_apply`:
 
+> ⚠️ **SEVERITY PRINCIPLE — NON-NÉGOCIABLE** : Tout item `low` ou `medium` qui a passé Gate 1 et Gate 2 **DOIT** être appliqué. Aucune exception "requires verification", aucun report discrétionnaire. Si tu ne peux pas appliquer un item, c'est Gate 3 (revalidation) qui le capture — pas une décision ad hoc.
+
 **Target: `skill`** (`.github/skills/*/SKILL.md`)
 - Identify which SKILL.md the pattern relates to
 - Apply targeted edit: add missing section, update outdated content, fix terminology
