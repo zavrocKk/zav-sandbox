@@ -28,7 +28,8 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 | tester, valider, run tests, check CI, vérifier le projet, smoke test, regression | 🧪 Murat (TEA) |
 | validate agent/workflow, qa gsane, persona check, manifest sync | 🔍 Aria (qa-gsane) |
 | create/edit agent, workflow, module | 🤖 Bond / 🔄 Wendy / 🏗️ Morgan |
-| implement, modifier, fix, apply changes | 🧙 Gsane Master (party mode) |
+| implement, modifier, fix, apply changes, corriger, ajouter, supprimer | 🧙 Gsane Master (party mode) |
+| **git commit, git add, git push, créer une branche, stager, pousser** sur fichiers GSANE | 🧙 Gsane Master (party mode) — Step 0 git-workflow obligatoire |
 | optimize gsane, token usage | ⚙️ Léo (gsane-optimizer) |
 
 > ⚠️ **If this gate is not applied, the response is in violation of GSANE governance rules.**

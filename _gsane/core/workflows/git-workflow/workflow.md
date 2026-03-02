@@ -86,6 +86,27 @@ Load config from `{project-root}/_gsane/core/config.yaml` and resolve:
 
 ## WORKFLOW STEPS
 
+### ⛔ Step 0: Governance Pre-Check (MANDATORY — Ne jamais sauter)
+
+**Avant de créer une branche ou d'exécuter tout git add/commit :**
+
+1. **Identifier la sévérité du changement** — consulter `_gsane/core/config.yaml → automation.severity`
+   - `low` : typo, CHANGELOG entry seule → continuer solo
+   - `medium` ou `high` : modification de fichiers GSANE (workflows, agents, config, skills, manifests, prompts) → **STOP**
+
+2. **Si sévérité MEDIUM ou HIGH :** Party Mode DOIT avoir été exécuté avant ce step.
+   - Party Mode déjà fait ce turn ? → continuer
+   - Party Mode non encore fait ? → **STOP — activer party mode maintenant, revenir ici après validation**
+
+3. **Vérification manuelle (checklist) :**
+   - [ ] Party Mode appliqué (si MEDIUM/HIGH)
+   - [ ] ≥ 2 agents ont validé le changement
+   - [ ] Branche séparée par unité logique de changement
+
+> ⚠️ **Toute action git (branch, add, commit, push) effectuée sans avoir passé ce Step 0 est une violation de gouvernance — elle doit être loggée dans `_gsane-output/violations.log`.**
+
+---
+
 ### Step 1: Initialization & Verification
 
 **What do we need to know?**
