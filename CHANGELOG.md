@@ -17,6 +17,19 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** Step 0 governance ajouté dans `git-workflow/workflow.md` — blocage PRE-EXECUTION GATE avant tout `git add/commit/push` sur fichiers GSANE (sévérité MEDIUM/HIGH → Party Mode obligatoire)
+- Agent: Gsane Master (party: Aria, Léo, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/git-workflow/workflow.md` — Step 0 checklist de gouvernance
+- Impact: `_gsane/_config/agent-delegation-matrix.csv` — keywords `git commit;git add;git push;créer une branche` ajoutés à `implement-changes`
+- Impact: `.github/copilot-instructions.md` — ligne git operations ajoutée dans la keyword table
+- Résultat: Toute action git sur fichiers GSANE DOIT passer par Party Mode — violation = log dans violations.log
+- Branche: `fix/delegation-gate-git-workflow-2026-03-01`
+
+**[fix]** Tracking Git complet du répertoire `_gsane/` — ajout de 507 fichiers non trackés (`_gsane/`, `.github/agents/gsane-*`, `.github/prompts/gsane-*`), suppression de 41 fichiers `bmad-*` obsolètes
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: CI check T5 `_gsane/core/agents` présent, T4 `13 .agent.md files` valides
+- Branche: `fix/track-gsane-directory-2026-03-01`
+
 **[docs]** README — refonte section Installation & Setup en 5 étapes détaillées
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `README.md` — prérequis, hook pre-commit, session-start.sh, activation VS Code, vérification complète PowerShell

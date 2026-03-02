@@ -1,0 +1,54 @@
+ide: github-copilot
+configured_date: 2026-03-01T18:45:35.594Z
+last_updated: 2026-03-01T18:45:35.594Z
+configuration:
+  instructions_file: ".github/copilot-instructions.md"
+  agents_file: "AGENTS.md"
+
+  # Copilot Chat — Agent activators
+  # These activate specific GSANE agents via the agents dropdown or slash commands
+  agents:
+    - name: gsane-master
+      description: "Gsane Master — orchestrator principal GSANE. Point d'entrée pour toutes les opérations."
+      activation_file: "_gsane/core/agents/gsane-master.md"
+    - name: gsane-agent-builder
+      description: "Bond — Expert en création et validation d'agents GSANE."
+      activation_file: "_gsane/bmb/agents/agent-builder.md"
+    - name: gsane-module-builder
+      description: "Morgan — Expert en création et validation de modules GSANE."
+      activation_file: "_gsane/bmb/agents/module-builder.md"
+    - name: gsane-workflow-builder
+      description: "Wendy — Expert en création et validation de workflows GSANE."
+      activation_file: "_gsane/bmb/agents/workflow-builder.md"
+    - name: gsane-optimizer
+      description: "Léo — GSANE Framework Optimizer: token analysis, session metrics, framework improvement."
+      activation_file: "_gsane/core/agents/gsane-optimizer.md"
+    - name: gsane-qa-gsane
+      description: "Aria — GSANE Quality Assurance Specialist: workflow validation, compliance, persona regression detection."
+      activation_file: "_gsane/bmb/agents/qa-gsane.md"
+    - name: gsane-tea
+      description: "Murat — Master Test Architect: ATDD, CI/CD, test design, quality gates."
+      activation_file: "_gsane/tea/agents/tea.md"
+
+  # Context files always injected into Copilot context window
+  context_files:
+    - path: "_gsane/core/config.yaml"
+      reason: "Global config — user_name, communication_language, output_folder"
+    - path: "_gsane/_config/agent-manifest.csv"
+      reason: "Agent index for JIT selection and routing"
+    - path: "AGENTS.md"
+      reason: "Universal repo navigation guide"
+
+  # Token optimization hints for Copilot
+  token_optimization:
+    load_strategy: "jit"                 # Load files only when needed
+    avoid_reloading_config: true         # Config resolved once per session
+    party_mode_profile_loading: "per-turn-csv-only"  # Use CSV rows, not full .md files
+
+  # Encoding of project conventions for Copilot inline suggestions
+  conventions:
+    language: "Français"
+    branch_prefix: ["feature/", "fix/"]
+    never_commit_to: "main"
+    output_folder: "_gsane-output/"
+    workflow_engine: "_gsane/core/tasks/workflow.xml"
