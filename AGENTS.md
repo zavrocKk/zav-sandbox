@@ -108,6 +108,7 @@ AGENTS.md                     ← This file — universal agent entry point
 - **[THINK]**: say `[THINK]` for deep deliberation on HIGH severity decisions (≥3 options)
 - **Completion Contract**: run `[CC]` or `/gsane-cc-verify` before declaring any task done
 - **Failure Museum**: check `_gsane/_memory/failure-museum.md` before implementing — avoid repeating past failures
+- **Solo Trip Wire**: at the exact moment a file-write is about to be called on any GSANE artifact — STOP and declare: (1) target file, (2) trivial per closed list or not, (3) agents who validated. No validation → abort and activate party mode. Read-only operations exempt.
 
 ---
 

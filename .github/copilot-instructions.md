@@ -164,7 +164,8 @@ I need to commit changes following the Git Workflow
 - Save outputs after EACH step when using the workflow engine
 - The `{project-root}` variable resolves to the workspace root at runtime
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/core/workflows/delegation/workflow.md` for any agent-based capability request.
-- **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception: trivial housekeeping (single-line typo, CHANGELOG append) = severity low, solo allowed.
+- **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception (strictly closed list): single-character typo in a non-rule/non-schema line, or CHANGELOG append only. Everything else requires party mode — no interpretation allowed.
+- **SOLO TRIP WIRE**: At the exact moment a file-write operation (edit, create, replace) is about to be called on any GSANE artifact — STOP. Declare: (1) target file, (2) trivial or not per the closed list, (3) which agents validated if non-trivial. No validation on record → abort, activate party mode first. Read-only operations do not trigger this rule.
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.

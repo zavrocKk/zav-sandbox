@@ -17,6 +17,18 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[fix]** SOLO TRIP WIRE — règle explicite dans gsane-master.md, copilot-instructions.md et AGENTS.md : checkpoint obligatoire avant tout outil d'écriture sur un artefact GSANE
+- Agent: Party Mode (Aria, Wendy, Léo, Dr. Quinn) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: gsane-master.md, copilot-instructions.md, AGENTS.md
+
+**[fix]** PARTY MODE MANDATORY — définition "trivial" durcie (liste fermée, typo 1-char ou CHANGELOG append uniquement) pour éliminer l'interprétation abusive
+- Agent: Party Mode (Aria, Wendy, Léo, Dr. Quinn) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: gsane-master.md, copilot-instructions.md
+
+**[fix]** gsane-help.csv — entrées manquantes pour cc-verify (Completion Contract) et session-branch ajoutées
+- Agent: Party Mode (Aria) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: _gsane/_config/gsane-help.csv
+
 **[feat]** Tier 1 — Failure Museum, Decision Log, Completion Contract, Plan/Act Mode, [THINK]
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `_gsane/_memory/failure-museum.md` — nouveau, FM-001 à FM-005 catalogués
