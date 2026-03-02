@@ -6,7 +6,7 @@ applyTo: "**"
 
 # GSANE Framework Knowledge
 
-GSANE (Better Method for AI-Driven Development) is a multi-agent system running on GitHub Copilot Chat. Agents are organized in modules and orchestrated by Gsane Master.
+GSANE (Governance System for AI-Native Execution) is a multi-agent system running on GitHub Copilot Chat. Agents are organized in modules and orchestrated by Gsane Master.
 
 ## Setup Requirements (one-time per machine)
 

@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Session Start Hook — Initialise le contexte de session BMAD
+# Session Start Hook — Initialise le contexte de session gsane
 # Déclenché par l'événement SessionStart dans hooks.json
 set -euo pipefail
 
 WORKSPACE_ROOT="${GITHUB_WORKSPACE:-$(pwd)}"
-SESSION_COUNT_FILE="$WORKSPACE_ROOT/_bmad/_memory/.session_count"
+SESSION_COUNT_FILE="$WORKSPACE_ROOT/_gsane/_memory/.session_count"
 
-echo "[SessionStart] Initializing BMAD agent session..."
+echo "[SessionStart] Initializing gsane agent session..."
 
-# ── 1. Vérifier la structure BMAD ─────────────────────────────────────────────
+# ── 1. Vérifier la structure gsane ─────────────────────────────────────────────
 for required_file in \
-  "$WORKSPACE_ROOT/_bmad/core/config.yaml" \
-  "$WORKSPACE_ROOT/_bmad/_config/agent-manifest.csv" \
-  "$WORKSPACE_ROOT/_bmad/_config/workflow-manifest.csv" \
-  "$WORKSPACE_ROOT/_bmad/_config/agent-delegation-matrix.csv"; do
+  "$WORKSPACE_ROOT/_gsane/core/config.yaml" \
+  "$WORKSPACE_ROOT/_gsane/_config/agent-manifest.csv" \
+  "$WORKSPACE_ROOT/_gsane/_config/workflow-manifest.csv" \
+  "$WORKSPACE_ROOT/_gsane/_config/agent-delegation-matrix.csv"; do
   if [[ ! -f "$required_file" ]]; then
     echo "[SessionStart] WARNING: $required_file not found"
   fi
@@ -28,10 +28,10 @@ if [[ "$AGENT_COUNT" -lt "$EXPECTED_AGENTS" ]]; then
 fi
 
 # ── 3. Scanner les chemins dépréciés dans les prompts ─────────────────────────
-DEPRECATED=$(grep -rl "_bmad/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null | wc -l)
+DEPRECATED=$(grep -rl "_gsane/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null | wc -l)
 if [[ "$DEPRECATED" -gt 0 ]]; then
-  echo "[SessionStart] ERROR: $DEPRECATED prompt(s) still reference deprecated _bmad/bmm/ path!"
-  grep -rl "_bmad/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null
+  echo "[SessionStart] ERROR: $DEPRECATED prompt(s) still reference deprecated _gsane/bmm/ path!"
+  grep -rl "_gsane/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null
 else
   echo "[SessionStart] No deprecated paths detected. ✅"
 fi
@@ -48,7 +48,7 @@ echo "$SESSION_COUNT" > "$SESSION_COUNT_FILE"
 echo "[SessionStart] Session count: $SESSION_COUNT"
 
 # ── 5. Créer les dossiers output ──────────────────────────────────────────────
-OUTPUT_DIR="$WORKSPACE_ROOT/_bmad-output"
+OUTPUT_DIR="$WORKSPACE_ROOT/_gsane-output"
 mkdir -p "$OUTPUT_DIR" "$OUTPUT_DIR/bmb-creations" "$OUTPUT_DIR/test-artifacts"
 
 echo "[SessionStart] ✅ Session #$SESSION_COUNT ready. Output: $OUTPUT_DIR"

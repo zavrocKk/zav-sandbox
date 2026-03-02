@@ -20,11 +20,11 @@ if [[ ! "$CURRENT_BRANCH" =~ ^(feature|fix)\/[a-z0-9\-]+-[0-9]{4}-[0-9]{2}-[0-9]
 fi
 
 # ── 3. Scanner les fichiers stagés pour chemins dépréciés ──────────────────────
-DEPRECATED=$(git diff --cached --name-only | xargs grep -l "_bmad/bmm/" 2>/dev/null || true)
+DEPRECATED=$(git diff --cached --name-only | xargs grep -l "_gsane/bmm/" 2>/dev/null || true)
 if [[ -n "$DEPRECATED" ]]; then
-  echo "[PreCommit] ❌ ERROR: Deprecated path _bmad/bmm/ found in staged files:"
+  echo "[PreCommit] ❌ ERROR: Deprecated path _gsane/bmm/ found in staged files:"
   echo "$DEPRECATED"
-  echo "  Replace with _bmad/core/ before committing."
+  echo "  Replace with _gsane/core/ before committing."
   exit 1
 fi
 
