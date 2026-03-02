@@ -89,7 +89,27 @@ git checkout -b feature/ma-feature-2026-03-01
 git push origin main
 ```
 
-### 3. CHANGELOG.md obligatoire avant tout commit
+### 3. Une branche = une unité logique de changement
+
+Chaque nouvelle modification, feature, fix, ajout ou suppression **DOIT** avoir sa propre branche créée depuis `main`.
+
+```bash
+# ✅ Correct — chaque changement sur sa propre branche
+git checkout main && git pull origin main
+git checkout -b fix/mon-correctif-2026-03-01
+
+# ❌ Interdit — ajouter un changement non lié sur une branche existante
+git checkout feature/autre-chose-2026-03-01
+# ... modifier des fichiers sans rapport avec la PR de cette branche
+```
+
+**La seule exception autorisée pour réutiliser une branche existante :**
+- La PR de cette branche n'est **pas encore mergée** — **ET**
+- Le commit corrige une erreur détectée dans cette PR, ou ajoute une modification qui en faisait partie mais a été oubliée.
+
+Tout autre cas = nouvelle branche depuis `main`.
+
+### 4. CHANGELOG.md obligatoire avant tout commit
 
 Toute modification sans entrée CHANGELOG sera bloquée par le CI. Format GSANE :
 

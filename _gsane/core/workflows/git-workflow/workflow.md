@@ -148,6 +148,15 @@ fix/{type}/{description}-{date}
 - Confirm successful branch creation
 - Show active branch
 
+> **⚠️ Règle : une branche = une unité logique de changement**
+> Chaque nouvelle modification, feature, fix ou ajout DOIT ouvrir une nouvelle branche depuis `main`.
+>
+> **La seule exception autorisée pour réutiliser une branche existante :**
+> - La PR de cette branche n'est pas encore mergée **ET**
+> - Le commit corrige une erreur détectée dans cette PR, ou ajoute une modification qui en faisait partie mais a été oubliée.
+>
+> Tout autre cas = nouvelle branche. Pas de branche fourre-tout.
+
 ---
 
 ### Step 3: Make Changes & Commit
