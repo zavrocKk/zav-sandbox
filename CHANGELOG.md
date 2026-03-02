@@ -25,6 +25,11 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Résultat: Toute action git sur fichiers GSANE DOIT passer par Party Mode — violation = log dans violations.log
 - Branche: `fix/delegation-gate-git-workflow-2026-03-01`
 
+**[fix]** Tracking Git complet du répertoire `_gsane/` — ajout de 507 fichiers non trackés (`_gsane/`, `.github/agents/gsane-*`, `.github/prompts/gsane-*`), suppression de 41 fichiers `bmad-*` obsolètes
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: CI check T5 `_gsane/core/agents` présent, T4 `13 .agent.md files` valides
+- Branche: `fix/track-gsane-directory-2026-03-01`
+
 **[docs]** README — refonte section Installation & Setup en 5 étapes détaillées
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `README.md` — prérequis, hook pre-commit, session-start.sh, activation VS Code, vérification complète PowerShell
