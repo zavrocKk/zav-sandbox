@@ -17,6 +17,31 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [Core]
+**[feat]** Tier 1 — Failure Museum, Decision Log, Completion Contract, Plan/Act Mode, [THINK]
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `_gsane/_memory/failure-museum.md` — nouveau, FM-001 à FM-005 catalogués
+- Impact: `_gsane/_memory/decision-log.md` — nouveau, DL-001 à DL-005 documentés
+- Impact: `_gsane/core/workflows/cc-verify/workflow.md` — nouveau, 20 vérifications CC en 5 sections
+- Impact: `.github/prompts/gsane-cc-verify.prompt.md` — commande `/gsane-cc-verify`
+- Impact: `_gsane/core/agents/gsane-master.md` — 4 nouvelles règles: PLAN/ACT MODE, [THINK], COMPLETION CONTRACT, FAILURE MUSEUM + menu item [CC]
+- Impact: `_gsane/core/workflows/post-session-analysis/workflow.md` — Step 2b: auto-append Failure Museum pour violations HIGH
+- Impact: `_gsane/_config/workflow-manifest.csv` — entrée `cc-verify` ajoutée
+- Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
+
+**[feat]** Tier 2 — CI Workflow Integrity (T9), Persona Regression (T10), Session Branching
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.github/workflows/validate-pr.yml` — T9: vérifie chaque fichier référencé dans workflow-manifest.csv existe sur disque
+- Impact: `.github/workflows/validate-pr.yml` — T10: vérifie que `communicationStyle` et `principles` sont non-vides dans agent-manifest.csv
+- Impact: `_gsane/core/workflows/session-branch/workflow.md` — nouveau workflow de démarrage de session
+- Impact: `_gsane/_config/workflow-manifest.csv` — entrées `cc-verify` et `session-branch` ajoutées
+- Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
+
+**[fix]** Restore `_gsane-output/` — `.gitkeep` trackés via exceptions `.gitignore`
+- Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
+- Impact: `.gitignore` — `_gsane-output/*` + exceptions pour les deux `.gitkeep`
+- Impact: `_gsane-output/bmb-creations/.gitkeep` et `test-artifacts/.gitkeep` — maintenant trackés dans git
+- Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
+
 **[fix]** Migration complète bmad → gsane — correction du texte acronyme cassé, suppression du dossier `bmad-framework` dupliqué, désindexation de `_bmad/` du tracking git + ajout dans `.gitignore`
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `README.md` — acronyme `Better Method for AI-Driven Development` → `Governance System for AI-Native Execution`

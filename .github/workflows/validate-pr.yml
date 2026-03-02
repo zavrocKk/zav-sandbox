@@ -90,6 +90,48 @@ jobs:
           fi
           echo "✅ Branch naming check complete!"
 
+      - name: Validate workflow manifest integrity
+        run: |
+          echo "🔍 Checking workflow manifest file integrity..."
+          ERRORS=0
+          while IFS=',' read -r name desc module path || [ -n "$name" ]; do
+            [[ "$name" == "name" ]] && continue
+            clean_path=$(echo "$path" | tr -d '"' | tr -d "'" | xargs)
+            if [[ -z "$clean_path" ]]; then continue; fi
+            if [ ! -f "$clean_path" ]; then
+              echo "❌ ERROR: workflow-manifest.csv references missing file: $clean_path"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done < _gsane/_config/workflow-manifest.csv
+          if [[ "$ERRORS" -gt 0 ]]; then
+            echo "❌ $ERRORS missing workflow file(s) detected!"
+            exit 1
+          fi
+          echo "✅ All workflow manifest files exist!"
+
+      - name: Validate agent persona fields
+        run: |
+          echo "🔍 Checking agent manifest persona fields..."
+          ERRORS=0
+          while IFS=',' read -r name displayName title icon capabilities role identity communicationStyle principles module path || [ -n "$name" ]; do
+            [[ "$name" == "name" ]] && continue
+            clean_cs=$(echo "$communicationStyle" | tr -d '"')
+            clean_pr=$(echo "$principles" | tr -d '"')
+            if [[ -z "$clean_cs" ]]; then
+              echo "❌ ERROR: Agent '$name' has empty communicationStyle"
+              ERRORS=$((ERRORS + 1))
+            fi
+            if [[ -z "$clean_pr" ]]; then
+              echo "❌ ERROR: Agent '$name' has empty principles"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done < _gsane/_config/agent-manifest.csv
+          if [[ "$ERRORS" -gt 0 ]]; then
+            echo "❌ $ERRORS agent persona field(s) empty!"
+            exit 1
+          fi
+          echo "✅ All agent persona fields populated!"
+
       - name: Validation Summary
         run: |
           echo ""
@@ -99,5 +141,8 @@ jobs:
           echo "✅ No deprecated paths (_gsane/bmm/) detected"
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
+          echo "✅ Branch naming convention checked"
+          echo "✅ Workflow manifest file integrity verified (T9)"
+          echo "✅ Agent persona fields populated (T10)"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="

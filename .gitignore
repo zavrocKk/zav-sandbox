@@ -7,7 +7,9 @@ _bmad/
 instructions.md
 
 # Large generated outputs (commit only intentionally)
-_gsane-output/
+_gsane-output/*
+!_gsane-output/bmb-creations/.gitkeep
+!_gsane-output/test-artifacts/.gitkeep
 
 # OS artifacts
 .DS_Store

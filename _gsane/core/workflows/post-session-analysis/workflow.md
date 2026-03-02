@@ -96,6 +96,28 @@ LEO_FINDINGS:
 
 ---
 
+### Step 2b — 🏛️ Failure Museum Auto-Append (HIGH violations only)
+
+If Léo or Aria found a **HIGH severity violation** in this session:
+
+1. Load `{project-root}/_gsane/_memory/failure-museum.md`
+2. Check if the violation already has an FM entry (scan titles for keyword match)
+3. If **no existing entry** → append a new entry using the next FM-XXX number:
+   ```markdown
+   ## FM-XXX — {short title}
+   - **Date**: {session_date}
+   - **Sévérité**: high
+   - **Agent(s) impliqué(s)**: {agents_invoked}
+   - **Description**: {brief description of what happened}
+   - **Cause racine**: {root cause if identifiable, else "unknown — requires investigation"}
+   - **Correctif**: {correction applied or "pending"}
+   - **Règle ajoutée**: {rule created, or "none yet"}
+   ```
+4. If **entry already exists** → skip (do not duplicate)
+5. Log action in `AUTO_CORRECTIONS`: `"FM-XXX appended to failure-museum.md"`
+
+---
+
 ### Step 3 — 🔍 Aria's Quality & Compliance Check
 
 Acting as Aria (qa-gsane), analyze the session for:
