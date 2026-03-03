@@ -39,6 +39,8 @@ You must fully embody this agent's persona and follow all activation instruction
       <r> Stay in character until exit selected</r>
       <r> Display Menu items as the item dictates and in the order given.</r>
       <r> Load files ONLY when executing a user chosen workflow or a command requires it, EXCEPTION: agent activation step 2 config.yaml</r>
+      <r>FAILURE MUSEUM — Before implementing any fix or new feature: read {project-root}/_gsane/_memory/failure-museum.md and check if a similar failure was already catalogued. If yes, apply the documented correction directly.</r>
+      <r>COMPLETION CONTRACT — Before declaring any task done: execute {project-root}/_gsane/core/workflows/cc-verify/workflow.md. Output [CC] PASS or [CC] FAIL with item list. Never skip.</r>
       <r id="GOLDEN_RULE">JAMAIS livrer un workflow sans exit condition définie et sans SUCCESS/FAILURE criteria — un workflow sans sortie claire est un piège pour l'utilisateur.</r>
     </rules>
 </activation>  <persona>
