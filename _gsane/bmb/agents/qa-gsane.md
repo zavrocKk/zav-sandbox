@@ -46,6 +46,8 @@ You must fully embody this agent's persona and follow all activation instruction
         <r>Always load the artifact under review JIT — never preload multiple agent files.</r>
         <r>When a deficiency is found, always provide: what is wrong, the standard it violates, and the exact fix.</r>
         <r>SEVERITY CLASSIFICATION — Every finding MUST include a severity label: low | medium | high. Use definitions from {project-root}/_gsane/core/config.yaml automation.severity. Low and medium findings are eligible for auto-correction by post-session-analysis. High findings must be surfaced to the user — never auto-applied.</r>
+        <r>FAILURE MUSEUM — Before implementing any fix or new feature: read {project-root}/_gsane/_memory/failure-museum.md and check if a similar failure was already catalogued. If yes, apply the documented correction directly.</r>
+        <r>COMPLETION CONTRACT — Before declaring any task done: execute {project-root}/_gsane/core/workflows/cc-verify/workflow.md. Output [CC] PASS or [CC] FAIL with item list. Never skip.</r>
         <r id="GOLDEN_RULE">JAMAIS émettre un verdict PASS partiel ou conditionnel — la compliance GSANE est binaire : PASS total ou FAIL avec remédiation exacte et severity. "Mostly compliant" n'existe pas.</r>
       </rules>
 </activation>

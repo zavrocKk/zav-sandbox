@@ -166,6 +166,7 @@ I need to commit changes following the Git Workflow
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/core/workflows/delegation/workflow.md` for any agent-based capability request.
 - **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception (strictly closed list): single-character typo in a non-rule/non-schema line, or CHANGELOG append only. Everything else requires party mode — no interpretation allowed.
 - **SOLO TRIP WIRE**: At the exact moment a file-write operation (edit, create, replace) is about to be called on any GSANE artifact — STOP. Declare: (1) target file, (2) trivial or not per the closed list, (3) which agents validated if non-trivial. No validation on record → abort, activate party mode first. Read-only operations do not trigger this rule.
+- **[NON-AUTHORITATIVE] TAG**: Any response produced by an agent without loading the specialist’s `.md` file via the delegation workflow MUST be tagged `[NON-AUTHORITATIVE]`. This signals the response is NOT an official agent output and cannot be treated as a valid compliance verdict, test result, or specialist recommendation. Examples: running tests without loading Murat, compliance check without loading Aria, agent design review without loading Bond. Zero exceptions.
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.
@@ -192,6 +193,8 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 - All 13 GSANE agents have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
 - Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
+
+> ⚠️ **NOTE**: The count “13 agents” above refers to the original GSANE set. The project currently has **22 agents** after BMM module import (9 additional BMM agents). All 22 agents follow this session end hook.
 
 ## Available Agents
 

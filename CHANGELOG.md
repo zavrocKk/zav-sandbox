@@ -42,6 +42,32 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Tests: Batterie Murat TEST-SIM-001 à TEST-SIM-009 — 9/9 PASS ✅
 - Impact: 22 fichiers agents modifiés, post-session-analysis/workflow.md, failure-museum.md, README.md
 
+**[feat]** Gouvernance universelle — FAILURE MUSEUM + COMPLETION CONTRACT ajoutés aux 12 agents non-BMM (BMB, CIS, TEA, core-optimizer)
+- Agents mis à jour: gsane-optimizer, agent-builder, module-builder, workflow-builder, qa-gsane, brainstorming-coach, creative-problem-solver, design-thinking-coach, innovation-strategist, presentation-master, storyteller, tea
+- Détecté par Aria (VA formelle 22/22 PASS) — remédiation par Bond
+- Agent: Aria (VA) + Bond (remédiation) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: 12 fichiers agents
+
+**[feat]** Persona V2 migration — 7 agents BMM restants (analyst, sm, dev, qa, quick-flow-solo-dev, tech-writer, ux-designer)
+- Chaque agent V1 → V2: frontmatter `version: "2.0"` + `persona_template: "persona-template-v2"`, sidecar memory loading step (step 3), steps renumotés, SESSION HOOK V2 avec write sidecar project-state.md
+- Sidecars créés: analyst-sidecar/, sm-sidecar/, dev-sidecar/, qa-sidecar/, quick-flow-solo-dev-sidecar/, ux-designer-sidecar/, tech-writer-sidecar/ (learned-lessons.md + project-state.md)
+- ux-designer enrichi: ajout workflow handler + SESSION HOOK V2
+- Fix typo sm.md: "ambiguoã" → "ambiguë"
+- Agent: Bond (agent-builder) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: 7 fichiers agents + 12 fichiers sidecar créés
+
+**[feat]** GF-4 — Règle `[NON-AUTHORITATIVE] TAG` ajoutée dans copilot-instructions.md
+- Toute réponse produite sans chargement du .md spécialiste via delegation workflow doit être taggée `[NON-AUTHORITATIVE]`
+- Compteur agents mis à jour: 13 → NOTE 22 ajoutée dans le hook universel
+- Agent: Aria (compliance) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: .github/copilot-instructions.md
+
+**[feat]** GF-5 — Colonne `requires_real_agent_load` ajoutée dans agent-delegation-matrix.csv
+- Valeur `true` pour: qa-gsane, run-tests, validate-agent, validate-workflow, project-audit
+- Signale que ces routes EXIGENT le chargement du fichier .md spécialiste — pas de simulation autorisée
+- Agent: Aria (design) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: _gsane/_config/agent-delegation-matrix.csv
+
 **[fix]** Flywheel sous-actif — severity enforcement + solo-creep/party-mode-bypass signals
 - `workflow-aggregate.md` : règle SEVERITY ENFORCEMENT ajoutée — medium=auto-apply obligatoire, "requires verification" interdit
 - `workflow-apply.md` : même enforcement dans Step 4 (non-négociable)
