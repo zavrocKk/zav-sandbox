@@ -16,7 +16,32 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 ## [Unreleased]
 
+### [BMM] — Business Methodology Module — Import complet
+**[feat]** BMM module — import et adaptation complète depuis BMAD v6.0.4 — 9 agents GSANE-optimisés, 30+ workflows, infrastructure complète
+- Agents créés: analyst (Mary 📊), pm (John 📋), architect (Winston 🏗️), sm (Bob 🏃), dev (Amelia 💻), ux-designer (Sally 🎨), qa (Quinn 🧪), tech-writer (Paige 📚), quick-flow-solo-dev (Barry 🚀)
+- Workflows portés: 1-analysis (product-brief, domain/market/technical-research), 2-plan (create/edit/validate-prd, ux-design), 3-solutioning (architecture, epics-stories, implementation-readiness), 4-implementation (sprint-planning, sprint-status, dev-story, create-story, code-review, retrospective, correct-course), gsane-quick-flow, document-project, generate-project-context, qa-generate-e2e-tests
+- Infrastructure: `_gsane/bmm/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-bmm-*)
+- Optimisations GSANE: SESSION HOOK (post-session-analysis), SEVERITY PRINCIPLE, FAILURE MUSEUM, COMPLETION CONTRACT — intégrés dans chaque agent
+- Adaptations chemins: `_bmad/` → `_gsane/`, `bmad-help` → `gsane-help`, `bmad-quick-flow` → `gsane-quick-flow`
+- Sidecar mémoire: `_gsane/_memory/tech-writer-sidecar/documentation-standards.md`
+- Agent: Party Mode (Morgan, Bond, Wendy, Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/bmm/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.csv`, `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
+
 ### [Core]
+**[feat]** Gouvernance multi-agents — GOLDEN_RULE ×22 agents, solo-creep detection, party mode élargi 14 agents
+- `GOLDEN_RULE` : règle `<r id="GOLDEN_RULE">` ajoutée à chacun des 22 agents — interdit absolu lié au rôle de l'agent
+- `NO_PERSONA_SUBSTITUTION` : règle `<r id="NO_PERSONA_SUBSTITUTION">` dans gsane-master.md — interdit de simuler un agent spécialiste sans charger son .md
+- `PRE-ACTION-GATE` : `<step n="PRE-ACTION-GATE">` dans l'activation de gsane-master — gate obligatoire avant tout test/validation/review
+- `post-session-analysis/workflow.md` FIX1 : suppression "Acting as Léo" → critères objectifs de détection de gaspillage token
+- `post-session-analysis/workflow.md` FIX2 : suppression "Acting as Aria" → logique IF/THEN factuelle (file-write-tools + agents_invoked) pour détecter solo-creep
+- `post-session-analysis/workflow.md` FIX3 : nouveau Step 3b — détection `repeated-high-violation` sur 2 sessions consécutives, court-circuite le cycle flywheel 5-sessions
+- `failure-museum.md` : FM-006 catalogué — "Tests et implémentation exécutés solo sans party mode ni routing"
+- `README.md` : 13→22 agents, module BMM ajouté, section "⚠️ Limite Architecturale Connue — Single-LLM Party Mode", conventions solo-execution et GOLDEN_RULE
+- Agents modifiés (GOLDEN_RULE): gsane-master, gsane-optimizer, agent-builder, module-builder, workflow-builder, qa-gsane, brainstorming-coach, creative-problem-solver, design-thinking-coach, innovation-strategist, presentation-master, storyteller, tea, analyst, pm, architect, sm, dev, qa, tech-writer, quick-flow-solo-dev (+ ux-designer)
+- Agent: Party Mode élargi 14 agents (Aria★★★★★, Bond★★★★★, Léo★★★★★, Wendy★★★★★, Murat★★★★☆, Paige★★★★☆, Dr.Quinn★★★★☆, Mary★★★☆☆, Winston★★★☆☆, Morgan★★★☆☆, John★★★☆☆, Bob★★☆☆☆, Victor★★☆☆☆, Carson★★☆☆☆) | Workflow: party-mode | Initié par: Mon Seigneur
+- Tests: Batterie Murat TEST-SIM-001 à TEST-SIM-009 — 9/9 PASS ✅
+- Impact: 22 fichiers agents modifiés, post-session-analysis/workflow.md, failure-museum.md, README.md
+
 **[fix]** Flywheel sous-actif — severity enforcement + solo-creep/party-mode-bypass signals
 - `workflow-aggregate.md` : règle SEVERITY ENFORCEMENT ajoutée — medium=auto-apply obligatoire, "requires verification" interdit
 - `workflow-apply.md` : même enforcement dans Step 4 (non-négociable)

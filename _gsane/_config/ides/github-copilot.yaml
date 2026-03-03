@@ -29,6 +29,34 @@ configuration:
     - name: gsane-tea
       description: "Murat — Master Test Architect: ATDD, CI/CD, test design, quality gates."
       activation_file: "_gsane/tea/agents/tea.md"
+    # BMM Module — Business Methodology agents
+    - name: gsane-analyst
+      description: "Mary — Business Analyst: market research, competitive analysis, requirements elicitation, domain expertise."
+      activation_file: "_gsane/bmm/agents/analyst.md"
+    - name: gsane-pm
+      description: "John — Product Manager: PRD creation, requirements discovery, stakeholder alignment."
+      activation_file: "_gsane/bmm/agents/pm.md"
+    - name: gsane-architect
+      description: "Winston — Architect: distributed systems, cloud infrastructure, API design, scalable patterns."
+      activation_file: "_gsane/bmm/agents/architect.md"
+    - name: gsane-sm
+      description: "Bob — Scrum Master: sprint planning, story preparation, agile ceremonies, backlog management."
+      activation_file: "_gsane/bmm/agents/sm.md"
+    - name: gsane-dev
+      description: "Amelia — Developer Agent: story execution, test-driven development, code implementation."
+      activation_file: "_gsane/bmm/agents/dev.md"
+    - name: gsane-ux-designer
+      description: "Sally — UX Designer: user research, interaction design, UI patterns, experience strategy."
+      activation_file: "_gsane/bmm/agents/ux-designer.md"
+    - name: gsane-qa
+      description: "Quinn — QA Engineer: test automation, API testing, E2E testing, rapid coverage."
+      activation_file: "_gsane/bmm/agents/qa.md"
+    - name: gsane-tech-writer
+      description: "Paige — Technical Writer: documentation, Mermaid diagrams, standards compliance, concept explanation."
+      activation_file: "_gsane/bmm/agents/tech-writer.md"
+    - name: gsane-quick-flow-solo-dev
+      description: "Barry — Quick Flow Solo Dev: rapid spec creation, lean implementation, minimum ceremony."
+      activation_file: "_gsane/bmm/agents/quick-flow-solo-dev.md"
 
   # Context files always injected into Copilot context window
   context_files:

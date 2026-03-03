@@ -38,9 +38,9 @@
 - **Date**: 2026-03-01
 - **Sévérité**: medium
 - **Agent(s) impliqué(s)**: Gsane Master
-- **Description**: 507 fichiers du répertoire `_gsane/` n'étaient pas trackés par git — dossier `_bmad/` toujours actif dans le tracking alors que `_gsane/` n'existait pas encore côté git
-- **Cause racine**: Migration BMAD → GSANE partielle — le `git add` initial n'avait pas inclus `_gsane/`
-- **Correctif**: `git add _gsane/` explicite + `git add -u` pour désindexer les anciens fichiers `bmad-*`
+- **Description**: 507 fichiers du répertoire `_gsane/` n'étaient pas trackés par git — ancien dossier source toujours actif dans le tracking alors que `_gsane/` n'existait pas encore côté git
+- **Cause racine**: Migration du framework source vers GSANE partielle — le `git add` initial n'avait pas inclus `_gsane/`
+- **Correctif**: `git add _gsane/` explicite + `git add -u` pour désindexer les anciens fichiers du framework source
 - **Règle ajoutée**: Validation CI T5 — check `_gsane/core/agents` présent dans la structure
 
 ---
@@ -78,3 +78,15 @@
 - **Cause racine**: Confusion entre "supprimer une branche" et "fermer une PR" — la branche était encore non-mergée
 - **Correctif**: Re-implémentation complète de Tier 1 + Tier 2 sur nouvelle branche
 - **Règle ajoutée**: Vérifier `git branch -a` + `git log branch ^main` avant toute suppression de branche
+
+---
+
+## FM-006 — Tests et implémentation exécutés solo sans party mode ni routing
+
+- **Date**: 2026-03-02
+- **Sévérité**: high
+- **Agent(s) impliqué(s)**: Gsane Master
+- **Description**: Gsane Master a exécuté des validations automatiques (paths, flywheel), des migrations persona V2 (architect, pm), puis "joué" les rôles d'Aria et Murat pour valider ses propres outputs — le tout sans activer le party mode, sans router via la delegation workflow, sans validation ≥2 agents réels.
+- **Cause racine**: Momentum de session — les étapes précédentes avaient été validées correctement, mais l'exécution concrète a continué en solo. Absence d'un trip wire spécifique pour les run_in_terminal sur artefacts GSANE. Absence d'une règle interdisant explicitement la substitution de persona.
+- **Correctif**: Ajout de NO_PERSONA_SUBSTITUTION et PRE-ACTION-GATE dans gsane-master.md. Party mode élargi à 5 agents. Règle d'or universelle sur tous les agents.
+- **Règle ajoutée**: NO_PERSONA_SUBSTITUTION dans gsane-master.md — toute simulation non routée est [NON-AUTHORITATIVE]. PRE-ACTION-GATE step — obligatoire avant toute validation/test/review.

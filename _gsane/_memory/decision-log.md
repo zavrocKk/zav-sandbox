@@ -52,7 +52,7 @@
 
 - **Date**: 2026-03-01
 - **Décision**: GSANE est défini comme un protocole de gouvernance pour AI-Native Execution — aucune dépendance à des CLIs tiers (gh, jq, etc.) dans les workflows agents
-- **Contexte**: La confusion BMAD → GSANE incluait des patterns hérités qui dépendaient d'outils externes. GSANE doit fonctionner dans tout environnement LLM sans prérequis CLI
+- **Contexte**: La migration vers GSANE incluait des patterns hérités qui dépendaient d'outils externes. GSANE doit fonctionner dans tout environnement LLM sans prérequis CLI
 - **Alternatives écartées**: Wrapper scripts — rejeté car déplace le problème sans le résoudre
 - **Impact**: Architecture complète — tous les workflows utilisent maintenant des URLs et des templates manuels
 

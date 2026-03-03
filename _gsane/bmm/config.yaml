@@ -1,0 +1,16 @@
+# BMM Module Configuration
+# GSANE Framework — Business Methodology Module
+# Version: 6.0.4
+# Date: 2026-03-02
+
+project_name: "zav-sandbox — GSANE Framework Enhancement Project"
+user_skill_level: intermediate
+planning_artifacts: "{project-root}/_gsane-output/planning-artifacts"
+implementation_artifacts: "{project-root}/_gsane-output/implementation-artifacts"
+project_knowledge: "{project-root}/docs"
+
+# Core Configuration Values (inherited from core/config.yaml)
+user_name: Mon Seigneur
+communication_language: Français
+document_output_language: Français
+output_folder: "{project-root}/_gsane-output"

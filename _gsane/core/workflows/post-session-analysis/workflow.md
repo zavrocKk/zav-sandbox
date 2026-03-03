@@ -63,26 +63,23 @@ From the current session context, extract:
 
 ---
 
-### Step 2 — ⚙️ Léo's Token & Optimization Analysis
+### Step 2 — ⚙️ Token & Optimization Analysis (critères objectifs)
 
-Acting as Léo (gsane-optimizer), analyze the session for:
+> **NOTE ARCHITECTURALE** : Cette étape ne simule PAS Gsane Master "en tant que Léo". Elle applique des critères de détection *factuels et mesurables* sur les signaux de session. L'auto-évaluation biaisée est un anti-pattern documenté (FM-006).
 
-**Token waste signals:**
-- Was config reloaded more than once? → flag as `config-reload-waste`
-- Were full agent .md files loaded when only CSV data was needed? → flag as `profile-overload`
-- Were any files loaded but never referenced again? → flag as `unnecessary-load`
-- Were any steps repeated that could have been cached? → flag as `redundant-step`
+**Détection par signaux objectifs :**
+- Config rechargée plus d'une fois ? → `config-reload-waste` (medium)
+- Fichiers `.md` d'agents chargés quand seul le CSV suffisait ? → `profile-overload` (medium)
+- Fichiers chargés et jamais référencés ? → `unnecessary-load` (low)
+- Même étape ou fichier chargé plusieurs fois ? → `redundant-step` (low)
+- `files_loaded` > 20 pour une session de < 10 tours ? → `load-to-turn-ratio-high` (medium)
 
-**Optimization opportunities:**
-- Any pattern that could be simplified or deferred?
-- Any workflow path that felt longer than necessary?
-
-**Prompt improvement signals (NEW):**
-- Did the user comment positively on agent responses? → flag as `prompt-quality-up`
-- Were prompts executed faster / fewer turns than previous similar sessions? → flag as `prompt-efficiency-up`
-- Was the output more precise without extra clarification? → flag as `prompt-precision-up`
-- Did a flywheel prompt correction from a prior cycle appear to take effect? → flag as `flywheel-prompt-confirmed`
-- Did a prompt fail to activate the right agent or produce unexpected output? → flag as `prompt-regression`
+**Prompt improvement signals :**
+- Utilisateur a commenté positivement ? → `prompt-quality-up`
+- Session terminée en moins de tours que la même tâche historiquement ? → `prompt-efficiency-up`
+- Output précis sans clarification supplémentaire ? → `prompt-precision-up`
+- Une correction flywheel précédente s'est appliquée avec succès ? → `flywheel-prompt-confirmed`
+- Un prompt n'a pas activé le bon agent ? → `prompt-regression`
 
 **Format findings as:**
 ```
@@ -91,7 +88,7 @@ LEO_FINDINGS:
   optimization_opportunities: [list or "none"]
   estimated_token_impact: "low | medium | high"
   top_recommendation: "[single most impactful change, or 'none this session']"
-  prompt_improvement_signals: [list or "none"] # NEW — tracks flywheel prompt effectiveness
+  prompt_improvement_signals: [list or "none"]
 ```
 
 ---
@@ -118,22 +115,33 @@ If Léo or Aria found a **HIGH severity violation** in this session:
 
 ---
 
-### Step 3 — 🔍 Aria's Quality & Compliance Check
+### Step 3 — 🔍 Quality & Compliance Check (critères objectifs)
 
-Acting as Aria (qa-gsane), analyze the session for:
+> **NOTE ARCHITECTURALE** : Cette étape ne simule PAS Gsane Master "en tant qu'Aria". Elle applique des conditions IF/THEN sur les données de session. L'auto-évaluation biaisée est un anti-pattern documenté (FM-006).
 
-**Compliance signals:**
-- Were all GSANE rules followed? (JIT loading, no direct agent bypass, config once)
-- Were any deprecated paths used? (e.g., old `bmm` module path — should be `_gsane/core/`)
-- Were any manifests referenced that might be out of sync?
-- Did Gsane Master modify a GSANE file without party mode validation? → flag as `solo-creep` (HIGH)
-- Was party mode skipped when a GSANE artifact was about to be written? → flag as `party-mode-bypass` (HIGH)
-- Was the "trivial" exception invoked to avoid party mode on a non-trivial change? → flag as `trivial-abuse` (MEDIUM)
+**Détection par conditions factuelles :**
 
-**Regression signals:**
-- Did any agent respond out of character?
-- Were any workflow steps skipped or reordered?
-- Were any standards violated (e.g., commit to main, direct agent exec without delegation)?
+```
+SI file-write-tools utilisés cette session (create_file | replace_string_in_file | multi_replace_string_in_file | edit_notebook_file)
+ET agents_invoked NE contient QUE "gsane-master" (aucun agent spécialiste : Bond, Wendy, Aria, Murat, Morgan, Léo, Paige)
+ALORS solo-creep = HIGH → violations.append("solo-creep")
+```
+
+```
+SI agents_invoked contient un agent spécialiste lassé à gsane-master sans être chargé via son .md
+ALORS persona-substitution = HIGH → violations.append("persona-substitution")
+```
+
+```
+SI party-mode-bypass : un write GSANE a eu lieu ET party-mode n'est pas dans workflows_run
+ALORS party-mode-bypass = HIGH → violations.append("party-mode-bypass")
+```
+
+**Autres checks :**
+- Chemins dépréciés utilisés ? → `deprecated-path` (medium)
+- Manifests potentiellement désynchronisés ? → `manifest-sync` (medium)
+- Commit direct sur main ? → `commit-to-main` (HIGH)
+- Exception "triviale" invoquée sur un changement non-trivial ? → `trivial-abuse` (medium)
 
 **Format findings as:**
 ```
@@ -143,6 +151,23 @@ ARIA_FINDINGS:
   regression_signals: [list or "none"]
   top_finding: "[most urgent issue, or 'all clear']"
 ```
+
+---
+
+### Step 3b — 🔁 Détection HIGH Violations Récurrentes
+
+Après avoir produit ARIA_FINDINGS, vérifier la récurrence des HIGH violations :
+
+```
+POUR CHAQUE violation de severity HIGH dans ARIA_FINDINGS.violations :
+  1. Charger les 3 dernières entrées de session-analysis-log.md
+  2. Vérifier si la même violation apparaît dans la session précédente
+  3. SI oui : ajouter "repeated-high-violation:{type}" aux violations
+     ET surface immédiatement — ne pas attendre le prochain cycle flywheel
+     Message : "⚠️ VIOLATION RÉPÉTÉE [{type}] — détectée 2 sessions consécutives. Action requise de Mon Seigneur."
+```
+
+Ce seuil adaptatif court-circuite le délai flywheel (5 sessions) pour les violations comportementales systémiques.
 
 ---
 

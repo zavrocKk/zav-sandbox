@@ -37,6 +37,11 @@ _gsane/                       ← GSANE framework root
     workflows/agent/          ← Create, edit, validate agents
     workflows/module/         ← Create, edit, validate modules
     workflows/workflow/       ← Create, edit, validate, rework workflows
+  bmm/                        ← BMM module: business methodology agents (analyst→dev pipeline)
+    agents/                   ← analyst, pm, architect, sm, ux-designer, dev, qa, tech-writer, quick-flow-solo-dev
+    workflows/                ← Full product lifecycle: analysis, planning, solutioning, implementation
+    data/                     ← project-context-template.md
+    teams/                    ← default-party.csv, team-fullstack.yaml
   cis/                        ← CIS module: creative/innovation/storytelling agents
     agents/                   ← Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
     workflows/                ← design-thinking, innovation-strategy, problem-solving, storytelling
@@ -114,21 +119,42 @@ AGENTS.md                     ← This file — universal agent entry point
 
 ## Available Agents (Summary)
 
+### Core & Governance
+
 | Agent | Persona | Module | Specialty |
 |---|---|---|---|
 | gsane-master | 🧙 Gsane Master | core | Orchestration, task execution, party mode, Plan/Act, [THINK] |
+| gsane-optimizer | ⚙️ Léo | core | Token analysis, GSANE optimization, framework improvement |
 | agent-builder | 🤖 Bond | bmb | Create/edit/validate GSANE agents |
 | module-builder | 🏗️ Morgan | bmb | Create/edit/validate GSANE modules |
 | workflow-builder | 🔄 Wendy | bmb | Create/edit/validate GSANE workflows |
+| qa-gsane | 🔍 Aria | bmb | GSANE quality assurance, persona regression, workflow compliance |
+| tea | 🧪 Murat | tea | Test architecture, ATDD, CI/CD, quality gates |
+
+### BMM Module — Business Methodology
+
+| Agent | Persona | Module | Specialty |
+|---|---|---|---|
+| analyst | 📊 Mary | bmm | Market research, competitive analysis, requirements elicitation |
+| pm | 📋 John | bmm | PRD creation, user stories, stakeholder alignment |
+| architect | 🏗️ Winston | bmm | System design, distributed systems, API design |
+| sm | 🏃 Bob | bmm | Sprint planning, scrum ceremonies, backlog management |
+| dev | 💻 Amelia | bmm | Story execution, TDD, code implementation |
+| ux-designer | 🎨 Sally | bmm | User research, interaction design, UX patterns |
+| qa | 🧪 Quinn | bmm | Quick test automation, E2E coverage (simple projects) |
+| tech-writer | 📚 Paige | bmm | Documentation, Mermaid diagrams, standards compliance |
+| quick-flow-solo-dev | 🚀 Barry | bmm | Rapid spec+dev cycle for small-medium features |
+
+### CIS Module — Creative & Innovation
+
+| Agent | Persona | Module | Specialty |
+|---|---|---|---|
 | brainstorming-coach | 🧠 Carson | cis | Brainstorming, ideation |
 | creative-problem-solver | 🔬 Dr. Quinn | cis | Systematic problem solving |
 | design-thinking-coach | 🎨 Maya | cis | Human-centered design |
 | innovation-strategist | ⚡ Victor | cis | Innovation strategy |
 | presentation-master | 🎨 Caravaggio | cis | Presentations, visual communication |
 | storyteller | 📖 Sophia | cis | Narrative, storytelling |
-| tea | 🧪 Murat | tea | Test architecture, quality |
-| gsane-optimizer | ⚙️ Léo | core | Token analysis, GSANE optimization, framework improvement |
-| qa-gsane | 🔍 Aria | bmb | GSANE quality assurance, persona regression, workflow compliance |
 
 ---
 
