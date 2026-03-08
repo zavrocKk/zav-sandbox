@@ -335,4 +335,4 @@ Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond,
 
 ---
 
-**Utilisateur** : Mon Seigneur | **Langue** : Français | **Version GSANE** : 6.0.4
+**Utilisateur** : Mon Seigneur | **Langue** : Français | **Basé sur la Version GMAD** : 6.0.4
