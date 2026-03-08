@@ -2,8 +2,6 @@
 
 Projet d'amélioration continue du framework **GSANE** (Governance System for AI-Native Execution) — orchestration multi-agents, optimisation token, flywheel cognitif et score elite Copilot.
 
-**Score de maturité agentique : 🏆 Elite 65/65**
-
 ## 🔧 Installation & Setup
 
 > À faire **une seule fois** par machine.
