@@ -28,7 +28,7 @@ _gsane/                       ← GSANE framework root
     decision-log.md           ← Journal des décisions architecturales (DL-001+)
     session-analysis-log.md   ← Post-session analysis logs
   core/                       ← Core module: gsane-master agent + orchestration workflows
-    _gsane/core/agents/gsane-master.md    ← Primary orchestrator agent
+    _gsane/_config/agents/core-gsane-master.customize.yaml    ← Primary orchestrator agent
     config.yaml               ← Global project config (user_name, language, output_folder)
     tasks/                    ← Reusable tasks (editorial review, help, indexing, sharding)
     workflows/                ← Core workflows (party-mode, delegation, brainstorming, git, cc-verify)
@@ -46,7 +46,7 @@ _gsane/                       ← GSANE framework root
     agents/                   ← Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
     workflows/                ← design-thinking, innovation-strategy, problem-solving, storytelling
   tea/                        ← TEA module: test architecture
-    _gsane/tea/agents/tea.md             ← Murat (test architect)
+    _gsane/_config/agents/tea-tea.customize.yaml             ← Murat (test architect)
     workflows/testarch/       ← ATDD, CI, coverage, NFR, framework, review, trace workflows
 _gsane-output/                ← Generated artifacts (never commit large outputs to main)
 .github/
@@ -81,7 +81,7 @@ AGENTS.md                     ← This file — universal agent entry point
 ### Agent Activation
 - All agent requests **must** route through `_gsane/core/workflows/delegation/workflow.md`
 - Never activate an agent directly without checking the delegation matrix first
-- Gsane Master (`_gsane/core/agents/gsane-master.md`) is the entry point for all operations
+- Gsane Master (`_gsane/_config/agents/core-gsane-master.customize.yaml`) is the entry point for all operations
 
 ### Workflow Execution
 - `.md` workflows → execute directly by reading and following the file
@@ -91,7 +91,7 @@ AGENTS.md                     ← This file — universal agent entry point
 ### Party Mode (Smart JIT)
 - Gsane Master is the sole orchestrator — no separate coordinator agent
 - Initialization loads only a lightweight index (name, icon, capabilities) — NOT full profiles
-- Per turn: score agents against topic keywords, select 2-3 max, load their CSV row, generate response, discard profile data
+- Per turn: score agents against topic keywords, select 2-3 max, load their YAML row, generate response, discard profile data
 - Full agent `.md` files are never loaded during party mode unless explicitly requested
 
 ### Git Workflow (MANDATORY)

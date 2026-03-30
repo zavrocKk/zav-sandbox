@@ -24,7 +24,7 @@
             }
         },
         {
-            "label": "GSANE: 🩺 Lancer Diagnostic (Health Check)",
+            "label": "GSANE: 🩺 Doctor",
             "type": "shell",
             "command": "bash gsane.sh health-check",
             "group": "test",

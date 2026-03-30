@@ -61,7 +61,7 @@ bash .github/hooks/session-start.sh
 
 Ce script vérifie :
 - ✅ Fichiers config essentiels présents (`config.yaml`, manifests YAML hiérarchiques)
-- ✅ XX fichiers `.agent.md` dans `.github/agents/`
+- ✅ XX fichiers `.agent.md` dans `_gsane/_config/agents/`
 - ✅ Aucun chemin déprécié dans les prompts
 - ✅ Dossiers output créés (`_gsane-output/`)
 - ✅ Compteur de session initialisé
@@ -89,7 +89,7 @@ communication_language: Français   # ou English
 
 ### Étape 5 — Activer GSANE dans VS Code
 
-Ouvre VS Code dans le dossier cloné. Les agents et prompts sont détectés automatiquement par GitHub Copilot via `.github/agents/` et `.github/prompts/`.
+Ouvre VS Code dans le dossier cloné. Les agents et prompts sont détectés automatiquement par GitHub Copilot via `_gsane/_config/agents/` et `.github/prompts/`.
 
 **Premier lancement :**
 
@@ -140,7 +140,7 @@ Test-Path ".git\hooks\pre-commit"
 
 ## 📋 Description
 
-Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **une trentaine d'agents dynamiques** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
+Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **25 agents** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
 
 ## 🏗️ Structure du Projet
 

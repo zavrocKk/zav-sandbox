@@ -7,9 +7,9 @@
   command: gsane_bmb_create_agent
   required: false
   agent-name: agent-builder
-  agent-command: "gsane:Precise and technical:agent:agent-builder"
+  agent-command: gsane:Precise and technical:agent:agent-builder
   agent-display-name: Bond
-  agent-title: 🤖 Agent Building Expert
+  agent-title: "\U0001F916 Agent Building Expert"
   options: Create Mode
   description: Create a new GSANE agent with best practices and compliance
   output-location: bmb_creations_output_folder
@@ -23,9 +23,9 @@
   command: gsane_bmb_edit_agent
   required: false
   agent-name: agent-builder
-  agent-command: "gsane:Precise and technical:agent:agent-builder"
+  agent-command: gsane:Precise and technical:agent:agent-builder
   agent-display-name: Bond
-  agent-title: 🤖 Agent Building Expert
+  agent-title: "\U0001F916 Agent Building Expert"
   options: Edit Mode
   description: Edit existing GSANE agents while maintaining compliance
   output-location: bmb_creations_output_folder
@@ -39,9 +39,9 @@
   command: gsane_bmb_validate_agent
   required: false
   agent-name: agent-builder
-  agent-command: "gsane:Precise and technical:agent:agent-builder"
+  agent-command: gsane:Precise and technical:agent:agent-builder
   agent-display-name: Bond
-  agent-title: 🤖 Agent Building Expert
+  agent-title: "\U0001F916 Agent Building Expert"
   options: Validate Mode
   description: Validate existing GSANE agents and offer to improve deficiencies
   output-location: agent being validated folder
@@ -55,9 +55,9 @@
   command: gsane_bmb_create_module_brief
   required: false
   agent-name: module-builder
-  agent-command: "gsane:Strategic and holistic:agent:module-builder"
+  agent-command: gsane:Strategic and holistic:agent:module-builder
   agent-display-name: Morgan
-  agent-title: 🏗️ Module Creation Master
+  agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Module Brief Mode
   description: Create product brief for GSANE module development
   output-location: bmb_creations_output_folder
@@ -71,9 +71,9 @@
   command: gsane_bmb_create_module
   required: false
   agent-name: module-builder
-  agent-command: "gsane:Strategic and holistic:agent:module-builder"
+  agent-command: gsane:Strategic and holistic:agent:module-builder
   agent-display-name: Morgan
-  agent-title: 🏗️ Module Creation Master
+  agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Create Mode
   description: Create a complete GSANE module with agents, workflows, and infrastructure
   output-location: bmb_creations_output_folder
@@ -87,9 +87,9 @@
   command: gsane_bmb_edit_module
   required: false
   agent-name: module-builder
-  agent-command: "gsane:Strategic and holistic:agent:module-builder"
+  agent-command: gsane:Strategic and holistic:agent:module-builder
   agent-display-name: Morgan
-  agent-title: 🏗️ Module Creation Master
+  agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Edit Mode
   description: Edit existing GSANE modules while maintaining coherence
   output-location: bmb_creations_output_folder
@@ -103,9 +103,9 @@
   command: gsane_bmb_validate_module
   required: false
   agent-name: module-builder
-  agent-command: "gsane:Strategic and holistic:agent:module-builder"
+  agent-command: gsane:Strategic and holistic:agent:module-builder
   agent-display-name: Morgan
-  agent-title: 🏗️ Module Creation Master
+  agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Validate Mode
   description: Run compliance check on GSANE modules against best practices
   output-location: module being validated folder
@@ -119,9 +119,9 @@
   command: gsane_bmb_create_workflow
   required: false
   agent-name: workflow-builder
-  agent-command: "gsane:Methodical and process-oriented:agent:workflow-builder"
+  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
   agent-display-name: Wendy
-  agent-title: 🔄 Workflow Building Master
+  agent-title: "\U0001F504 Workflow Building Master"
   options: Create Mode
   description: Create a new GSANE workflow with proper structure and best practices
   output-location: bmb_creations_output_folder
@@ -135,9 +135,9 @@
   command: gsane_bmb_edit_workflow
   required: false
   agent-name: workflow-builder
-  agent-command: "gsane:Methodical and process-oriented:agent:workflow-builder"
+  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
   agent-display-name: Wendy
-  agent-title: 🔄 Workflow Building Master
+  agent-title: "\U0001F504 Workflow Building Master"
   options: Edit Mode
   description: Edit existing GSANE workflows while maintaining integrity
   output-location: bmb_creations_output_folder
@@ -151,9 +151,9 @@
   command: gsane_bmb_validate_workflow
   required: false
   agent-name: workflow-builder
-  agent-command: "gsane:Methodical and process-oriented:agent:workflow-builder"
+  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
   agent-display-name: Wendy
-  agent-title: 🔄 Workflow Building Master
+  agent-title: "\U0001F504 Workflow Building Master"
   options: Validate Mode
   description: Run validation check on GSANE workflows against best practices
   output-location: workflow being validated folder
@@ -167,11 +167,12 @@
   command: gsane_bmb_validate_max_parallel
   required: false
   agent-name: workflow-builder
-  agent-command: "gsane:Methodical and process-oriented:agent:workflow-builder"
+  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
   agent-display-name: Wendy
-  agent-title: 🔄 Workflow Building Master
+  agent-title: "\U0001F504 Workflow Building Master"
   options: Max Parallel Validate
-  description: Run validation checks in MAX-PARALLEL mode against a workflow requires a tool that supports Parallel Sub-Processes
+  description: Run validation checks in MAX-PARALLEL mode against a workflow requires
+    a tool that supports Parallel Sub-Processes
   output-location: workflow being validated folder
   outputs: validation report
 - module: bmb
@@ -183,9 +184,9 @@
   command: gsane_bmb_rework_workflow
   required: false
   agent-name: workflow-builder
-  agent-command: "gsane:Methodical and process-oriented:agent:workflow-builder"
+  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
   agent-display-name: Wendy
-  agent-title: 🔄 Workflow Building Master
+  agent-title: "\U0001F504 Workflow Building Master"
   options: Rework Mode
   description: Rework a Workflow to a V6 Compliant Version
   output-location: bmb_creations_output_folder
@@ -194,226 +195,242 @@
   phase: anytime
   name: Innovation Strategy
   code: IS
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/cis/workflows/innovation-strategy/workflow.yaml
   command: gsane-cis-innovation-strategy
   required: false
   agent-name: innovation-strategist
-  agent-command: "gsane:devastatingly simple questions:agent:innovation-strategist"
+  agent-command: gsane:devastatingly simple questions:agent:innovation-strategist
   agent-display-name: Victor
-  agent-title: ⚡ Disruptive Innovation Oracle
+  agent-title: "\u26A1 Disruptive Innovation Oracle"
   options: Create Mode
-  description: Identify disruption opportunities and architect business model innovation. Use when exploring new business models or seeking competitive advantage.
+  description: Identify disruption opportunities and architect business model innovation.
+    Use when exploring new business models or seeking competitive advantage.
   output-location: output_folder
   outputs: innovation strategy
 - module: cis
   phase: anytime
   name: Problem Solving
   code: PS
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/cis/workflows/problem-solving/workflow.yaml
   command: gsane-cis-problem-solving
   required: false
   agent-name: creative-problem-solver
-  agent-command: "gsane:curious:agent:creative-problem-solver"
+  agent-command: gsane:curious:agent:creative-problem-solver
   agent-display-name: Dr. Quinn
-  agent-title: 🔬 Master Problem Solver
+  agent-title: "\U0001F52C Master Problem Solver"
   options: Create Mode
-  description: Apply systematic problem-solving methodologies to crack complex challenges. Use when stuck on difficult problems or needing structured approaches.
+  description: Apply systematic problem-solving methodologies to crack complex challenges.
+    Use when stuck on difficult problems or needing structured approaches.
   output-location: output_folder
   outputs: problem solution
 - module: cis
   phase: anytime
   name: Design Thinking
   code: DT
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/cis/workflows/design-thinking/workflow.yaml
   command: gsane-cis-design-thinking
   required: false
   agent-name: design-thinking-coach
-  agent-command: "gsane:uses vivid sensory metaphors:agent:design-thinking-coach"
+  agent-command: gsane:uses vivid sensory metaphors:agent:design-thinking-coach
   agent-display-name: Maya
-  agent-title: 🎨 Design Thinking Maestro
+  agent-title: "\U0001F3A8 Design Thinking Maestro"
   options: Create Mode
-  description: Guide human-centered design processes using empathy-driven methodologies. Use for user-centered design challenges or improving user experience.
+  description: Guide human-centered design processes using empathy-driven methodologies.
+    Use for user-centered design challenges or improving user experience.
   output-location: output_folder
   outputs: design thinking
 - module: cis
   phase: anytime
   name: Brainstorming
   code: BS
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/workflows/brainstorming/workflow.md
   command: gsane-cis-brainstorming
   required: false
   agent-name: brainstorming-coach
-  agent-command: "gsane:builds on ideas with YES AND:agent:brainstorming-coach"
+  agent-command: gsane:builds on ideas with YES AND:agent:brainstorming-coach
   agent-display-name: Carson
-  agent-title: 🧠 Elite Brainstorming Specialist
+  agent-title: "\U0001F9E0 Elite Brainstorming Specialist"
   options: Create Mode
-  description: Facilitate brainstorming sessions using one or more techniques. Use early in ideation phase or when stuck generating ideas.
+  description: Facilitate brainstorming sessions using one or more techniques. Use
+    early in ideation phase or when stuck generating ideas.
   output-location: output_folder
   outputs: brainstorming session results
 - module: cis
   phase: anytime
   name: Storytelling
   code: ST
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/cis/workflows/storytelling/workflow.yaml
   command: gsane-cis-storytelling
   required: false
   agent-name: storyteller
-  agent-command: "gsane:whimsical:agent:storyteller"
+  agent-command: gsane:whimsical:agent:storyteller
   agent-display-name: Sophia
-  agent-title: 📖 Master Storyteller
+  agent-title: "\U0001F4D6 Master Storyteller"
   options: Create Mode
-  description: Craft compelling narratives using proven story frameworks and techniques. Use when needing persuasive communication or story-driven content.
+  description: Craft compelling narratives using proven story frameworks and techniques.
+    Use when needing persuasive communication or story-driven content.
   output-location: output_folder
   outputs: narrative/story
 - module: core
   phase: anytime
   name: Brainstorming
   code: BSP
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/workflows/brainstorming/workflow.md
   command: gsane-brainstorming
   required: false
   agent-name: analyst
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Generate diverse ideas through interactive techniques. Use early in ideation phase or when stuck generating ideas.
-  output-location: "{output_folder}/brainstorming/brainstorming-session-{{date}}.md"
-  outputs: ""
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Generate diverse ideas through interactive techniques. Use early in
+    ideation phase or when stuck generating ideas.
+  output-location: '{output_folder}/brainstorming/brainstorming-session-{{date}}.md'
+  outputs: ''
 - module: core
   phase: anytime
   name: Party Mode
   code: PM
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/workflows/party-mode/workflow.md
   command: gsane-party-mode
   required: false
   agent-name: party-mode facilitator
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Orchestrate multi-agent discussions. Use when you need multiple agent perspectives or want agents to collaborate.
-  output-location: ""
-  outputs: ""
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Orchestrate multi-agent discussions. Use when you need multiple agent
+    perspectives or want agents to collaborate.
+  output-location: ''
+  outputs: ''
 - module: core
   phase: anytime
   name: gsane-help
   code: BH
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/help.md
   command: gsane-help
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Get unstuck by showing what workflow steps come next or answering Gsane Method questions.
-  output-location: ""
-  outputs: ""
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Get unstuck by showing what workflow steps come next or answering Gsane
+    Method questions.
+  output-location: ''
+  outputs: ''
 - module: core
   phase: anytime
   name: Index Docs
   code: ID
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/index-docs.xml
   command: gsane-index-docs
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Create lightweight index for quick LLM scanning. Use when LLM needs to understand available docs without loading everything.
-  output-location: ""
-  outputs: ""
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Create lightweight index for quick LLM scanning. Use when LLM needs
+    to understand available docs without loading everything.
+  output-location: ''
+  outputs: ''
 - module: core
   phase: anytime
   name: Shard Document
   code: SD
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/shard-doc.xml
   command: gsane-shard-doc
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Split large documents into smaller files by sections. Use when doc becomes too large (>500 lines) to manage effectively.
-  output-location: ""
-  outputs: ""
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Split large documents into smaller files by sections. Use when doc
+    becomes too large (>500 lines) to manage effectively.
+  output-location: ''
+  outputs: ''
 - module: core
   phase: anytime
   name: Editorial Review - Prose
   code: EP
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/editorial-review-prose.xml
   command: gsane-editorial-review-prose
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Review prose for clarity, tone, and communication issues. Use after drafting to polish written content.
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Review prose for clarity, tone, and communication issues. Use after
+    drafting to polish written content.
   output-location: report located with target document
   outputs: three-column markdown table with suggested fixes
 - module: core
   phase: anytime
   name: Editorial Review - Structure
   code: ES
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/editorial-review-structure.xml
   command: gsane-editorial-review-structure
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Propose cuts, reorganization, and simplification while preserving comprehension. Use when doc produced from multiple subprocesses or needs structural improvement.
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Propose cuts, reorganization, and simplification while preserving comprehension.
+    Use when doc produced from multiple subprocesses or needs structural improvement.
   output-location: report located with target document
-  outputs: ""
+  outputs: ''
 - module: core
   phase: anytime
   name: Adversarial Review (General)
   code: AR
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/review-adversarial-general.xml
   command: gsane-review-adversarial-general
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Review content critically to find issues and weaknesses. Use for quality assurance or before finalizing deliverables. Code Review in other modules run this automatically, but its useful also for document reviews
-  output-location: ""
-  outputs: ""
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Review content critically to find issues and weaknesses. Use for quality
+    assurance or before finalizing deliverables. Code Review in other modules run
+    this automatically, but its useful also for document reviews
+  output-location: ''
+  outputs: ''
 - module: core
   phase: anytime
   name: Edge Case Hunter Review
   code: ECH
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/tasks/review-edge-case-hunter.xml
   command: gsane-review-edge-case-hunter
   required: false
-  agent-name: ""
-  agent-command: ""
-  agent-display-name: ""
-  agent-title: ""
-  options: ""
-  description: Walk every branching path and boundary condition in code, report only unhandled edge cases. Use alongside adversarial review for orthogonal coverage - method-driven not attitude-driven.
-  output-location: ""
-  outputs: ""
+  agent-name: ''
+  agent-command: ''
+  agent-display-name: ''
+  agent-title: ''
+  options: ''
+  description: Walk every branching path and boundary condition in code, report only
+    unhandled edge cases. Use alongside adversarial review for orthogonal coverage
+    - method-driven not attitude-driven.
+  output-location: ''
+  outputs: ''
 - module: tea
   phase: 0-learning
   name: Teach Me Testing
@@ -423,9 +440,9 @@
   command: gsane-tea-teach-me-testing
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Teach testing fundamentals through 7 sessions (TEA Academy)
   output-location: test_artifacts
@@ -439,9 +456,9 @@
   command: gsane-tea-testarch-test-design
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Risk-based test planning
   output-location: test_artifacts
@@ -455,9 +472,9 @@
   command: gsane-tea-testarch-framework
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Initialize production-ready test framework
   output-location: test_artifacts
@@ -471,9 +488,9 @@
   command: gsane-tea-testarch-ci
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Configure CI/CD quality pipeline
   output-location: test_artifacts
@@ -487,9 +504,9 @@
   command: gsane-tea-testarch-atdd
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Generate failing tests (TDD red phase)
   output-location: test_artifacts
@@ -503,9 +520,9 @@
   command: gsane-tea-testarch-automate
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Expand test coverage
   output-location: test_artifacts
@@ -519,9 +536,9 @@
   command: gsane-tea-testarch-test-review
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Validate Mode
   description: Quality audit (0-100 scoring)
   output-location: test_artifacts
@@ -535,9 +552,9 @@
   command: gsane-tea-testarch-nfr
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Non-functional requirements
   output-location: test_artifacts
@@ -551,9 +568,9 @@
   command: gsane-tea-testarch-trace
   required: false
   agent-name: tea
-  agent-command: "gsane:backend services:agent:tea"
+  agent-command: gsane:backend services:agent:tea
   agent-display-name: Murat
-  agent-title: 🧪 Master Test Architect and Quality Advisor
+  agent-title: "\U0001F9EA Master Test Architect and Quality Advisor"
   options: Create Mode
   description: Coverage traceability and gate
   output-location: test_artifacts
@@ -562,63 +579,67 @@
   phase: anytime
   name: Completion Contract
   code: CC
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/workflows/cc-verify/workflow.md
   command: gsane-cc-verify
   required: false
   agent-name: gsane-master
-  agent-command: "gsane:Direct and comprehensive:agent:gsane-master"
+  agent-command: gsane:Direct and comprehensive:agent:gsane-master
   agent-display-name: Gsane Master
-  agent-title: 🧙 Gsane Master Executor
+  agent-title: "\U0001F9D9 Gsane Master Executor"
   options: Validate Mode
-  description: Run the 20-point Completion Contract before declaring any task done. Checks git, CHANGELOG, quality, manifests, and CI.
+  description: Run the 20-point Completion Contract before declaring any task done.
+    Checks git, CHANGELOG, quality, manifests, and CI.
   output-location: _gsane-output/
   outputs: CC PASS/FAIL report
 - module: core
   phase: anytime
   name: Session Branch
   code: SB
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/workflows/session-branch/workflow.md
   command: gsane-session-branch
   required: false
   agent-name: gsane-master
-  agent-command: "gsane:Direct and comprehensive:agent:gsane-master"
+  agent-command: gsane:Direct and comprehensive:agent:gsane-master
   agent-display-name: Gsane Master
-  agent-title: 🧙 Gsane Master Executor
+  agent-title: "\U0001F9D9 Gsane Master Executor"
   options: Validate Mode
-  description: Verify or create the correct feature/fix branch before starting any work session. Prevents accidental commits to main.
+  description: Verify or create the correct feature/fix branch before starting any
+    work session. Prevents accidental commits to main.
   output-location: _gsane-output/
   outputs: branch name
 - module: core
   phase: anytime
   name: Optimize GSANE
   code: LO
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/core/agents/gsane-optimizer.md
   command: gsane-gsane-optimizer
   required: false
   agent-name: gsane-optimizer
-  agent-command: "gsane:data-driven and precise:agent:gsane-optimizer"
-  agent-display-name: Léo
-  agent-title: ⚙️ GSANE Framework Optimizer
+  agent-command: gsane:data-driven and precise:agent:gsane-optimizer
+  agent-display-name: "L\xE9o"
+  agent-title: "\u2699\uFE0F GSANE Framework Optimizer"
   options: Optimize Mode
-  description: Analyze token usage, session patterns, and drive continuous framework improvement. Use when you want to audit session efficiency or optimize GSANE configurations.
+  description: Analyze token usage, session patterns, and drive continuous framework
+    improvement. Use when you want to audit session efficiency or optimize GSANE configurations.
   output-location: _gsane-output/
   outputs: optimization report
 - module: bmb
   phase: anytime
   name: QA GSANE
   code: QA
-  sequence: ""
+  sequence: ''
   workflow-file: _gsane/bmb/agents/qa-gsane.md
   command: gsane-qa-gsane
   required: false
   agent-name: qa-gsane
-  agent-command: "gsane:methodical and thorough:agent:qa-gsane"
+  agent-command: gsane:methodical and thorough:agent:qa-gsane
   agent-display-name: Aria
-  agent-title: 🔍 GSANE Quality Assurance Specialist
+  agent-title: "\U0001F50D GSANE Quality Assurance Specialist"
   options: Validate Mode
-  description: Validate GSANE artifacts for quality and detect regressions. Use when you want to check agent consistency, workflow compliance, or manifest sync.
+  description: Validate GSANE artifacts for quality and detect regressions. Use when
+    you want to check agent consistency, workflow compliance, or manifest sync.
   output-location: _gsane-output/
   outputs: QA report
