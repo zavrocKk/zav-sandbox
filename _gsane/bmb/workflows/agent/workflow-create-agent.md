@@ -3,6 +3,9 @@ name: create-agent
 description: Create a new GSANE agent with best practices and compliance
 web_bundle: true
 createWorkflow: './steps-c/step-01-brainstorm.md'
+agent: "agent-builder"
+agent_display: "Bond"
+agent_icon: "🤖"
 ---
 
 # Create Agent

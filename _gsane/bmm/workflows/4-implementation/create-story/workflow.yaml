@@ -1,5 +1,8 @@
 name: create-story
 description: 'Creates a dedicated story file with all the context the agent will need to implement it later. Use when the user says "create the next story" or "create story [story identifier]"'
+agent: "sm"
+agent_display: "Bob"
+agent_icon: "🏃"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/bmm/config.yaml"

@@ -1,7 +1,7 @@
 installation:
-  version: 6.0.4
+  version: 6.0.5
   installDate: 2026-03-01T18:45:35.284Z
-  lastUpdated: 2026-03-01T18:45:35.284Z
+  lastUpdated: 2026-03-30T00:00:00.000Z
 modules:
   - name: core
     version: 6.0.4
@@ -31,6 +31,12 @@ modules:
     source: external
     npmPackage: gsane-method-test-architecture-enterprise
     repoUrl: https://github.com/gsane-code-org/gsane-method-test-architecture-enterprise
+schemas:
+  workflow-manifest:
+    version: "2.0.0"
+    columns: ["name", "description", "module", "path", "agent", "agent_display"]
+    breaking_change: "v1.0.0 had 4 columns; v2.0.0 adds agent + agent_display"
+    changed_in: "6.0.5"
 ides:
   - claude-code
   - github-copilot

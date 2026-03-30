@@ -3,6 +3,9 @@ name: edit-workflow
 description: Edit existing GSANE workflows while maintaining integrity
 web_bundle: true
 editWorkflow: './steps-e/step-e-01-assess-workflow.md'
+agent: "workflow-builder"
+agent_display: "Wendy"
+agent_icon: "🔄"
 ---
 
 # Edit Workflow

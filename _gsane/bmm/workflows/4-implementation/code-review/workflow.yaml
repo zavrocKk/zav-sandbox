@@ -1,6 +1,9 @@
 # Review Story Workflow
 name: code-review
 description: 'Perform adversarial code review finding specific issues. Use when the user says "run code review" or "review this code"'
+agent: "dev"
+agent_display: "Amelia"
+agent_icon: "💻"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/bmm/config.yaml"

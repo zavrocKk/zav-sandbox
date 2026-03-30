@@ -4,6 +4,9 @@ description: Run compliance check on GSANE modules against best practices
 web_bundle: true
 installed_path: '{project-root}/_gsane/bmb/workflows/module'
 validateWorkflow: './steps-v/step-01-validate.md'
+agent: "qa-gsane"
+agent_display: "Aria"
+agent_icon: "🔍"
 ---
 
 # Validate Module

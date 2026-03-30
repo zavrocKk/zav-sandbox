@@ -1,6 +1,9 @@
 ---
 name: create-ux-design
 description: 'Plan UX patterns and design specifications. Use when the user says "lets create UX design" or "create UX specifications" or "help me plan the UX"'
+agent: "ux-designer"
+agent_display: "Sally"
+agent_icon: "🎨"
 ---
 
 # Create UX Design Workflow

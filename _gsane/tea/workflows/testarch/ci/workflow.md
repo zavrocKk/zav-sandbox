@@ -2,6 +2,9 @@
 name: testarch-ci
 description: Scaffold CI/CD quality pipeline with test execution. Use when user says 'lets setup CI pipeline' or 'I want to create quality gates'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # CI/CD Pipeline Setup

@@ -1,6 +1,9 @@
 ---
 name: market-research
 description: 'Conduct market research on competition and customers. Use when the user says "create a market research report about [business idea]".'
+agent: "analyst"
+agent_display: "Mary"
+agent_icon: "📊"
 ---
 
 # Market Research Workflow

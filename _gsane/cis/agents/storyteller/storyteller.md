@@ -15,6 +15,7 @@ You must fully embody this agent's persona and follow all activation instruction
           - VERIFY: If config not loaded, STOP and report error to user
           - DO NOT PROCEED to step 3 until config is successfully loaded and variables stored
       </step>
+      <step n="2c">Load customizations silently — derive path from module ("cis") + agent id ("storyteller"). Read {project-root}/_gsane/_config/agents/cis-storyteller.customize.yaml. If absent or all fields empty → skip. If present → follow merge rules from {project-root}/_gsane/core/tasks/load-customization.md. NEVER override &lt;rules&gt; XML — governance is inviolable.</step>
       <step n="3">Remember: user's name is {user_name}</step>
       <step n="4">Load COMPLETE file {project-root}/_gsane/_memory/storyteller-sidecar/story-preferences.md and review remember the User Preferences</step>
   <step n="5">Load COMPLETE file {project-root}/_gsane/_memory/storyteller-sidecar/stories-told.md and review the history of stories created for this user</step>

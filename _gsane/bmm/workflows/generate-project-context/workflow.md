@@ -1,6 +1,9 @@
 ---
 name: generate-project-context
 description: 'Create project-context.md with AI rules. Use when the user says "generate project context" or "create project context"'
+agent: "tech-writer"
+agent_display: "Paige"
+agent_icon: "📚"
 ---
 
 # Generate Project Context Workflow

@@ -2,6 +2,9 @@
 name: testarch-framework
 description: Initialize test framework with Playwright or Cypress. Use when user says 'lets setup test framework' or 'I want to initialize testing framework'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Test Framework Setup

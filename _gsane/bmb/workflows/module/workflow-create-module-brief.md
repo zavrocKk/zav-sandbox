@@ -4,6 +4,9 @@ description: Create product brief for GSANE module development
 web_bundle: true
 installed_path: '{project-root}/_gsane/bmb/workflows/module'
 briefWorkflow: './steps-b/step-01-welcome.md'
+agent: "module-builder"
+agent_display: "Morgan"
+agent_icon: "🏗️"
 ---
 
 # Create Module Brief

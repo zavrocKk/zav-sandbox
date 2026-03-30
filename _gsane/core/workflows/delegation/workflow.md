@@ -2,6 +2,9 @@
 name: delegation
 description: 'Intelligent agent delegation system. Routes requests to appropriate GSANE agents based on request type. Use internally when a request needs to be routed to a specialist agent.'
 context_file: ''
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Agent Delegation Workflow

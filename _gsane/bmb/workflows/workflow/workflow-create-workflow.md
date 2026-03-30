@@ -4,6 +4,9 @@ description: Create a new GSANE workflow with proper structure and best practice
 web_bundle: true
 createWorkflow: './steps-c/step-01-discovery.md'
 conversionWorkflow: './steps-c/step-00-conversion.md'
+agent: "workflow-builder"
+agent_display: "Wendy"
+agent_icon: "🔄"
 ---
 
 # Create Workflow

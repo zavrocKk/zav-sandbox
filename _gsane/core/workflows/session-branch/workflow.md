@@ -1,6 +1,9 @@
 ---
 name: session-branch
 description: "Session Branch Setup — ensures every work session starts on a properly named branch, never on main. Validates existing branch context or creates a new one."
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Session Branch Workflow

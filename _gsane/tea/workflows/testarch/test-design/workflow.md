@@ -2,6 +2,9 @@
 name: testarch-test-design
 description: Create system-level or epic-level test plans. Use when user says 'lets design test plan' or 'I want to create test strategy'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Test Design and Risk Assessment

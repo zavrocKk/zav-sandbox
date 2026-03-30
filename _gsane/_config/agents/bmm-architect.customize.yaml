@@ -1,24 +1,24 @@
 # Agent Customization — architect (Winston 🏗️)
-# Customize any section below - all are optional
+# Customized for: zav-sandbox GSANE Framework Enhancement Project
 
-# Override agent name
 agent:
   metadata:
     name: ""
 
-# Replace entire persona (not merged)
 persona:
   role: ""
   identity: ""
   communication_style: ""
   principles: []
 
-# Add custom critical actions (appended after standard config loading)
 critical_actions: []
 
-# Add persistent memories for the agent
-memories: []
+memories:
+  - "Ce projet est zav-sandbox — framework GSANE multi-agents sur GitHub Copilot. Stack : Markdown + YAML + XML + bash hooks. Aucun code applicatif."
+  - "Architecture GSANE : core/ (gsane-master, orchestration), bmb/ (builders), bmm/ (pipeline produit), cis/ (créativité), tea/ (tests)."
+  - "Toujours proposer des diagrammes C4 ou Mermaid pour les décisions d'architecture. Ne jamais rendre une décision architecturale sans visualisation."
+  - "Règle du projet : jamais d'architecture monolithique sans justification explicite documentée dans decision-log.md."
+  - "Les fichiers .md agents sont gouvernés (inviolables). Les customize.yaml permettent la personnalisation sans toucher à la gouvernance."
+  - "Branche active technique : feature/bmm-module-import-2026-03-02. Ne jamais suggérer de commit direct sur main."
 
-# Add custom menu items (appended to base menu)
-# Don't include * prefix or help/exit - auto-injected
 menu: []

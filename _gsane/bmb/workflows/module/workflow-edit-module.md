@@ -4,6 +4,9 @@ description: Edit existing GSANE modules while maintaining coherence
 web_bundle: true
 installed_path: '{project-root}/_gsane/bmb/workflows/module'
 editWorkflow: './steps-e/step-01-load-target.md'
+agent: "module-builder"
+agent_display: "Morgan"
+agent_icon: "🏗️"
 ---
 
 # Edit Module

@@ -16,8 +16,51 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 ## [Unreleased]
 
-### [BMM] — Business Methodology Module — Import complet
-**[feat]** BMM module — import et adaptation complète depuis BMAD v6.0.4 — 9 agents GSANE-optimisés, 30+ workflows, infrastructure complète
+### [CUSTOMIZE] — Système de personnalisation des agents par projet
+**[feat]** Câblage complet du système customize.yaml — task partagée `load-customization.md` + step 2c dans 21 agents (BMM×9, BMB×4, CIS×6, TEA×1, core×2)
+- Agent: Gsane Master | Workflow: party-mode (Bond + Wendy + Léo + Aria) | Initié par: Mon Seigneur
+- Impact: `_gsane/core/tasks/load-customization.md` créé, step 2c ajouté dans 21 fichiers agents `.md`
+
+**[feat]** config.yaml — champ `user_customizations_path` ajouté — pointe vers `_gsane/_config/agents/`
+- Impact: `_gsane/core/config.yaml`
+
+**[feat]** `bmm-architect.customize.yaml` pré-rempli — 6 memories projet pour démo/conférence
+- Impact: `_gsane/_config/agents/bmm-architect.customize.yaml`
+
+**[feat]** Nouvelle SKILL `agent-customization` — guide d'utilisation des customize.yaml avec bonnes pratiques
+- Impact: `.github/skills/agent-customization/SKILL.md` créé
+
+**[fix]** Git hooks installés dans `.git/hooks/` — pre-commit (CC guard), commit-msg (Conventional Commits), pre-push (block main)
+- Impact: `.git/hooks/pre-commit`, `.git/hooks/commit-msg`, `.git/hooks/pre-push` activés
+
+**[chore]** `_gsane/_config/custom/` supprimé — répertoire vide sans référence, dead weight confirmé
+
+
+**[feat]** Session persistence — création de `_gsane/_memory/project-context.md` (contexte projet partagé par tous les agents) et `_gsane/_memory/session-state.md` (état persistant entre sessions)
+- Agent: Gsane Master | Workflow: party-mode (Bond + Wendy + Léo + Aria) | Initié par: Mon Seigneur
+- Impact: `_gsane/_memory/project-context.md` créé, `_gsane/_memory/session-state.md` créé
+
+**[feat]** gsane-master.md — détection WARM/COLD session + step 2b (chargement project-context + session-state) + step 5 enrichi
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/agents/gsane-master.md` — step 2b ajouté, step 5 reécrit avec WARM/COLD routing
+
+**[feat]** gsane-master.md — 4 nouvelles règles de gouvernance (HUP, ALS, AFFORDANCE, ARTIFACT_HANDOFF) inspirées de Grimoire agent-base.md
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/agents/gsane-master.md` — règles HUP/ALS/AFFORDANCE/ARTIFACT_HANDOFF dans `<rules>`
+
+**[feat]** gsane-master.md — `#first-run-prompt` — onboarding première session (COLD session trigger)
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/agents/gsane-master.md` — `<prompt id="first-run-prompt">` ajouté dans `<prompts>`
+
+**[feat]** post-session-analysis — Step 5b — écriture structurée de session-state.md en fin de session
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `_gsane/core/workflows/post-session-analysis/workflow.md` — Step 5b inséré entre Step 5 et Step 6
+
+**[feat]** Commandes slash — `/gsane-session-bootstrap` et `/gsane-health-check` — tableau de bord session + vérification santé GSANE
+- Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: `.github/prompts/gsane-session-bootstrap.prompt.md` créé, `.github/prompts/gsane-health-check.prompt.md` créé
+
+
 - Agents créés: analyst (Mary 📊), pm (John 📋), architect (Winston 🏗️), sm (Bob 🏃), dev (Amelia 💻), ux-designer (Sally 🎨), qa (Quinn 🧪), tech-writer (Paige 📚), quick-flow-solo-dev (Barry 🚀)
 - Workflows portés: 1-analysis (product-brief, domain/market/technical-research), 2-plan (create/edit/validate-prd, ux-design), 3-solutioning (architecture, epics-stories, implementation-readiness), 4-implementation (sprint-planning, sprint-status, dev-story, create-story, code-review, retrospective, correct-course), gsane-quick-flow, document-project, generate-project-context, qa-generate-e2e-tests
 - Infrastructure: `_gsane/bmm/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-bmm-*)

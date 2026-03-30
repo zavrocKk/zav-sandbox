@@ -3,6 +3,9 @@ name: validate-agent
 description: Validate existing GSANE agents and offer to improve deficiencies
 web_bundle: true
 validateWorkflow: './steps-v/v-01-load-review.md'
+agent: "qa-gsane"
+agent_display: "Aria"
+agent_icon: "🔍"
 ---
 
 # Validate Agent

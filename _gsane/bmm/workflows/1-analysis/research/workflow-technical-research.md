@@ -1,6 +1,9 @@
 ---
 name: technical-research
 description: 'Conduct technical research on technologies and architecture. Use when the user says "create a technical research report on [topic]".'
+agent: "analyst"
+agent_display: "Mary"
+agent_icon: "📊"
 ---
 
 # Technical Research Workflow

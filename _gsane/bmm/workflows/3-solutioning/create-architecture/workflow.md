@@ -1,6 +1,9 @@
 ---
 name: create-architecture
 description: 'Create architecture solution design decisions for AI agent consistency. Use when the user says "lets create architecture" or "create technical architecture" or "create a solution design"'
+agent: "architect"
+agent_display: "Winston"
+agent_icon: "🏗️"
 ---
 
 # Architecture Workflow

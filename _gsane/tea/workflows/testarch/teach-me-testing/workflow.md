@@ -2,6 +2,9 @@
 name: teach-me-testing
 description: 'Teach testing progressively through structured sessions. Use when user says "lets learn testing" or "I want to study test practices"'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Teach Me Testing - TEA Academy

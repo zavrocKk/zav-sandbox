@@ -2,6 +2,9 @@
 name: testarch-trace
 description: Generate traceability matrix and quality gate decision. Use when user says 'lets create traceability matrix' or 'I want to analyze test coverage'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Requirements Traceability & Quality Gate

@@ -1,6 +1,9 @@
 ---
 name: create-epics-and-stories
 description: 'Break requirements into epics and user stories. Use when the user says "create the epics and stories list"'
+agent: "sm"
+agent_display: "Bob"
+agent_icon: "🏃"
 ---
 
 # Create Epics and Stories

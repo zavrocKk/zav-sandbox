@@ -2,6 +2,9 @@
 name: git-workflow
 description: 'Standardized Git workflow for all commits. Creates feature/fix branches, commits changes, and opens pull requests to main. Use for ALL code changes across the project.'
 context_file: ''
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Git Workflow — Standardized Commit & Pull Request Process
