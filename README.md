@@ -140,7 +140,7 @@ Test-Path ".git\hooks\pre-commit"
 
 ## 📋 Description
 
-Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **25 agents dynamiques** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
+Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **22 agents dynamiques** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
 
 ## 🏗️ Structure du Projet
 
