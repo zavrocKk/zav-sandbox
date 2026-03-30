@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Sandbox: Lancer Party Mode",
+            "label": "GSANE: 🥳 Lancer le Party Mode",
             "type": "shell",
-            "command": "bash sandbox.sh party-mode",
+            "command": "bash gsane.sh party-mode",
             "group": "build",
             "presentation": {
                 "reveal": "always",
@@ -13,20 +13,20 @@
             }
         },
         {
-            "label": "Sandbox: Nouvelle Session Brainstorming",
+            "label": "GSANE: 🧠 Nouvelle session Brainstorming",
             "type": "shell",
-            "command": "bash sandbox.sh brainstorming",
+            "command": "bash gsane.sh brainstorming",
             "group": "none",
             "presentation": {
                 "reveal": "always",
-                "panel": "new",
+                "panel": "shared",
                 "clear": true
             }
         },
         {
-            "label": "Sandbox: Lancer Diagnostic (Health Check)",
+            "label": "GSANE: 🩺 Lancer Diagnostic (Health Check)",
             "type": "shell",
-            "command": "bash sandbox.sh health-check",
+            "command": "bash gsane.sh health-check",
             "group": "test",
             "presentation": {
                 "reveal": "always",
@@ -35,10 +35,15 @@
             }
         },
         {
-            "label": "Sandbox: Lister les Agents",
+            "label": "GSANE: 🔍 Valider les Manifestes (YAML)",
             "type": "shell",
-            "command": "bash sandbox.sh list-agents",
-            "group": "none"
+            "command": "bash gsane.sh validate",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
         }
     ]
 }
