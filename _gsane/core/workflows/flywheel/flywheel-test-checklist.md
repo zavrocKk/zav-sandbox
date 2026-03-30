@@ -10,7 +10,7 @@
 **Objectif :** Vérifier que session_count est calculé et que le trigger se déclenche au bon moment.
 
 **Procédure :**
-1. Ouvrir `_gsane/_memory/session-analysis-log.md`
+1. Ouvrir `_gsane/_memory/sessions/session-analysis-log.md`
 2. Compter le nombre de headers `## Session:`
 3. Diviser par `trigger_every_n_sessions` (config = 5)
 4. Vérifier que le ratio est entier → le flywheel DOIT avoir tiré

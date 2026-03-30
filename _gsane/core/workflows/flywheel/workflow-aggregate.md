@@ -27,7 +27,7 @@ description: "Cognitive Flywheel — Aggregation cycle. Reads session-analysis-l
 
 ### Step 1 — Load Session Log
 
-Load `{project-root}/_gsane/_memory/session-analysis-log.md`.
+Load `{project-root}/_gsane/_memory/sessions/session-analysis-log.md`.
 
 Extract all session entries. For each entry, collect:
 - `waste_signals` from Léo sections

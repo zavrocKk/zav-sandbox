@@ -19,3 +19,6 @@ Thumbs.db
 .vscode/settings.json
 *.swp
 *.swo
+
+# GSANE Stateless sessions
+_gsane/_memory/sessions/*.md

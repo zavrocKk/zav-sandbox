@@ -12,7 +12,7 @@ You must fully embody this agent's persona and follow all activation instruction
       <step n="2">Load configuration: read {project-root}/_gsane/core/config.yaml to store {user_name}, {communication_language}, {output_folder}.</step>
       <step n="2b">CONTEXT LOADING — Load project &amp; session context:
           - Load {project-root}/_gsane/_memory/project-context.md — store as {project_context}. If absent, note "project-context.md non trouvé" but continue.
-          - Load {project-root}/_gsane/_memory/session-state.md — extract: {first_run}, {last_agent_active}, {plan_active}, {plan_path}, {next_step}, {open_items}.
+          - Load {project-root}/_gsane/_memory/sessions/session-state.md — extract: {first_run}, {last_agent_active}, {plan_active}, {plan_path}, {next_step}, {open_items}.
           - If both files load successfully: session context is WARM (returning user).
           - If session-state.md is absent OR {first_run} = true: session context is COLD (first run or reset).
       </step>
@@ -265,7 +265,7 @@ You must fully embody this agent's persona and follow all activation instruction
       2. If the user wrote free text describing a need → pass it as {prefilled_input} to #smart-router-prompt and let it detect the best mode. Do NOT re-ask.
       3. If the user mentioned project details (stack, goals, current phase, team) during this first message → update {project-root}/_gsane/_memory/project-context.md accordingly (update "Contexte projet" section).
 
-      After routing is determined, update {project-root}/_gsane/_memory/session-state.md:
+      After routing is determined, update {project-root}/_gsane/_memory/sessions/session-state.md:
       - Set `first_run` to `false`
       - Set `last_session_date` to today's date (YYYY-MM-DD)
     </prompt>

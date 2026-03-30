@@ -330,7 +330,7 @@ Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond,
 | [`_gsane/_config/agent-manifest.csv`](_gsane/_config/agent-manifest.csv) | Registre des 22 agents |
 | [`_gsane/_config/workflow-manifest.csv`](_gsane/_config/workflow-manifest.csv) | Registre des workflows |
 | [`_gsane/_config/delegation-matrix.yaml`](_gsane/_config/delegation-matrix.yaml) | Règles de routing |
-| [`_gsane/_memory/session-analysis-log.md`](_gsane/_memory/session-analysis-log.md) | Log persistant des sessions |
+| [`_gsane/_memory/sessions/session-analysis-log.md`](_gsane/_memory/sessions/session-analysis-log.md) | Log persistant des sessions |
 | [`AGENTS.md`](AGENTS.md) | Guide de navigation universel |
 
 ---
