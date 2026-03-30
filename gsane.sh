@@ -55,6 +55,29 @@ case $ACTION in
         echo "🩺 Lancement du Diagnostic GSANE..."
         bash .github/hooks/session-start.sh
         ;;
+        doctor)
+        echo "🩺 GSANE Doctor - Health Check global"
+        echo "----------------------------------------"
+        echo "1️⃣  Validation des liens morts (via session-start)..."
+        bash .github/hooks/session-start.sh
+        echo "----------------------------------------"
+        echo "2️⃣  Validation hiérarchique des YAML..."
+        python -c "
+import yaml, glob
+files = glob.glob('_gsane/_config/*.yaml')
+errors = 0
+for f in files:
+    try:
+        yaml.safe_load(open(f, encoding='utf-8'))
+        print(f'  ✅ {f} : OK')
+    except Exception as e:
+        print(f'  ❌ {f} : ERREUR ({e})')
+        errors += 1
+if errors > 0: exit(1)
+"
+        echo "✅ GSANE est sain."
+        ;;
+
     validate)
         echo "🔍 Validation statique des manifestes YAML..."
         python -c "
@@ -72,3 +95,4 @@ for f in files:
         echo "❌ Commande '$ACTION' non reconnue."
         ;;
 esac
+

@@ -26,7 +26,7 @@
         {
             "label": "GSANE: 🩺 Doctor",
             "type": "shell",
-            "command": "bash gsane.sh health-check",
+            "command": "bash gsane.sh doctor",
             "group": "test",
             "presentation": {
                 "reveal": "always",
@@ -47,3 +47,4 @@
         }
     ]
 }
+
