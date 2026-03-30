@@ -4,7 +4,7 @@ description: 'Initialize the product brief workflow by detecting continuation st
 
 # File References
 nextStepFile: '_gsane/cis/workflows/1-analysis/create-product-brief/steps/step-02-vision.md'
-outputFile: '{planning_artifacts}/current-product-brief.md'
+outputFile: '{planning_artifacts}/product-brief-{{project_name}}-{{date}}.md'
 
 # Template References
 productBriefTemplate: '../product-brief.template.md'

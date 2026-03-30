@@ -35,13 +35,46 @@ fi
 
 
 # ── 4. Validation des fichiers YAML (Prévention Crash Parser) ───────────────────
-echo "
-🔍 Vérification de la syntaxe YAML..."
-if python3 -c "import yaml, glob; [yaml.safe_load(open(f, encoding='utf-8')) for f in glob.glob('_gsane/_config/*.yaml')]" 2>/dev/null; then
-  echo "✅ YAML valide."
+echo "🔍 Vérification de la syntaxe YAML..."
+YAML_STATUS=0
+
+if command -v python3 >/dev/null 2>&1; then
+  if python3 - << 'EOF'
+import glob
+import sys
+
+try:
+    import yaml  # type: ignore[import]
+except ImportError:
+    # Code de sortie spécial pour signaler l'absence de PyYAML au hook shell
+    sys.exit(42)
+
+for f in glob.glob('_gsane/_config/*.yaml'):
+    with open(f, encoding='utf-8') as fh:
+        yaml.safe_load(fh)
+EOF
+  then
+    YAML_STATUS=0
+  else
+    PY_STATUS=$?
+    if [[ "$PY_STATUS" -eq 42 ]]; then
+      echo "[PreCommit] ⚠️  Le module Python 'yaml' n'est pas installé."
+      echo "  La validation YAML est sautée pour ne pas bloquer le commit."
+      echo "  Pour activer la validation locale : python3 -m pip install pyyaml"
+      YAML_STATUS=0
+    else
+      YAML_STATUS=1
+    fi
+  fi
 else
+  echo "[PreCommit] ⚠️  Aucun validateur YAML disponible (python3 introuvable)."
+  echo "  La validation YAML est sautée pour ne pas bloquer le commit."
+  YAML_STATUS=0
+fi
+
+if [[ "$YAML_STATUS" -ne 0 ]]; then
   echo "❌ YAML invalide ! Interruption du commit."
   exit 1
 fi
+echo "✅ YAML valide (ou validation sautée avec avertissement)."
 echo "[PreCommit] ✅ All checks passed."
-
