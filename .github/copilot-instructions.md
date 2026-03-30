@@ -155,6 +155,8 @@ I need to commit changes following the Git Workflow
 ```
 
 ## Key Conventions
+- **ANTI-ECHO CHAMBER (QA/TESTS)**: Any agent validating a file (like Aria or Murat) MUST run strictly python tests/qa-linter.py <file> to validate instead of subjective reading. LLMs suffer from confirmation bias.
+- **APPEND-ONLY PREFERENCE**: When writing large documents, do not overwrite the full file or mid-frontmatter. Ask the tool to Append-Only to the end of the file unless restructuring is mandatory.
 
 - Always load `_gsane/core/config.yaml` before any agent activation or workflow execution
 - Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`

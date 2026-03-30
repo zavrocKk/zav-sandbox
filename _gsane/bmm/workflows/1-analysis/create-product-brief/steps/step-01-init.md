@@ -3,8 +3,8 @@ name: 'step-01-init'
 description: 'Initialize the product brief workflow by detecting continuation state and setting up the document'
 
 # File References
-nextStepFile: '{project-root}/_gsane/bmm/workflows/1-analysis/create-product-brief/steps/step-02-vision.md'
-outputFile: '{planning_artifacts}/product-brief-{{project_name}}-{{date}}.md'
+nextStepFile: '_gsane/bmm/workflows/1-analysis/create-product-brief/steps/step-02-vision.md'
+outputFile: '{planning_artifacts}/current-product-brief.md'
 
 # Template References
 productBriefTemplate: '../product-brief.template.md'
@@ -73,7 +73,7 @@ If the document exists and has frontmatter with `stepsCompleted`:
 
 **Continuation Protocol:**
 
-- **STOP immediately** and load `{project-root}/_gsane/bmm/workflows/1-analysis/create-product-brief/steps/step-01b-continue.md`
+- **STOP immediately** and load `_gsane/bmm/workflows/1-analysis/create-product-brief/steps/step-01b-continue.md`
 - Do not proceed with any initialization tasks
 - Let step-01b handle all continuation logic
 - This is an auto-proceed situation - no user choice needed
@@ -84,21 +84,14 @@ If no document exists or no `stepsCompleted` in frontmatter:
 
 #### A. Input Document Discovery
 
-load context documents using smart discovery. Documents can be in the following locations:
-- {planning_artifacts}/**
-- {output_folder}/**
-- {product_knowledge}/**
-- docs/**
+Load context documents using explicit discovery instead of wildcards. Search specifically for exact filenames matching GSANE conventions:
+- `{planning_artifacts}/brainstorming.md`
+- `{planning_artifacts}/research.md`
+- `_gsane/_memory/project-context.md`
 
-Also - when searching - documents can be a single markdown file, or a folder with an index and multiple files. For Example, if searching for `*foo*.md` and not found, also search for a folder called *foo*/index.md (which indicates sharded content)
+Do NOT use glob patterns (e.g., `*brainstorming*.md`) as textual LLMs cannot execute shell searches reliably.
 
-Try to discover the following:
-- Brainstorming Reports (`*brainstorming*.md`)
-- Research Documents (`*research*.md`)
-- Project Documentation (generally multiple documents might be found for this in the `{product_knowledge}` or `docs` folder.)
-- Project Context (`**/project-context.md`)
-
-<critical>Confirm what you have found with the user, along with asking if the user wants to provide anything else. Only after this confirmation will you proceed to follow the loading rules</critical>
+<critical>Confirm what exact files you have found with the user, along with asking if the user wants to provide anything else. Only after this confirmation will you proceed to follow the loading rules</critical>
 
 **Loading Rules:**
 
@@ -117,7 +110,7 @@ Try to discover the following:
 #### C. Present Initialization Results
 
 **Setup Report to User:**
-"Welcome {{user_name}}! I've set up your product brief workspace for {{project_name}}.
+"Welcome {{user_name}}! I've set up your product brief workspace for the project name.
 
 **Document Setup:**
 

@@ -22,3 +22,4 @@ Thumbs.db
 
 # GSANE Stateless sessions
 _gsane/_memory/sessions/*.md
+_gsane/_memory/sessions/*.yaml
