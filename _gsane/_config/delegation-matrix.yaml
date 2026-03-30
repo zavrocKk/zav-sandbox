@@ -238,7 +238,6 @@ rules:
   - request_type: "market-research"
     target_agent: "analyst"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/analyst.md"
     icon: "📊"
     description: "Business analysis"
     trigger_keywords:
@@ -246,7 +245,6 @@ rules:
   - request_type: "create-prd"
     target_agent: "pm"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/pm.md"
     icon: "📋"
     description: "Product Requirements Document creation/edit/validation"
     trigger_keywords:
@@ -254,7 +252,6 @@ rules:
   - request_type: "create-architecture"
     target_agent: "architect"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/architect.md"
     icon: "🏗️"
     description: "System architecture design"
     trigger_keywords:
@@ -262,7 +259,6 @@ rules:
   - request_type: "sprint-planning"
     target_agent: "sm"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/task-resolver.md"
     icon: "🏃"
     description: "Sprint planning"
     trigger_keywords:
@@ -270,7 +266,6 @@ rules:
   - request_type: "dev-story"
     target_agent: "dev"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/dev.md"
     icon: "💻"
     description: "Story implementation"
     trigger_keywords:
@@ -278,7 +273,6 @@ rules:
   - request_type: "ux-design"
     target_agent: "ux-designer"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/ux-designer.md"
     icon: "🎨"
     description: "UX/UI design"
     trigger_keywords:
@@ -286,7 +280,6 @@ rules:
   - request_type: "qa-automate"
     target_agent: "qa"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/qa.md"
     icon: "🧪"
     description: "Rapid test generation for existing features — API and E2E tests using standard framework patterns"
     trigger_keywords:
@@ -301,7 +294,6 @@ rules:
   - request_type: "write-document"
     target_agent: "tech-writer"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/tech-writer.md"
     icon: "📚"
     description: "Technical documentation"
     trigger_keywords:
@@ -309,7 +301,6 @@ rules:
   - request_type: "quick-flow"
     target_agent: "quick-flow-solo-dev"
     target_module: "cis"
-    target_path: "_gsane/bmad/agents/quick-flow-solo-dev.md"
     icon: "🚀"
     description: "Quick spec and rapid implementation for small-medium tasks — minimum ceremony"
     trigger_keywords:

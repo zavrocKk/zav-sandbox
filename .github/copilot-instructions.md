@@ -196,7 +196,7 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
 - Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/sessions/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
-> ⚠️ **NOTE**: The count “13 agents” above refers to the original GSANE set. The project currently has **22 agents** after BMM module import (9 additional BMM agents). All 22 agents follow this session end hook.
+> ⚠️ **NOTE**: The count “13 agents” above refers to the original GSANE set. The project currently has **22 agents** after CIS module import (9 additional CIS agents). All 22 agents follow this session end hook.
 
 ## Available Agents
 
