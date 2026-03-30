@@ -284,7 +284,7 @@
   agent-title: ""
   options: ""
   description: Generate diverse ideas through interactive techniques. Use early in ideation phase or when stuck generating ideas.
-  output-location: {output_folder}/brainstorming/brainstorming-session-{{date}}.md
+  output-location: "{output_folder}/brainstorming/brainstorming-session-{{date}}.md"
   outputs: ""
 - module: core
   phase: anytime
