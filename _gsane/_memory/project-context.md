@@ -93,4 +93,4 @@ _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
 
 ## État de session récent
 
-→ Voir `_gsane/_memory/session-state.md` pour l'état de la dernière session.
+→ Voir `_gsane/_memory/sessions/session-state.md` pour l'état de la dernière session.

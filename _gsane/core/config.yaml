@@ -17,7 +17,7 @@ delegation:
   enforcement_mode: strict                                    # strict | permissive
   delegation_required: true                                  # All requests must route through delegation system
   agents_can_self_execute: false                             # Agents cannot bypass delegation routing
-  delegation_matrix_path: "{project-root}/_gsane/_config/agent-delegation-matrix.csv"
+  delegation_matrix_path: "{project-root}/_gsane/_config/delegation-matrix.yaml"
   delegation_workflow_path: "{project-root}/_gsane/core/workflows/delegation/workflow.md"
   audit_log_path: "{output_folder}/delegation-audit.md"
   

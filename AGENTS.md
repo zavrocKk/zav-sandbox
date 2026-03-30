@@ -22,7 +22,7 @@ _gsane/                       ← GSANE framework root
     agent-manifest.csv        ← All agents: name, persona, capabilities
     workflow-manifest.csv     ← All workflows: name, description, path
     task-manifest.csv         ← All tasks: name, description, path
-    agent-delegation-matrix.csv ← Request routing rules
+    delegation-matrix.yaml ← Request routing rules
   _memory/                    ← Persistent agent memory across sessions
     failure-museum.md         ← Catalogue des défaillances passées (FM-001+)
     decision-log.md           ← Journal des décisions architecturales (DL-001+)
@@ -63,7 +63,7 @@ AGENTS.md                     ← This file — universal agent entry point
 | Find an agent | `_gsane/_config/agent-manifest.csv` |
 | Find a workflow | `_gsane/_config/workflow-manifest.csv` |
 | Find a task | `_gsane/_config/task-manifest.csv` |
-| Understand routing rules | `_gsane/_config/agent-delegation-matrix.csv` |
+| Understand routing rules | `_gsane/_config/delegation-matrix.yaml` |
 | Global config (user, language) | `_gsane/core/config.yaml` |
 | Agent memory/state | `_gsane/_memory/` |
 | Past failures & decisions | `_gsane/_memory/failure-museum.md`, `_gsane/_memory/decision-log.md` |

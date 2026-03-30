@@ -211,7 +211,7 @@ Before logging, apply all eligible corrections identified in Steps 2 and 3:
 
 ### Step 5 — Append to Session Memory Log
 
-Load path: `{project-root}/_gsane/_memory/session-analysis-log.md`
+Load path: `{project-root}/_gsane/_memory/sessions/session-analysis-log.md`
 
 Append the following block to the END of the file (never overwrite):
 
@@ -277,7 +277,7 @@ Leave `first_run` unchanged — do NOT modify it in this step.
 
 **Also update the "Plan de session actif" section** (if {session_plan} was active, save abbreviated phase list; else write `_(aucun plan actif)_`).
 
-If `session-state.md` does not exist, create it using the template from `_gsane/_memory/session-state.md` header block, then write the values.
+If `session-state.md` does not exist, create it using the template from `_gsane/_memory/sessions/session-state.md` header block, then write the values.
 
 Log this action in AUTO_CORRECTIONS: `"session-state.md mis à jour"`.
 
@@ -285,12 +285,12 @@ Log this action in AUTO_CORRECTIONS: `"session-state.md mis à jour"`.
 
 ### Step 5c — Session Log Rotation (if needed)
 
-Count the number of `## Session:` entries in `{project-root}/_gsane/_memory/session-analysis-log.md` → `{log_entry_count}`.
+Count the number of `## Session:` entries in `{project-root}/_gsane/_memory/sessions/session-analysis-log.md` → `{log_entry_count}`.
 
 ```
 if {log_entry_count} > 50:
   1. Extract ALL entries with dates older than the current year (i.e., entries from prior years)
-  2. Append them to: {project-root}/_gsane/_memory/session-analysis-log-archive-{year}.md
+  2. Append them to: {project-root}/_gsane/_memory/sessions/session-analysis-log-archive-{year}.md
      (create the file if it doesn't exist — header: "# Archive Session Log — {year}")
   3. Remove those entries from session-analysis-log.md (keeping only current-year entries + any ≤ 50 most recent)
   4. Add a single line at the top of session-analysis-log.md:
@@ -336,7 +336,7 @@ This is the heartbeat of the Cognitive Flywheel. Every Nth session, the cycle fi
 Display to user (in {communication_language}):
 
 ```
-📊 Analyse post-session terminée — {AUTO_CORRECTIONS.count} correction(s) appliquée(s) — résultats dans _gsane/_memory/session-analysis-log.md
+📊 Analyse post-session terminée — {AUTO_CORRECTIONS.count} correction(s) appliquée(s) — résultats dans _gsane/_memory/sessions/session-analysis-log.md
 ```
 
 If flywheel was triggered this step, the flywheel workflow (`workflow-aggregate.md` → `workflow-apply.md`) already displayed its own `🔄` status line. Do not duplicate it.

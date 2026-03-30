@@ -30,7 +30,7 @@ agent_icon: "⚙️"
 
 ### Step 1 — Load Report
 
-Load `{project-root}/_gsane/_memory/flywheel-report.md`.
+Load `_gsane/_memory/flywheel-report.md`.
 
 Extract all corrections with `status: pending`.
 Separate by severity:
@@ -159,7 +159,7 @@ See `_gsane/_memory/scoreboard.md` for per-agent, per-workflow, per-prompt score
 
 ### Step 6 — Append to Flywheel History
 
-Append to `{project-root}/_gsane/_memory/flywheel-history.md`:
+Append to `_gsane/_memory/flywheel-history.md`:
 
 ```markdown
 ---

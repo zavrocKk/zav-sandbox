@@ -29,7 +29,7 @@ This uses **intelligent matching and controlled delegation**:
 ```mermaid
 flowchart TD
     REQ([User Request]) --> ANA[Analyze request\ntype + keywords]
-    ANA --> MATRIX[Load agent-delegation-matrix.csv]
+    ANA --> MATRIX[Load delegation-matrix.yaml]
     MATRIX --> MATCH{Match type?}
     MATCH -->|perfect match| LOAD[Load target agent .md]
     MATCH -->|fuzzy match| RANK[Rank by keyword relevance]
@@ -54,15 +54,15 @@ flowchart TD
 
 ### Configuration Loading
 
-Load config from `{project-root}/_gsane/core/config.yaml`:
+Load config from `_gsane/core/config.yaml`:
 
 - `user_name`, `communication_language`, `output_folder`
-- Delegation Matrix: `{project-root}/_gsane/_config/agent-delegation-matrix.csv`
+- Delegation Matrix: `_gsane/_config/delegation-matrix.yaml`
 - Core config with `delegation_required` enforcement flag
 
 ### Paths
 
-- `delegation_matrix_path` = `{project-root}/_gsane/_config/agent-delegation-matrix.csv`
+- `delegation_matrix_path` = `_gsane/_config/delegation-matrix.yaml`
 - `audit_log_path` = `{output_folder}/delegation-audit.md`
 
 ---
@@ -93,7 +93,7 @@ Load config from `{project-root}/_gsane/core/config.yaml`:
 ### Step 2: Delegation Matrix Lookup
 
 **System Actions:**
-1. Load `agent-delegation-matrix.csv`
+1. Load `delegation-matrix.yaml`
 2. Match request_type to matrix entries
 3. If perfect match → proceed to Step 3
 4. If fuzzy match possible → rank by trigger_keyword relevance

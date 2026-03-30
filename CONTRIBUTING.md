@@ -30,7 +30,7 @@ zav-sandbox/
     ├── _config/                       # Manifests CSV + matrice de délégation
     │   ├── agent-manifest.csv         # Registre des 13 agents (index JIT)
     │   ├── workflow-manifest.csv      # Registre des workflows
-    │   ├── agent-delegation-matrix.csv  # Routing des requêtes — impacte TOUT le système
+    │   ├── delegation-matrix.yaml  # Routing des requêtes — impacte TOUT le système
     │   └── ...
     ├── _memory/                       # Mémoire persistante (scoreboard, flywheel, sessions)
     ├── core/                          # Gsane Master + workflows fondamentaux + flywheel
@@ -130,7 +130,7 @@ Toute modification sans entrée CHANGELOG sera bloquée par le CI. Format GSANE 
 |---|---|---|
 | **Low** | Correction typo, append CHANGELOG | Solo autorisé |
 | **Medium** | Modifier un agent, un workflow | Party mode recommandé |
-| **High** | Modifier `agent-delegation-matrix.csv`, règles core, `copilot-instructions.md` | Party mode **obligatoire** — validation ≥ 2 agents avant écriture |
+| **High** | Modifier `delegation-matrix.yaml`, règles core, `copilot-instructions.md` | Party mode **obligatoire** — validation ≥ 2 agents avant écriture |
 
 Activer le party mode : `/gsane-party-mode` dans Copilot Chat.
 
@@ -169,7 +169,7 @@ Ajouter une ligne dans `_gsane/_config/agent-manifest.csv` :
 
 ### 5. Ajouter dans la matrice de délégation si pertinent
 
-Dans `_gsane/_config/agent-delegation-matrix.csv` :
+Dans `_gsane/_config/delegation-matrix.yaml` :
 
 ```csv
 mon-cas-usage,mon-agent,module,_gsane/{module}/agents/mon-agent.md,🔧,Description courte,keyword1;keyword2;keyword3
@@ -251,7 +251,7 @@ Puis mettre à jour :
 
 ---
 
-## Modifier `agent-delegation-matrix.csv`
+## Modifier `delegation-matrix.yaml`
 
 ⚠️ **Ce fichier est le cerveau du système de routing.** Tout changement a un impact global.
 
@@ -291,7 +291,7 @@ Select-String "CHANGELOG.md" -Pattern "\[Unreleased\]" -Quiet
 
 # T2 — Chemins dépréciés
 (Get-ChildItem ".github\prompts","_gsane" -Recurse -File |
-  Select-String "_gsane/bmm/").Count
+  Select-String "_gsane/bmad/").Count
 # Attendu : 0
 
 # T3 — .agent.md count
@@ -310,7 +310,7 @@ Select-String "CHANGELOG.md" -Pattern "\[Unreleased\]" -Quiet
 # Attendu : True partout
 
 # T6 — Manifests
-@("agent-manifest.csv","workflow-manifest.csv","agent-delegation-matrix.csv","gsane-help.csv") |
+@("agent-manifest.csv","workflow-manifest.csv","delegation-matrix.yaml","gsane-help.csv") |
   ForEach-Object { "$_ : $(Test-Path "_gsane\_config\$_")" }
 # Attendu : True partout
 ```
@@ -352,7 +352,7 @@ type(catégorie): description courte (max 72 chars)
 ```
 feat(tea): add run-tests entry to delegation matrix
 
-- agent-delegation-matrix.csv: new row routing test/validate requests to Murat
+- delegation-matrix.yaml: new row routing test/validate requests to Murat
 - Covers: tester, valider le projet, check ci, smoke test, regression check
 ```
 
@@ -415,7 +415,7 @@ git push -u origin {nom-branche}
 ## Checklist
 - [ ] CHANGELOG.md mis à jour
 - [ ] Conventions GSANE respectées
-- [ ] Aucun chemin déprécié `_gsane/bmm/` introduit
+- [ ] Aucun chemin déprécié `_gsane/bmad/` introduit
 - [ ] Structure GSANE intacte
 - [ ] Party mode appliqué si sévérité medium/high
 ```

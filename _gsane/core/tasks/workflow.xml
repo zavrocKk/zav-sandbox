@@ -10,6 +10,8 @@
   </llm>
 
   <WORKFLOW-RULES critical="true">
+    <rule id="STRUCTURED_OUTPUTS_ONLY">CRITICAL SEPARATION OF DATA AND RENDER: The textual LLM has high typization failure rates when writing formal files (YAML/Markdown). When generating final artifacts, NEVER format the markdown file directly yourself. INSTEAD, strictly output a structured JSON block (e.g. `{"vision": "...", "step": 3}`) to tools/scripts which handle the final template compilation.</rule>
+    <rule id="STATE_ENGINE">CRITICAL: Do NOT use markdown frontmatter for state. ALWAYS track workflow state inside a YAML file in _gsane/_memory/sessions/current-workflow.state.yaml</rule>
     <rule n="1">Steps execute in exact numerical order (1, 2, 3...)</rule>
     <rule n="2">Optional steps: Ask user unless #yolo mode active</rule>
     <rule n="3">Template-output tags: Save content, discuss with the user the section completed, and NEVER proceed until the users indicates
@@ -74,14 +76,14 @@
           <action>Display generated content</action>
           <ask> [a] Advanced Elicitation, [c] Continue, [p] Party-Mode, [y] YOLO the rest of this document only. WAIT for response. <if
               response="a">
-              <action>Start the advanced elicitation workflow {project-root}/_gsane/core/workflows/advanced-elicitation/workflow.xml</action>
+              <action>Start the advanced elicitation workflow _gsane/core/workflows/advanced-elicitation/workflow.xml</action>
             </if>
             <if
               response="c">
               <action>Continue to next step</action>
             </if>
             <if response="p">
-              <action>Start the party-mode workflow {project-root}/_gsane/core/workflows/party-mode/workflow.md</action>
+              <action>Start the party-mode workflow _gsane/core/workflows/party-mode/workflow.md</action>
             </if>
             <if
               response="y">
@@ -225,7 +227,7 @@
     <critical-rules>
       • This is the complete workflow execution engine
       • You MUST Follow instructions exactly as written
-      • The workflow execution engine is governed by: {project-root}/_gsane/core/tasks/workflow.xml
+      • The workflow execution engine is governed by: _gsane/core/tasks/workflow.xml
       • You MUST have already loaded and processed: {installed_path}/workflow.yaml
       • This workflow uses INTENT-DRIVEN PLANNING - adapt organically to product type and context
       • YOU ARE FACILITATING A CONVERSATION With a user to produce a final document step by step. The whole process is meant to be

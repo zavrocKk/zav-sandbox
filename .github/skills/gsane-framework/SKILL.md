@@ -64,7 +64,7 @@ Agents and workflows are loaded just-in-time — never preloaded:
 ## Delegation System
 
 All agent requests route through `_gsane/core/workflows/delegation/workflow.md`:
-1. Check `_gsane/_config/agent-delegation-matrix.csv` for routing rules
+1. Check `_gsane/_config/delegation-matrix.yaml` for routing rules
 2. Load target agent
 3. Agent executes workflow
 4. Log routing decision
@@ -85,5 +85,5 @@ Enforcement is strict — no direct agent activation without delegation check.
 |---|---|
 | `_gsane/_config/agent-manifest.csv` | Registry of all agents |
 | `_gsane/_config/workflow-manifest.csv` | Registry of all workflows |
-| `_gsane/_config/agent-delegation-matrix.csv` | Request routing rules |
+| `_gsane/_config/delegation-matrix.yaml` | Request routing rules |
 | `_gsane/_config/task-manifest.csv` | Registry of all tasks |

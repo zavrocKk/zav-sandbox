@@ -89,7 +89,7 @@ Before updating frontmatter or exiting, execute the post-session analysis hook:
 > ⚠️ This step is **mandatory and automatic**. It does NOT require user input.
 > Load and follow: `{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md`
 > Wait for the single status line output (📊) before proceeding to step 6.
-> If the workflow fails for any reason, log a minimal error note to `_gsane/_memory/session-analysis-log.md` and continue to step 6 without blocking exit.
+> If the workflow fails for any reason, log a minimal error note to `_gsane/_memory/sessions/session-analysis-log.md` and continue to step 6 without blocking exit.
 
 ### 6. Complete Workflow Exit
 

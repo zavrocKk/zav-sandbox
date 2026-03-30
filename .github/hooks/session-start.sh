@@ -13,7 +13,7 @@ for required_file in \
   "$WORKSPACE_ROOT/_gsane/core/config.yaml" \
   "$WORKSPACE_ROOT/_gsane/_config/agent-manifest.csv" \
   "$WORKSPACE_ROOT/_gsane/_config/workflow-manifest.csv" \
-  "$WORKSPACE_ROOT/_gsane/_config/agent-delegation-matrix.csv"; do
+  "$WORKSPACE_ROOT/_gsane/_config/delegation-matrix.yaml"; do
   if [[ ! -f "$required_file" ]]; then
     echo "[SessionStart] WARNING: $required_file not found"
   fi

@@ -12,7 +12,7 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
    - If NO (pure explanation/conversation with no action) → proceed normally
 
 2. **Is this request covered by the Delegation Matrix?**
-   - Load `_gsane/_config/agent-delegation-matrix.csv`
+   - Load `_gsane/_config/delegation-matrix.yaml`
    - Match request keywords against `trigger_keywords` column
    - If match found → load target agent, route through delegation workflow
    - If no match → escalate to gsane-master, DO NOT self-execute
@@ -64,7 +64,7 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 - **Workflow manifest**: `_gsane/_config/workflow-manifest.csv`
 - **Help manifest**: `_gsane/_config/gsane-help.csv`
 - **Agent memory**: `_gsane/_memory/`
-- **Delegation Matrix**: `_gsane/_config/agent-delegation-matrix.csv`
+- **Delegation Matrix**: `_gsane/_config/delegation-matrix.yaml`
 - **Delegation Workflow**: `_gsane/core/workflows/delegation/workflow.md`
 - **Git Workflow**: `_gsane/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
 
@@ -91,7 +91,7 @@ Load: _gsane/core/workflows/delegation/workflow.md
     ↓
 Step 1: Analyze request type
     ↓
-Step 2: Match against _gsane/_config/agent-delegation-matrix.csv
+Step 2: Match against _gsane/_config/delegation-matrix.yaml
     ↓
 Step 3: Load appropriate agent
     ↓
@@ -155,6 +155,8 @@ I need to commit changes following the Git Workflow
 ```
 
 ## Key Conventions
+- **ANTI-ECHO CHAMBER (QA/TESTS)**: Any agent validating a file (like Aria or Murat) MUST run strictly python tests/qa-linter.py <file> to validate instead of subjective reading. LLMs suffer from confirmation bias.
+- **APPEND-ONLY PREFERENCE**: When writing large documents, do not overwrite the full file or mid-frontmatter. Ask the tool to Append-Only to the end of the file unless restructuring is mandatory.
 
 - Always load `_gsane/core/config.yaml` before any agent activation or workflow execution
 - Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`
@@ -192,7 +194,7 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 
 - All 13 GSANE agents have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
-- Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
+- Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/sessions/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
 > ⚠️ **NOTE**: The count “13 agents” above refers to the original GSANE set. The project currently has **22 agents** after BMM module import (9 additional BMM agents). All 22 agents follow this session end hook.
 
