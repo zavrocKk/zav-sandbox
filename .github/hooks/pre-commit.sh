@@ -33,4 +33,15 @@ if [[ -n "$STAGED_FILES" ]]; then
   done
 fi
 
+
+# ── 4. Validation des fichiers YAML (Prévention Crash Parser) ───────────────────
+echo "
+🔍 Vérification de la syntaxe YAML..."
+if python3 -c "import yaml, glob; [yaml.safe_load(open(f, encoding='utf-8')) for f in glob.glob('_gsane/_config/*.yaml')]" 2>/dev/null; then
+  echo "✅ YAML valide."
+else
+  echo "❌ YAML invalide ! Interruption du commit."
+  exit 1
+fi
 echo "[PreCommit] ✅ All checks passed."
+

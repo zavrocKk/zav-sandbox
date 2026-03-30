@@ -27,7 +27,7 @@ zav-sandbox/
 │       └── cleanup-branches.yml       # Nettoyage automatique des branches mergées
 │
 └── _gsane/
-    ├── _config/                       # Manifests CSV + matrice de délégation
+    ├── _config/                       # Manifests YAML hiérarchique + matrice de délégation
     │   ├── agent-manifest.yaml         # Registre des 13 agents (index JIT)
     │   ├── workflow-manifest.yaml      # Registre des workflows
     │   ├── delegation-matrix.yaml  # Routing des requêtes — impacte TOUT le système
@@ -157,7 +157,7 @@ _gsane/bmb/agents/mon-agent.md
 
 Ajouter une ligne dans `_gsane/_config/agent-manifest.yaml` :
 
-```csv
+```yaml
 "mon-agent","Persona","Titre","🔧","capability1, capability2","Rôle","Identité","Style","Principes","module","_gsane/{module}/agents/mon-agent.md"
 ```
 
@@ -171,7 +171,7 @@ Ajouter une ligne dans `_gsane/_config/agent-manifest.yaml` :
 
 Dans `_gsane/_config/delegation-matrix.yaml` :
 
-```csv
+```yaml
 mon-cas-usage,mon-agent,module,_gsane/{module}/agents/mon-agent.md,🔧,Description courte,keyword1;keyword2;keyword3
 ```
 
@@ -233,7 +233,7 @@ _gsane/{module}/
 ├── workflows/
 ├── teams/
 ├── config.yaml
-└── module-help.csv
+└── module-help.yaml
 ```
 
 Structure minimale de `config.yaml` :
@@ -262,7 +262,7 @@ Avant de modifier :
 
 Format d'une ligne :
 
-```csv
+```yaml
 request_type,target_agent,module,path,icon,description,trigger_keywords
 run-tests,tea,tea,_gsane/tea/agents/tea.md,🧪,Description,keyword1;keyword2;keyword3
 ```

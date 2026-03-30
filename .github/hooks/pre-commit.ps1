@@ -29,4 +29,17 @@ foreach ($File in $StagedFiles) {
     }
 }
 
+
+# ── 4. Validation des fichiers YAML (Prévention Crash Parser) ───────────────────
+Write-Host "
+🔍 Vérification de la syntaxe YAML..." -ForegroundColor Cyan
+try {
+    python -c "import yaml, sys, glob; [yaml.safe_load(open(f, encoding='utf-8')) for f in glob.glob('_gsane/_config/*.yaml')]" *>&1 | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw }
+    Write-Host "✅ YAML valide." -ForegroundColor Green
+} catch {
+    Write-Host "❌ YAML invalide ! Interruption du commit." -ForegroundColor Red
+    exit 1
+}
 exit 0
+
