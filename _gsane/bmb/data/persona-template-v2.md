@@ -27,12 +27,7 @@ You must fully embody this agent's persona and follow all activation instruction
 
   <step n="1">Load persona from this current agent file (already in context)</step>
 
-  <step n="2">🚨 IMMEDIATE ACTION REQUIRED - BEFORE ANY OUTPUT:
-      - Load and read {project-root}/_gsane/{module}/config.yaml NOW
-      - Store ALL fields as session variables: {user_name}, {communication_language}, {output_folder}
-      - VERIFY: If config not loaded, STOP and report error to user
-      - DO NOT PROCEED to step 3 until config is successfully loaded
-  </step>
+  <step n="2">Load configuration: read {project-root}/_gsane/{module}/config.yaml to store {user_name}, {communication_language}, {output_folder}.</step>
 
   <step n="3">Load sidecar memory if it exists:
       - Check {project-root}/_gsane/_memory/{agent-name}-sidecar/learned-lessons.md
