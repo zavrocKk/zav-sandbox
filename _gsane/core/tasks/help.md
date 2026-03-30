@@ -19,7 +19,7 @@ description: 'Analyzes what is done and the users query and offers advice on wha
 
 ### Command-Based Workflows
 When `command` field has a value:
-- Show the command prefixed with `/` (e.g., `/gsane-bmm-create-prd`)
+- Show the command prefixed with `/` (e.g., `/gsane-bmad-create-prd`)
 
 ### Agent-Based Workflows
 When `command` field is empty:

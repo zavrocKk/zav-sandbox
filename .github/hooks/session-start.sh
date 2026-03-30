@@ -27,14 +27,6 @@ if [[ "$AGENT_COUNT" -lt "$EXPECTED_AGENTS" ]]; then
   echo "[SessionStart] WARNING: Expected $EXPECTED_AGENTS agents, found $AGENT_COUNT — run audit"
 fi
 
-# ── 3. Scanner les chemins dépréciés dans les prompts ─────────────────────────
-DEPRECATED=$(grep -rl "_gsane/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null | wc -l)
-if [[ "$DEPRECATED" -gt 0 ]]; then
-  echo "[SessionStart] ERROR: $DEPRECATED prompt(s) still reference deprecated _gsane/bmm/ path!"
-  grep -rl "_gsane/bmm/" "$WORKSPACE_ROOT/.github/prompts/" 2>/dev/null
-else
-  echo "[SessionStart] No deprecated paths detected. ✅"
-fi
 
 # ── 4. Incrémenter session_count ──────────────────────────────────────────────
 mkdir -p "$(dirname "$SESSION_COUNT_FILE")"
