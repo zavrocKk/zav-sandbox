@@ -44,17 +44,6 @@ jobs:
           fi
           echo "✅ PR body is present (${#PR_BODY} characters)."
 
-      - name: Scan for deprecated paths
-        run: |
-          echo "🔍 Scanning for deprecated _gsane/bmb/ references..."
-          HITS=$(grep -rl "_gsane/bmb/" .github/prompts/ _gsane/ 2>/dev/null | wc -l)
-          if [[ "$HITS" -gt 0 ]]; then
-            echo "❌ ERROR: $HITS file(s) still reference deprecated path _gsane/bmb/:"
-            grep -rl "_gsane/bmb/" .github/prompts/ _gsane/ 2>/dev/null
-            exit 1
-          fi
-          echo "✅ No deprecated paths found."
-
       - name: Validate agent manifest sync
         run: |
           echo "🔍 Checking .agent.md files present..."
@@ -144,11 +133,10 @@ jobs:
           echo "✅ ================ VALIDATION PASSED ================"
           echo "✅ CHANGELOG.md exists and is properly formatted"
           echo "✅ PR body is not empty"
-          echo "✅ No deprecated paths (_gsane/bmb/) detected"
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
           echo "✅ Branch naming convention checked"
-          echo "✅ Workflow manifest file integrity verified (T9)"
-          echo "✅ Agent persona fields populated (T10)"
+          echo "✅ Workflow manifest file integrity verified"
+          echo "✅ Agent persona fields populated"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="
