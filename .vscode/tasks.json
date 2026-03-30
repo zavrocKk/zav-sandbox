@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Sandbox: Lancer Party Mode",
+            "type": "shell",
+            "command": "bash sandbox.sh party-mode",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
+        },
+        {
+            "label": "Sandbox: Nouvelle Session Brainstorming",
+            "type": "shell",
+            "command": "bash sandbox.sh brainstorming",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
+        },
+        {
+            "label": "Sandbox: Lancer Diagnostic (Health Check)",
+            "type": "shell",
+            "command": "bash sandbox.sh health-check",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "Sandbox: Lister les Agents",
+            "type": "shell",
+            "command": "bash sandbox.sh list-agents",
+            "group": "none"
+        }
+    ]
+}

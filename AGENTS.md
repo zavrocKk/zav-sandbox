@@ -28,7 +28,7 @@ _gsane/                       ← GSANE framework root
     decision-log.md           ← Journal des décisions architecturales (DL-001+)
     session-analysis-log.md   ← Post-session analysis logs
   core/                       ← Core module: gsane-master agent + orchestration workflows
-    agents/gsane-master.md    ← Primary orchestrator agent
+    _gsane/core/agents/gsane-master.md    ← Primary orchestrator agent
     config.yaml               ← Global project config (user_name, language, output_folder)
     tasks/                    ← Reusable tasks (editorial review, help, indexing, sharding)
     workflows/                ← Core workflows (party-mode, delegation, brainstorming, git, cc-verify)
@@ -46,7 +46,7 @@ _gsane/                       ← GSANE framework root
     agents/                   ← Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
     workflows/                ← design-thinking, innovation-strategy, problem-solving, storytelling
   tea/                        ← TEA module: test architecture
-    agents/tea.md             ← Murat (test architect)
+    _gsane/tea/agents/tea.md             ← Murat (test architect)
     workflows/testarch/       ← ATDD, CI, coverage, NFR, framework, review, trace workflows
 _gsane-output/                ← Generated artifacts (never commit large outputs to main)
 .github/
