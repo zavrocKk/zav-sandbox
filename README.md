@@ -134,7 +134,7 @@ Test-Path ".git\hooks\pre-commit"
 # Attendu : True
 
 # Manifests
-@("agent-manifest.csv","workflow-manifest.csv","delegation-matrix.yaml") |
+@("agent-manifest.yaml","workflow-manifest.yaml","delegation-matrix.yaml") |
   ForEach-Object { "$_ : $(Test-Path "_gsane\_config\$_")" }
 ```
 
@@ -336,8 +336,8 @@ Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond,
 | Fichier | Rôle |
 |---|---|
 | [`_gsane/core/config.yaml`](_gsane/core/config.yaml) | Config globale : user, langue, sévérité, flywheel |
-| [`_gsane/_config/agent-manifest.csv`](_gsane/_config/agent-manifest.csv) | Registre des 22 agents |
-| [`_gsane/_config/workflow-manifest.csv`](_gsane/_config/workflow-manifest.csv) | Registre des workflows |
+| [`_gsane/_config/agent-manifest.yaml`](_gsane/_config/agent-manifest.yaml) | Registre des 22 agents |
+| [`_gsane/_config/workflow-manifest.yaml`](_gsane/_config/workflow-manifest.yaml) | Registre des workflows |
 | [`_gsane/_config/delegation-matrix.yaml`](_gsane/_config/delegation-matrix.yaml) | Règles de routing |
 | [`_gsane/_memory/sessions/session-analysis-log.md`](_gsane/_memory/sessions/session-analysis-log.md) | Log persistant des sessions |
 | [`AGENTS.md`](AGENTS.md) | Guide de navigation universel |

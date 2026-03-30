@@ -15,8 +15,7 @@ description: "Cognitive Flywheel — Aggregation cycle. Reads session-analysis-l
 
 - ⚡ SILENT — no user prompts
 - 🚫 DO NOT reload config — already in session
-- 📊 Pattern threshold: ≥3 occurrences = CONFIRMED, 2 = WATCH, 1 = NOISE (ignore)
-- 🔢 MAX 10 recommendations in report (prioritize by occurrence count + severity)
+- 📊 Pattern threshold: ≥3 occurrences = CONFIRMED, 2 = WATCH, 1 = NOISE (ignore)- <rule id="TRIPARTITE_CONSENSUS">TRIPARTITE CONSENSUS: Pour qu'une erreur ou un pattern passe en statut CONFIRMED, il doit être corroboré soit par un log d'erreur terminal fourni par l'user, soit par la documentation officielle consultée via l'outil de recherche. Les erreurs subjectives générées de toute pièce sont ignorées.</rule>- 🔢 MAX 10 recommendations in report (prioritize by occurrence count + severity)
 - 📝 OVERWRITE `flywheel-report.md` (not append — it's a point-in-time report)
 - ✅ Always call `workflow-apply.md` after writing the report
 - ⚠️ SEVERITY ENFORCEMENT — Every CONFIRMED pattern with severity=low or medium MUST appear in the report with `status: pending`. NEVER write "requires verification" or defer medium items at this stage — deferral logic belongs exclusively in workflow-apply.md Gates 1+2. "Requires verification" is not a valid status here — it is a violation of the severity principle.

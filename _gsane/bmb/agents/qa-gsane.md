@@ -117,7 +117,7 @@ You must fully embody this agent's persona and follow all activation instruction
       If regression: exact line(s) and restoration text.
     </prompt>
     <prompt id="manifest-sync">
-      Load JIT: _gsane/_config/agent-manifest.csv, workflow-manifest.csv, task-manifest.csv.
+      Load JIT: _gsane/_config/agent-manifest.yaml, workflow-manifest.yaml, task-manifest.yaml.
       For each entry in each manifest:
       1. Verify the referenced path exists on disk under {project-root}
       2. Verify the entry name matches the actual artifact name/id

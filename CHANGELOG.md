@@ -68,7 +68,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Adaptations chemins: `_bmad/` → `_gsane/`, `bmad-help` → `gsane-help`, `bmad-quick-flow` → `gsane-quick-flow`
 - Sidecar mémoire: `_gsane/_memory/tech-writer-sidecar/documentation-standards.md`
 - Agent: Party Mode (Morgan, Bond, Wendy, Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/bmad/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.csv`, `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
+- Impact: `_gsane/bmad/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.yaml`, `workflow-manifest.yaml`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
 
 ### [Core]
 **[feat]** Gouvernance multi-agents — GOLDEN_RULE ×22 agents, solo-creep detection, party mode élargi 14 agents
@@ -126,9 +126,9 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Agent: Party Mode (Aria, Wendy, Léo, Dr. Quinn) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: gsane-master.md, copilot-instructions.md
 
-**[fix]** gsane-help.csv — entrées manquantes pour cc-verify (Completion Contract) et session-branch ajoutées
+**[fix]** gsane-help.yaml — entrées manquantes pour cc-verify (Completion Contract) et session-branch ajoutées
 - Agent: Party Mode (Aria) | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: _gsane/_config/gsane-help.csv
+- Impact: _gsane/_config/gsane-help.yaml
 
 **[feat]** Tier 1 — Failure Museum, Decision Log, Completion Contract, Plan/Act Mode, [THINK]
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
@@ -138,15 +138,15 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Impact: `.github/prompts/gsane-cc-verify.prompt.md` — commande `/gsane-cc-verify`
 - Impact: `_gsane/core/agents/gsane-master.md` — 4 nouvelles règles: PLAN/ACT MODE, [THINK], COMPLETION CONTRACT, FAILURE MUSEUM + menu item [CC]
 - Impact: `_gsane/core/workflows/post-session-analysis/workflow.md` — Step 2b: auto-append Failure Museum pour violations HIGH
-- Impact: `_gsane/_config/workflow-manifest.csv` — entrée `cc-verify` ajoutée
+- Impact: `_gsane/_config/workflow-manifest.yaml` — entrée `cc-verify` ajoutée
 - Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
 
 **[feat]** Tier 2 — CI Workflow Integrity (T9), Persona Regression (T10), Session Branching
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `.github/workflows/validate-pr.yml` — T9: vérifie chaque fichier référencé dans workflow-manifest.csv existe sur disque
-- Impact: `.github/workflows/validate-pr.yml` — T10: vérifie que `communicationStyle` et `principles` sont non-vides dans agent-manifest.csv
+- Impact: `.github/workflows/validate-pr.yml` — T9: vérifie chaque fichier référencé dans workflow-manifest.yaml existe sur disque
+- Impact: `.github/workflows/validate-pr.yml` — T10: vérifie que `communicationStyle` et `principles` sont non-vides dans agent-manifest.yaml
 - Impact: `_gsane/core/workflows/session-branch/workflow.md` — nouveau workflow de démarrage de session
-- Impact: `_gsane/_config/workflow-manifest.csv` — entrées `cc-verify` et `session-branch` ajoutées
+- Impact: `_gsane/_config/workflow-manifest.yaml` — entrées `cc-verify` et `session-branch` ajoutées
 - Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
 
 **[fix]** Restore `_gsane-output/` — `.gitkeep` trackés via exceptions `.gitignore`
@@ -263,9 +263,9 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `_gsane/_config/ides/github-copilot.yaml`
 
-**[fix]** Audit A1 — `gsane-help.csv` : entrées manquantes pour Léo et Aria ajoutées
+**[fix]** Audit A1 — `gsane-help.yaml` : entrées manquantes pour Léo et Aria ajoutées
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_gsane/_config/gsane-help.csv`
+- Impact: `_gsane/_config/gsane-help.yaml`
 
 **[feat]** Audit A1 — `.gitignore` créé (instructions.md + _gsane-output/ + OS artifacts)
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
@@ -273,7 +273,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 **[feat]** Cognitive Flywheel — cycle d'auto-amélioration complet
 - Agent: Gsane Master (party mode tous agents) | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_gsane/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_gsane/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `README.md`
+- Impact: `_gsane/core/workflows/flywheel/workflow-aggregate.md`, `workflow-apply.md`, `_gsane/_memory/flywheel-report.md`, `flywheel-history.md`, `session-analysis-log.md`, `config.yaml` (section flywheel), `hooks.json` (FlywheelTrigger), `workflow-manifest.yaml`, `agent-delegation-matrix.csv`, `README.md`
 - Mécanisme: post-session-analysis compte les sessions et auto-déclenche l'agrégateur toutes les N sessions (défaut: 5). Patterns ≥3 occurrences → confirmed. Corrections low/medium auto-appliquées sur branche fix/flywheel-* avec PR.
 
 **[fix]** Activation universelle du flywheel — câblage exec sur 13 agents DA manquants + hook global

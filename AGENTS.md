@@ -19,9 +19,9 @@ The goal is to continuously improve the GSANE multi-agent system — optimizing 
 ```
 _gsane/                       ← GSANE framework root
   _config/                    ← Manifests and config (CSV-based registry)
-    agent-manifest.csv        ← All agents: name, persona, capabilities
-    workflow-manifest.csv     ← All workflows: name, description, path
-    task-manifest.csv         ← All tasks: name, description, path
+    agent-manifest.yaml        ← All agents: name, persona, capabilities
+    workflow-manifest.yaml     ← All workflows: name, description, path
+    task-manifest.yaml         ← All tasks: name, description, path
     delegation-matrix.yaml ← Request routing rules
   _memory/                    ← Persistent agent memory across sessions
     failure-museum.md         ← Catalogue des défaillances passées (FM-001+)
@@ -60,9 +60,9 @@ AGENTS.md                     ← This file — universal agent entry point
 
 | Goal | Where to look |
 |---|---|
-| Find an agent | `_gsane/_config/agent-manifest.csv` |
-| Find a workflow | `_gsane/_config/workflow-manifest.csv` |
-| Find a task | `_gsane/_config/task-manifest.csv` |
+| Find an agent | `_gsane/_config/agent-manifest.yaml` |
+| Find a workflow | `_gsane/_config/workflow-manifest.yaml` |
+| Find a task | `_gsane/_config/task-manifest.yaml` |
 | Understand routing rules | `_gsane/_config/delegation-matrix.yaml` |
 | Global config (user, language) | `_gsane/core/config.yaml` |
 | Agent memory/state | `_gsane/_memory/` |

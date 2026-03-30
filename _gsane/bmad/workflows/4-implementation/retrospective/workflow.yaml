@@ -20,7 +20,7 @@ template: false
 instructions: "{installed_path}/instructions.md"
 
 required_inputs:
-  - agent_manifest: "{project-root}/_gsane/_config/agent-manifest.csv"
+  - agent_manifest: "{project-root}/_gsane/_config/agent-manifest.yaml"
 
 # Smart input file references - handles both whole docs and sharded docs
 # Priority: Whole document first, then sharded version

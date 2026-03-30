@@ -48,9 +48,9 @@ Vérifier qu'une tâche GSANE est **réellement complète** avant de la clore �
 
 ### D — Manifests & Config
 
-- [ ] **D1** — Si un nouveau workflow créé → entrée ajoutée dans `_gsane/_config/workflow-manifest.csv`
-- [ ] **D2** — Si un nouvel agent créé → entrée ajoutée dans `_gsane/_config/agent-manifest.csv`
-- [ ] **D3** — Si un nouveau task créé → entrée ajoutée dans `_gsane/_config/task-manifest.csv`
+- [ ] **D1** — Si un nouveau workflow créé → entrée ajoutée dans `_gsane/_config/workflow-manifest.yaml`
+- [ ] **D2** — Si un nouvel agent créé → entrée ajoutée dans `_gsane/_config/agent-manifest.yaml`
+- [ ] **D3** — Si un nouveau task créé → entrée ajoutée dans `_gsane/_config/task-manifest.yaml`
 - [ ] **D4** — `_gsane/core/config.yaml` n'a pas été modifié pour des raisons non-prévues
 
 ### E — CI & Tests

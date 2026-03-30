@@ -62,7 +62,7 @@ configuration:
   context_files:
     - path: "_gsane/core/config.yaml"
       reason: "Global config — user_name, communication_language, output_folder"
-    - path: "_gsane/_config/agent-manifest.csv"
+    - path: "_gsane/_config/agent-manifest.yaml"
       reason: "Agent index for JIT selection and routing"
     - path: "AGENTS.md"
       reason: "Universal repo navigation guide"

@@ -1,0 +1,48 @@
+- name: editorial-review-prose
+  displayName: Editorial Review - Prose
+  description: Clinical copy-editor that reviews text for communication issues. Use when user says review for prose or improve the prose
+  module: core
+  path: _gsane/core/tasks/editorial-review-prose.xml
+  standalone: true
+- name: editorial-review-structure
+  displayName: Editorial Review - Structure
+  description: Structural editor that proposes cuts, reorganization, and simplification while preserving comprehension. Use when user requests structural review or editorial review of structure
+  module: core
+  path: _gsane/core/tasks/editorial-review-structure.xml
+  standalone: true
+- name: help
+  displayName: help
+  description: Analyzes what is done and the users query and offers advice on what to do next. Use if user says what should I do next or what do I do now
+  module: core
+  path: _gsane/core/tasks/help.md
+  standalone: true
+- name: index-docs
+  displayName: Index Docs
+  description: Generates or updates an index.md to reference all docs in the folder. Use if user requests to create or update an index of all files in a specific folder
+  module: core
+  path: _gsane/core/tasks/index-docs.xml
+  standalone: true
+- name: review-adversarial-general
+  displayName: Adversarial Review (General)
+  description: Perform a Cynical Review and produce a findings report. Use when the user requests a critical review of something
+  module: core
+  path: _gsane/core/tasks/review-adversarial-general.xml
+  standalone: true
+- name: review-edge-case-hunter
+  displayName: Edge Case Hunter Review
+  description: Walk every branching path and boundary condition in content, report only unhandled edge cases. Orthogonal to adversarial review - method-driven not attitude-driven.
+  module: core
+  path: _gsane/core/tasks/review-edge-case-hunter.xml
+  standalone: true
+- name: shard-doc
+  displayName: Shard Document
+  description: Splits large markdown documents into smaller, organized files based on level 2 (default) sections. Use if the user says perform shard document
+  module: core
+  path: _gsane/core/tasks/shard-doc.xml
+  standalone: true
+- name: load-customization
+  displayName: Load Agent Customization
+  description: "Loads and merges an agent's .customize.yaml file into the active session. Called by every agent at step 2c of activation. Silent, fast, always-optional. Handles persona/memory/menu injection with governance protection."
+  module: core
+  path: _gsane/core/tasks/load-customization.md
+  standalone: false

@@ -31,7 +31,7 @@ trigger_threshold: 5
 - Pattern: manifest-sync
   Occurrences: 3
   Severity: medium
-  Target: manifest — _gsane/_config/workflow-manifest.csv
+  Target: manifest — _gsane/_config/workflow-manifest.yaml
   Action: Ajouter entrées flywheel-aggregate et flywheel-apply
   Status: applied ✅ (corrigé dans la même session avant le cycle)
 

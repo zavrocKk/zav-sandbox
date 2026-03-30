@@ -1,0 +1,336 @@
+- name: post-session-analysis
+  description: "Automated post-session hook. Runs silently after every gsane-master session or party mode exit. L\u00e9o logs token patterns and optimization insights. Aria logs compliance and regression signals. Appends to _gsane/_memory/session-analysis-log.md. Counts sessions and fires FlywheelTrigger every N sessions (config: flywheel.trigger_every_n_sessions). No user interaction required."
+  module: core
+  path: _gsane/core/workflows/post-session-analysis/workflow.md
+  agent: gsane-master
+  agent_display: Gsane Master
+- name: flywheel-aggregate
+  description: Cognitive Flywheel — Aggregation cycle. Reads session-analysis-log.md, extracts recurring patterns (≥3 occurrences = confirmed), calculates flywheel-score and trend, writes flywheel-report.md. Triggered automatically by post-session-analysis every N sessions. Silent.
+  module: core
+  path: _gsane/core/workflows/flywheel/workflow-aggregate.md
+  agent: gsane-optimizer
+  agent_display: Léo
+- name: flywheel-apply
+  description: Cognitive Flywheel — Application cycle. Reads flywheel-report.md, auto-applies low/medium corrections (max 5 per cycle), escalates high findings to user. Creates fix/flywheel-{date} branch, commits, pushes PR, appends to flywheel-history.md. Called by workflow-aggregate.
+  module: core
+  path: _gsane/core/workflows/flywheel/workflow-apply.md
+  agent: gsane-optimizer
+  agent_display: Léo
+- name: brainstorming
+  description: Facilitate interactive brainstorming sessions using diverse creative techniques and ideation methods. Use when the user says help me brainstorm or help me ideate.
+  module: core
+  path: _gsane/core/workflows/brainstorming/workflow.md
+  agent: brainstorming-coach
+  agent_display: Carson
+- name: party-mode
+  description: Smart selective multi-agent discussion orchestrated by Gsane Master. Loads a lightweight agent index JIT and selects 2-3 relevant agents per turn based on topic — never pre-loads all profiles. Use when user requests party mode.
+  module: core
+  path: _gsane/core/workflows/party-mode/workflow.md
+  agent: gsane-master
+  agent_display: Gsane Master
+- name: create-agent
+  description: Create a new GSANE agent with best practices and compliance
+  module: bmb
+  path: _gsane/bmb/workflows/agent/workflow-create-agent.md
+  agent: agent-builder
+  agent_display: Bond
+- name: edit-agent
+  description: Edit existing GSANE agents while maintaining compliance
+  module: bmb
+  path: _gsane/bmb/workflows/agent/workflow-edit-agent.md
+  agent: agent-builder
+  agent_display: Bond
+- name: validate-agent
+  description: Validate existing GSANE agents and offer to improve deficiencies
+  module: bmb
+  path: _gsane/bmb/workflows/agent/workflow-validate-agent.md
+  agent: qa-gsane
+  agent_display: Aria
+- name: create-module-brief
+  description: Create product brief for GSANE module development
+  module: bmb
+  path: _gsane/bmb/workflows/module/workflow-create-module-brief.md
+  agent: module-builder
+  agent_display: Morgan
+- name: create-module
+  description: Create a complete GSANE module with agents, workflows, and infrastructure
+  module: bmb
+  path: _gsane/bmb/workflows/module/workflow-create-module.md
+  agent: module-builder
+  agent_display: Morgan
+- name: edit-module
+  description: Edit existing GSANE modules while maintaining coherence
+  module: bmb
+  path: _gsane/bmb/workflows/module/workflow-edit-module.md
+  agent: module-builder
+  agent_display: Morgan
+- name: validate-module
+  description: Run compliance check on GSANE modules against best practices
+  module: bmb
+  path: _gsane/bmb/workflows/module/workflow-validate-module.md
+  agent: qa-gsane
+  agent_display: Aria
+- name: create-workflow
+  description: Create a new GSANE workflow with proper structure and best practices
+  module: bmb
+  path: _gsane/bmb/workflows/workflow/workflow-create-workflow.md
+  agent: workflow-builder
+  agent_display: Wendy
+- name: edit-workflow
+  description: Edit existing GSANE workflows while maintaining integrity
+  module: bmb
+  path: _gsane/bmb/workflows/workflow/workflow-edit-workflow.md
+  agent: workflow-builder
+  agent_display: Wendy
+- name: rework-workflow
+  description: Rework a Workflow to a V6 Compliant Version
+  module: bmb
+  path: _gsane/bmb/workflows/workflow/workflow-rework-workflow.md
+  agent: workflow-builder
+  agent_display: Wendy
+- name: validate-max-parallel-workflow
+  description: Run validation checks in MAX-PARALLEL mode against a workflow requires a tool that supports Parallel Sub-Processes
+  module: bmb
+  path: _gsane/bmb/workflows/workflow/workflow-validate-max-parallel-workflow.md
+  agent: qa-gsane
+  agent_display: Aria
+- name: validate-workflow
+  description: Run validation check on GSANE workflows against best practices
+  module: bmb
+  path: _gsane/bmb/workflows/workflow/workflow-validate-workflow.md
+  agent: qa-gsane
+  agent_display: Aria
+- name: design-thinking
+  description: "Guide human-centered design processes using empathy-driven methodologies. Use when the user says \"lets run design thinking\" or \"I want to apply design thinking\""
+  module: cis
+  path: _gsane/cis/workflows/design-thinking/workflow.yaml
+  agent: design-thinking-coach
+  agent_display: Maya
+- name: innovation-strategy
+  description: "Identify disruption opportunities and architect business model innovation. Use when the user says \"lets create an innovation strategy\" or \"I want to find disruption opportunities\""
+  module: cis
+  path: _gsane/cis/workflows/innovation-strategy/workflow.yaml
+  agent: innovation-strategist
+  agent_display: Victor
+- name: problem-solving
+  description: "Apply systematic problem-solving methodologies to complex challenges. Use when the user says \"guide me through structured problem solving\" or \"I want to crack this challenge with guided problem solving techniques\""
+  module: cis
+  path: _gsane/cis/workflows/problem-solving/workflow.yaml
+  agent: creative-problem-solver
+  agent_display: Dr. Quinn
+- name: storytelling
+  description: "Craft compelling narratives using story frameworks. Use when the user says \"help me with storytelling\" or \"I want to create a narrative through storytelling\""
+  module: cis
+  path: _gsane/cis/workflows/storytelling/workflow.yaml
+  agent: storyteller
+  agent_display: Sophia
+- name: testarch-atdd
+  description: "Generate failing acceptance tests using TDD cycle. Use when the user says \"lets write acceptance tests\" or \"I want to do ATDD\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/atdd/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-automate
+  description: "Expand test automation coverage for codebase. Use when the user says \"lets expand test coverage\" or \"I want to automate tests\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/automate/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-ci
+  description: "Scaffold CI/CD quality pipeline with test execution. Use when the user says \"lets setup CI pipeline\" or \"I want to create quality gates\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/ci/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-framework
+  description: "Initialize test framework with Playwright or Cypress. Use when the user says \"lets setup test framework\" or \"I want to initialize testing framework\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/framework/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-nfr
+  description: "Assess NFRs like performance security and reliability. Use when the user says \"lets assess NFRs\" or \"I want to evaluate non-functional requirements\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/nfr-assess/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: teach-me-testing
+  description: "Teach testing progressively through structured sessions. Use when user says \"lets learn testing\" or \"I want to study test practices\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/teach-me-testing/workflow.md
+  agent: tea
+  agent_display: Murat
+- name: testarch-test-design
+  description: "Create system-level or epic-level test plans. Use when the user says \"lets design test plan\" or \"I want to create test strategy\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/test-design/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-test-review
+  description: "Review test quality using best practices validation. Use when the user says \"lets review tests\" or \"I want to evaluate test quality\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/test-review/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: testarch-trace
+  description: "Generate traceability matrix and quality gate decision. Use when the user says \"lets create traceability matrix\" or \"I want to analyze test coverage\""
+  module: tea
+  path: _gsane/tea/workflows/testarch/trace/workflow.yaml
+  agent: tea
+  agent_display: Murat
+- name: cc-verify
+  description: Completion Contract — 20-point checklist to verify a task is truly done before declaring it complete. Covers git, CHANGELOG, quality, manifests, and CI. Run with [CC] or /gsane-cc-verify before any PR.
+  module: core
+  path: _gsane/core/workflows/cc-verify/workflow.md
+  agent: gsane-master
+  agent_display: Gsane Master
+- name: session-branch
+  description: Session Branch Setup — ensures every work session starts on a properly named branch, never on main. Validates existing branch context or creates a new one. Run at start of any session with GSANE modifications.
+  module: core
+  path: _gsane/core/workflows/session-branch/workflow.md
+  agent: gsane-master
+  agent_display: Gsane Master
+- name: session-close
+  description: Session Close — Clôturer formellement une session de travail. Génère un résumé, liste les artefacts produits, propose une mise à jour CHANGELOG, et déclenche post-session-analysis.
+  module: core
+  path: _gsane/core/workflows/session-close/workflow.md
+  agent: gsane-master
+  agent_display: Gsane Master
+- name: create-product-brief
+  description: "Create product brief through collaborative discovery. Use when the user says 'lets create a product brief' or 'help me create a project brief'"
+  module: bmm
+  path: _gsane/bmad/workflows/1-analysis/create-product-brief/workflow.md
+  agent: analyst
+  agent_display: Mary
+- name: domain-research
+  description: "Conduct domain and industry research. Use when the user says 'lets create a research report on [domain or industry]'"
+  module: bmm
+  path: _gsane/bmad/workflows/1-analysis/research/workflow-domain-research.md
+  agent: analyst
+  agent_display: Mary
+- name: market-research
+  description: "Conduct market research on competition and customers. Use when the user says 'create a market research report about [business idea]'."
+  module: bmm
+  path: _gsane/bmad/workflows/1-analysis/research/workflow-market-research.md
+  agent: analyst
+  agent_display: Mary
+- name: technical-research
+  description: "Conduct technical research on technologies and architecture. Use when the user says 'create a technical research report on [topic]'."
+  module: bmm
+  path: _gsane/bmad/workflows/1-analysis/research/workflow-technical-research.md
+  agent: analyst
+  agent_display: Mary
+- name: create-prd
+  description: "Create a PRD from scratch. Use when the user says 'lets create a product requirements document' or 'I want to create a new PRD'"
+  module: bmm
+  path: _gsane/bmad/workflows/2-plan-workflows/create-prd/workflow-create-prd.md
+  agent: pm
+  agent_display: John
+- name: edit-prd
+  description: "Edit an existing PRD. Use when the user says 'edit this PRD'."
+  module: bmm
+  path: _gsane/bmad/workflows/2-plan-workflows/create-prd/workflow-edit-prd.md
+  agent: pm
+  agent_display: John
+- name: validate-prd
+  description: "Validate a PRD against standards. Use when the user says 'validate this PRD' or 'run PRD validation'"
+  module: bmm
+  path: _gsane/bmad/workflows/2-plan-workflows/create-prd/workflow-validate-prd.md
+  agent: pm
+  agent_display: John
+- name: create-ux-design
+  description: "Plan UX patterns and design specifications. Use when the user says 'lets create UX design' or 'create UX specifications' or 'help me plan the UX'"
+  module: bmm
+  path: _gsane/bmad/workflows/2-plan-workflows/create-ux-design/workflow.md
+  agent: ux-designer
+  agent_display: Sally
+- name: check-implementation-readiness
+  description: "Validate PRD, UX, Architecture and Epics specs are complete. Use when the user says 'check implementation readiness'."
+  module: bmm
+  path: _gsane/bmad/workflows/3-solutioning/check-implementation-readiness/workflow.md
+  agent: architect
+  agent_display: Winston
+- name: create-architecture
+  description: "Create architecture solution design decisions for AI agent consistency. Use when the user says 'lets create architecture' or 'create technical architecture' or 'create a solution design'"
+  module: bmm
+  path: _gsane/bmad/workflows/3-solutioning/create-architecture/workflow.md
+  agent: architect
+  agent_display: Winston
+- name: create-epics-and-stories
+  description: "Break requirements into epics and user stories. Use when the user says 'create the epics and stories list'"
+  module: bmm
+  path: _gsane/bmad/workflows/3-solutioning/create-epics-and-stories/workflow.md
+  agent: sm
+  agent_display: Bob
+- name: code-review
+  description: "Perform adversarial code review finding specific issues. Use when the user says 'run code review' or 'review this code'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/code-review/workflow.yaml
+  agent: dev
+  agent_display: Amelia
+- name: correct-course
+  description: "Manage significant changes during sprint execution. Use when the user says 'guide course' or 'propose sprint change'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/correct-course/workflow.yaml
+  agent: sm
+  agent_display: Bob
+- name: create-story
+  description: "Creates a dedicated story file with all the context the agent will need to implement it later. Use when the user says 'create the next story' or 'create story [story identifier]'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/create-story/workflow.yaml
+  agent: sm
+  agent_display: Bob
+- name: dev-story
+  description: "Execute story implementation following a context filled story spec file. Use when the user says 'dev this story [story file]' or 'implement the next story in the sprint plan'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/dev-story/workflow.yaml
+  agent: dev
+  agent_display: Amelia
+- name: retrospective
+  description: "Post-epic review to extract lessons and assess success. Use when the user says 'run a retrospective' or 'lets retro the epic [epic]'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/retrospective/workflow.yaml
+  agent: sm
+  agent_display: Bob
+- name: sprint-planning
+  description: "Generate sprint status tracking from epics. Use when the user says 'run sprint planning' or 'generate sprint plan'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/sprint-planning/workflow.yaml
+  agent: sm
+  agent_display: Bob
+- name: sprint-status
+  description: "Summarize sprint status and surface risks. Use when the user says 'check sprint status' or 'show sprint status'"
+  module: bmm
+  path: _gsane/bmad/workflows/4-implementation/sprint-status/workflow.yaml
+  agent: sm
+  agent_display: Bob
+- name: quick-dev
+  description: "Implement a Quick Tech Spec for small changes or features. Use when the user provides a quick tech spec and says 'implement this quick spec'"
+  module: bmm
+  path: _gsane/bmad/workflows/gsane-quick-flow/quick-dev/workflow.md
+  agent: quick-flow-solo-dev
+  agent_display: Barry
+- name: quick-spec
+  description: "Very quick process to create implementation-ready quick specs for small changes or features. Use when the user says 'create a quick spec' or 'generate a quick tech spec'"
+  module: bmm
+  path: _gsane/bmad/workflows/gsane-quick-flow/quick-spec/workflow.md
+  agent: quick-flow-solo-dev
+  agent_display: Barry
+- name: document-project
+  description: "Document brownfield projects for AI context. Use when the user says 'document this project' or 'generate project docs'"
+  module: bmm
+  path: _gsane/bmad/workflows/document-project/workflow.yaml
+  agent: tech-writer
+  agent_display: Paige
+- name: generate-project-context
+  description: "Create project-context.md with AI rules. Use when the user says 'generate project context' or 'create project context'"
+  module: bmm
+  path: _gsane/bmad/workflows/generate-project-context/workflow.md
+  agent: tech-writer
+  agent_display: Paige
+- name: qa-generate-e2e-tests
+  description: "Generate end to end automated tests for existing features. Use when the user says 'create qa automated tests for [feature]'"
+  module: bmm
+  path: _gsane/bmad/workflows/qa-generate-e2e-tests/workflow.yaml
+  agent: qa
+  agent_display: Quinn

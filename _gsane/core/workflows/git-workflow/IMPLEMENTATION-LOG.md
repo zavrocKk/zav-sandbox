@@ -41,7 +41,7 @@
 - **Copilot Chat**: `/gsane-git-workflow` command
 - **Agent output**: Workflows detect "Ready to commit" and invoke automatically
 - **Manual**: Direct request in Copilot Chat
-- **Manifest**: Registered in workflow-manifest.csv
+- **Manifest**: Registered in workflow-manifest.yaml
 
 ## Deployed Workflows
 
@@ -54,7 +54,7 @@
 
 ## Next Steps
 
-- [ ] Register workflow in workflow-manifest.csv
+- [ ] Register workflow in workflow-manifest.yaml
 - [ ] Add slash command helper to gsane-master agent
 - [ ] Create git-commits output folder
 - [ ] Begin using for all future commits
