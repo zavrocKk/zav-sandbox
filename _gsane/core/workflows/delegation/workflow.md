@@ -54,15 +54,15 @@ flowchart TD
 
 ### Configuration Loading
 
-Load config from `{project-root}/_gsane/core/config.yaml`:
+Load config from `_gsane/core/config.yaml`:
 
 - `user_name`, `communication_language`, `output_folder`
-- Delegation Matrix: `{project-root}/_gsane/_config/delegation-matrix.yaml`
+- Delegation Matrix: `_gsane/_config/delegation-matrix.yaml`
 - Core config with `delegation_required` enforcement flag
 
 ### Paths
 
-- `delegation_matrix_path` = `{project-root}/_gsane/_config/delegation-matrix.yaml`
+- `delegation_matrix_path` = `_gsane/_config/delegation-matrix.yaml`
 - `audit_log_path` = `{output_folder}/delegation-audit.md`
 
 ---

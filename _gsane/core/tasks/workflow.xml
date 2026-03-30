@@ -10,6 +10,7 @@
   </llm>
 
   <WORKFLOW-RULES critical="true">
+    <rule id="STRUCTURED_OUTPUTS_ONLY">CRITICAL SEPARATION OF DATA AND RENDER: The textual LLM has high typization failure rates when writing formal files (YAML/Markdown). When generating final artifacts, NEVER format the markdown file directly yourself. INSTEAD, strictly output a structured JSON block (e.g. `{"vision": "...", "step": 3}`) to tools/scripts which handle the final template compilation.</rule>
     <rule id="STATE_ENGINE">CRITICAL: Do NOT use markdown frontmatter for state. ALWAYS track workflow state inside a YAML file in _gsane/_memory/sessions/current-workflow.state.yaml</rule>
     <rule n="1">Steps execute in exact numerical order (1, 2, 3...)</rule>
     <rule n="2">Optional steps: Ask user unless #yolo mode active</rule>

@@ -27,7 +27,7 @@ description: "Cognitive Flywheel — Aggregation cycle. Reads session-analysis-l
 
 ### Step 1 — Load Session Log
 
-Load `{project-root}/_gsane/_memory/sessions/session-analysis-log.md`.
+Load `_gsane/_memory/sessions/session-analysis-log.md`.
 
 Extract all session entries. For each entry, collect:
 - `waste_signals` from Léo sections
@@ -102,7 +102,7 @@ flywheel_score:
 
 ### Step 5 — Write `flywheel-report.md`
 
-Overwrite `{project-root}/_gsane/_memory/flywheel-report.md` with:
+Overwrite `_gsane/_memory/flywheel-report.md` with:
 
 ```markdown
 # Flywheel Report
@@ -176,7 +176,7 @@ corrections_this_cycle = count of workflow-apply corrections targeting prompts
 prompt_improvement_confirmed = count of flywheel-prompt-confirmed signals across sessions
 ```
 
-Write scores to `{project-root}/_gsane/_memory/scoreboard.md` (overwrite each cycle):
+Write scores to `_gsane/_memory/scoreboard.md` (overwrite each cycle):
 
 ```markdown
 # GSANE Scoreboard

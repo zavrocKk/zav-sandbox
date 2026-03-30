@@ -262,7 +262,7 @@ rules:
   - request_type: "sprint-planning"
     target_agent: "sm"
     target_module: "bmm"
-    target_path: "_gsane/bmm/agents/sm.md"
+    target_path: "_gsane/bmm/agents/task-resolver.md"
     icon: "🏃"
     description: "Sprint planning"
     trigger_keywords:
