@@ -172,7 +172,7 @@ I need to commit changes following the Git Workflow
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.
-- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL 13 agents. No exceptions.
+- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL tous les agents. No exceptions.
 
 ## Universal Session End Hook — MANDATORY FOR ALL AGENTS
 
@@ -192,11 +192,11 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 
 ### Enforcement
 
-- All 13 GSANE agents have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
+- All tous les agents GSANE have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
 - Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/sessions/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
-> ⚠️ **NOTE**: The count “13 agents” above refers to the original GSANE set. The project currently has **22 agents** after CIS module import (9 additional CIS agents). All 22 agents follow this session end hook.
+> ⚠️ **NOTE**: The count “tous les agents” above refers to the original GSANE set. The project currently has **tous les agents** after CIS module import (9 additional CIS agents). All tous les agents follow this session end hook.
 
 ## Available Agents
 

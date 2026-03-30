@@ -20,7 +20,7 @@ for required_file in \
 done
 
 # ── 2. Compter et valider les agents ──────────────────────────────────────────
-EXPECTED_AGENTS=13
+EXPECTED_AGENTS=25
 AGENT_COUNT=$(find "$WORKSPACE_ROOT/.github/agents" -name "*.agent.md" 2>/dev/null | wc -l)
 echo "[SessionStart] Agents found: $AGENT_COUNT / $EXPECTED_AGENTS expected"
 if [[ "$AGENT_COUNT" -lt "$EXPECTED_AGENTS" ]]; then

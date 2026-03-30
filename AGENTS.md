@@ -18,7 +18,7 @@ The goal is to continuously improve the GSANE multi-agent system — optimizing 
 
 ```
 _gsane/                       ← GSANE framework root
-  _config/                    ← Manifests and config (CSV-based registry)
+  _config/                    ← Manifests and config (YAML-based registry)
     agent-manifest.yaml        ← All agents: name, persona, capabilities
     workflow-manifest.yaml     ← All workflows: name, description, path
     task-manifest.yaml         ← All tasks: name, description, path
@@ -41,7 +41,7 @@ _gsane/                       ← GSANE framework root
     agents/                   ← analyst, pm, architect, sm, ux-designer, dev, qa, tech-writer, quick-flow-solo-dev
     workflows/                ← Full product lifecycle: analysis, planning, solutioning, implementation
     data/                     ← project-context-template.md
-    teams/                    ← default-party.csv, team-fullstack.yaml
+    teams/                    ← default-party.yaml, team-fullstack.yaml
   cis/                        ← CIS module: creative/innovation/storytelling agents
     agents/                   ← Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
     workflows/                ← design-thinking, innovation-strategy, problem-solving, storytelling
@@ -105,7 +105,7 @@ AGENTS.md                     ← This file — universal agent entry point
 - Load resources at runtime only — never preload
 - Config resolved once per session — do not reload
 - Agent profiles loaded per-turn in party mode — discarded after each turn
-- Prefer CSV rows over full `.md` files for personality data in party mode
+- Prefer YAML definitions over full `.md` files for personality data in party mode
 
 ### Governance Rules
 - **PRE-EXECUTION GATE**: Before any GSANE action, check the delegation matrix — solo execution = violation
