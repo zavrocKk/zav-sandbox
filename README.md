@@ -233,7 +233,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 - **Paige** (📚) — tech-writer : documentation technique, Mermaid
 - **Barry** (🚀) — quick-flow-solo-dev : spec+dev rapide pour petits projets
 
-📖 [Module BMM](_gsane/bmm/)
+📖 [Module BMM](_gsane/bmad/)
 
 ### **CIS** — Creative Intelligence Suite
 - **Carson** (🧠) Brainstorming · **Dr. Quinn** (🔬) Problem Solving · **Maya** (🎨) Design Thinking

@@ -10,8 +10,8 @@ jobs:
     
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
-      
+        uses: actions/checkout@v4
+
       - name: Verify CHANGELOG.md exists
         run: |
           echo "🔍 Checking if CHANGELOG.md exists..."

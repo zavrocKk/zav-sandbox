@@ -291,7 +291,7 @@ Select-String "CHANGELOG.md" -Pattern "\[Unreleased\]" -Quiet
 
 # T2 — Chemins dépréciés
 (Get-ChildItem ".github\prompts","_gsane" -Recurse -File |
-  Select-String "_gsane/bmm/").Count
+  Select-String "_gsane/bmad/").Count
 # Attendu : 0
 
 # T3 — .agent.md count
@@ -415,7 +415,7 @@ git push -u origin {nom-branche}
 ## Checklist
 - [ ] CHANGELOG.md mis à jour
 - [ ] Conventions GSANE respectées
-- [ ] Aucun chemin déprécié `_gsane/bmm/` introduit
+- [ ] Aucun chemin déprécié `_gsane/bmad/` introduit
 - [ ] Structure GSANE intacte
 - [ ] Party mode appliqué si sévérité medium/high
 ```

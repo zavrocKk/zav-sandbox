@@ -4,11 +4,11 @@ import os
 
 def test_template_sync_with_prompt():
     # 1. Lire le template
-    with open('_gsane/bmm/data/product-brief.template.md', 'r', encoding='utf-8') as f:
+    with open('_gsane/bmad/data/product-brief.template.md', 'r', encoding='utf-8') as f:
         template = f.read()
     
     # 2. Lire le step (prompt)
-    with open('_gsane/bmm/workflows/1-analysis/create-product-brief/steps/step-01-init.md', 'r', encoding='utf-8') as f:
+    with open('_gsane/bmad/workflows/1-analysis/create-product-brief/steps/step-01-init.md', 'r', encoding='utf-8') as f:
         prompt = f.read()
 
     # Si le template reclame les 'Risques', le mot doit figurer dans le prompt pour guider le LLM

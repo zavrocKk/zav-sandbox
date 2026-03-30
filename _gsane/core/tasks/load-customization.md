@@ -14,7 +14,7 @@
 
 ### 1. Derive path (if not passed explicitly)
 If `{customize_path}` is not passed, derive it:
-- `{module}` = extract module folder from the config path already loaded in step 2. Examples: `_gsane/bmm/config.yaml` → `bmm`, `_gsane/bmb/config.yaml` → `bmb`, `_gsane/core/config.yaml` → `core`
+- `{module}` = extract module folder from the config path already loaded in step 2. Examples: `_gsane/bmad/config.yaml` → `bmm`, `_gsane/bmb/config.yaml` → `bmb`, `_gsane/core/config.yaml` → `core`
 - `{id}` = this agent's `id` XML attribute, stripped of `.agent.yaml` suffix. Example: `architect.agent.yaml` → `architect`
 - `{customize_path}` = `{project-root}/_gsane/_config/agents/{module}-{id}.customize.yaml`
 

@@ -63,12 +63,12 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 - Agents créés: analyst (Mary 📊), pm (John 📋), architect (Winston 🏗️), sm (Bob 🏃), dev (Amelia 💻), ux-designer (Sally 🎨), qa (Quinn 🧪), tech-writer (Paige 📚), quick-flow-solo-dev (Barry 🚀)
 - Workflows portés: 1-analysis (product-brief, domain/market/technical-research), 2-plan (create/edit/validate-prd, ux-design), 3-solutioning (architecture, epics-stories, implementation-readiness), 4-implementation (sprint-planning, sprint-status, dev-story, create-story, code-review, retrospective, correct-course), gsane-quick-flow, document-project, generate-project-context, qa-generate-e2e-tests
-- Infrastructure: `_gsane/bmm/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-bmm-*)
+- Infrastructure: `_gsane/bmad/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-bmm-*)
 - Optimisations GSANE: SESSION HOOK (post-session-analysis), SEVERITY PRINCIPLE, FAILURE MUSEUM, COMPLETION CONTRACT — intégrés dans chaque agent
 - Adaptations chemins: `_bmad/` → `_gsane/`, `bmad-help` → `gsane-help`, `bmad-quick-flow` → `gsane-quick-flow`
 - Sidecar mémoire: `_gsane/_memory/tech-writer-sidecar/documentation-standards.md`
 - Agent: Party Mode (Morgan, Bond, Wendy, Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/bmm/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.csv`, `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
+- Impact: `_gsane/bmad/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.csv`, `workflow-manifest.csv`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
 
 ### [Core]
 **[feat]** Gouvernance multi-agents — GOLDEN_RULE ×22 agents, solo-creep detection, party mode élargi 14 agents
@@ -243,7 +243,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ### [Core]
 **[fix]** Audit A1 — correction de 46 slash commands `/gsane-*` non fonctionnels (chemin déprécié)
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_gsane/bmm/config.yaml` (inexistant) → `_gsane/core/config.yaml`
+- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_gsane/bmad/config.yaml` (inexistant) → `_gsane/core/config.yaml`
 - Résultat: Tous les slash commands Copilot Chat fonctionnels
 
 **[feat]** Audit A1 — agents Léo (gsane-optimizer) et Aria (qa-gsane) activables dans Copilot
