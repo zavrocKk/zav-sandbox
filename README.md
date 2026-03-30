@@ -1,3 +1,12 @@
+# 🛑 FROZEN LAB: V2 REACHED 🛑
+> **Transition to Structured Outputs & Execution Engine.**
+>
+> Ce depot a rempli son role de laboratoire conceptuel. Nous avons atteint la limite physique de l architecture Prompt-as-OS.
+> Le GSANE Framework passe officiellement de  l ere de l alchimie textuelle a l ere du Compute-as-OS (Moelle epiniere Python/MCP + Structured Outputs JSON).
+> Les experimentations purement Markdown s arretent ici.
+
+---
+
 # zav-sandbox
 
 Projet d'amélioration continue du framework **GSANE** (Governance System for AI-Native Execution) — orchestration multi-agents, optimisation token, flywheel cognitif et score elite Copilot.
