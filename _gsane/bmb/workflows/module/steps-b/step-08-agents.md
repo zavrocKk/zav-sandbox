@@ -46,7 +46,7 @@ Load `{agentArchitectureFile}` and ask:
 Reference:
 - **Single agent** — simpler, focused domain
 - **Multi-agent** — different expertise areas, broader domain
-- **BMM example** — 9 agents for complete software development team
+- **CIS example** — 9 agents for complete software development team
 
 ### 2. Design the Agent Team
 

@@ -1,5 +1,5 @@
 # Documentation Standards — Tech Writer Sidecar
-# GSANE Framework — bmm/agents/tech-writer memory
+# GSANE Framework — cis/agents/tech-writer memory
 # Updated: 2026-03-02
 
 ## Core Principles

@@ -19,7 +19,7 @@ description: 'Analyzes what is done and the users query and offers advice on wha
 
 ### Command-Based Workflows
 When `command` field has a value:
-- Show the command prefixed with `/` (e.g., `/gsane-bmm-create-prd`)
+- Show the command prefixed with `/` (e.g., `/gsane-bmb-create-prd`)
 
 ### Agent-Based Workflows
 When `command` field is empty:
@@ -53,7 +53,7 @@ Determine what was just completed:
 
 ## EXECUTION
 
-1. **Load catalog** — Load `{project-root}/_gsane/_config/gsane-help.csv`
+1. **Load catalog** — Load `{project-root}/_gsane/_config/gsane-help.yaml`
 
 2. **Resolve output locations and config** — Scan each folder under `{project-root}/_gsane/` (except `_config`) for `config.yaml`. For each workflow row, resolve its `output-location` variables against that module's config so artifact paths can be searched. Also extract `communication_language` and `project_knowledge` from each scanned module's config.
 

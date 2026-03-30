@@ -60,15 +60,15 @@ bash .github/hooks/session-start.sh
 ```
 
 Ce script vérifie :
-- ✅ Fichiers config essentiels présents (`config.yaml`, manifests CSV)
-- ✅ 13 fichiers `.agent.md` dans `.github/agents/`
+- ✅ Fichiers config essentiels présents (`config.yaml`, manifests YAML hiérarchique hiérarchiques)
+- ✅ XX fichiers `.agent.md` dans `_gsane/_config/agents/`
 - ✅ Aucun chemin déprécié dans les prompts
 - ✅ Dossiers output créés (`_gsane-output/`)
 - ✅ Compteur de session initialisé
 
 **Sortie attendue :**
 ```
-[SessionStart] Agents found: 13 / 13 expected
+[SessionStart] Agents found: ...
 [SessionStart] No deprecated paths detected. ✅
 [SessionStart] Session count: 1
 [SessionStart] ✅ Session #1 ready. Output: ./_gsane-output
@@ -89,7 +89,7 @@ communication_language: Français   # ou English
 
 ### Étape 5 — Activer GSANE dans VS Code
 
-Ouvre VS Code dans le dossier cloné. Les agents et prompts sont détectés automatiquement par GitHub Copilot via `.github/agents/` et `.github/prompts/`.
+Ouvre VS Code dans le dossier cloné. Les agents et prompts sont détectés automatiquement par GitHub Copilot via `_gsane/_config/agents/` et `.github/prompts/`.
 
 **Premier lancement :**
 
@@ -127,20 +127,20 @@ Gsane Master se présente, affiche son menu, et attend ta demande.
 
 # Agents
 (Get-ChildItem ".github\agents" -Filter "*.agent.md").Count
-# Attendu : 22
+# Attendu : 25
 
 # Hook pre-commit installé
 Test-Path ".git\hooks\pre-commit"
 # Attendu : True
 
 # Manifests
-@("agent-manifest.csv","workflow-manifest.csv","delegation-matrix.yaml") |
+@("agent-manifest.yaml","workflow-manifest.yaml","delegation-matrix.yaml") |
   ForEach-Object { "$_ : $(Test-Path "_gsane\_config\$_")" }
 ```
 
 ## 📋 Description
 
-Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **22 agents spécialisés** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
+Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour GitHub Copilot Chat. Il orchestre **25 agents dynamiques** via un système de délégation strict, avec un Cognitive Flywheel qui apprend et s'auto-corrige après chaque session.
 
 ## 🏗️ Structure du Projet
 
@@ -148,13 +148,13 @@ Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour G
 _gsane/                        # Framework GSANE
 ├── core/                     # Gsane Master + workflows fondamentaux + flywheel
 ├── bmb/                      # Builder Module — Bond, Morgan, Wendy, Aria
-├── bmm/                      # Business Methodology — Mary, John, Winston, Bob, Amelia, Sally, Quinn, Paige, Barry
+├── cis/                      # Business Methodology — Mary, John, Winston, Bob, Amelia, Sally, Quinn, Paige, Barry
 ├── cis/                      # Creative Intelligence Suite — Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
 ├── tea/                      # Test Architecture — Murat
 ├── _config/                  # Manifests centraux + matrice de délégation
 └── _memory/                  # Mémoire persistante — session log, flywheel history, sidecars agents
 .github/
-├── agents/                   # 22 fichiers .agent.md — activateurs Copilot dropdown
+├── agents/                   # Fichiers .agent.md — activateurs Copilot dropdown
 ├── prompts/                  # Fichiers .prompt.md — slash commands /gsane-*
 ├── skills/                   # 3 skills — gsane-framework, agent-design-patterns, cognitive-flywheel
 ├── hooks/                    # hooks.json + session-start.sh — lifecycle automation
@@ -163,7 +163,7 @@ _gsane-output/                 # Artefacts générés (non commités par défaut
 AGENTS.md                     # Guide de navigation universel (Copilot, Claude, Codex)
 ```
 
-## 🤖 Les 22 Agents
+## 🤖 Les Agents GSANE
 
 ### Core & Gouvernance
 | Agent | Persona | Module | Rôle |
@@ -175,18 +175,18 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 | 🔄 workflow-builder | Wendy | bmb | Création/validation de workflows GSANE |
 | 🔍 qa-gsane | Aria | bmb | QA, conformité, détection de régressions |
 
-### BMM — Business Methodology
+### CIS — Business Methodology
 | Agent | Persona | Module | Rôle |
 |---|---|---|---|
-| 📊 analyst | Mary | bmm | Recherche marché, brief produit, analyse concurrentielle |
-| 📋 pm | John | bmm | PRD, user stories, épics, alignement stakeholders |
-| 🏗️ architect | Winston | bmm | Architecture système, décisions techniques, ADR |
-| 🏃 sm | Bob | bmm | Sprint planning, cérémonies agiles, backlog |
-| 💻 dev | Amelia | bmm | Implémentation story, TDD, code review |
-| 🎨 ux-designer | Sally | bmm | UX/UI design, recherche utilisateur, specs interaction |
-| 🧪 qa | Quinn | bmm | Tests automatisés rapides, API et E2E |
-| 📚 tech-writer | Paige | bmm | Documentation technique, Mermaid, standards |
-| 🚀 quick-flow-solo-dev | Barry | bmm | Spec + implémentation rapide, projets petits/moyens |
+| 📊 analyst | Mary | cis | Recherche marché, brief produit, analyse concurrentielle |
+| 📋 pm | John | cis | PRD, user stories, épics, alignement stakeholders |
+| 🏗️ architect | Winston | cis | Architecture système, décisions techniques, ADR |
+| 🏃 sm | Bob | cis | Sprint planning, cérémonies agiles, backlog |
+| 💻 dev | Amelia | cis | Implémentation story, TDD, code review |
+| 🎨 ux-designer | Sally | cis | UX/UI design, recherche utilisateur, specs interaction |
+| 🧪 qa | Quinn | cis | Tests automatisés rapides, API et E2E |
+| 📚 tech-writer | Paige | cis | Documentation technique, Mermaid, standards |
+| 🚀 quick-flow-solo-dev | Barry | cis | Spec + implémentation rapide, projets petits/moyens |
 
 ### CIS — Creative Intelligence Suite
 | Agent | Persona | Module | Rôle |
@@ -222,7 +222,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 
 📖 [Module BMB](_gsane/bmb/)
 
-### **BMM** — Business Methodology Module
+### **CIS** — Business Methodology Module
 - **Mary** (📊) — analyst : brief produit, recherche marché
 - **John** (📋) — pm : PRD, user stories, épics, priorités
 - **Winston** (🏗️) — architect : architecture système, ADR, décisions techniques
@@ -233,7 +233,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 - **Paige** (📚) — tech-writer : documentation technique, Mermaid
 - **Barry** (🚀) — quick-flow-solo-dev : spec+dev rapide pour petits projets
 
-📖 [Module BMM](_gsane/bmad/)
+📖 [Module CIS](_gsane/bmb/)
 
 ### **CIS** — Creative Intelligence Suite
 - **Carson** (🧠) Brainstorming · **Dr. Quinn** (🔬) Problem Solving · **Maya** (🎨) Design Thinking
@@ -285,7 +285,7 @@ flowchart LR
 - **Léo** analyse les signaux de gaspillage token — **Aria** valide la conformité GSANE
 - Corrections `low/medium` : auto-appliquées silencieusement (max 5/cycle, avec Gates de Murat)
 - Corrections `high` : notification seulement — jamais auto-appliquées
-- **Activation universelle** : tous les 13 agents ont `exec="post-session-analysis"` câblé sur leur `[DA]`
+- **Activation universelle** : tous les agents ont `exec="post-session-analysis"` câblé sur leur `[DA]`
 - Cadence configurable : [`config.yaml → flywheel.trigger_every_n_sessions`](_gsane/core/config.yaml)
 - Historique : [`_gsane/_memory/flywheel-history.md`](_gsane/_memory/flywheel-history.md)
 
@@ -336,8 +336,8 @@ Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond,
 | Fichier | Rôle |
 |---|---|
 | [`_gsane/core/config.yaml`](_gsane/core/config.yaml) | Config globale : user, langue, sévérité, flywheel |
-| [`_gsane/_config/agent-manifest.csv`](_gsane/_config/agent-manifest.csv) | Registre des 22 agents |
-| [`_gsane/_config/workflow-manifest.csv`](_gsane/_config/workflow-manifest.csv) | Registre des workflows |
+| [`_gsane/_config/agent-manifest.yaml`](_gsane/_config/agent-manifest.yaml) | Registre des agents |
+| [`_gsane/_config/workflow-manifest.yaml`](_gsane/_config/workflow-manifest.yaml) | Registre des workflows |
 | [`_gsane/_config/delegation-matrix.yaml`](_gsane/_config/delegation-matrix.yaml) | Règles de routing |
 | [`_gsane/_memory/sessions/session-analysis-log.md`](_gsane/_memory/sessions/session-analysis-log.md) | Log persistant des sessions |
 | [`AGENTS.md`](AGENTS.md) | Guide de navigation universel |

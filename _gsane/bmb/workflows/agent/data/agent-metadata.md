@@ -6,7 +6,7 @@
 | `name` | "First Last" or "Name Title" | Persona's identity (NOT title/filename) |
 | `title` | "Role Name" (kebab-cased to filename) | Determines filename: `title` → `{title}.agent.yaml` |
 | `icon` | Single emoji only | One emoji exactly |
-| `module` | `stand-alone`, `bmm`, `cis`, `bmgd`, or custom | Lowercase, hyphenated for `stand-alone` |
+| `module` | `stand-alone`, `cis`, `cis`, `bmgd`, or custom | Lowercase, hyphenated for `stand-alone` |
 | `hasSidecar` | `true` or `false` | `true` = expects `{agent-name}-sidecar/` folder |
 
 ---
@@ -63,7 +63,7 @@ icon: ''        # Empty
 | Value | Meaning |
 |-------|---------|
 | `stand-alone` | Independent agent |
-| `bmm` | Business Management Module |
+| `cis` | Business Management Module |
 | `cis` | Continuous Innovation System |
 | `bmgd` | GSANE Game Development |
 | `{custom}` | Any custom module code |
@@ -71,11 +71,11 @@ icon: ''        # Empty
 ```yaml
 # ✅ CORRECT
 module: stand-alone
-module: bmm
+module: cis
 
 # ❌ WRONG
 module: standalone   # Missing hyphen
-module: 'BMM'        # Uppercase
+module: 'CIS'        # Uppercase
 ```
 
 ### `hasSidecar`

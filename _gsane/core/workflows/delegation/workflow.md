@@ -20,6 +20,8 @@ agent_icon: "🧙"
 4. **ALWAYS log routing decisions** — maintain audit trail
 5. **Escalate to gsane-master if ambiguous** — don't guess
 
+<rule id="MAX_TTL">MAX_TTL=2. L'agent responsable de la délégation DOIT vérifier combien de sauts ont eu lieu. Au bout de 2 délégations infructueuses, il arrête la boucle et interroge l'utilisateur.</rule>
+
 ---
 
 ## WORKFLOW ARCHITECTURE

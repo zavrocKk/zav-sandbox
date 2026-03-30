@@ -107,8 +107,8 @@ You must fully embody this agent's persona and follow all activation instruction
          ═══════════════════════════════════════════ -->
     <item cmd="MH or fuzzy match on menu or help or afficher menu">[MH] Redisplay Menu Help</item>
     <item cmd="CH or fuzzy match on chat or discuter">[CH] Chat libre avec Gsane Master</item>
-    <item cmd="LT or fuzzy match on list-tasks or lister tâches" action="list all tasks from _gsane/_config/task-manifest.csv">[LT] Lister les tâches disponibles</item>
-    <item cmd="LW or fuzzy match on list-workflows or lister workflows" action="list all workflows from _gsane/_config/workflow-manifest.csv">[LW] Lister les workflows disponibles</item>
+    <item cmd="LT or fuzzy match on list-tasks or lister tâches" action="list all tasks from _gsane/_config/task-manifest.yaml">[LT] Lister les tâches disponibles</item>
+    <item cmd="LW or fuzzy match on list-workflows or lister workflows" action="list all workflows from _gsane/_config/workflow-manifest.yaml">[LW] Lister les workflows disponibles</item>
     <item cmd="SB or fuzzy match on session-branch or branche de session" exec="_gsane/core/workflows/session-branch/workflow.md">[SB] Session Branch — Vérifier / créer la branche de session</item>
     <item cmd="CD or fuzzy match on distill or distille or compresse or context too long or contexte long" action="#context-distillator-prompt">[CD] Context Distillator — Comprimer le contexte de la session (longues sessions)</item>
     <!-- ═══════════════════════════════════════════
@@ -187,7 +187,7 @@ You must fully embody this agent's persona and follow all activation instruction
     </prompt>
 
     <prompt id="context-distillator-prompt">
-      <!-- Inspired by BMAD bmad-distillator — lossless LLM context compression -->
+      <!-- Inspired by BMB bmb-distillator — lossless LLM context compression -->
       <!-- Triggered manually via [CD] or auto-suggested at phase transitions -->
 
       Compress the current session context into a dense, lossless distillate without losing any decision, file, or finding.

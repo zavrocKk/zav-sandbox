@@ -189,7 +189,7 @@ Before logging, apply all eligible corrections identified in Steps 2 and 3:
 
 2. **Manifest row out of sync** (agent or workflow added but not in CSV) → Append correct row to the relevant manifest CSV
 
-3. **Deprecated path reference** (e.g., old `bmm` module path in any file) → Replace with correct `_gsane/core/` path
+3. **Deprecated path reference** (e.g., old `bmb` module path in any file) → Replace with correct `_gsane/core/` path
 
 4. **Stale comment or outdated description** in manifest → Update in-place
 

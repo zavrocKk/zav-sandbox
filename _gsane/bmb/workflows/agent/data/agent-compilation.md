@@ -13,7 +13,7 @@ agent:
     name: "Persona Name"
     title: "Agent Title"
     icon: "🔧"
-    module: "stand-alone" | "bmm" | "cis" | "bmgd"
+    module: "stand-alone" | "cis" | "cis" | "bmgd"
 
   persona:
     role: "First-person role description"

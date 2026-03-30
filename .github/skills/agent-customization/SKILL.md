@@ -15,8 +15,8 @@ _gsane/_config/agents/{module}-{agent-id}.customize.yaml
 ```
 
 Examples:
-- `bmm-architect.customize.yaml` — for the Architect agent (Winston)
-- `bmm-dev.customize.yaml` — for the Dev agent (Amelia)
+- `bmb-module-builder.customize.yaml` — for the Architect agent (Winston)
+- `bmb-dev.customize.yaml` — for the Dev agent (Amelia)
 - `core-gsane-master.customize.yaml` — for Gsane Master
 
 ## What You Can Customize
@@ -86,18 +86,18 @@ Both types are loaded at activation. Sidecar data takes precedence over customiz
 Edit these three files to give all agents instant project knowledge:
 
 ```yaml
-# bmm-architect.customize.yaml
+# bmb-module-builder.customize.yaml
 memories:
   - "Stack du projet : {technologies}"
   - "Pattern architectural imposé : {pattern}"
 
-# bmm-dev.customize.yaml  
+# bmb-dev.customize.yaml  
 memories:
   - "Stack du projet : {technologies}"
   - "Convention de code : {conventions}"
   - "Tests : tous les tests sont dans /tests, runner = {test-runner}"
 
-# bmm-pm.customize.yaml
+# bmb-pm.customize.yaml
 memories:
   - "Projet : {nom} — {description courte}"
   - "Priorité actuelle : {sprint ou phase}"

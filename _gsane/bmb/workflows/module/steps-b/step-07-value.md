@@ -47,7 +47,7 @@ Help craft a clear statement:
 **"For {target users}, {module name} provides {key benefit} unlike {alternatives} because {unique differentiator}."**
 
 Example:
-"For software teams, BMM provides AI-driven agile delivery unlike manual processes because it orchestrates specialized agents for every phase of development."
+"For software teams, CIS provides AI-driven agile delivery unlike manual processes because it orchestrates specialized agents for every phase of development."
 
 ### 3. Competitive Context
 

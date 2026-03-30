@@ -18,17 +18,17 @@ The goal is to continuously improve the GSANE multi-agent system — optimizing 
 
 ```
 _gsane/                       ← GSANE framework root
-  _config/                    ← Manifests and config (CSV-based registry)
-    agent-manifest.csv        ← All agents: name, persona, capabilities
-    workflow-manifest.csv     ← All workflows: name, description, path
-    task-manifest.csv         ← All tasks: name, description, path
+  _config/                    ← Manifests and config (YAML-based registry)
+    agent-manifest.yaml        ← All agents: name, persona, capabilities
+    workflow-manifest.yaml     ← All workflows: name, description, path
+    task-manifest.yaml         ← All tasks: name, description, path
     delegation-matrix.yaml ← Request routing rules
   _memory/                    ← Persistent agent memory across sessions
     failure-museum.md         ← Catalogue des défaillances passées (FM-001+)
     decision-log.md           ← Journal des décisions architecturales (DL-001+)
     session-analysis-log.md   ← Post-session analysis logs
   core/                       ← Core module: gsane-master agent + orchestration workflows
-    agents/gsane-master.md    ← Primary orchestrator agent
+    _gsane/_config/agents/core-gsane-master.customize.yaml    ← Primary orchestrator agent
     config.yaml               ← Global project config (user_name, language, output_folder)
     tasks/                    ← Reusable tasks (editorial review, help, indexing, sharding)
     workflows/                ← Core workflows (party-mode, delegation, brainstorming, git, cc-verify)
@@ -37,16 +37,16 @@ _gsane/                       ← GSANE framework root
     workflows/agent/          ← Create, edit, validate agents
     workflows/module/         ← Create, edit, validate modules
     workflows/workflow/       ← Create, edit, validate, rework workflows
-  bmm/                        ← BMM module: business methodology agents (analyst→dev pipeline)
+  cis/                        ← CIS module: business methodology agents (analyst→dev pipeline)
     agents/                   ← analyst, pm, architect, sm, ux-designer, dev, qa, tech-writer, quick-flow-solo-dev
     workflows/                ← Full product lifecycle: analysis, planning, solutioning, implementation
     data/                     ← project-context-template.md
-    teams/                    ← default-party.csv, team-fullstack.yaml
+    teams/                    ← default-party.yaml, team-fullstack.yaml
   cis/                        ← CIS module: creative/innovation/storytelling agents
     agents/                   ← Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
     workflows/                ← design-thinking, innovation-strategy, problem-solving, storytelling
   tea/                        ← TEA module: test architecture
-    agents/tea.md             ← Murat (test architect)
+    _gsane/_config/agents/tea-tea.customize.yaml             ← Murat (test architect)
     workflows/testarch/       ← ATDD, CI, coverage, NFR, framework, review, trace workflows
 _gsane-output/                ← Generated artifacts (never commit large outputs to main)
 .github/
@@ -60,9 +60,9 @@ AGENTS.md                     ← This file — universal agent entry point
 
 | Goal | Where to look |
 |---|---|
-| Find an agent | `_gsane/_config/agent-manifest.csv` |
-| Find a workflow | `_gsane/_config/workflow-manifest.csv` |
-| Find a task | `_gsane/_config/task-manifest.csv` |
+| Find an agent | `_gsane/_config/agent-manifest.yaml` |
+| Find a workflow | `_gsane/_config/workflow-manifest.yaml` |
+| Find a task | `_gsane/_config/task-manifest.yaml` |
 | Understand routing rules | `_gsane/_config/delegation-matrix.yaml` |
 | Global config (user, language) | `_gsane/core/config.yaml` |
 | Agent memory/state | `_gsane/_memory/` |
@@ -81,7 +81,7 @@ AGENTS.md                     ← This file — universal agent entry point
 ### Agent Activation
 - All agent requests **must** route through `_gsane/core/workflows/delegation/workflow.md`
 - Never activate an agent directly without checking the delegation matrix first
-- Gsane Master (`_gsane/core/agents/gsane-master.md`) is the entry point for all operations
+- Gsane Master (`_gsane/_config/agents/core-gsane-master.customize.yaml`) is the entry point for all operations
 
 ### Workflow Execution
 - `.md` workflows → execute directly by reading and following the file
@@ -91,7 +91,7 @@ AGENTS.md                     ← This file — universal agent entry point
 ### Party Mode (Smart JIT)
 - Gsane Master is the sole orchestrator — no separate coordinator agent
 - Initialization loads only a lightweight index (name, icon, capabilities) — NOT full profiles
-- Per turn: score agents against topic keywords, select 2-3 max, load their CSV row, generate response, discard profile data
+- Per turn: score agents against topic keywords, select 2-3 max, load their YAML row, generate response, discard profile data
 - Full agent `.md` files are never loaded during party mode unless explicitly requested
 
 ### Git Workflow (MANDATORY)
@@ -105,7 +105,7 @@ AGENTS.md                     ← This file — universal agent entry point
 - Load resources at runtime only — never preload
 - Config resolved once per session — do not reload
 - Agent profiles loaded per-turn in party mode — discarded after each turn
-- Prefer CSV rows over full `.md` files for personality data in party mode
+- Prefer YAML definitions over full `.md` files for personality data in party mode
 
 ### Governance Rules
 - **PRE-EXECUTION GATE**: Before any GSANE action, check the delegation matrix — solo execution = violation
@@ -131,19 +131,19 @@ AGENTS.md                     ← This file — universal agent entry point
 | qa-gsane | 🔍 Aria | bmb | GSANE quality assurance, persona regression, workflow compliance |
 | tea | 🧪 Murat | tea | Test architecture, ATDD, CI/CD, quality gates |
 
-### BMM Module — Business Methodology
+### CIS Module — Legacy Agents
 
 | Agent | Persona | Module | Specialty |
 |---|---|---|---|
-| analyst | 📊 Mary | bmm | Market research, competitive analysis, requirements elicitation |
-| pm | 📋 John | bmm | PRD creation, user stories, stakeholder alignment |
-| architect | 🏗️ Winston | bmm | System design, distributed systems, API design |
-| sm | 🏃 Bob | bmm | Sprint planning, scrum ceremonies, backlog management |
-| dev | 💻 Amelia | bmm | Story execution, TDD, code implementation |
-| ux-designer | 🎨 Sally | bmm | User research, interaction design, UX patterns |
-| qa | 🧪 Quinn | bmm | Quick test automation, E2E coverage (simple projects) |
-| tech-writer | 📚 Paige | bmm | Documentation, Mermaid diagrams, standards compliance |
-| quick-flow-solo-dev | 🚀 Barry | bmm | Rapid spec+dev cycle for small-medium features |
+| analyst | 📊 Mary | cis | Market research, competitive analysis, requirements elicitation |
+| pm | 📋 John | cis | PRD creation, user stories, stakeholder alignment |
+| architect | 🏗️ Winston | cis | System design, distributed systems, API design |
+| sm | 🏃 Bob | cis | Sprint planning, scrum ceremonies, backlog management |
+| dev | 💻 Amelia | cis | Story execution, TDD, code implementation |
+| ux-designer | 🎨 Sally | cis | User research, interaction design, UX patterns |
+| qa | 🧪 Quinn | cis | Quick test automation, E2E coverage (simple projects) |
+| tech-writer | 📚 Paige | cis | Documentation, Mermaid diagrams, standards compliance |
+| quick-flow-solo-dev | 🚀 Barry | cis | Rapid spec+dev cycle for small-medium features |
 
 ### CIS Module — Creative & Innovation
 

@@ -27,9 +27,9 @@ zav-sandbox/
 │       └── cleanup-branches.yml       # Nettoyage automatique des branches mergées
 │
 └── _gsane/
-    ├── _config/                       # Manifests CSV + matrice de délégation
-    │   ├── agent-manifest.csv         # Registre des 13 agents (index JIT)
-    │   ├── workflow-manifest.csv      # Registre des workflows
+    ├── _config/                       # Manifests YAML hiérarchique + matrice de délégation
+    │   ├── agent-manifest.yaml         # Registre des 13 agents (index JIT)
+    │   ├── workflow-manifest.yaml      # Registre des workflows
     │   ├── delegation-matrix.yaml  # Routing des requêtes — impacte TOUT le système
     │   └── ...
     ├── _memory/                       # Mémoire persistante (scoreboard, flywheel, sessions)
@@ -153,11 +153,11 @@ Structure minimale obligatoire — voir `.github/skills/agent-design-patterns/SK
 _gsane/bmb/agents/mon-agent.md
 ```
 
-### 3. Mettre à jour `agent-manifest.csv`
+### 3. Mettre à jour `agent-manifest.yaml`
 
-Ajouter une ligne dans `_gsane/_config/agent-manifest.csv` :
+Ajouter une ligne dans `_gsane/_config/agent-manifest.yaml` :
 
-```csv
+```yaml
 "mon-agent","Persona","Titre","🔧","capability1, capability2","Rôle","Identité","Style","Principes","module","_gsane/{module}/agents/mon-agent.md"
 ```
 
@@ -171,7 +171,7 @@ Ajouter une ligne dans `_gsane/_config/agent-manifest.csv` :
 
 Dans `_gsane/_config/delegation-matrix.yaml` :
 
-```csv
+```yaml
 mon-cas-usage,mon-agent,module,_gsane/{module}/agents/mon-agent.md,🔧,Description courte,keyword1;keyword2;keyword3
 ```
 
@@ -179,7 +179,7 @@ mon-cas-usage,mon-agent,module,_gsane/{module}/agents/mon-agent.md,🔧,Descript
 
 ### 6. Mettre à jour les manifests et CHANGELOG
 
-- `_gsane/_config/agent-manifest.csv` — ligne agent ajoutée
+- `_gsane/_config/agent-manifest.yaml` — ligne agent ajoutée
 - `CHANGELOG.md` — entrée `[feat]` dans le bon module
 
 ---
@@ -213,7 +213,7 @@ Le workflow engine `_gsane/core/tasks/workflow.xml` est chargé avant toute exé
 
 ### Enregistrer dans le manifest
 
-Ajouter une ligne dans `_gsane/_config/workflow-manifest.csv`.
+Ajouter une ligne dans `_gsane/_config/workflow-manifest.yaml`.
 
 ### Ajouter le prompt slash command
 
@@ -233,7 +233,7 @@ _gsane/{module}/
 ├── workflows/
 ├── teams/
 ├── config.yaml
-└── module-help.csv
+└── module-help.yaml
 ```
 
 Structure minimale de `config.yaml` :
@@ -262,7 +262,7 @@ Avant de modifier :
 
 Format d'une ligne :
 
-```csv
+```yaml
 request_type,target_agent,module,path,icon,description,trigger_keywords
 run-tests,tea,tea,_gsane/tea/agents/tea.md,🧪,Description,keyword1;keyword2;keyword3
 ```
@@ -291,7 +291,7 @@ Select-String "CHANGELOG.md" -Pattern "\[Unreleased\]" -Quiet
 
 # T2 — Chemins dépréciés
 (Get-ChildItem ".github\prompts","_gsane" -Recurse -File |
-  Select-String "_gsane/bmad/").Count
+  Select-String "_gsane/bmb/").Count
 # Attendu : 0
 
 # T3 — .agent.md count
@@ -310,7 +310,7 @@ Select-String "CHANGELOG.md" -Pattern "\[Unreleased\]" -Quiet
 # Attendu : True partout
 
 # T6 — Manifests
-@("agent-manifest.csv","workflow-manifest.csv","delegation-matrix.yaml","gsane-help.csv") |
+@("agent-manifest.yaml","workflow-manifest.yaml","delegation-matrix.yaml","gsane-help.yaml") |
   ForEach-Object { "$_ : $(Test-Path "_gsane\_config\$_")" }
 # Attendu : True partout
 ```
@@ -326,7 +326,7 @@ Select-String ".github\agents\{module}-{nom}.agent.md" -Pattern "user-invokable|
 ### Vérification sync manifest
 
 ```powershell
-$manifestCount = (Get-Content "_gsane\_config\agent-manifest.csv").Count - 1
+$manifestCount = (Get-Content "_gsane\_config\agent-manifest.yaml").Count - 1
 $agentMdCount  = (Get-ChildItem ".github\agents" -Filter "*.agent.md").Count
 "Manifest: $manifestCount | .agent.md: $agentMdCount"
 # Attendu : valeurs égales
@@ -415,7 +415,7 @@ git push -u origin {nom-branche}
 ## Checklist
 - [ ] CHANGELOG.md mis à jour
 - [ ] Conventions GSANE respectées
-- [ ] Aucun chemin déprécié `_gsane/bmad/` introduit
+- [ ] Aucun chemin déprécié `_gsane/bmb/` introduit
 - [ ] Structure GSANE intacte
 - [ ] Party mode appliqué si sévérité medium/high
 ```

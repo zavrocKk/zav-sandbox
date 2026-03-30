@@ -35,12 +35,12 @@ Load config from `{project-root}/_gsane/core/config.yaml` and resolve:
 - `project_name`, `output_folder`, `user_name`
 - `communication_language`, `document_output_language`, `user_skill_level`
 - `date` as a system-generated value
-- Agent manifest path: `{project-root}/_gsane/_config/agent-manifest.csv`
+- Agent manifest path: `{project-root}/_gsane/_config/agent-manifest.yaml`
 
 ### Paths
 
 - `installed_path` = `{project-root}/_gsane/core/workflows/party-mode`
-- `agent_manifest_path` = `{project-root}/_gsane/_config/agent-manifest.csv`
+- `agent_manifest_path` = `{project-root}/_gsane/_config/agent-manifest.yaml`
 - `standalone_mode` = `true` (party mode is an interactive workflow)
 
 ---

@@ -63,4 +63,4 @@ flywheel:
     - skills: ".github/skills/**"
     - prompts: ".github/prompts/**"
     - workflows: "_gsane/**/workflows/**/workflow.md"
-    - manifests: "_gsane/_config/*.csv"
+    - manifests: "_gsane/_config/*.yaml"

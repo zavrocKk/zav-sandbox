@@ -6,7 +6,7 @@
 - [ ] Parses without errors
 - [ ] `metadata`: `id`, `name`, `title`, `icon`, `module`, `hasSidecar`
 - [ ] `hasSidecar`: `true`|`false`
-- [ ] `module`: `stand-alone`|`bmm`|`cis`|`bmgd`|...
+- [ ] `module`: `stand-alone`|`cis`|`cis`|`bmgd`|...
 - [ ] `persona`: `role`, `identity`, `communication_style`, `principles`
 - [ ] `menu`: ≥1 item
 - [ ] Filename: `{name}.agent.yaml` (lowercase, hyphenated)

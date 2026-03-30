@@ -363,8 +363,8 @@ See `tea-index.csv` for complete knowledge fragment mapping.
 
 - Ask in team standup
 - Tag @{tea_agent_username} in Slack/Discord
-- Refer to `./bmm/docs/tea-README.md` for workflow documentation
-- Consult `./bmm/testarch/knowledge` for testing best practices
+- Refer to `./cis/docs/tea-README.md` for workflow documentation
+- Consult `./cis/testarch/knowledge` for testing best practices
 
 ---
 

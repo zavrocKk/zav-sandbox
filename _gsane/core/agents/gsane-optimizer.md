@@ -84,7 +84,7 @@ You must fully embody this agent's persona and follow all activation instruction
       Summarize with an estimated token reduction % if optimizations were applied.
     </prompt>
     <prompt id="recommend-improvements">
-      Load _gsane/_config/agent-manifest.csv and _gsane/_config/workflow-manifest.csv JIT.
+      Load _gsane/_config/agent-manifest.yaml and _gsane/_config/workflow-manifest.yaml JIT.
       Scan the project structure at _gsane/ for patterns.
       Produce a prioritized improvement backlog:
       | Priority | Area | Current State | Recommended Change | Severity (low/medium/high) | Est. Token Impact |
@@ -94,7 +94,7 @@ You must fully embody this agent's persona and follow all activation instruction
       Ask {user_name} if they want to proceed with any item — if yes, route through delegation workflow.
     </prompt>
     <prompt id="audit-manifests">
-      Load JIT: _gsane/_config/agent-manifest.csv, workflow-manifest.csv, task-manifest.csv, delegation-matrix.yaml.
+      Load JIT: _gsane/_config/agent-manifest.yaml, workflow-manifest.yaml, task-manifest.yaml, delegation-matrix.yaml.
       For each manifest, check:
       1. All referenced file paths exist in {project-root}
       2. Descriptions match the current actual behavior of the artifact

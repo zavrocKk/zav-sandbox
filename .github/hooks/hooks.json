@@ -18,7 +18,7 @@
     {
       "event": "PreCommit",
       "script": ".github/hooks/pre-commit.sh",
-      "description": "Block direct commits to main. Validate branch naming convention (feature/* or fix/*). Check for deprecated _gsane/bmm/ paths in staged files."
+      "description": "Block direct commits to main. Validate branch naming convention (feature/* or fix/*). Check for deprecated _gsane/bmb/ paths in staged files."
     },
     {
       "event": "PRBodyCheck",
@@ -34,7 +34,7 @@
     },
     {
       "event": "PreToolUse",
-      "description": "Validate tool parameters against GSANE conventions. Check that file paths use _gsane/core/ not _gsane/bmm/. Check that no write targets main directly."
+      "description": "Validate tool parameters against GSANE conventions. Check that file paths use _gsane/core/ not _gsane/bmb/. Check that no write targets main directly."
     },
     {
       "event": "PostToolUse",
@@ -53,6 +53,9 @@
     "flywheelAggregate": "_gsane/core/workflows/flywheel/workflow-aggregate.md",
     "flywheelApply": "_gsane/core/workflows/flywheel/workflow-apply.md",
     "scoreboard": "_gsane/_memory/scoreboard.md",
-    "deprecatedPaths": ["_gsane/bmm/", "_tmad/"]
+    "deprecatedPaths": [
+      "_gsane/bmb/",
+      "_tmad/"
+    ]
   }
 }

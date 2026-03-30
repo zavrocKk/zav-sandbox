@@ -43,7 +43,7 @@ Load the existing agent file and initialize a validation report to track all fin
 Read the complete YAML from the agent file path provided by the user.
 
 Check the metadata to determine agent configuration:
-- **module**: `stand-alone` or module code (bmm, cis, bmgd, etc.)
+- **module**: `stand-alone` or module code (cis, cis, bmgd, etc.)
 - **hasSidecar**: `true` or `false`
 
 ### 2. Display Agent Summary

@@ -92,7 +92,7 @@ For each item in `to_apply`:
 - Identify which workflow step contains the pattern
 - Apply minimal targeted edit: fix deprecated path, add missing severity label, correct variable reference
 
-**Target: `manifest`** (`_gsane/_config/*.csv`)
+**Target: `manifest`** (`_gsane/_config/*.yaml`)
 - Apply row addition, correction, or removal per report action
 
 **Target: `config`** (config.yaml or similar)

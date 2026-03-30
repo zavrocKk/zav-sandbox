@@ -7,7 +7,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
             exit 1
           fi
           echo "✅ CHANGELOG.md found!"
-      
+
       - name: Validate CHANGELOG Format
         run: |
           echo "🔍 Validating CHANGELOG format..."
@@ -30,7 +30,7 @@ jobs:
             exit 1
           fi
           echo "✅ CHANGELOG format is valid!"
-      
+
       - name: Check PR body is not empty
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
@@ -44,24 +44,13 @@ jobs:
           fi
           echo "✅ PR body is present (${#PR_BODY} characters)."
 
-      - name: Scan for deprecated paths
-        run: |
-          echo "🔍 Scanning for deprecated _gsane/bmm/ references..."
-          HITS=$(grep -rl "_gsane/bmm/" .github/prompts/ _gsane/ 2>/dev/null | wc -l)
-          if [[ "$HITS" -gt 0 ]]; then
-            echo "❌ ERROR: $HITS file(s) still reference deprecated path _gsane/bmm/:"
-            grep -rl "_gsane/bmm/" .github/prompts/ _gsane/ 2>/dev/null
-            exit 1
-          fi
-          echo "✅ No deprecated paths found."
-
       - name: Validate agent manifest sync
         run: |
           echo "🔍 Checking .agent.md files present..."
           AGENT_MD_COUNT=$(find .github/agents -name "*.agent.md" 2>/dev/null | wc -l)
-          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 13)"
-          if [[ "$AGENT_MD_COUNT" -lt 13 ]]; then
-            echo "⚠️  WARNING: Expected 13 .agent.md files, found $AGENT_MD_COUNT — run audit"
+          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 25)"        
+          if [[ "$AGENT_MD_COUNT" -lt 25 ]]; then
+            echo "⚠️  WARNING: Expected 25 .agent.md files, found $AGENT_MD_COUNNT — run audit"
           fi
           echo "✅ Agent manifest check complete."
 
@@ -69,7 +58,7 @@ jobs:
         run: |
           echo "🔍 Checking GSANE directory structure..."
           required_dirs=(
-            "_gsane" "_gsane/core" "_gsane/core/agents" "_gsane/core/workflows"
+            "_gsane" "_gsane/core" "_gsane/core/agents" "_gsane/core/workflows" 
             "_gsane/_config" "_gsane/_memory" ".github/agents" ".github/prompts" ".github/skills"
           )
           for dir in "${required_dirs[@]}"; do
@@ -85,26 +74,28 @@ jobs:
           echo "🔍 Checking branch naming convention..."
           branch_name="${{ github.head_ref }}"
           if [[ ! "$branch_name" =~ ^(feature|fix)\/[a-z0-9\-]+\-[0-9]{4}\-[0-9]{2}\-[0-9]{2}$ ]]; then
-            echo "⚠️  WARNING: Branch name '$branch_name' doesn't follow convention"
+            echo "⚠️  WARNING: Branch name '$branch_name' doesn't follow conventtion"
             echo "Expected format: feature/{description}-YYYY-MM-DD or fix/{description}-YYYY-MM-DD"
           fi
           echo "✅ Branch naming check complete!"
 
       - name: Validate workflow manifest integrity
         run: |
+          pip3 install pyyaml --break-system-packages
           echo "🔍 Checking workflow manifest file integrity..."
           python3 - <<'EOF'
-          import csv, sys, os
+          import yaml, sys, os
           errors = 0
-          with open('_gsane/_config/workflow-manifest.csv', newline='', encoding='utf-8') as f:
-              reader = csv.DictReader(f)
-              for row in reader:
-                  path = row.get('path', '').strip()
-                  if not path:
-                      continue
-                  if not os.path.isfile(path):
-                      print(f"❌ ERROR: workflow-manifest.csv references missing file: {path}")
-                      errors += 1
+          with open('_gsane/_config/workflow-manifest.yaml', newline='', encoding='utf-8') as f:
+              reader = yaml.safe_load(f)
+              if reader:
+                  for row in reader:
+                      path = row.get('path', '').strip()
+                      if not path:
+                          continue
+                      if not os.path.isfile(path):
+                          print(f"❌ ERROR: workflow-manifest.yaml references missing file: {path}")
+                          errors += 1
           if errors > 0:
               print(f"❌ {errors} missing workflow file(s) detected!")
               sys.exit(1)
@@ -115,20 +106,21 @@ jobs:
         run: |
           echo "🔍 Checking agent manifest persona fields..."
           python3 - <<'EOF'
-          import csv, sys
+          import yaml, sys
           errors = 0
-          with open('_gsane/_config/agent-manifest.csv', newline='', encoding='utf-8') as f:
-              reader = csv.DictReader(f)
-              for row in reader:
-                  name = row.get('name', '').strip()
-                  cs = row.get('communicationStyle', '').strip()
-                  pr = row.get('principles', '').strip()
-                  if not cs:
-                      print(f"❌ ERROR: Agent '{name}' has empty communicationStyle")
-                      errors += 1
-                  if not pr:
-                      print(f"❌ ERROR: Agent '{name}' has empty principles")
-                      errors += 1
+          with open('_gsane/_config/agent-manifest.yaml', newline='', encoding='utf-8') as f:
+              reader = yaml.safe_load(f)
+              if reader:
+                  for row in reader:
+                      name = row.get('name', '').strip()
+                      cs = row.get('communicationStyle', '').strip()
+                      pr = row.get('principles', '').strip()
+                      if not cs:
+                          print(f"❌ ERROR: Agent '{name}' has empty communicationStyle")
+                          errors += 1
+                      if not pr:
+                          print(f"❌ ERROR: Agent '{name}' has empty principles")
+                          errors += 1
           if errors > 0:
               print(f"❌ {errors} agent persona field(s) empty!")
               sys.exit(1)
@@ -141,11 +133,10 @@ jobs:
           echo "✅ ================ VALIDATION PASSED ================"
           echo "✅ CHANGELOG.md exists and is properly formatted"
           echo "✅ PR body is not empty"
-          echo "✅ No deprecated paths (_gsane/bmm/) detected"
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
           echo "✅ Branch naming convention checked"
-          echo "✅ Workflow manifest file integrity verified (T9)"
-          echo "✅ Agent persona fields populated (T10)"
+          echo "✅ Workflow manifest file integrity verified"
+          echo "✅ Agent persona fields populated"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="

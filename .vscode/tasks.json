@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "GSANE: 🥳 Lancer le Party Mode",
+            "type": "shell",
+            "command": "bash gsane.sh party-mode",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
+        },
+        {
+            "label": "GSANE: 🧠 Nouvelle session Brainstorming",
+            "type": "shell",
+            "command": "bash gsane.sh brainstorming",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "GSANE: 🩺 Doctor",
+            "type": "shell",
+            "command": "bash gsane.sh doctor",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "GSANE: 🔍 Valider les Manifestes (YAML)",
+            "type": "shell",
+            "command": "bash gsane.sh validate",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        }
+    ]
+}
+

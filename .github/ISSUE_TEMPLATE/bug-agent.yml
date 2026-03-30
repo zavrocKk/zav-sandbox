@@ -1,0 +1,43 @@
+name: 🐛 Bug Agent (Boucle, TTL, Hallucination)
+description: Signaler un comportement anormal d'un agent GSANE (ex: boucle infinie, hallucination).
+title: "[Bug Agent]: "
+labels: ["bug", "agent-behavior"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de nous aider à améliorer la résilience du framework GSANE V2 !
+  - type: input
+    id: agents-involved
+    attributes:
+      label: Agents impliqués
+      description: Quels agents tournaient lorsque le problème est survenu ? (ex. Gsane Master, Winston, Bond)
+    validations:
+      required: true
+  - type: dropdown
+    id: ttl-status
+    attributes:
+      label: Statut du TTL (Time To Live)
+      description: La règle MAX_TTL a-t-elle arrêté la boucle proprement ?
+      options:
+        - "Oui, le système s'est arrêté proprement"
+        - "Non, ça a tourné à l'infini (Boucle fatale)"
+        - "Non applicable"
+    validations:
+      required: true
+  - type: textarea
+    id: session-canvas
+    attributes:
+      label: Fichier de session (Canvas)
+      description: Copiez le contenu de _gsane/_memory/sessions/current-workflow.state.yaml ou le contexte de votre session.
+      render: yaml
+    validations:
+      required: false
+  - type: textarea
+    id: terminal-trace
+    attributes:
+      label: Trace du terminal
+      description: Copiez-collez les derniers échanges, l'invocation du DAG ou la boucle.
+      render: shell
+    validations:
+      required: true

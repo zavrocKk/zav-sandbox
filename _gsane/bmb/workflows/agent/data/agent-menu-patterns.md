@@ -58,7 +58,7 @@ Attach to ANY handler to pass input files.
 ```yaml
 - trigger: TS or fuzzy match on team-standup
   exec: '{project-root}/_gsane/core/tasks/help.md'
-  data: '{project-root}/_gsane/_config/agent-manifest.csv'
+  data: '{project-root}/_gsane/_config/agent-manifest.yaml'
   description: '[TS] Run team standup'
 ```
 

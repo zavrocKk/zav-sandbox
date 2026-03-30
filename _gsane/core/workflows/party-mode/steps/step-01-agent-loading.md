@@ -18,7 +18,7 @@
 
 ## CONTEXT BOUNDARIES:
 
-- Agent manifest CSV is available at `{project-root}/_gsane/_config/agent-manifest.csv`
+- Agent manifest CSV is available at `{project-root}/_gsane/_config/agent-manifest.yaml`
 - User configuration from config.yaml is already resolved in session — do NOT reload it
 - Party mode is standalone interactive workflow
 - {agent_index} is the only data structure built at this step
@@ -31,7 +31,7 @@ Build a lightweight agent index for JIT selection, then activate party mode.
 
 ### 1. Build Agent Index (Lightweight)
 
-Parse CSV manifest from `{project-root}/_gsane/_config/agent-manifest.csv`.
+Parse CSV manifest from `{project-root}/_gsane/_config/agent-manifest.yaml`.
 
 Extract ONLY these 4 columns for each row:
 

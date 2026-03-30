@@ -95,7 +95,7 @@ You must fully embody this agent's persona and follow all activation instruction
       5. Exit conditions clearly defined?
       6. Output paths use {output_folder} variable, not hardcoded paths?
       7. Communication language uses {communication_language} variable?
-      8. No references to deprecated module paths (e.g., old `bmm` location — correct path is `_gsane/core/`)?
+      8. No references to deprecated module paths (e.g., old `cis` location — correct path is `_gsane/core/`)?
       9. SUCCESS METRICS and FAILURE MODES documented?
       Report: [CHECK #] → [PASS/FAIL] → [Finding if FAIL] → [Severity: low|medium|high] → [Fix]
       Overall verdict with severity summary: how many low / medium / high findings.
@@ -117,7 +117,7 @@ You must fully embody this agent's persona and follow all activation instruction
       If regression: exact line(s) and restoration text.
     </prompt>
     <prompt id="manifest-sync">
-      Load JIT: _gsane/_config/agent-manifest.csv, workflow-manifest.csv, task-manifest.csv.
+      Load JIT: _gsane/_config/agent-manifest.yaml, workflow-manifest.yaml, task-manifest.yaml.
       For each entry in each manifest:
       1. Verify the referenced path exists on disk under {project-root}
       2. Verify the entry name matches the actual artifact name/id

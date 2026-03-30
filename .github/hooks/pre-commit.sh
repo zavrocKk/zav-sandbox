@@ -19,13 +19,29 @@ if [[ ! "$CURRENT_BRANCH" =~ ^(feature|fix)\/[a-z0-9\-]+-[0-9]{4}-[0-9]{2}-[0-9]
   echo "[PreCommit] ⚠️  WARNING: Branch '$CURRENT_BRANCH' doesn't follow feature/fix-YYYY-MM-DD convention"
 fi
 
-# ── 3. Scanner les fichiers stagés pour chemins dépréciés ──────────────────────
-DEPRECATED=$(git diff --cached --name-only | xargs grep -l "_gsane/bmm/" 2>/dev/null || true)
-if [[ -n "$DEPRECATED" ]]; then
-  echo "[PreCommit] ❌ ERROR: Deprecated path _gsane/bmm/ found in staged files:"
-  echo "$DEPRECATED"
-  echo "  Replace with _gsane/core/ before committing."
-  exit 1
+
+# ── 3. Blacklist Linter (Prévention des String Magiques) ────────────────────────
+STAGED_FILES=$(git diff --cached --name-only)
+if [[ -n "$STAGED_FILES" ]]; then
+  BANNED_WORDS=("bmm" "bmad" "_tmad")
+  for word in "${BANNED_WORDS[@]}"; do
+    if echo "$STAGED_FILES" | xargs grep -ilw "$word" 2>/dev/null; then
+      echo "[PreCommit] ❌ ÉCHEC : Le mot déprécié '$word' a été détecté dans les fichiers stagés."
+      echo "  💡 Utilise des chemins relatifs ou des variables de projet régulières plutôt que d'anciens noms de modules."
+      exit 1
+    fi
+  done
 fi
 
+
+# ── 4. Validation des fichiers YAML (Prévention Crash Parser) ───────────────────
+echo "
+🔍 Vérification de la syntaxe YAML..."
+if python3 -c "import yaml, glob; [yaml.safe_load(open(f, encoding='utf-8')) for f in glob.glob('_gsane/_config/*.yaml')]" 2>/dev/null; then
+  echo "✅ YAML valide."
+else
+  echo "❌ YAML invalide ! Interruption du commit."
+  exit 1
+fi
 echo "[PreCommit] ✅ All checks passed."
+

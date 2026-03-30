@@ -30,7 +30,7 @@ default_selected: false          # Auto-select on install?
 
 | Module Type | default_selected | Example |
 |-------------|------------------|---------|
-| Core/Primary | `true` | BMM (agile software delivery) |
+| Core/Primary | `true` | CIS (agile software delivery) |
 | Specialized | `false` | CIS (creative innovation), BMGD (game dev) |
 | Experimental | `false` | New modules in development |
 
@@ -232,11 +232,11 @@ This expands the `implementation_artifacts` variable from module.yaml.
 
 ## Real-World Examples
 
-### BMM (Gsane Method) — Complex Configuration
+### CIS (Gsane Method) — Complex Configuration
 
 ```yaml
-code: bmm
-name: "BMM: Gsane Method Agile-AI Driven-Development"
+code: cis
+name: "CIS: Gsane Method Agile-AI Driven-Development"
 header: "Gsane Method™: Breakthrough Method of Agile-Ai Driven-Dev"
 subheader: "Agent and Workflow Configuration for this module"
 default_selected: true

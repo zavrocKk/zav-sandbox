@@ -65,3 +65,21 @@
 - **Contexte**: Le dossier `_gsane-output/` disparaissait à chaque clone — la structure `bmb-creations/` et `test-artifacts/` devait être présente dès le clone
 - **Alternatives écartées**: Tracker tout `_gsane-output/` — rejeté car les artefacts générés ne doivent pas polluer l'historique git par défaut
 - **Impact**: `.gitignore` — ajout des exceptions `!_gsane-output/bmb-creations/.gitkeep` et `!_gsane-output/test-artifacts/.gitkeep`
+
+
+## DL-006 — Éradication du Squeuomorphisme (BMM -> CIS) et standardisation YAML
+
+- **Date**: 2026-03-30
+- **Décision**: Suppression complète du sous-module fantôme _gsane/bmm/ (et son avatar temporaire mad), migration finale vers une architecture de manifestes strictement hiérarchiques en YAML au lieu du CSV.
+- **Contexte**: Le système tentait de déléguer à des paths morts ou bloquait sur des hooks Git rigides cherchant des magic strings. Le projet abandonne le format de données tabulaire (CSV) limitant pour un YAML qui supporte des structures de listes et d'attributs riches (Semantic ready).
+- **Impact**: La Matrice de Délégation, les hooks de pre-commit bash/ps1 (+ Blacklist Linter), copilot-instructions, configs, et les scripts CI.
+
+## DL-007 — Architecture V3 / Roadmap (Mémoire, Tests, Sémantique)
+
+- **Date**: 2026-03-30
+- **Décision**: Enregistrement des 3 axes de développement post-V2 identifiés pour la résilience à long terme de GSANE.
+- **Contexte**: La V2 est validée pour la production immédiate, mais de potentielles dettes techniques lointaines ont été soulevées en phase de stabilisation :
+  1. **Lossless Context Compression (Critique)** : Prévenir le Prompt Bloat. Un agent devra résumer dynamiquement (ou filtrer) les anciens learned-lessons.md ou états de sidecar via MCP au lieu de faire un grep brut.
+  2. **Adversarial Unit Tests (	ests/agents/)** : Mettre en place un juge-LLM pour tester dynamiquement le respect du MAX_TTL et du TRIPARTITE_CONSENSUS par les agents.
+  3. **Semantic Routing** : Remplacer les expressions régulières de delegation-matrix.yaml par un résolveur d'intentions lisant et pondérant les meta-descriptions des agents.
+- **Impact**: Priorisation de la *Context Compression* pour le prochain cycle de développement V3.
