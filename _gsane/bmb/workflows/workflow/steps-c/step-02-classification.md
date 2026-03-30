@@ -102,7 +102,7 @@ Workflows can be standalone or part of a module:"
 - Stored in your custom location
 - Only standard variables available
 
-**Module-Based (BMB, BMM, CIS, BMGD, etc.):**
+**Module-Based (BMB, CIS, CIS, BMGD, etc.):**
 - Part of a specific module
 - Has access to module-specific variables
 - Stored in that module's workflows directory
@@ -114,7 +114,7 @@ Workflows can be standalone or part of a module:"
 **If they don't know modules:**
 "Modules are specialized areas:
 - **BMB** - Module building workflows
-- **BMM** - Software development workflows (PRDs, architecture, etc.)
+- **CIS** - Software development workflows (PRDs, architecture, etc.)
 - **CIS** - Innovation and creative workflows
 - **BMGD** - Game development workflows
 - **Custom** - Your own workflows

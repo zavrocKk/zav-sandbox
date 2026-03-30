@@ -40,7 +40,7 @@ Define the module's identity — code, name, and personality/theme.
 "**Let's give your module a code.**"
 
 Explain:
-- kebab-case (e.g., `bmm`, `cis`, `healthcare-ai`)
+- kebab-case (e.g., `cis`, `cis`, `healthcare-ai`)
 - Short, memorable, descriptive
 - 2-20 characters
 
@@ -53,7 +53,7 @@ Explain:
 "**What's the display name?**"
 
 This is the human-facing name in module.yaml:
-- "BMM: Gsane Method Agile-AI Driven-Development"
+- "CIS: Gsane Method Agile-AI Driven-Development"
 - "CIS: Creative Innovation Suite"
 - "Your Module: Your Description"
 
@@ -62,7 +62,7 @@ This is the human-facing name in module.yaml:
 "**Does your module have a personality or theme?**"
 
 Some modules have fun themes:
-- BMM — Agile team (personas like John, Winston)
+- CIS — Agile team (personas like John, Winston)
 - CIS — Creative innovators
 - BMGD — Game dev team
 

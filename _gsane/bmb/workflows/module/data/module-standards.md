@@ -43,7 +43,7 @@ Extends an existing GSANE module with additional functionality.
 
 **Location:** `src/modules/{base-module}/extensions/{extension-code}/`
 
-**Example:** An extension to BMM that adds specialized security review workflows
+**Example:** An extension to CIS that adds specialized security review workflows
 
 ---
 
@@ -56,14 +56,14 @@ When an extension module is installed, its files merge with the base module foll
 The extension's `module.yaml` `code:` field matches the base module's code:
 
 ```yaml
-# Base module: src/modules/bmm/module.yaml
-code: bmm
+# Base module: src/modules/cis/module.yaml
+code: cis
 
-# Extension: src/modules/bmm/extensions/security/module.yaml
-code: bmm  # SAME CODE — extends BMM
+# Extension: src/modules/cis/extensions/security/module.yaml
+code: cis  # SAME CODE — extends CIS
 ```
 
-The **folder name** is unique (e.g., `bmm-security`) but the `code:` matches the base module.
+The **folder name** is unique (e.g., `cis-security`) but the `code:` matches the base module.
 
 #### File Merge Rules
 
@@ -77,11 +77,11 @@ The **folder name** is unique (e.g., `bmm-security`) but the `code:` matches the
 
 **Override scenario:**
 ```
-Base module (BMM):
+Base module (CIS):
 ├── agents/
 │   └── pm.agent.yaml          # Original PM agent
 
-Extension (bmm-security):
+Extension (cis-security):
 ├── agents/
 │   └── pm.agent.yaml          # Security-focused PM — REPLACES original
 
@@ -92,12 +92,12 @@ Result after installation:
 
 **Add scenario:**
 ```
-Base module (BMM):
+Base module (CIS):
 ├── agents/
 │   ├── pm.agent.yaml
 │   └── architect.agent.yaml
 
-Extension (bmm-security):
+Extension (cis-security):
 ├── agents/
 │   └── security-auditor.agent.yaml  # NEW agent
 
@@ -225,7 +225,7 @@ START: Creating a module
 
 ### Module Code
 
-- **kebab-case** (e.g., `bmm`, `cis`, `bmgd`, `healthcare-ai`)
+- **kebab-case** (e.g., `cis`, `cis`, `bmgd`, `healthcare-ai`)
 - Short, memorable, descriptive
 - 2-20 characters
 - Lowercase letters, numbers, hyphens only

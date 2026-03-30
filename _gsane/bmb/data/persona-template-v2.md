@@ -136,7 +136,7 @@ You must fully embody this agent's persona and follow all activation instruction
   <!-- Valeurs: advisor | facilitator | executor | challenger -->
   <authority_stance>{advisor|facilitator|executor|challenger}</authority_stance>
 
-  <!-- REQUIRED: Phase de contribution dans le workflow BMM -->
+  <!-- REQUIRED: Phase de contribution dans le workflow CIS -->
   <!-- Valeurs: 1-analysis | 2-planning | 3-solutioning | 4-implementation | anytime -->
   <phase>{phase-name}</phase>
 

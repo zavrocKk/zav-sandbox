@@ -46,11 +46,11 @@ jobs:
 
       - name: Scan for deprecated paths
         run: |
-          echo "🔍 Scanning for deprecated _gsane/bmad/ references..."
-          HITS=$(grep -rl "_gsane/bmad/" .github/prompts/ _gsane/ 2>/dev/null | wc -l)
+          echo "🔍 Scanning for deprecated _gsane/bmb/ references..."
+          HITS=$(grep -rl "_gsane/bmb/" .github/prompts/ _gsane/ 2>/dev/null | wc -l)
           if [[ "$HITS" -gt 0 ]]; then
-            echo "❌ ERROR: $HITS file(s) still reference deprecated path _gsane/bmad/:"
-            grep -rl "_gsane/bmad/" .github/prompts/ _gsane/ 2>/dev/null
+            echo "❌ ERROR: $HITS file(s) still reference deprecated path _gsane/bmb/:"
+            grep -rl "_gsane/bmb/" .github/prompts/ _gsane/ 2>/dev/null
             exit 1
           fi
           echo "✅ No deprecated paths found."
@@ -142,7 +142,7 @@ jobs:
           echo "✅ ================ VALIDATION PASSED ================"
           echo "✅ CHANGELOG.md exists and is properly formatted"
           echo "✅ PR body is not empty"
-          echo "✅ No deprecated paths (_gsane/bmad/) detected"
+          echo "✅ No deprecated paths (_gsane/bmb/) detected"
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
           echo "✅ Branch naming convention checked"

@@ -17,15 +17,15 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ## [Unreleased]
 
 ### [CUSTOMIZE] — Système de personnalisation des agents par projet
-**[feat]** Câblage complet du système customize.yaml — task partagée `load-customization.md` + step 2c dans 21 agents (BMM×9, BMB×4, CIS×6, TEA×1, core×2)
+**[feat]** Câblage complet du système customize.yaml — task partagée `load-customization.md` + step 2c dans 21 agents (CIS×9, BMB×4, CIS×6, TEA×1, core×2)
 - Agent: Gsane Master | Workflow: party-mode (Bond + Wendy + Léo + Aria) | Initié par: Mon Seigneur
 - Impact: `_gsane/core/tasks/load-customization.md` créé, step 2c ajouté dans 21 fichiers agents `.md`
 
 **[feat]** config.yaml — champ `user_customizations_path` ajouté — pointe vers `_gsane/_config/agents/`
 - Impact: `_gsane/core/config.yaml`
 
-**[feat]** `bmm-architect.customize.yaml` pré-rempli — 6 memories projet pour démo/conférence
-- Impact: `_gsane/_config/agents/bmm-architect.customize.yaml`
+**[feat]** `cis-architect.customize.yaml` pré-rempli — 6 memories projet pour démo/conférence
+- Impact: `_gsane/_config/agents/cis-architect.customize.yaml`
 
 **[feat]** Nouvelle SKILL `agent-customization` — guide d'utilisation des customize.yaml avec bonnes pratiques
 - Impact: `.github/skills/agent-customization/SKILL.md` créé
@@ -63,12 +63,12 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 - Agents créés: analyst (Mary 📊), pm (John 📋), architect (Winston 🏗️), sm (Bob 🏃), dev (Amelia 💻), ux-designer (Sally 🎨), qa (Quinn 🧪), tech-writer (Paige 📚), quick-flow-solo-dev (Barry 🚀)
 - Workflows portés: 1-analysis (product-brief, domain/market/technical-research), 2-plan (create/edit/validate-prd, ux-design), 3-solutioning (architecture, epics-stories, implementation-readiness), 4-implementation (sprint-planning, sprint-status, dev-story, create-story, code-review, retrospective, correct-course), gsane-quick-flow, document-project, generate-project-context, qa-generate-e2e-tests
-- Infrastructure: `_gsane/bmad/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-bmm-*)
+- Infrastructure: `_gsane/bmb/config.yaml`, `data/`, `teams/default-party.csv`, `teams/team-fullstack.yaml`, `module-help.csv` (30 commandes gsane-cis-*)
 - Optimisations GSANE: SESSION HOOK (post-session-analysis), SEVERITY PRINCIPLE, FAILURE MUSEUM, COMPLETION CONTRACT — intégrés dans chaque agent
-- Adaptations chemins: `_bmad/` → `_gsane/`, `bmad-help` → `gsane-help`, `bmad-quick-flow` → `gsane-quick-flow`
+- Adaptations chemins: `_bmb/` → `_gsane/`, `bmb-help` → `gsane-help`, `bmb-quick-flow` → `gsane-quick-flow`
 - Sidecar mémoire: `_gsane/_memory/tech-writer-sidecar/documentation-standards.md`
 - Agent: Party Mode (Morgan, Bond, Wendy, Aria, Léo) | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/bmad/**`, `.github/agents/gsane-agent-bmm-*.agent.md`, `agent-manifest.yaml`, `workflow-manifest.yaml`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
+- Impact: `_gsane/bmb/**`, `.github/agents/gsane-agent-cis-*.agent.md`, `agent-manifest.yaml`, `workflow-manifest.yaml`, `agent-delegation-matrix.csv`, `github-copilot.yaml`, `AGENTS.md`, `CHANGELOG.md`
 
 ### [Core]
 **[feat]** Gouvernance multi-agents — GOLDEN_RULE ×22 agents, solo-creep detection, party mode élargi 14 agents
@@ -79,19 +79,19 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - `post-session-analysis/workflow.md` FIX2 : suppression "Acting as Aria" → logique IF/THEN factuelle (file-write-tools + agents_invoked) pour détecter solo-creep
 - `post-session-analysis/workflow.md` FIX3 : nouveau Step 3b — détection `repeated-high-violation` sur 2 sessions consécutives, court-circuite le cycle flywheel 5-sessions
 - `failure-museum.md` : FM-006 catalogué — "Tests et implémentation exécutés solo sans party mode ni routing"
-- `README.md` : 13→22 agents, module BMM ajouté, section "⚠️ Limite Architecturale Connue — Single-LLM Party Mode", conventions solo-execution et GOLDEN_RULE
+- `README.md` : 13→22 agents, module CIS ajouté, section "⚠️ Limite Architecturale Connue — Single-LLM Party Mode", conventions solo-execution et GOLDEN_RULE
 - Agents modifiés (GOLDEN_RULE): gsane-master, gsane-optimizer, agent-builder, module-builder, workflow-builder, qa-gsane, brainstorming-coach, creative-problem-solver, design-thinking-coach, innovation-strategist, presentation-master, storyteller, tea, analyst, pm, architect, sm, dev, qa, tech-writer, quick-flow-solo-dev (+ ux-designer)
 - Agent: Party Mode élargi 14 agents (Aria★★★★★, Bond★★★★★, Léo★★★★★, Wendy★★★★★, Murat★★★★☆, Paige★★★★☆, Dr.Quinn★★★★☆, Mary★★★☆☆, Winston★★★☆☆, Morgan★★★☆☆, John★★★☆☆, Bob★★☆☆☆, Victor★★☆☆☆, Carson★★☆☆☆) | Workflow: party-mode | Initié par: Mon Seigneur
 - Tests: Batterie Murat TEST-SIM-001 à TEST-SIM-009 — 9/9 PASS ✅
 - Impact: 22 fichiers agents modifiés, post-session-analysis/workflow.md, failure-museum.md, README.md
 
-**[feat]** Gouvernance universelle — FAILURE MUSEUM + COMPLETION CONTRACT ajoutés aux 12 agents non-BMM (BMB, CIS, TEA, core-optimizer)
+**[feat]** Gouvernance universelle — FAILURE MUSEUM + COMPLETION CONTRACT ajoutés aux 12 agents non-CIS (BMB, CIS, TEA, core-optimizer)
 - Agents mis à jour: gsane-optimizer, agent-builder, module-builder, workflow-builder, qa-gsane, brainstorming-coach, creative-problem-solver, design-thinking-coach, innovation-strategist, presentation-master, storyteller, tea
 - Détecté par Aria (VA formelle 22/22 PASS) — remédiation par Bond
 - Agent: Aria (VA) + Bond (remédiation) | Workflow: party-mode | Initié par: Mon Seigneur
 - Impact: 12 fichiers agents
 
-**[feat]** Persona V2 migration — 7 agents BMM restants (analyst, sm, dev, qa, quick-flow-solo-dev, tech-writer, ux-designer)
+**[feat]** Persona V2 migration — 7 agents CIS restants (analyst, sm, dev, qa, quick-flow-solo-dev, tech-writer, ux-designer)
 - Chaque agent V1 → V2: frontmatter `version: "2.0"` + `persona_template: "persona-template-v2"`, sidecar memory loading step (step 3), steps renumotés, SESSION HOOK V2 avec write sidecar project-state.md
 - Sidecars créés: analyst-sidecar/, sm-sidecar/, dev-sidecar/, qa-sidecar/, quick-flow-solo-dev-sidecar/, ux-designer-sidecar/, tech-writer-sidecar/ (learned-lessons.md + project-state.md)
 - ux-designer enrichi: ajout workflow handler + SESSION HOOK V2
@@ -155,14 +155,14 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Impact: `_gsane-output/bmb-creations/.gitkeep` et `test-artifacts/.gitkeep` — maintenant trackés dans git
 - Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
 
-**[fix]** Migration complète bmad → gsane — correction du texte acronyme cassé, suppression du dossier `bmad-framework` dupliqué, désindexation de `_bmad/` du tracking git + ajout dans `.gitignore`
+**[fix]** Migration complète bmb → gsane — correction du texte acronyme cassé, suppression du dossier `bmb-framework` dupliqué, désindexation de `_bmb/` du tracking git + ajout dans `.gitignore`
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
 - Impact: `README.md` — acronyme `Better Method for AI-Driven Development` → `Governance System for AI-Native Execution`
 - Impact: `.github/skills/gsane-framework/SKILL.md` — même correction d'acronyme
-- Impact: `.github/skills/bmad-framework/` — dossier skill dupliqué supprimé du tracking git et du disque
-- Impact: `_bmad/` — 482 fichiers désindexés du tracking git (`git rm -r --cached`), ajouté dans `.gitignore`
+- Impact: `.github/skills/bmb-framework/` — dossier skill dupliqué supprimé du tracking git et du disque
+- Impact: `_bmb/` — 482 fichiers désindexés du tracking git (`git rm -r --cached`), ajouté dans `.gitignore`
 - Impact: `AGENTS.md` — 6 sections mises à jour (description, structure, navigation, conventions, agents, slash commands)
-- Branche: `fix/agents-md-bmad-to-gsane-2026-03-01`
+- Branche: `fix/agents-md-bmb-to-gsane-2026-03-01`
 
 **[docs]** Règle de réutilisation de branche ajoutée — une branche = une unité logique ; seule exception : corriger une erreur ou ajouter un oubli sur une PR non encore mergée
 - Agent: Gsane Master (party: Aria, Wendy) | Workflow: party-mode | Initié par: Mon Seigneur
@@ -243,7 +243,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ### [Core]
 **[fix]** Audit A1 — correction de 46 slash commands `/gsane-*` non fonctionnels (chemin déprécié)
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_gsane/bmad/config.yaml` (inexistant) → `_gsane/core/config.yaml`
+- Impact: 46 fichiers `.github/prompts/*.prompt.md` — `_gsane/bmb/config.yaml` (inexistant) → `_gsane/core/config.yaml`
 - Résultat: Tous les slash commands Copilot Chat fonctionnels
 
 **[feat]** Audit A1 — agents Léo (gsane-optimizer) et Aria (qa-gsane) activables dans Copilot

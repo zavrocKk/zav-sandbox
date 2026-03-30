@@ -70,12 +70,12 @@ Load, read the full file and then execute [FIRST STEP FILE PATH] to begin the wo
 Copy the template above and replace:
 
 - `[WORKFLOW_DISPLAY_NAME]` → Your workflow's display name
-- `[MODULE FOLDER]` → Default is `core` unless this is for another module (such as bmm, cis, or another as directed by user)
+- `[MODULE FOLDER]` → Default is `core` unless this is for another module (such as cis, cis, or another as directed by user)
 - `[Brief description]` → One-sentence description
 - `[true/false]` → Whether to include in web bundle
 - `[role]` → AI's role in this workflow
 - `[user type]` → Who the user is
-- `[CONFIG_PATH]` → Path to config file (usually `bmm/config.yaml` or `bmb/config.yaml`)
+- `[CONFIG_PATH]` → Path to config file (usually `cis/config.yaml` or `bmb/config.yaml`)
 - `[WORKFLOW_PATH]` → Path to your workflow folder
 - `[MODULE VARS]` → Extra config variables available in a module configuration that the workflow would need to use
 

@@ -35,17 +35,17 @@
 
 ---
 
-## Flagship Example: BMM Agent Team
+## Flagship Example: CIS Agent Team
 
-BMM demonstrates a multi-agent module with **9 specialized agents** forming a complete software development team.
+CIS demonstrates a multi-agent module with **9 specialized agents** forming a complete software development team.
 
-### The BMM Theme
+### The CIS Theme
 
 **"Agile software delivery, AI-driven"**
 
 Every agent serves this theme — they're a complete team working together.
 
-### BMM Agent Overview
+### CIS Agent Overview
 
 | Agent | Name | Role | Responsible For |
 |-------|------|------|-----------------|
@@ -176,4 +176,4 @@ For each agent in your module:
 - **Don't worry about the exact YAML format** — agent-builder handles that
 - **Focus on the planning** — who does what, how they work together
 - **Keep it high-level** — this is about the module's agent architecture, not implementation details
-- **BMM is the reference** — look at how their agents form a cohesive team
+- **CIS is the reference** — look at how their agents form a cohesive team

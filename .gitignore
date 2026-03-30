@@ -1,7 +1,7 @@
 # gsane Sandbox — .gitignore
 
 # Legacy (pre-GSANE) — kept local only, not tracked
-_bmad/
+_bmb/
 
 # Workspace artifacts
 instructions.md

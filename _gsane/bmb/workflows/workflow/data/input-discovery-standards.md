@@ -63,7 +63,7 @@ Add selections to {inputDocuments} array in output frontmatter
 ## INPUT REQUIREMENT:
 Requires PRD to proceed.
 
-Searching: {bmm_creations_output_folder}/prd-*.md, {planning_artifacts}/*-prd.md
+Searching: {cis_creations_output_folder}/prd-*.md, {planning_artifacts}/*-prd.md
 
 [Found:] "Found PRD: prd-my-project.md. Use this?"
 [Missing:] "No PRD found. Run PRD workflow first or provide path."
@@ -74,7 +74,7 @@ Searching: {bmm_creations_output_folder}/prd-*.md, {planning_artifacts}/*-prd.md
 ## OPTIONAL INPUTS:
 Can incorporate research if available.
 
-Searching: {bmm_creations_output_folder}/research-*.md, {project_folder}/research/
+Searching: {cis_creations_output_folder}/research-*.md, {project_folder}/research/
 
 [Found:] "Found research documents. Include any? (None required)"
 ```

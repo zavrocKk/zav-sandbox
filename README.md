@@ -148,7 +148,7 @@ Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour G
 _gsane/                        # Framework GSANE
 ├── core/                     # Gsane Master + workflows fondamentaux + flywheel
 ├── bmb/                      # Builder Module — Bond, Morgan, Wendy, Aria
-├── bmm/                      # Business Methodology — Mary, John, Winston, Bob, Amelia, Sally, Quinn, Paige, Barry
+├── cis/                      # Business Methodology — Mary, John, Winston, Bob, Amelia, Sally, Quinn, Paige, Barry
 ├── cis/                      # Creative Intelligence Suite — Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
 ├── tea/                      # Test Architecture — Murat
 ├── _config/                  # Manifests centraux + matrice de délégation
@@ -175,18 +175,18 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 | 🔄 workflow-builder | Wendy | bmb | Création/validation de workflows GSANE |
 | 🔍 qa-gsane | Aria | bmb | QA, conformité, détection de régressions |
 
-### BMM — Business Methodology
+### CIS — Business Methodology
 | Agent | Persona | Module | Rôle |
 |---|---|---|---|
-| 📊 analyst | Mary | bmm | Recherche marché, brief produit, analyse concurrentielle |
-| 📋 pm | John | bmm | PRD, user stories, épics, alignement stakeholders |
-| 🏗️ architect | Winston | bmm | Architecture système, décisions techniques, ADR |
-| 🏃 sm | Bob | bmm | Sprint planning, cérémonies agiles, backlog |
-| 💻 dev | Amelia | bmm | Implémentation story, TDD, code review |
-| 🎨 ux-designer | Sally | bmm | UX/UI design, recherche utilisateur, specs interaction |
-| 🧪 qa | Quinn | bmm | Tests automatisés rapides, API et E2E |
-| 📚 tech-writer | Paige | bmm | Documentation technique, Mermaid, standards |
-| 🚀 quick-flow-solo-dev | Barry | bmm | Spec + implémentation rapide, projets petits/moyens |
+| 📊 analyst | Mary | cis | Recherche marché, brief produit, analyse concurrentielle |
+| 📋 pm | John | cis | PRD, user stories, épics, alignement stakeholders |
+| 🏗️ architect | Winston | cis | Architecture système, décisions techniques, ADR |
+| 🏃 sm | Bob | cis | Sprint planning, cérémonies agiles, backlog |
+| 💻 dev | Amelia | cis | Implémentation story, TDD, code review |
+| 🎨 ux-designer | Sally | cis | UX/UI design, recherche utilisateur, specs interaction |
+| 🧪 qa | Quinn | cis | Tests automatisés rapides, API et E2E |
+| 📚 tech-writer | Paige | cis | Documentation technique, Mermaid, standards |
+| 🚀 quick-flow-solo-dev | Barry | cis | Spec + implémentation rapide, projets petits/moyens |
 
 ### CIS — Creative Intelligence Suite
 | Agent | Persona | Module | Rôle |
@@ -222,7 +222,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 
 📖 [Module BMB](_gsane/bmb/)
 
-### **BMM** — Business Methodology Module
+### **CIS** — Business Methodology Module
 - **Mary** (📊) — analyst : brief produit, recherche marché
 - **John** (📋) — pm : PRD, user stories, épics, priorités
 - **Winston** (🏗️) — architect : architecture système, ADR, décisions techniques
@@ -233,7 +233,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 - **Paige** (📚) — tech-writer : documentation technique, Mermaid
 - **Barry** (🚀) — quick-flow-solo-dev : spec+dev rapide pour petits projets
 
-📖 [Module BMM](_gsane/bmad/)
+📖 [Module CIS](_gsane/bmb/)
 
 ### **CIS** — Creative Intelligence Suite
 - **Carson** (🧠) Brainstorming · **Dr. Quinn** (🔬) Problem Solving · **Maya** (🎨) Design Thinking

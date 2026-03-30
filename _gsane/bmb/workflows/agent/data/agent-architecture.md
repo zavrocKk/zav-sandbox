@@ -20,7 +20,7 @@ agent:
     name: 'Persona Name'
     title: 'Agent Title'
     icon: '<emoji>'
-    module: stand-alone  # or bmm, cis, bmgd
+    module: stand-alone  # or cis, cis, bmgd
 
   persona:
     role: |               # First-person, 1-2 sentences
@@ -55,7 +55,7 @@ agent:
 | `name` | Persona name | `Inkwell Von Comitizen` |
 | `title` | Role | `Commit Message Artisan` |
 | `icon` | Single emoji | `📜` |
-| `module` | `stand-alone` or module code | `bmm`, `cis`, `bmgd` |
+| `module` | `stand-alone` or module code | `cis`, `cis`, `bmgd` |
 
 ---
 

@@ -187,7 +187,7 @@ You must fully embody this agent's persona and follow all activation instruction
     </prompt>
 
     <prompt id="context-distillator-prompt">
-      <!-- Inspired by BMAD bmad-distillator — lossless LLM context compression -->
+      <!-- Inspired by BMB bmb-distillator — lossless LLM context compression -->
       <!-- Triggered manually via [CD] or auto-suggested at phase transitions -->
 
       Compress the current session context into a dense, lossless distillate without losing any decision, file, or finding.

@@ -37,7 +37,7 @@ _gsane/                       ← GSANE framework root
     workflows/agent/          ← Create, edit, validate agents
     workflows/module/         ← Create, edit, validate modules
     workflows/workflow/       ← Create, edit, validate, rework workflows
-  bmm/                        ← BMM module: business methodology agents (analyst→dev pipeline)
+  cis/                        ← CIS module: business methodology agents (analyst→dev pipeline)
     agents/                   ← analyst, pm, architect, sm, ux-designer, dev, qa, tech-writer, quick-flow-solo-dev
     workflows/                ← Full product lifecycle: analysis, planning, solutioning, implementation
     data/                     ← project-context-template.md
@@ -131,19 +131,19 @@ AGENTS.md                     ← This file — universal agent entry point
 | qa-gsane | 🔍 Aria | bmb | GSANE quality assurance, persona regression, workflow compliance |
 | tea | 🧪 Murat | tea | Test architecture, ATDD, CI/CD, quality gates |
 
-### BMM Module — Business Methodology
+### CIS Module — Legacy Agents
 
 | Agent | Persona | Module | Specialty |
 |---|---|---|---|
-| analyst | 📊 Mary | bmm | Market research, competitive analysis, requirements elicitation |
-| pm | 📋 John | bmm | PRD creation, user stories, stakeholder alignment |
-| architect | 🏗️ Winston | bmm | System design, distributed systems, API design |
-| sm | 🏃 Bob | bmm | Sprint planning, scrum ceremonies, backlog management |
-| dev | 💻 Amelia | bmm | Story execution, TDD, code implementation |
-| ux-designer | 🎨 Sally | bmm | User research, interaction design, UX patterns |
-| qa | 🧪 Quinn | bmm | Quick test automation, E2E coverage (simple projects) |
-| tech-writer | 📚 Paige | bmm | Documentation, Mermaid diagrams, standards compliance |
-| quick-flow-solo-dev | 🚀 Barry | bmm | Rapid spec+dev cycle for small-medium features |
+| analyst | 📊 Mary | cis | Market research, competitive analysis, requirements elicitation |
+| pm | 📋 John | cis | PRD creation, user stories, stakeholder alignment |
+| architect | 🏗️ Winston | cis | System design, distributed systems, API design |
+| sm | 🏃 Bob | cis | Sprint planning, scrum ceremonies, backlog management |
+| dev | 💻 Amelia | cis | Story execution, TDD, code implementation |
+| ux-designer | 🎨 Sally | cis | User research, interaction design, UX patterns |
+| qa | 🧪 Quinn | cis | Quick test automation, E2E coverage (simple projects) |
+| tech-writer | 📚 Paige | cis | Documentation, Mermaid diagrams, standards compliance |
+| quick-flow-solo-dev | 🚀 Barry | cis | Rapid spec+dev cycle for small-medium features |
 
 ### CIS Module — Creative & Innovation
 

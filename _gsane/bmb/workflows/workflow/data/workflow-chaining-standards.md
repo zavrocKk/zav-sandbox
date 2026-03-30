@@ -2,7 +2,7 @@
 
 ## Module Workflow Pipeline
 
-**Example:** BMM Module - Idea to Implementation
+**Example:** CIS Module - Idea to Implementation
 
 ```
 brainstorming → research → brief → PRD → UX → architecture → epics → sprint-planning
@@ -181,7 +181,7 @@ ELSE:
 
 ```yaml
 ---
-module: 'bmm'
+module: 'cis'
 workflows:
   brainstorming:
     output: 'brainstorming-{project_name}.md'
@@ -214,8 +214,8 @@ workflows:
 ## INPUT REQUIREMENTS:
 
 ### Required:
-- {bmm_output_folder}/prd-{project_name}.md
-- {bmm_output_folder}/architecture-{project_name}.md
+- {cis_output_folder}/prd-{project_name}.md
+- {cis_output_folder}/architecture-{project_name}.md
 
 ### From BMGD:
 - {bmgd_output_folder}/gdd-{project_name}.md (Game Design Document)

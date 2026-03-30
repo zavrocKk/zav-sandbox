@@ -11,8 +11,8 @@
 
 - **Nom** : zav-sandbox — GSANE Framework Enhancement Project
 - **Objectif** : ✏️ _Amélioration continue du framework GSANE multi-agents — optimisation token, orchestration, workflows, DX_
-- **Phase actuelle** : ✏️ _Phase 4 — Benchmark BMAD+Grimoire, auto-routing, session artifacts_
-- **Branche active** : ✏️ _feature/bmm-module-import-2026-03-02_
+- **Phase actuelle** : ✏️ _Phase 4 — Benchmark BMB+Grimoire, auto-routing, session artifacts_
+- **Branche active** : ✏️ _feature/cis-module-import-2026-03-02_
 
 ---
 
@@ -21,7 +21,7 @@
 | Couche | Technologie | Notes |
 |--------|-------------|-------|
 | Framework | GSANE v6.0.5 | Multi-agent, Copilot-native |
-| Modules | core, bmb, cis, tea, bmm | 22 agents |
+| Modules | core, bmb, cis, tea, cis | 22 agents |
 | Runtime | GitHub Copilot (VS Code) | Pas de subagents disponibles |
 | Config | YAML + CSV | agent-manifest, workflow-manifest |
 | Outputs | `_gsane-output/` | Jamais commités sur main |
@@ -34,7 +34,7 @@
 _gsane/
   core/     → orchestration, gsane-master, workflows fondamentaux
   bmb/      → agent-builder (Bond), module-builder (Morgan), workflow-builder (Wendy), qa-gsane (Aria)
-  bmm/      → pipeline business : analyst→pm→architect→sm→ux→dev→qa→tech-writer
+  cis/      → pipeline business : analyst→pm→architect→sm→ux→dev→qa→tech-writer
   cis/      → créativité : brainstorming, design-thinking, innovation, storytelling
   tea/      → tests : Murat (ATDD, CI/CD)
 _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
@@ -61,7 +61,7 @@ _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
 
 <!-- Ajouter ici les décisions majeures pour informer tous les agents -->
 - **YAML double-format** : certains workflows ont YAML + MD par design (engine requis) — ne pas supprimer
-- **advanced-elicitation** : utilisé dans 20+ workflows BMB/BMM — ne pas modifier
+- **advanced-elicitation** : utilisé dans 20+ workflows BMB/CIS — ne pas modifier
 - **Party Mode** : roleplay JIT (pas de subagents Copilot) — l'agent simule les voix
 
 ---
@@ -70,9 +70,9 @@ _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
 
 | Besoin | Agent | Module |
 |--------|-------|--------|
-| Implémenter/corriger | Amelia (dev) | bmm |
-| Architecture système | Winston (architect) | bmm |
-| PRD / spécifications | John (pm) | bmm |
+| Implémenter/corriger | Amelia (dev) | cis |
+| Architecture système | Winston (architect) | cis |
+| PRD / spécifications | John (pm) | cis |
 | Tests & CI | Murat (tea) | tea |
 | Créer un agent GSANE | Bond (agent-builder) | bmb |
 | Créer un workflow | Wendy (workflow-builder) | bmb |

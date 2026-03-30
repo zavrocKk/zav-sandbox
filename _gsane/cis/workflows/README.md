@@ -130,7 +130,7 @@ workflow-name/
 
 CIS workflows integrate with:
 
-- **BMM** - Project brainstorming and ideation
+- **CIS** - Project brainstorming and ideation
 - **BMB** - Creative module design
 - **Custom Modules** - Shared creative resource
 

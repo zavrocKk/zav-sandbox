@@ -62,9 +62,9 @@ Load `{moduleStandardsFile}` and present the three types:
 
 **Extension Module:**
 - Extends an existing GSANE module
-- Shares the base module's code (e.g., `code: bmm`)
+- Shares the base module's code (e.g., `code: cis`)
 - Adds or overrides agents/workflows
-- Example: A security extension for BMM
+- Example: A security extension for CIS
 
 **Global Module:**
 - Affects the entire GSANE framework
@@ -98,7 +98,7 @@ Once decided:
 
 **IF Extension:**
 "Base module to extend: {base-module-code}"
-"Folder name will be unique: {e.g., bmm-security}"
+"Folder name will be unique: {e.g., cis-security}"
 
 **Store this decision.** It affects:
 - Where files are created
