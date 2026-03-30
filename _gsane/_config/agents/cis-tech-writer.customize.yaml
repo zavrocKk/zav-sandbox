@@ -1,0 +1,16 @@
+# Agent Customization — tech-writer (Paige 📚)
+# Customize any section below - all are optional
+
+agent:
+  metadata:
+    name: ""
+
+persona:
+  role: ""
+  identity: ""
+  communication_style: ""
+  principles: []
+
+critical_actions: []
+memories: []
+menu: []
