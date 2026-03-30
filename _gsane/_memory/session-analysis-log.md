@@ -187,3 +187,29 @@
 - scoreboard.md — fichier initial créé (low, auto-applied)
 - flywheel-test-checklist.md — 6 tests complets créés dont Test 4 prompt-improvement (low, auto-applied)
 ---
+---
+## Session: 2026-03-30 | Type: gsane-master | Count: 5
+**Topics:** Validation CI/CD YAML, Agent memory injection
+**Agents invoked:** gsane-master, architect
+**Workflows run:** post-session-analysis
+**Files loaded (est.):** 6 | **Turns:** 3
+
+### ⚙️ Léo — Token & Optimization
+- Waste signals: none
+- Opportunities: none
+- Token impact: low
+- Top recommendation: none this session
+
+### 🔍 Aria — Quality & Compliance
+- Compliance: PASS
+- Violations: none
+- Regression signals: none
+- Top finding: all clear
+
+### ✨ Prompt Signals (Léo)
+- none
+
+### 🔧 Auto-corrections appliquées
+- session-state.md mis à jour
+- architect-sidecar/project-state.md initialisé et mis à jour
+---

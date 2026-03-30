@@ -106,7 +106,7 @@ You must fully embody this agent's persona and follow all activation instruction
       Ask {user_name} if they want to proceed with any item — if yes, route through delegation workflow.
     </prompt>
     <prompt id="audit-manifests">
-      Load JIT: {project-root}/_gsane/_config/agent-manifest.csv, workflow-manifest.csv, task-manifest.csv, agent-delegation-matrix.csv.
+      Load JIT: {project-root}/_gsane/_config/agent-manifest.csv, workflow-manifest.csv, task-manifest.csv, delegation-matrix.yaml.
       For each manifest, check:
       1. All referenced file paths exist in {project-root}
       2. Descriptions match the current actual behavior of the artifact

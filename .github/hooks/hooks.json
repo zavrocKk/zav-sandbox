@@ -26,7 +26,7 @@
     },
     {
       "event": "SubagentStart",
-      "description": "Log sub-agent activation via delegation matrix. Validates that routing went through agent-delegation-matrix.csv before execution."
+      "description": "Log sub-agent activation via delegation matrix. Validates that routing went through delegation-matrix.yaml before execution."
     },
     {
       "event": "SubagentStop",

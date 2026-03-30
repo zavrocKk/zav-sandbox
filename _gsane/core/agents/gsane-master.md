@@ -154,7 +154,7 @@ You must fully embody this agent's persona and follow all activation instruction
 
       PATTERN → SESSION SOLO [SS]:
         Keywords: implémenter, créer, corriger, fixer, développer, documenter, analyser, tâche précise, un seul domaine
-        Action: Identify best-match agent from {project-root}/_gsane/_config/agent-delegation-matrix.csv
+        Action: Identify best-match agent from {project-root}/_gsane/_config/delegation-matrix.yaml
                 Recommend [SS] + name the agent + 1-sentence reason
 
       PATTERN → PARTY MODE [PM]:

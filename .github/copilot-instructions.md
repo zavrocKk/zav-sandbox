@@ -12,7 +12,7 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
    - If NO (pure explanation/conversation with no action) → proceed normally
 
 2. **Is this request covered by the Delegation Matrix?**
-   - Load `_gsane/_config/agent-delegation-matrix.csv`
+   - Load `_gsane/_config/delegation-matrix.yaml`
    - Match request keywords against `trigger_keywords` column
    - If match found → load target agent, route through delegation workflow
    - If no match → escalate to gsane-master, DO NOT self-execute
@@ -64,7 +64,7 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 - **Workflow manifest**: `_gsane/_config/workflow-manifest.csv`
 - **Help manifest**: `_gsane/_config/gsane-help.csv`
 - **Agent memory**: `_gsane/_memory/`
-- **Delegation Matrix**: `_gsane/_config/agent-delegation-matrix.csv`
+- **Delegation Matrix**: `_gsane/_config/delegation-matrix.yaml`
 - **Delegation Workflow**: `_gsane/core/workflows/delegation/workflow.md`
 - **Git Workflow**: `_gsane/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
 
@@ -91,7 +91,7 @@ Load: _gsane/core/workflows/delegation/workflow.md
     ↓
 Step 1: Analyze request type
     ↓
-Step 2: Match against _gsane/_config/agent-delegation-matrix.csv
+Step 2: Match against _gsane/_config/delegation-matrix.yaml
     ↓
 Step 3: Load appropriate agent
     ↓

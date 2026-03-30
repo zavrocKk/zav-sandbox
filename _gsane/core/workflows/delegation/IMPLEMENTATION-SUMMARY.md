@@ -22,7 +22,7 @@ In Party Mode, **Bond** (agent-builder), **Wendy** (workflow-builder), and **Mor
 ## 📊 Implementation: 3-Layer Architecture
 
 ### **Layer 1: Agent Delegation Matrix**
-**File**: `_gsane/_config/agent-delegation-matrix.csv`
+**File**: `_gsane/_config/delegation-matrix.yaml`
 
 Maps user requests to appropriate agents:
 ```csv
@@ -52,7 +52,7 @@ Implements intelligent routing with 4 steps:
 - Extracts keywords
 
 **Step 2: Delegation Matrix Lookup**
-- Loads `agent-delegation-matrix.csv`
+- Loads `delegation-matrix.yaml`
 - Matches request_type to matrix entries
 - Fuzzy matches if needed
 - Escalates if ambiguous
@@ -180,7 +180,7 @@ Load brainstorming-coach → Execute
 ## 📋 Files Changed
 
 ### New Files
-- ✅ `_gsane/_config/agent-delegation-matrix.csv` — 14 request types mapped
+- ✅ `_gsane/_config/delegation-matrix.yaml` — 14 request types mapped
 - ✅ `_gsane/core/workflows/delegation/workflow.md` — Delegation workflow
 
 ### Modified Files

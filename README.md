@@ -125,7 +125,7 @@ Test-Path ".git\hooks\pre-commit"
 # Attendu : True
 
 # Manifests
-@("agent-manifest.csv","workflow-manifest.csv","agent-delegation-matrix.csv") |
+@("agent-manifest.csv","workflow-manifest.csv","delegation-matrix.yaml") |
   ForEach-Object { "$_ : $(Test-Path "_gsane\_config\$_")" }
 ```
 
@@ -305,7 +305,7 @@ Trois skills injectées dans chaque session Copilot :
 - **Jamais de commit direct sur `main`** — toujours `feature/*` ou `fix/*`
 - **Toute PR doit avoir une description** — ouvrir l'URL compare GitHub et coller le body template dans le formulaire
 - **Config chargée une seule fois par session** — ne jamais recharger si déjà en contexte
-- **Routing obligatoire** — toute requête agent passe par la [matrice de délégation](_gsane/_config/agent-delegation-matrix.csv)
+- **Routing obligatoire** — toute requête agent passe par la [matrice de délégation](_gsane/_config/delegation-matrix.yaml)
 - **Session end hook universel** — post-session-analysis s'exécute à la fin de chaque session, peu importe l'agent
 - **Jamais de solo execution** — Gsane Master orchestre, les spécialistes (Bond, Wendy, Aria, Murat, Paige...) écrivent. Toute modification d'artefact GSANE sans agent spécialiste = `solo-creep` HIGH détecté par le post-session-analysis.
 - **Règle d'or par agent** — chaque agent a une `GOLDEN_RULE` dans son `<rules>` exprimant son interdit fondamental propre à son rôle
@@ -329,7 +329,7 @@ Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond,
 | [`_gsane/core/config.yaml`](_gsane/core/config.yaml) | Config globale : user, langue, sévérité, flywheel |
 | [`_gsane/_config/agent-manifest.csv`](_gsane/_config/agent-manifest.csv) | Registre des 22 agents |
 | [`_gsane/_config/workflow-manifest.csv`](_gsane/_config/workflow-manifest.csv) | Registre des workflows |
-| [`_gsane/_config/agent-delegation-matrix.csv`](_gsane/_config/agent-delegation-matrix.csv) | Règles de routing |
+| [`_gsane/_config/delegation-matrix.yaml`](_gsane/_config/delegation-matrix.yaml) | Règles de routing |
 | [`_gsane/_memory/session-analysis-log.md`](_gsane/_memory/session-analysis-log.md) | Log persistant des sessions |
 | [`AGENTS.md`](AGENTS.md) | Guide de navigation universel |
 

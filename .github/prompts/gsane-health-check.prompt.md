@@ -16,7 +16,7 @@ Vérifier l'existence des fichiers suivants :
 | `_gsane/_config/manifest.yaml` | ✅/❌ | HIGH |
 | `_gsane/_config/agent-manifest.csv` | ✅/❌ | HIGH |
 | `_gsane/_config/workflow-manifest.csv` | ✅/❌ | MEDIUM |
-| `_gsane/_config/agent-delegation-matrix.csv` | ✅/❌ | HIGH |
+| `_gsane/_config/delegation-matrix.yaml` | ✅/❌ | HIGH |
 
 Score : +1 si tous critiques présents, 0 sinon.
 
