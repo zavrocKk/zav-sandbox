@@ -1,0 +1,40 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // 1. Cacher visuellement le "bruit" pour garder l'explorateur propre
+    "files.exclude": {
+      "**/.git": true,
+      "**/.venv": true,
+      "**/__pycache__": true,
+      "**/.pytest_cache": true,
+      "**/.DS_Store": true
+    },
+    // 2. Empêcher la recherche de fouiller dans les dépendances
+    "search.exclude": {
+      "**/.venv": true,
+      "**/node_modules": true
+    },
+    // 3. Forcer l'utilisation de l'environnement Python virtuel du projet
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    
+    // 4. Garde-Fou YAML : Forcer 2 espaces et la sauvegarde propre
+    "editor.formatOnSave": true,
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    }
+  },
+  "extensions": {
+    // 5. Extensions recommandées pour que le projet tourne parfaitement
+    "recommendations": [
+      "ms-python.python",        // Pour le serveur MCP et les hooks
+      "redhat.vscode-yaml",      // Pour valider la syntaxe des manifests
+      "github.copilot",          // Le moteur IA
+      "github.copilot-chat"
+    ]
+  }
+}
