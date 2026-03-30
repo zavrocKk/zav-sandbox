@@ -28,7 +28,7 @@ zav-sandbox/
 │
 └── _gsane/
     ├── _config/                       # Manifests YAML hiérarchique + matrice de délégation
-    │   ├── agent-manifest.yaml         # Registre des 13 agents (index JIT)
+    │   ├── agent-manifest.yaml         # Registre des 22 agents (index JIT)
     │   ├── workflow-manifest.yaml      # Registre des workflows
     │   ├── delegation-matrix.yaml  # Routing des requêtes — impacte TOUT le système
     │   └── ...
@@ -39,7 +39,7 @@ zav-sandbox/
     │   ├── tasks/                    # Tâches réutilisables (workflow.xml, editorial review...)
     │   └── workflows/               # party-mode, delegation, git-workflow, flywheel...
     ├── bmb/                          # Module Builders — Bond, Morgan, Wendy, Aria
-    ├── cis/                          # Module Creative/Innovation/Storytelling — 6 agents
+    ├── cis/                          # Module Creative/Innovation/Storytelling — 9 agents
     ├── tea/                          # Module Test Architecture — Murat
     └── _gsane-output/               # Artefacts générés (ne pas committer sur main)
 ```
