@@ -2,6 +2,9 @@
 name: testarch-automate
 description: Expand test automation coverage for codebase. Use when user says 'lets expand test coverage' or 'I want to automate tests'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Test Automation Expansion

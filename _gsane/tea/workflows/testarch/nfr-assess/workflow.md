@@ -2,6 +2,9 @@
 name: testarch-nfr
 description: Assess NFRs like performance security and reliability. Use when user says 'lets assess NFRs' or 'I want to evaluate non-functional requirements'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Non-Functional Requirements Assessment

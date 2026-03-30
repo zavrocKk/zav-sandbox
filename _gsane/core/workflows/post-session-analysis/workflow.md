@@ -1,6 +1,9 @@
 ---
 name: post-session-analysis
 description: "Automated post-session hook. Runs silently after every gsane-master session or party mode exit. Léo (gsane-optimizer) logs token patterns and optimization insights. Aria (qa-gsane) logs compliance findings and regression signals. Auto-applies low/medium severity corrections. No user interaction required — appends results to session memory log."
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Post-Session Analysis Workflow
@@ -239,6 +242,65 @@ Append the following block to the END of the file (never overwrite):
 - {AUTO_CORRECTIONS list or "aucune"}
 ---
 ```
+
+---
+
+### Step 5b — Write session-state.md with values from the current session.
+
+**Overwrite the table** (replace all `—` values with real data — do NOT append; the table must reflect the latest session state):
+
+| Champ | Nouvelle valeur |
+|---|---|
+| `last_session_date` | `{session_date}` |
+| `last_agent_active` | last agent invoked (from `{agents_invoked}`) |
+| `last_workflow_run` | last workflow executed (from `{workflows_run}`) |
+| `session_type` | `{session_type}` |
+| `files_modified` | comma-separated list of files modified (from Step 4 AUTO_CORRECTIONS + user-visible writes) |
+| `plan_active` | Session Plan title if a {session_plan} was active, else `—` |
+| `plan_path` | Path to the session-plan file (e.g., `_gsane-output/session-plan-{date}.md`), else `—` |
+| `current_phase` | Number of the last completed phase if {session_plan} active, else `—` |
+| `next_step` | One-line description of the most logical next action to take next session |
+| `open_items` | HIGH-severity findings from Aria that were NOT auto-applied (from ARIA_FINDINGS), else `—` |
+
+Leave `first_run` unchanged — do NOT modify it in this step.
+
+**Also update the "Résumé de la dernière session" section** (replace the placeholder):
+```
+## Résumé de la dernière session
+
+**Date :** {session_date}
+**Type :** {session_type}
+**Agents invoqués :** {agents_invoked}
+**Topics :** {topics_discussed}
+**Corrections auto :** {AUTO_CORRECTIONS.count}
+```
+
+**Also update the "Plan de session actif" section** (if {session_plan} was active, save abbreviated phase list; else write `_(aucun plan actif)_`).
+
+If `session-state.md` does not exist, create it using the template from `_gsane/_memory/session-state.md` header block, then write the values.
+
+Log this action in AUTO_CORRECTIONS: `"session-state.md mis à jour"`.
+
+---
+
+### Step 5c — Session Log Rotation (if needed)
+
+Count the number of `## Session:` entries in `{project-root}/_gsane/_memory/session-analysis-log.md` → `{log_entry_count}`.
+
+```
+if {log_entry_count} > 50:
+  1. Extract ALL entries with dates older than the current year (i.e., entries from prior years)
+  2. Append them to: {project-root}/_gsane/_memory/session-analysis-log-archive-{year}.md
+     (create the file if it doesn't exist — header: "# Archive Session Log — {year}")
+  3. Remove those entries from session-analysis-log.md (keeping only current-year entries + any ≤ 50 most recent)
+  4. Add a single line at the top of session-analysis-log.md:
+     > Entries prior to {year} archived to session-analysis-log-archive-{year}.md
+  5. Log in AUTO_CORRECTIONS: "session-analysis-log.md rotation — {N} entries archived to {archive_file}"
+else:
+  → Skip rotation, proceed to Step 6
+```
+
+This keeps the active log bounded while preserving all historical data.
 
 ---
 

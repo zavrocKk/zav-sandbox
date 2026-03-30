@@ -3,6 +3,9 @@ name: create-prd
 description: 'Create a PRD from scratch. Use when the user says "lets create a product requirements document" or "I want to create a new PRD"'
 main_config: '{project-root}/_gsane/bmm/config.yaml'
 nextStep: './steps-c/step-01-init.md'
+agent: "pm"
+agent_display: "John"
+agent_icon: "📋"
 ---
 
 # PRD Create Workflow

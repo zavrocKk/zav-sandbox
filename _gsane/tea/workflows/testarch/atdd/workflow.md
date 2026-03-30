@@ -2,6 +2,9 @@
 name: testarch-atdd
 description: Generate failing acceptance tests using TDD cycle. Use when user says 'lets write acceptance tests' or 'I want to do ATDD'
 web_bundle: true
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 ---
 
 # Acceptance Test-Driven Development (ATDD)

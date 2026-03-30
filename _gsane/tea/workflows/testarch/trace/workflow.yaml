@@ -2,6 +2,9 @@
 name: testarch-trace
 # prettier-ignore
 description: 'Generate traceability matrix and quality gate decision. Use when the user says "lets create traceability matrix" or "I want to analyze test coverage"'
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/tea/config.yaml"

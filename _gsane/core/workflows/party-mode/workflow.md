@@ -1,6 +1,9 @@
 ---
 name: party-mode
 description: 'Orchestrates group discussions between all installed GSANE agents, enabling natural multi-agent conversations. Use when user requests party mode.'
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Party Mode Workflow
@@ -96,6 +99,19 @@ For each user message or topic:
 - Rotate agent selection to ensure diverse participation over time
 - Enable natural cross-talk and agent-to-agent interactions
 
+### Context Compression (Long Sessions)
+
+After every 5 rounds of discussion, or when the accumulated discussion context exceeds ~400 words per-agent pass:
+
+1. **Distill the discussion** — compress prior rounds into a tight summary (max 200 words):
+   - Key positions taken by each agent (1 bullet per agent per major topic)
+   - Unresolved tensions or open questions
+   - Any decisions or conclusions reached
+2. **Replace** the running "Discussion Context" with this distillate for future agent prompts
+3. **Do NOT notify the user** — this is a silent background compression
+
+This keeps each agent's context window clean across long party-mode discussions without losing substance. Log a note in the Orchestrator Note if a compression occurred: "🗜️ Contexte distillé après round [N]."
+
 ### Conversation Orchestration
 
 Load step: `./steps/step-02-discussion-orchestration.md`
@@ -121,6 +137,30 @@ exit_triggers: ['*exit', 'goodbye', 'end party', 'quit']
 ```
 
 > `agents_active_this_turn` resets each turn (JIT, discarded after response). `agents_participated` accumulates across turns for rotation tracking.
+
+---
+
+## ORCHESTRATOR NOTE
+
+After presenting all agent responses for a round, Gsane Master may optionally append a brief **Note d'orchestrateur** — clearly labeled and visually distinct from agent speech:
+
+```markdown
+---
+🧙 **Note d'orchestrateur :**
+[Une des options suivantes, si pertinent :]
+- Désaccord notable : [Agent A] et [Agent B] s'opposent sur [point] — à explorer ?
+- Agent à convoquer : [Agent] serait pertinent sur ce sujet
+- Impasse détectée : la discussion tourne — reformuler le problème ?
+- Piste non explorée : [angle] n'a pas été abordé
+---
+```
+
+**Règles :**
+
+- Cette note est optionnelle — ne l'ajouter QUE si elle apporte une valeur réelle (désaccord à creuser, angle manquant)
+- Maximum 2 phrases — jamais de synthèse des réponses agents dans cette note
+- Ne pas confondre avec une réponse agent — le label "Note d'orchestrateur" est obligatoire
+- Si rien de pertinent à signaler : ne pas ajouter la note
 
 ---
 

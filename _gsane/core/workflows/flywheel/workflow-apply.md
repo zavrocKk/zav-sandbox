@@ -1,6 +1,9 @@
 ---
 name: flywheel-apply
 description: "Cognitive Flywheel — Application cycle. Reads flywheel-report.md, applies low/medium corrections automatically (max 5 per cycle), escalates high findings to user. Creates a fix/flywheel-{date} branch, commits, pushes PR, then appends to flywheel-history.md. Called by workflow-aggregate.md — never directly."
+agent: "gsane-optimizer"
+agent_display: "Léo"
+agent_icon: "⚙️"
 ---
 
 # Flywheel Apply Workflow

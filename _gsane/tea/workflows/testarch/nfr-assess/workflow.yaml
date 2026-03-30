@@ -2,6 +2,9 @@
 name: testarch-nfr
 # prettier-ignore
 description: 'Assess NFRs like performance security and reliability. Use when the user says "lets assess NFRs" or "I want to evaluate non-functional requirements"'
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/tea/config.yaml"

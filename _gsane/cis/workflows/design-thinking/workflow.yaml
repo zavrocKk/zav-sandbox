@@ -1,6 +1,9 @@
 # Design Thinking Workflow Configuration
 name: "design-thinking"
 description: 'Guide human-centered design processes using empathy-driven methodologies. Use when the user says "lets run design thinking" or "I want to apply design thinking"'
+agent: "design-thinking-coach"
+agent_display: "Maya"
+agent_icon: "🎨"
 
 # Critical variables load from config_source
 config_source: "{project-root}/_gsane/cis/config.yaml"

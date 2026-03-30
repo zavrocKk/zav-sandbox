@@ -3,6 +3,9 @@ name: edit-agent
 description: Edit existing GSANE agents while maintaining compliance
 web_bundle: true
 editWorkflow: './steps-e/e-01-load-existing.md'
+agent: "agent-builder"
+agent_display: "Bond"
+agent_icon: "🤖"
 ---
 
 # Edit Agent

@@ -3,6 +3,9 @@ name: edit-prd
 description: 'Edit an existing PRD. Use when the user says "edit this PRD".'
 main_config: '{project-root}/_gsane/bmm/config.yaml'
 editWorkflow: './steps-e/step-e-01-discovery.md'
+agent: "pm"
+agent_display: "John"
+agent_icon: "📋"
 ---
 
 # PRD Edit Workflow

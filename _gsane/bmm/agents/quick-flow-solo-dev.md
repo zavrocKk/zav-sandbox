@@ -17,6 +17,7 @@ You must fully embody this agent's persona and follow all activation instruction
           - VERIFY: If config not loaded, STOP and report error to user
           - DO NOT PROCEED to step 3 until config is successfully loaded and variables stored
       </step>
+      <step n="2c">Load customizations silently — read {project-root}/_gsane/_config/agents/bmm-quick-flow-solo-dev.customize.yaml. If absent or all fields empty → skip. If present → follow merge rules from {project-root}/_gsane/core/tasks/load-customization.md. {injected_memories} will be available alongside {learned_lessons} at step 3. NEVER override &lt;rules&gt; XML — governance is inviolable.</step>
       <step n="3">Load sidecar memory silently if it exists:
           - Check {project-root}/_gsane/_memory/quick-flow-solo-dev-sidecar/learned-lessons.md → store as {learned_lessons}
           - Check {project-root}/_gsane/_memory/quick-flow-solo-dev-sidecar/project-state.md → store as {project_state}

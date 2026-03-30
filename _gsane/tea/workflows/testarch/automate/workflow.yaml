@@ -2,6 +2,9 @@
 name: testarch-automate
 # prettier-ignore
 description: 'Expand test automation coverage for codebase. Use when the user says "lets expand test coverage" or "I want to automate tests"'
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/tea/config.yaml"

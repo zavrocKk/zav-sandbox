@@ -4,6 +4,9 @@ description: Create a complete GSANE module with agents, workflows, and infrastr
 web_bundle: true
 installed_path: '{project-root}/_gsane/bmb/workflows/module'
 createWorkflow: './steps-c/step-01-load-brief.md'
+agent: "module-builder"
+agent_display: "Morgan"
+agent_icon: "🏗️"
 ---
 
 # Create Module

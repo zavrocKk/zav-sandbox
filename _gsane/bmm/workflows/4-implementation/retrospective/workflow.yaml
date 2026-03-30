@@ -1,6 +1,9 @@
 # Retrospective - Epic Completion Review Workflow
 name: "retrospective"
 description: 'Post-epic review to extract lessons and assess success. Use when the user says "run a retrospective" or "lets retro the epic [epic]"'
+agent: "sm"
+agent_display: "Bob"
+agent_icon: "🏃"
 
 config_source: "{project-root}/_gsane/bmm/config.yaml"
 user_name: "{config_source}:user_name"

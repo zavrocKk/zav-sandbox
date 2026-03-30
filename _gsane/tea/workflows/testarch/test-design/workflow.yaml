@@ -2,6 +2,9 @@
 name: testarch-test-design
 # prettier-ignore
 description: 'Create system-level or epic-level test plans. Use when the user says "lets design test plan" or "I want to create test strategy"'
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/tea/config.yaml"

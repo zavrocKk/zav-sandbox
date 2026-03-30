@@ -7,6 +7,9 @@ main_config: '{project-root}/_gsane/bmm/config.yaml'
 advanced_elicitation: '{project-root}/_gsane/core/workflows/advanced-elicitation/workflow.xml'
 party_mode_exec: '{project-root}/_gsane/core/workflows/party-mode/workflow.md'
 quick_dev_workflow: '{project-root}/_gsane/bmm/workflows/gsane-quick-flow/quick-dev/workflow.md'
+agent: "quick-flow-solo-dev"
+agent_display: "Barry"
+agent_icon: "🚀"
 ---
 
 # Quick-Spec Workflow

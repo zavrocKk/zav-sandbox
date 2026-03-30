@@ -3,6 +3,9 @@ name: "document-project"
 version: "1.2.0"
 description: 'Document brownfield projects for AI context. Use when the user says "document this project" or "generate project docs"'
 author: "gsane"
+agent: "tech-writer"
+agent_display: "Paige"
+agent_icon: "📚"
 
 # Critical variables
 config_source: "{project-root}/_gsane/bmm/config.yaml"

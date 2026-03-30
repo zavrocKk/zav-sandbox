@@ -3,6 +3,9 @@ name: validate-workflow
 description: Run validation check on GSANE workflows against best practices
 web_bundle: true
 validateWorkflow: './steps-v/step-01-validate.md'
+agent: "qa-gsane"
+agent_display: "Aria"
+agent_icon: "🔍"
 ---
 
 # Validate Workflow

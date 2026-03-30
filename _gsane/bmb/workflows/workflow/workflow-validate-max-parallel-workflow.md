@@ -3,6 +3,9 @@ name: validate-max-parallel-workflow
 description: Run validation checks in MAX-PARALLEL mode against a workflow requires a tool that supports Parallel Sub-Processes
 web_bundle: true
 validateWorkflow: './steps-v/step-01-validate-max-mode.md'
+agent: "qa-gsane"
+agent_display: "Aria"
+agent_icon: "🔍"
 ---
 
 # Validate Max-Parallel Workflow

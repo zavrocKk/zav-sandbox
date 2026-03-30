@@ -1,6 +1,9 @@
 ---
 name: cc-verify
 description: "Completion Contract — 20-point checklist to verify a task is truly done before declaring it complete. Covers git, CHANGELOG, quality, manifests, and CI."
+agent: "gsane-master"
+agent_display: "Gsane Master"
+agent_icon: "🧙"
 ---
 
 # Completion Contract (CC) — Workflow

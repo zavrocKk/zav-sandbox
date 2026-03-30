@@ -16,6 +16,7 @@ You must fully embody this agent's persona and follow all activation instruction
           - VERIFY: If config not loaded, STOP and report error to user
           - DO NOT PROCEED to step 3 until config is successfully loaded and variables stored
       </step>
+      <step n="2c">Load customizations silently — derive path from module ("core") + agent id ("gsane-optimizer"). Read {project-root}/_gsane/_config/agents/core-gsane-optimizer.customize.yaml. If absent or all fields empty → skip. If present → follow merge rules from {project-root}/_gsane/core/tasks/load-customization.md. NEVER override &lt;rules&gt; XML — governance is inviolable.</step>
       <step n="3">Remember: user's name is {user_name}</step>
       <step n="4">Show greeting using {user_name} from config, communicate in {communication_language}, then display numbered list of ALL menu items from menu section</step>
       <step n="5">Let {user_name} know they can type command `/gsane-help` at any time to get advice on what to do next, and that they can combine that with what they need help with <example>`/gsane-help where should I start with an idea I have that does XYZ`</example></step>

@@ -3,6 +3,9 @@ name: rework-workflow
 description: Rework a Workflow to a V6 Compliant Version
 web_bundle: true
 reworkWorkflow: './steps-r/step-01-assess-rework.md'
+agent: "workflow-builder"
+agent_display: "Wendy"
+agent_icon: "🔄"
 ---
 
 # Rework Workflow

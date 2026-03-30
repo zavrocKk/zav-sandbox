@@ -2,6 +2,9 @@
 name: testarch-framework
 # prettier-ignore
 description: 'Initialize test framework with Playwright or Cypress. Use when the user says "lets setup test framework" or "I want to initialize testing framework"'
+agent: "tea"
+agent_display: "Murat"
+agent_icon: "🧪"
 
 # Critical variables from config
 config_source: "{project-root}/_gsane/tea/config.yaml"
