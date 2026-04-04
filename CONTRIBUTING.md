@@ -38,7 +38,7 @@ Nous utilisons les **Conventional Commits**. Votre message de commit doit ressem
 
 ## 🛡️ Style et Qualité de Code
 - **Linter/Formatteur** : Bien que nous n'imposions pas encore d'outils comme Ruff ou Flake8 de manière bloquante, le code doit être propre et typé (Python 3).
-- **Couverture de Tests (TDD)** : Tout code ajouté dans src/ exige 100% de tests associés dans le répertoire 	ests/. Si le coverage ou l'assertion échoue, votre Pull Request sera refusée.
+- **Couverture de Tests (TDD)** : Tout code ajouté dans src/ exige 100% de tests associés dans le répertoire `tests/`. Si le coverage ou l'assertion échoue, votre Pull Request sera refusée.
 - **Documentation Continue (Micro-Token Rule)** : Pour chaque nouvelle fonctionnalité finalisée dans src/, **vous devez ajouter une ligne descriptive dans CHANGELOG.md**. Le pipeline bash rejettera le code source si le changelog a été ignoré.
 
 ## 🤖 Ajouter un Nouvel Agent
