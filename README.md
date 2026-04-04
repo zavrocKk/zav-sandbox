@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://img.shields.io/badge/CI-passing-success)](#) [![Python](https://img.shields.io/badge/Python-3.14%2B-blue)](#) [![License](https://img.shields.io/badge/License-MIT-green)](#) [![Status](https://img.shields.io/badge/Status-Experimental-orange)](#)
+[![CI](https://img.shields.io/badge/CI-passing-success)](#) [![Python](https://img.shields.io/badge/Python-3.14%2B-blue)](#) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](#) [![Status](https://img.shields.io/badge/Status-Experimental-orange)](#)
 
 ## 💡 Qu'est-ce que GSANE ?
 **GSANE** (Governance System for AI-Native Execution) est un framework multi-agents innovant fonctionnant directement à l'intérieur de VS Code (via Copilot Chat et CLI). 
