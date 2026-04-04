@@ -11,25 +11,25 @@ Avant de commencer, familiarisez-vous avec ces trois concepts piliers :
 ## 💻 Setup Développeur
 Veuillez suivre les étapes d'installation de base détaillées dans le [README.md](README.md).
 Avant de commiter la moindre modification, **vous devez toujours valider localement votre code** :
-`ash
+```bash
 # Vérifie le code, les tests et l'historique :
 bash gsane.sh validate
 
 # Ou exécuter juste les tests isolément :
 python -m pytest tests/
-`
+```
 
 ## 🔄 Workflow Collaboratif
 ### 1. Conventions de Nommage (Branches)
 Il est **strictement interdit** de pousser du code en direct sur la branche main.
 Créez systématiquement une branche selon la convention suivante :
-- eature/{description}-{date}
-- ix/{description}-{date}
+- feature/{description}-{date}
+- fix/{description}-{date}
 
 ### 2. Format des Commits
 Nous utilisons les **Conventional Commits**. Votre message de commit doit ressembler à :
-- eat(core): ajout de la fonction X
-- ix(docs): correction de la typo Y
+- feat(core): ajout de la fonction X
+- fix(docs): correction de la typo Y
 - chore(deps): mise à jour de pytest
 
 ### 3. Pull Requests (PR)
