@@ -48,9 +48,9 @@ jobs:
         run: |
           echo "🔍 Checking .agent.md files present..."
           AGENT_MD_COUNT=$(find .github/agents -name "*.agent.md" 2>/dev/null | wc -l)
-          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 22)"        
-          if [[ "$AGENT_MD_COUNT" -lt 22 ]]; then
-            echo "⚠️  WARNING: Expected 22 .agent.md files, found $AGENT_MD_COUNNT — run audit"
+          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 5)"        
+          if [[ "$AGENT_MD_COUNT" -lt 5 ]]; then
+            echo "⚠️  WARNING: Expected 5 .agent.md files, found $AGENT_MD_COUNT — run audit"
           fi
           echo "✅ Agent manifest check complete."
 
@@ -58,7 +58,7 @@ jobs:
         run: |
           echo "🔍 Checking GSANE directory structure..."
           required_dirs=(
-            "_gsane" "_gsane/core" "_gsane/core/agents" "_gsane/core/workflows" 
+            "_gsane" "_gsane/agents" "_gsane/workflows" 
             "_gsane/_config" "_gsane/_memory" ".github/agents" ".github/prompts" ".github/skills"
           )
           for dir in "${required_dirs[@]}"; do
@@ -140,3 +140,5 @@ jobs:
           echo "✅ Agent persona fields populated"
           echo "✅ All checks passed - Ready for merge!"
           echo "✅ ===================================================="
+
+
