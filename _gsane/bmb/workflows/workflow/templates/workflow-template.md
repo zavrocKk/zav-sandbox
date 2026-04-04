@@ -70,7 +70,7 @@ Load, read the full file and then execute [FIRST STEP FILE PATH] to begin the wo
 Copy the template above and replace:
 
 - `[WORKFLOW_DISPLAY_NAME]` → Your workflow's display name
-- `[MODULE FOLDER]` → Default is `core` unless this is for another module (such as cis, cis, or another as directed by user)
+- `[MODULE FOLDER]` → Default is `core` unless this is for another module (such as cis, or another as directed by user)
 - `[Brief description]` → One-sentence description
 - `[true/false]` → Whether to include in web bundle
 - `[role]` → AI's role in this workflow

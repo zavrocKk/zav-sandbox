@@ -27,8 +27,9 @@ _gsane/                       ← GSANE framework root
     failure-museum.md         ← Catalogue des défaillances passées (FM-001+)
     decision-log.md           ← Journal des décisions architecturales (DL-001+)
     session-analysis-log.md   ← Post-session analysis logs
-  core/                       ← Core module: Langis (Master) agent + orchestration workflows
-    _gsane/_config/agents/core-Langis (Master).customize.yaml    ← Primary orchestrator agent
+  core/                       ← Core module: gsane-master agent + orchestration workflows
+    _gsane/core/agents/gsane-master.md                        ← Primary orchestrator agent
+    _gsane/_config/agents/core-gsane-master.customize.yaml    ← Optional override for gsane-master persona/config
     config.yaml               ← Global project config (user_name, language, output_folder)
     tasks/                    ← Reusable tasks (editorial review, help, indexing, sharding)
     workflows/                ← Core workflows (party-mode, delegation, brainstorming, git, cc-verify)
