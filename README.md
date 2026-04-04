@@ -95,10 +95,10 @@ Ouvre VS Code dans le dossier cloné. Les agents et prompts sont détectés auto
 
 ```
 # Dans Copilot Chat (panneau latéral VS Code) :
-@gsane-master
+@Langis (Master)
 ```
 
-Gsane Master se présente, affiche son menu, et attend ta demande.
+Langis (Master) se présente, affiche son menu, et attend ta demande.
 
 **Slash commands disponibles :**
 
@@ -146,7 +146,7 @@ Ce projet utilise **GSANE v6.0.4** — un système multi-agents modulaire pour G
 
 ```
 _gsane/                        # Framework GSANE
-├── core/                     # Gsane Master + workflows fondamentaux + flywheel
+├── core/                     # Langis (Master) + workflows fondamentaux + flywheel
 ├── bmb/                      # Builder Module — Bond, Morgan, Wendy, Aria
 ├── cis/                      # Business Methodology — Mary, John, Winston, Bob, Amelia, Sally, Quinn, Paige, Barry
 ├── cis/                      # Creative Intelligence Suite — Carson, Dr. Quinn, Maya, Victor, Caravaggio, Sophia
@@ -168,7 +168,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 ### Core & Gouvernance
 | Agent | Persona | Module | Rôle |
 |---|---|---|---|
-| 🧙 gsane-master | Gsane Master | core | Orchestrateur principal, party mode, point d'entrée |
+| 🧙 Langis (Master) | Langis (Master) | core | Orchestrateur principal, party mode, point d'entrée |
 | ⚙️ gsane-optimizer | Léo | core | Optimisation token, amélioration framework |
 | 🤖 agent-builder | Bond | bmb | Création/validation d'agents GSANE |
 | 🏗️ module-builder | Morgan | bmb | Création/validation de modules GSANE |
@@ -208,7 +208,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 ## 📚 Modules GSANE
 
 ### **Core** — Fondations
-- **Gsane Master** (🧙) — orchestrateur, party mode JIT, point d'entrée universel
+- **Langis (Master)** (🧙) — orchestrateur, party mode JIT, point d'entrée universel
 - **Léo** (⚙️) — gsane-optimizer : analyse tokens, patterns sessions, drive amélioration continue
 - Workflows : `post-session-analysis`, `flywheel`, `party-mode`, `brainstorming`, `delegation`, `git-workflow`
 
@@ -250,7 +250,7 @@ AGENTS.md                     # Guide de navigation universel (Copilot, Claude, 
 
 ```
 # Dans Copilot Chat VS Code :
-@gsane-master          → Active Gsane Master (orchestrateur principal)
+@Langis (Master)          → Active Langis (Master) (orchestrateur principal)
 /gsane-party-mode      → Lance le party mode multi-agents
 /gsane-help            → Aide contextuelle sur les workflows disponibles
 /gsane-git-workflow    → Workflow de commit standardisé
@@ -316,12 +316,12 @@ Trois skills injectées dans chaque session Copilot :
 - **Config chargée une seule fois par session** — ne jamais recharger si déjà en contexte
 - **Routing obligatoire** — toute requête agent passe par la [matrice de délégation](_gsane/_config/delegation-matrix.yaml)
 - **Session end hook universel** — post-session-analysis s'exécute à la fin de chaque session, peu importe l'agent
-- **Jamais de solo execution** — Gsane Master orchestre, les spécialistes (Bond, Wendy, Aria, Murat, Paige...) écrivent. Toute modification d'artefact GSANE sans agent spécialiste = `solo-creep` HIGH détecté par le post-session-analysis.
+- **Jamais de solo execution** — Langis (Master) orchestre, les spécialistes (Bond, Wendy, Aria, Murat, Paige...) écrivent. Toute modification d'artefact GSANE sans agent spécialiste = `solo-creep` HIGH détecté par le post-session-analysis.
 - **Règle d'or par agent** — chaque agent a une `GOLDEN_RULE` dans son `<rules>` exprimant son interdit fondamental propre à son rôle
 
 ## ⚠️ Limite Architecturale Connue — Single-LLM Party Mode
 
-Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond, Aria, Murat etc. ne sont pas des processus séparés — quand Gsane Master "charge" Bond, c'est le même LLM qui génère sa réponse selon la personnalité de Bond.
+Dans GitHub Copilot, **un seul LLM répond** à chaque message. Les agents Bond, Aria, Murat etc. ne sont pas des processus séparés — quand Langis (Master) "charge" Bond, c'est le même LLM qui génère sa réponse selon la personnalité de Bond.
 
 **Ce que GSANE garantit réellement :**
 - ✅ Le *raisonnement* suit la perspective du spécialiste chargé
