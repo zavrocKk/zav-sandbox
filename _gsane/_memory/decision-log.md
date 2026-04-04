@@ -91,7 +91,4 @@
 - **Alternatives écartées**: Maintenir une équipe complète virtuellement complète — rejeté, génère trop de bruit et ralentit l'enchaînement.
 - **Impact**: Suppression massive de fichiers dans .github/agents/, agent-manifest.yaml, mise à jour des permissions tools.
 
-## DL-008 — Transition vers la Strike Team
-- Date: 2026-04-04
-- Décision: Purge agents superflus pour une Strike Team d'élite (Master, Dev, QA, Architect, Agent Builder).
-- Contexte: Aligner sur architecture Grimoire (ultra-lean).
+

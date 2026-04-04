@@ -48,7 +48,7 @@
         {
             "label": "Run MCP Compression Tool",
             "type": "shell",
-            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe ${workspaceFolder}\\_gsane\\mcp-server\\compression_tool.py",
+            "command": "${config:python.defaultInterpreterPath}",
             "problemMatcher": [],
             "presentation": {
                 "reveal": "always",
