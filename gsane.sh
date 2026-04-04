@@ -89,6 +89,16 @@ if errors > 0: exit(1)
             exit 1
         fi
 
+
+        echo "🔍 Vérification documentaire..."
+        if git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "src/"; then
+            if ! git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "CHANGELOG.md"; then
+                echo "❌ ERREUR: Code source modifié mais CHANGELOG.md ignoré."
+                echo "➡️ Règle de la Strike Team : Tout nouveau code exige une ligne de changelog."
+                exit 1
+            fi
+        fi
+
         echo "✅ Quality Gate Passed : Tous les tests sont validés !"
         exit 0
         ;;
