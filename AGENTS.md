@@ -82,7 +82,7 @@ AGENTS.md                     ← This file — universal agent entry point
 ### Agent Activation
 - All agent requests **must** route through `_gsane/core/workflows/delegation/workflow.md`
 - Never activate an agent directly without checking the delegation matrix first
-- Gsane Master (`_gsane/_config/agents/core-gsane-master.customize.yaml`) is the entry point for all operations
+- Langis (Master) (`_gsane/_config/agents/core-Langis (Master).customize.yaml`) is the entry point for all operations
 
 ### Workflow Execution
 - `.md` workflows → execute directly by reading and following the file
@@ -90,7 +90,7 @@ AGENTS.md                     ← This file — universal agent entry point
 - Load steps **JIT** (just-in-time) — never preload multiple steps at once
 
 ### Party Mode (Smart JIT)
-- Gsane Master is the sole orchestrator — no separate coordinator agent
+- Langis (Master) is the sole orchestrator — no separate coordinator agent
 - Initialization loads only a lightweight index (name, icon, capabilities) — NOT full profiles
 - Per turn: score agents against topic keywords, select 2-3 max, load their YAML row, generate response, discard profile data
 - Full agent `.md` files are never loaded during party mode unless explicitly requested
@@ -124,7 +124,7 @@ AGENTS.md                     ← This file — universal agent entry point
 
 | Agent | Persona | Module | Specialty |
 |---|---|---|---|
-| gsane-master | 🧙 Gsane Master | core | Orchestration, task execution, party mode, Plan/Act, [THINK] |
+| Langis (Master) | 🧙 Langis (Master) | core | Orchestration, task execution, party mode, Plan/Act, [THINK] |
 | gsane-optimizer | ⚙️ Léo | core | Token analysis, GSANE optimization, framework improvement |
 | agent-builder | 🤖 Bond | bmb | Create/edit/validate GSANE agents |
 | module-builder | 🏗️ Morgan | bmb | Create/edit/validate GSANE modules |
@@ -163,7 +163,7 @@ AGENTS.md                     ← This file — universal agent entry point
 
 Type `/gsane-` in Copilot Chat to see all available commands. Key ones:
 
-- `/gsane-master` — Activate Gsane Master orchestrator
+- `/Langis (Master)` — Activate Langis (Master) orchestrator
 - `/gsane-help` — Get advice on what to do next
 - `/gsane-git-workflow` — Follow mandatory git workflow
 - `/gsane-cc-verify` — Run Completion Contract before closing a task

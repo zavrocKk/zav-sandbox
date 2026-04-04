@@ -33,8 +33,8 @@ zav-sandbox/
     │   ├── delegation-matrix.yaml  # Routing des requêtes — impacte TOUT le système
     │   └── ...
     ├── _memory/                       # Mémoire persistante (scoreboard, flywheel, sessions)
-    ├── core/                          # Gsane Master + workflows fondamentaux + flywheel
-    │   ├── agents/gsane-master.md     # Orchestrateur principal
+    ├── core/                          # Langis (Master) + workflows fondamentaux + flywheel
+    │   ├── agents/Langis (Master).md     # Orchestrateur principal
     │   ├── config.yaml               # Config globale : user, langue, sévérité, flywheel
     │   ├── tasks/                    # Tâches réutilisables (workflow.xml, editorial review...)
     │   └── workflows/               # party-mode, delegation, git-workflow, flywheel...
@@ -58,7 +58,7 @@ name: mon-agent
 description: "Description courte"
 tools: []
 user-invokable: false
-orchestrated-by: gsane-master
+orchestrated-by: Langis (Master)
 ---
 ```
 
@@ -256,7 +256,7 @@ Puis mettre à jour :
 ⚠️ **Ce fichier est le cerveau du système de routing.** Tout changement a un impact global.
 
 Avant de modifier :
-1. Activer le party mode — validation de Aria (qa-gsane) + Gsane Master
+1. Activer le party mode — validation de Aria (qa-gsane) + Langis (Master)
 2. Vérifier qu'aucune entrée existante ne couvre déjà le cas
 3. Éviter les chevauchements de trigger keywords
 
@@ -273,7 +273,7 @@ run-tests,tea,tea,_gsane/tea/agents/tea.md,🧪,Description,keyword1;keyword2;ke
 
 ⚠️ Ce fichier est chargé par **tous les agents Copilot** à chaque session. Sévérité HIGH.
 
-- Party mode obligatoire (Aria + Gsane Master minimum)
+- Party mode obligatoire (Aria + Langis (Master) minimum)
 - Ne jamais supprimer le bloc `## ⛔ PRE-EXECUTION GATE`
 - Documenter dans le CHANGELOG
 
