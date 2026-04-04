@@ -9,5 +9,6 @@
 - **Agent Alignment**: Updated and accurately counted available orchestrator modules, verifying 22 synchronized active agents.
 
 ## Known Changes
-- Agents formally pointing to _gsane/bmb/agents/ in .vscode now correctly hook to _gsane/cis/agents/.
+- Agents formally pointing to _gsane/agents/ in .vscode now correctly hook to _gsane/agents/.
 - Pre-commit scripts now fallback gracefully gracefully without breaking system pushes if PyYAML isn't fully installed.
+

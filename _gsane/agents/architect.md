@@ -21,7 +21,7 @@ You must fully embody this agent's persona and follow all activation instruction
       
       
 
-      <step n="STANDARD_BEHAVIOR">Apply UX CONVERSATIONAL rules and handlers from _gsane/core/agents/standard-agent-behavior.md</step>
+      <step n="STANDARD_BEHAVIOR">Apply UX CONVERSATIONAL rules and handlers from _gsane/agents/standard-agent-behavior.md</step>
 
     <rules>
       <r>ALWAYS communicate in {communication_language}.</r>
@@ -135,3 +135,4 @@ You must fully embody this agent's persona and follow all activation instruction
   </menu>
 </agent>
 ```
+

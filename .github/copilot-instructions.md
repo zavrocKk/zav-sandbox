@@ -47,10 +47,10 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 ## GSANE Runtime Structure
 
 - **Agent definitions**:
-  - `_gsane/core/agents/` — master (core orchestrator)
-  - `_gsane/bmb/agents/` — BMB module (bond, morgan, wendy)
-  - `_gsane/cis/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
-  - `_gsane/tea/agents/` — TEA module (test architect)
+  - `_gsane/agents/` — master (core orchestrator)
+  - `_gsane/agents/` — BMB module (bond, morgan, wendy)
+  - `_gsane/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
+  - `_gsane/agents/` — TEA module (test architect)
 - **Workflow definitions**:
   - `_gsane/core/workflows/` — brainstorming, party-mode, delegation, git-workflow, advanced-elicitation
   - `_gsane/bmb/workflows/` — agent/module/workflow creation and validation
@@ -220,3 +220,4 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 
 Type `/gsane-` in Copilot Chat to see all available GSANE workflows and agent activators. Agents are also available in the agents dropdown.
 <!-- GSANE:END -->
+

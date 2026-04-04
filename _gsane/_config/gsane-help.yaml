@@ -614,7 +614,7 @@
   name: Optimize GSANE
   code: LO
   sequence: ''
-  workflow-file: _gsane/core/agents/optimizer.md
+  workflow-file: _gsane/agents/optimizer.md
   command: gsane-optimizer
   required: false
   agent-name: optimizer
@@ -631,7 +631,7 @@
   name: QA GSANE
   code: QA
   sequence: ''
-  workflow-file: _gsane/bmb/agents/aria.md
+  workflow-file: _gsane/agents/aria.md
   command: aria
   required: false
   agent-name: aria
@@ -643,3 +643,4 @@
     you want to check agent consistency, workflow compliance, or manifest sync.
   output-location: _gsane-output/
   outputs: QA report
+
