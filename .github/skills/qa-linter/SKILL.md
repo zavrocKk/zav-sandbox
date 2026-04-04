@@ -1,0 +1,3 @@
+# qa-linter
+
+Stub for qa-linter...

@@ -1,320 +1,69 @@
-version: '1.0'
+# Delegation Matrix - Zero-Touch Strike Team & Extended Specialists
 rules:
-- request_type: create-workflow
-  target_agent: wendy
-  target_module: bmb
-  target_path: _gsane/agents/wendy.md
-  icon: 🔄
-  description: Create or design new GSANE workflows
-  trigger_keywords:
-  - create workflow
-  - new workflow
-  - design workflow
-  - build workflow
-- request_type: create-agent
-  target_agent: bond
-  target_module: bmb
-  target_path: _gsane/agents/bond.md
-  icon: 🤖
-  description: Create or design new GSANE agents
-  trigger_keywords:
-  - create agent
-  - new agent
-  - design agent
-  - build agent
-- request_type: create-module
-  target_agent: morgan
-  target_module: bmb
-  target_path: _gsane/agents/morgan.md
-  icon: 🏗️
-  description: Create or design new GSANE modules
-  trigger_keywords:
-  - create module
-  - new module
-  - design module
-  - build module
-- request_type: edit-workflow
-  target_agent: wendy
-  target_module: bmb
-  target_path: _gsane/agents/wendy.md
-  icon: 🔄
-  description: Edit or modify existing GSANE workflows
-  trigger_keywords:
-  - edit workflow
-  - modify workflow
-  - update workflow
-  - change workflow
-- request_type: edit-agent
-  target_agent: bond
-  target_module: bmb
-  target_path: _gsane/agents/bond.md
-  icon: 🤖
-  description: Edit or modify existing GSANE agents
-  trigger_keywords:
-  - edit agent
-  - modify agent
-  - update agent
-  - change agent
-- request_type: validate-workflow
-  target_agent: wendy
-  target_module: bmb
-  target_path: _gsane/agents/wendy.md
-  icon: 🔄
-  description: Validate workflows against GSANE standards
-  requires_real_agent_load: true
-  trigger_keywords:
-  - validate workflow
-  - check workflow
-  - test workflow
-- request_type: validate-agent
-  target_agent: bond
-  target_module: bmb
-  target_path: _gsane/agents/bond.md
-  icon: 🤖
-  description: Validate agents against GSANE standards
-  requires_real_agent_load: true
-  trigger_keywords:
-  - validate agent
-  - check agent
-  - test agent
-- request_type: analyze-problem
-  target_agent: creative-problem-solver
-  target_module: cis
-  target_path: _gsane/agents/creative-problem-solver.md
-  icon: 🔬
-  description: Analyze and solve complex problems
-  trigger_keywords:
-  - analyze problem
-  - solve problem
-  - figure out
-  - troubleshoot
-  - debug
-- request_type: brainstorm
-  target_agent: brainstorming-coach
-  target_module: cis
-  target_path: _gsane/agents/brainstorming-coach.md
-  icon: 🧠
-  description: Facilitate brainstorming and ideation sessions
-  trigger_keywords:
-  - brainstorm
-  - ideate
-  - generate ideas
-  - creative session
-- request_type: design-thinking
-  target_agent: design-thinking-coach
-  target_module: cis
-  target_path: _gsane/agents/design-thinking-coach.md
-  icon: 🎨
-  description: Apply design thinking to challenges
-  trigger_keywords:
-  - design thinking
-  - user research
-  - empathy mapping
-  - prototype
-- request_type: innovate
-  target_agent: innovation-strategist
-  target_module: cis
-  target_path: _gsane/agents/innovation-strategist.md
-  icon: ⚡
-  description: Develop innovation and business strategies
-  trigger_keywords:
-  - innovate
-  - strategy
-  - disruption
-  - business model
-- request_type: present
-  target_agent: presentation-master
-  target_module: cis
-  target_path: _gsane/agents/presentation-master.md
-  icon: 🎨
-  description: Design presentations and visual communication
-  trigger_keywords:
-  - present
-  - presentation
-  - visual design
-  - pitch deck
-- request_type: storytelling
-  target_agent: storyteller
-  target_module: cis
-  target_path: _gsane/agents/storyteller/storyteller.md
-  icon: 📖
-  description: Craft narratives and stories
-  trigger_keywords:
-  - tell story
-  - narrative
-  - storytelling
-  - story structure
-- request_type: optimize-gsane
-  target_agent: optimizer
-  target_module: core
-  target_path: _gsane/agents/optimizer.md
-  icon: ⚙️
-  description: Analyze and optimize GSANE token usage and framework improvements
-  trigger_keywords:
-  - optimize gsane
-  - token usage
-  - analyze tokens
-  - gsane improvement
-  - framework optimization
-  - session analysis
-  - audit manifests
-  - recommend improvements
-- request_type: aria
-  target_agent: aria
-  target_module: bmb
-  target_path: _gsane/agents/aria.md
-  icon: 🔍
-  description: Validate GSANE artifact quality and detect regressions
-  requires_real_agent_load: true
-  trigger_keywords:
-  - qa gsane
-  - quality check
-  - persona check
-  - personality regression
-  - workflow compliance
-  - manifest sync
-  - regression check
-  - validate gsane
-- request_type: flywheel
-  target_agent: master
-  target_module: core
-  target_path: _gsane/core/workflows/flywheel/workflow-aggregate.md
-  icon: 🔄
-  description: Trigger a manual Cognitive Flywheel cycle — aggregate session patterns
-    and apply corrections
-  trigger_keywords:
-  - flywheel
-  - cognitive flywheel
-  - améliorer le projet
-  - cycle d'apprentissage
-  - auto-corriger
-  - apprentissage automatique
-- request_type: implement-changes
-  target_agent: master
-  target_module: core
-  target_path: _gsane/core/workflows/party-mode/workflow.md
-  icon: 🧙
-  description: MANDATORY routing for any implementation of changes to GSANE files
-    — triggers party mode validation with relevant agents before writing
-  trigger_keywords:
-  - implement
-  - implémenter
-  - modifier
-  - apply changes
-  - écrire
-  - changer
-  - corriger
-  - fix
-  - mettre à jour
-  - update
-  - add feature
-  - ajouter
-  - git commit
-  - git add
-  - git push
-  - créer une branche
-  - stager
-  - pousser les changements
-  - appliquer la correction
-  - apply fix
-  - commit changes
-  - stage changes
-  - push branch
-- request_type: run-tests
-  target_agent: tea
-  target_module: tea
-  target_path: _gsane/agents/tea.md
-  icon: 🧪
-  description: Run or coordinate project tests — CI checks
-  trigger_keywords:
-  - validate-pr simulation
-- request_type: project-audit
-  target_agent: tea
-  target_module: tea
-  target_path: _gsane/agents/tea.md
-  icon: 🧪
-  description: Audit project integrity — validate structure
-  trigger_keywords:
-  - manifests
-- request_type: market-research
-  target_agent: analyst
-  target_module: cis
-  icon: 📊
-  description: Business analysis
-  trigger_keywords:
-  - market research
-- request_type: create-prd
-  target_agent: pm
-  target_module: cis
-  icon: 📋
-  description: Product Requirements Document creation/edit/validation
-  trigger_keywords:
-  - epics and stories
-- request_type: create-architecture
-  target_agent: architect
-  target_module: cis
-  icon: 🏗️
-  description: System architecture design
-  trigger_keywords:
-  - technical decisions
-- request_type: sprint-planning
-  target_agent: sm
-  target_module: cis
-  icon: 🏃
-  description: Sprint planning
-  trigger_keywords:
-  - story creation
-- request_type: dev-story
-  target_agent: dev
-  target_module: cis
-  icon: 💻
-  description: Story implementation
-  trigger_keywords:
-  - test-driven development
-- request_type: ux-design
-  target_agent: ux-designer
-  target_module: cis
-  icon: 🎨
-  description: UX/UI design
-  trigger_keywords:
-  - interaction design
-- request_type: qa-automate
-  target_agent: qa
-  target_module: cis
-  icon: 🧪
-  description: Rapid test generation for existing features — API and E2E tests using
-    standard framework patterns
-  trigger_keywords:
-  - qa automate
-  - generate tests
-  - e2e tests
-  - api tests
-  - test coverage
-  - automated tests
-  - générer tests
-  - test automation
-- request_type: write-document
-  target_agent: tech-writer
-  target_module: cis
-  icon: 📚
-  description: Technical documentation
-  trigger_keywords:
-  - Mermaid diagrams
-- request_type: quick-flow
-  target_agent: quick-flow-solo-dev
-  target_module: cis
-  icon: 🚀
-  description: Quick spec and rapid implementation for small-medium tasks — minimum
-    ceremony
-  trigger_keywords:
-  - quick spec
-  - quick dev
-  - quick flow
-  - rapid implementation
-  - lean spec
-  - small task
-  - barry
-  - spec rapide
-  - implémentation rapide
-delegation_rules: []
-
+  # Strike Team
+  - trigger: ["architecture", "design", "scalable", "cloud", "api"]
+    agent: "Winston (Architect)"
+    action: "runSubagent"
+    description: "System design, cloud infrastructure, API decisions."
+  - trigger: ["code", "implement", "story", "test-driven", "dev"]
+    agent: "Amelia (Dev)"
+    action: "runSubagent"
+    description: "Code implementation governed by Delivery Contracts."
+  - trigger: ["test", "qa", "validate", "coverage", "automate"]
+    agent: "Quinn (QA)"
+    action: "runSubagent"
+    description: "Test generation and execution, pipeline validation."
+  - trigger: ["agent", "persona", "prompt", "builder"]
+    agent: "Bond (Agent Builder)"
+    action: "runSubagent"
+    description: "GSANE agent construction and compliance validation."
+  - trigger: ["orchestrate", "master", "plan", "delivery contract"]
+    agent: "Langis (Master)"
+    action: "runSubagent"
+    description: "Create Delivery Contracts, coordinate strike team, manage workflow."
+    
+  # Extended Specialists
+  - trigger: ["test architect", "atdd", "ci/cd", "murat"]
+    agent: "Murat (TEA)"
+    action: "runSubagent"
+    description: "Master test architecture, TDD strategies."
+  - trigger: ["workflow", "wendy", "building workflow"]
+    agent: "Wendy (Workflow Master)"
+    action: "runSubagent"
+    description: "Create/edit GSANE workflows."
+  - trigger: ["module", "morgan", "module creation"]
+    agent: "Morgan (Module Master)"
+    action: "runSubagent"
+    description: "Create/edit GSANE modules."
+  - trigger: ["optimize", "léo", "token", "framework improvement"]
+    agent: "Léo (Optimizer)"
+    action: "runSubagent"
+    description: "GSANE token optimization, session metrics."
+  - trigger: ["brainstorm", "carson", "ideation", "creative"]
+    agent: "Carson (Brainstorming Coach)"
+    action: "runSubagent"
+    description: "Elite brainstorming and ideation."
+  - trigger: ["design thinking", "maya", "prototyping"]
+    agent: "Maya (Design Thinking Maestro)"
+    action: "runSubagent"
+    description: "Design thinking, prototyping."
+  - trigger: ["innovation", "victor", "disruptive"]
+    agent: "Victor (Innovation Oracle)"
+    action: "runSubagent"
+    description: "Innovation strategy."
+  - trigger: ["compliance", "aria", "qa gsane", "validation"]
+    agent: "Aria (GSANE QA)"
+    action: "runSubagent"
+    description: "GSANE governance compliance."
+  - trigger: ["storytelling", "sophia", "narrative", "brand stories"]
+    agent: "Sophia (Storyteller)"
+    action: "runSubagent"
+    description: "Craft narratives and stories."
+  - trigger: ["problem", "quinn", "triz", "root cause"]
+    agent: "Dr. Quinn (Problem Solver)"
+    action: "runSubagent"
+    description: "Systematic problem solving."
+  - trigger: ["presentation", "pitch", "visual", "caravaggio"]
+    agent: "Caravaggio (Presentation Master)"
+    action: "runSubagent"
+    description: "Presentations, visual storytelling."
