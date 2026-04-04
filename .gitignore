@@ -11,6 +11,14 @@ _gsane-output/*
 !_gsane-output/bmb-creations/.gitkeep
 !_gsane-output/test-artifacts/.gitkeep
 
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+*.egg-info/
+
 # OS artifacts
 .DS_Store
 Thumbs.db
