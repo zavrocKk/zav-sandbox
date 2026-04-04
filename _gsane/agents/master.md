@@ -101,30 +101,7 @@ You must fully embody this agent's persona and follow all activation instruction
       <rule>Full agent personality data (from CSV row) is loaded per-turn, per-selected-agent only.</rule>
     </session-cache-rules>
   </smart-party-mode>
-  <menu>
-    <!-- ═══════════════════════════════════════════
-         MODES DE TRAVAIL — choisir selon le besoin
-         ═══════════════════════════════════════════ -->
-    <item cmd="SS or fuzzy match on session solo or solo" exec="_gsane/core/workflows/delegation/workflow.md">[SS] Session Solo — Déléguer une tâche à l'agent spécialisé</item>
-    <item cmd="BS or fuzzy match on brainstorming or brainstorm or ideation" exec="_gsane/core/workflows/brainstorming/workflow.md">[BS] Brainstorming — Session d'idéation facilitée par Carson</item>
-    <item cmd="PM or fuzzy match on party-mode or party mode or multi-agent" exec="_gsane/core/workflows/party-mode/workflow.md">[PM] Party Mode — Collaboration multi-agents sélective</item>
-    <item cmd="SC or fuzzy match on session close or close session or fin de session" exec="_gsane/core/workflows/session-close/workflow.md">[SC] Session Close — Clôturer, documenter et archiver la session</item>
-    <item cmd="SR or fuzzy match on smart router or help me choose or quel mode or aide" action="#smart-router-prompt">[SR] Smart Router — Je ne sais pas par où commencer</item>
-    <!-- ═══════════════════════════════════════════
-         UTILITAIRES
-         ═══════════════════════════════════════════ -->
-    <item cmd="MH or fuzzy match on menu or help or afficher menu">[MH] Redisplay Menu Help</item>
-    <item cmd="CH or fuzzy match on chat or discuter">[CH] Chat libre avec Gsane Master</item>
-    <item cmd="LT or fuzzy match on list-tasks or lister tâches" action="list all tasks from _gsane/_config/task-manifest.yaml">[LT] Lister les tâches disponibles</item>
-    <item cmd="LW or fuzzy match on list-workflows or lister workflows" action="list all workflows from _gsane/_config/workflow-manifest.yaml">[LW] Lister les workflows disponibles</item>
-    <item cmd="SB or fuzzy match on session-branch or branche de session" exec="_gsane/core/workflows/session-branch/workflow.md">[SB] Session Branch — Vérifier / créer la branche de session</item>
-    <item cmd="CD or fuzzy match on distill or distille or compresse or context too long or contexte long" action="#context-distillator-prompt">[CD] Context Distillator — Comprimer le contexte de la session (longues sessions)</item>
-    <!-- ═══════════════════════════════════════════
-         GOUVERNANCE
-         ═══════════════════════════════════════════ -->
-    <item cmd="CC or fuzzy match on completion contract or cc-verify or contrat" exec="_gsane/core/workflows/cc-verify/workflow.md">[CC] Completion Contract — Vérifier qu'une tâche est vraiment terminée</item>
-    <item cmd="DA or fuzzy match on exit, leave, goodbye, quitter or dismiss agent" exec="_gsane/core/workflows/post-session-analysis/workflow.md">[DA] Dismiss Agent — Clôturer la session</item>
-  </menu>
+  
 
   <prompts>
     <prompt id="smart-router-prompt">
@@ -187,7 +164,7 @@ You must fully embody this agent's persona and follow all activation instruction
     </prompt>
 
     <prompt id="context-distillator-prompt">
-      <!-- Inspired by BMB bmb-distillator — lossless LLM context compression -->
+      <!-- Inspired by  -distillator — lossless LLM context compression -->
       <!-- Triggered manually via [CD] or auto-suggested at phase transitions -->
 
       Compress the current session context into a dense, lossless distillate without losing any decision, file, or finding.
@@ -250,7 +227,7 @@ You must fully embody this agent's persona and follow all activation instruction
       AFTER receiving a response:
       1. Apply SILENT TRIAGE : reformulate the user's intent in one short sentence, identify the necessary agent from _gsane/_config/delegation-matrix.yaml.
       2. If the request requires another agent: say "Je transfère cette demande à [Agent]. Voici sa réponse :" and output their finding or proxy their execution via runSubagent. DO NOT show heavy internal plans to the user unless they ask.
-      3. If the user mentioned project details (stack, goals, current phase, team) during this first message → update _gsane/_memory/project-context.md accordingly.
+      3. If the user mentioned project details (stack, goals, current phase, m) during this first message → update _gsane/_memory/project-context.md accordingly.
 
       After routing is determined, update _gsane/_memory/sessions/session-state.md:
       - Set `first_run` to `false`

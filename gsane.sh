@@ -88,8 +88,12 @@ if errors > 0: exit(1)
             echo "❌ Quality Gate Failed : Des tests ont échoué ! (Code: $EXIT_CODE)"
             exit 1
         fi
-
-
+        echo "🔍 QA Linter (Zero-Touch validation)..."
+        python tests/qa-linter.py _gsane/agents/*.md
+        if [ $? -ne 0 ]; then
+            echo "❌ QA Linter Failed : Non-compliance détectée dans les fichiers des agents."
+            exit 1
+        fi
         echo "🔍 Vérification documentaire..."
         if git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "src/"; then
             if ! git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "CHANGELOG.md"; then

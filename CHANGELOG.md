@@ -16,6 +16,14 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 ## [Unreleased]
 
+**[Refactor]** Retrait de l'architecture étendue et mise à jour de la CI.
+- Agent: Amelia | Workflow: party-mode | Initié par: Mon Seigneur
+- Impact: AGENTS.md, gsane.sh, qa-linter.py, validate-pr.yml, _gsane/agents/*.md
+- Détails:
+  - Mise à jour de `AGENTS.md` pour acter le retrait de l'équipe étendue "CIS/TEA/BMB" et la consolidation autour de la Strike Team (5 agents) avec outils CLI.
+  - Mise à jour de la CI (`validate-pr.yml`) pour vérifier l'existence stricte des 5 fichiers `.md` de la Strike Team dans `_gsane/agents`.
+  - Consolidation de la boucle Zero-Touch (Quality Gate) dans `gsane.sh validate` et `qa-linter.py` pour rejeter automatiquement les balises legacy `<menu>` ou les chemins `cis|tea|bmb` dans les agents.
+
 ### [CUSTOMIZE] — Système de personnalisation des agents par projet
 **[feat]** Câblage complet du système customize.yaml — task partagée `load-customization.md` + step 2c dans 21 agents (CIS×9, BMB×4, CIS×6, TEA×1, core×2)
 - Agent: Gsane Master | Workflow: party-mode (Bond + Wendy + Léo + Aria) | Initié par: Mon Seigneur

@@ -14,7 +14,15 @@ def check_file(path):
 
     if '{project-root}' in content:
         print(f'[FAIL] {path}: Found forbidden pseudo-variable {{project-root}}')
-        error += 1
+        errors += 1
+        
+    if '<menu>' in content:
+        print(f'[FAIL] {path}: Found forbidden legacy <menu> tag (Zero-Touch architecture violation)')
+        errors += 1
+
+    if re.search(r'\b(cis|tea|bmb)/', content, re.IGNORECASE):
+        print(f'[FAIL] {path}: Found forbidden legacy module path (cis/, tea/, bmb/ are deprecated)')
+        errors += 1
 
     return errors
 

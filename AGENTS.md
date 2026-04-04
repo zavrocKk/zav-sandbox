@@ -15,21 +15,10 @@ The goal is to continuously improve the GSANE multi-agent system — optimizing 
 
 ---
 
-### Extended Team (Specialists)
+### Deprecation Notice: The Legacy CIS/TEA/BMB Modules are Retired
 
-| Agent | Persona | Specialty |
-|---|---|---|
-| Brainstorming | 🧠 Carson | Ideation, creative techniques |
-| Innovation | ⚡ Victor | Innovation strategy, business model disruption |
-| Design | 🎨 Maya | Design thinking, empathy mapping |
-| Problem Solver | 🔬 Dr. Quinn | TRIZ, root cause analysis |
-| Storyteller | 📖 Sophia | Narrative, brand stories |
-| Presenter | 🎨 Caravaggio | Presentations, visual storytelling |
-| Test Architect | 🧪 Murat | ATDD, CI/CD, quality gates |
-| Workflow Master | 🔄 Wendy | Create/edit GSANE workflows |
-| Module Master | 🏗️ Morgan | Create/edit GSANE modules |
-| Optimizer | ⚙️ Léo | Token analysis, framework improvement |
-| Governance QA | 🔍 Aria | Workflow validation, proxy GSANE compliance |
+> ⚠️ L'ancienne architecture massive découpée en modules tentaculaires (CIS, TEA, BMB) et son équipe étendue de 20+ spécialistes virtuels a été officiellement **dépréciée et supprimée**. Le framework GSANE repose désormais *exclusivement* sur une architecture "Flat Design" pilotée par **5 Agents Cores (La Strike Team)**.
+> Toutes les capacités de brainstorming ou de validation ont été consolidées ou transférées en tant qu'outils de CLI autonomes.
 
 
 ## Repository Structure (Flat Design)

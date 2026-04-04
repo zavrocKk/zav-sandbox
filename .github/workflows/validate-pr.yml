@@ -46,11 +46,12 @@ jobs:
 
       - name: Validate agent manifest sync
         run: |
-          echo "🔍 Checking .agent.md files present..."
-          AGENT_MD_COUNT=$(find .github/agents -name "*.agent.md" 2>/dev/null | wc -l)
-          echo "  .agent.md files found: $AGENT_MD_COUNT (expected: 5)"        
-          if [[ "$AGENT_MD_COUNT" -lt 5 ]]; then
-            echo "⚠️  WARNING: Expected 5 .agent.md files, found $AGENT_MD_COUNT — run audit"
+          echo "🔍 Checking _gsane/agents/*.md files present..."
+          AGENT_MD_COUNT=$(find _gsane/agents -name "*.md" 2>/dev/null | wc -l)
+          echo "  .md files found: $AGENT_MD_COUNT (expected: 5)"
+          if [[ "$AGENT_MD_COUNT" -ne 5 ]]; then
+            echo "❌ ERROR: Expected exactly 5 agent .md files in _gsane/agents, found $AGENT_MD_COUNT"
+            exit 1
           fi
           echo "✅ Agent manifest check complete."
 
