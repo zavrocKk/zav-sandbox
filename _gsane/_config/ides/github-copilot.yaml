@@ -10,7 +10,7 @@ configuration:
   agents:
     - name: master
       description: "Gsane Master — orchestrator principal GSANE. Point d'entrée pour toutes les opérations."
-      activation_file: "_gsane/core/agents/master.md"
+      activation_file: "_gsane/agents/master.md"
     - name: gsane-bond
       description: "Bond — Expert en création et validation d'agents GSANE."
       activation_file: "_gsane/bmb/agents/bond.md"

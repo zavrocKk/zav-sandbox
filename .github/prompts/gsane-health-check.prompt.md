@@ -62,7 +62,7 @@ Vérifier l'existence des fichiers agents core :
 
 | Fichier | Statut |
 |---|---|
-| `_gsane/core/agents/master.md` | ✅/❌ |
+| `_gsane/agents/master.md` | ✅/❌ |
 | `_gsane/bmb/agents/bond.md` | ✅/❌ |
 | `_gsane/tea/agents/tea.md` | ✅/❌ |
 
