@@ -1,4 +1,5 @@
 ---
+name: "Sophia (Storyteller)"
 description: 'Sophia — Master Storyteller: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---

@@ -1,5 +1,6 @@
 ```chatagent
 ---
+name: "Barry (Quick Dev)"
 description: 'Barry — Quick Flow Solo Dev: rapid spec creation, lean implementation, minimum ceremony'
 tools: ['read', 'edit', 'search', 'execute']
 ---
