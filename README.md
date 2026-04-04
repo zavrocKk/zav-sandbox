@@ -31,7 +31,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # 4. Installer les dépendances (dont pytest)
-pip install pytest # ou pip install -r requirements.txt
+pip install pytest
 `
 
 ## 🎯 Utilisation (Démo)
