@@ -12,7 +12,7 @@ Vérifier l'existence des fichiers suivants :
 
 | Fichier | Statut | Sévérité si absent |
 |---|---|---|
-| `_gsane/core/config.yaml` | ✅/❌ | HIGH |
+| `_gsane/config.yaml` | ✅/❌ | HIGH |
 | `_gsane/_config/manifest.yaml` | ✅/❌ | HIGH |
 | `_gsane/_config/agent-manifest.csv` | ✅/❌ | HIGH |
 | `_gsane/_config/workflow-manifest.csv` | ✅/❌ | MEDIUM |
@@ -27,10 +27,10 @@ Vérifier l'existence ET le contenu non-vide des fichiers mémoire :
 | Fichier | Statut | Note |
 |---|---|---|
 | `_gsane/_memory/project-context.md` | ✅/⚠️/❌ | ⚠️ si `{project_name}` non remplacé |
-| `_gsane/_memory/session-state.md` | ✅/⚠️/❌ | ⚠️ si tous les champs = `—` |
+| `_gsane/_memory/sessions/session-state.md` | ✅/⚠️/❌ | ⚠️ si tous les champs = `—` |
 | `_gsane/_memory/failure-museum.md` | ✅/⚠️/❌ | ⚠️ si vide ou absent |
 | `_gsane/_memory/decision-log.md` | ✅/⚠️/❌ | info seulement |
-| `_gsane/_memory/session-analysis-log.md` | ✅/⚠️/❌ | ⚠️ si absent |
+| `_gsane/_memory/sessions/session-analysis-log.md` | ✅/⚠️/❌ | ⚠️ si absent |
 
 Score : +1 si project-context.md ET session-state.md présents et non-vides, 0 sinon.
 
@@ -64,7 +64,7 @@ Vérifier l'existence des fichiers agents core :
 |---|---|
 | `_gsane/agents/master.md` | ✅/❌ |
 | `_gsane/agents/bond.md` | ✅/❌ |
-| `_gsane/agents/tea.md` | ✅/❌ |
+| `_gsane/agents/bond.md` | ✅/❌ |
 
 Score : +1 si tous présents, 0 sinon.
 

@@ -24,9 +24,6 @@ Every PR MUST have a filled description body. Open the GitHub compare URL, fill 
 ## Module Structure
 
 - `core/` — Gsane Master orchestrator + shared tasks + core workflows
-- `bmb/` — Builder agents (bond, morgan, wendy)
-- `cis/` — Creative/Innovation/Storytelling agents
-- `tea/` — Test architecture agent (Murat)
 
 ## JIT Loading Protocol
 
@@ -39,7 +36,7 @@ Every PR MUST have a filled description body. Open the GitHub compare URL, fill 
 | Workflow exec | The workflow file being executed | Future steps in advance |
 | Config | Once per session from `core/config.yaml` | Never reload if already resolved |
 
-**Signals that JIT is being violated (tracked by Léo):**
+**Signals that JIT is being violated:**
 - `unnecessary-load` — file loaded but never referenced after load
 - `profile-overload` — full agent `.md` loaded when CSV row would suffice
 - `config-reload-waste` — `config.yaml` loaded more than once per session
@@ -49,7 +46,7 @@ When any of these signals recur ≥3 times across sessions, the Cognitive Flywhe
 
 ## Key Conventions
 
-- Always load `_gsane/core/config.yaml` first — defines `{user_name}`, `{communication_language}`, `{output_folder}`
+- Always load `_gsane/config.yaml` first — defines `{user_name}`, `{communication_language}`, `{output_folder}`
 - Config is loaded once per session — never reload if already in context
 - `{project-root}` resolves to the workspace root at runtime
 - All outputs go to `_gsane-output/`
@@ -63,7 +60,7 @@ Agents and workflows are loaded just-in-time — never preloaded:
 
 ## Delegation System
 
-All agent requests route through `_gsane/core/workflows/delegation/workflow.md`:
+All agent requests route through `_gsane/workflows/delegation/workflow.md`:
 1. Check `_gsane/_config/delegation-matrix.yaml` for routing rules
 2. Load target agent
 3. Agent executes workflow
@@ -77,13 +74,13 @@ Enforcement is strict — no direct agent activation without delegation check.
 - Branch naming: `feature/{description}-{date}` or `fix/{description}-{date}`
 - Always push + create PR after commit
 - **PRs MUST have a description** — open the GitHub compare URL, fill the title and paste the body template into the description field before submitting
-- Full workflow: `_gsane/core/workflows/git-workflow/workflow.md`
+- Full workflow: `_gsane/workflows/git-workflow/workflow.md`
 
 ## Manifests
 
 | File | Purpose |
 |---|---|
-| `_gsane/_config/agent-manifest.csv` | Registry of all agents |
-| `_gsane/_config/workflow-manifest.csv` | Registry of all workflows |
+| `_gsane/_config/agent-manifest.yaml` | Registry of all agents |
+| `_gsane/_config/workflow-manifest.yaml` | Registry of all workflows |
 | `_gsane/_config/delegation-matrix.yaml` | Request routing rules |
-| `_gsane/_config/task-manifest.csv` | Registry of all tasks |
+| `_gsane/_config/task-manifest.yaml` | Registry of all tasks |

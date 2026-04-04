@@ -90,3 +90,11 @@
 - **Cause racine**: Momentum de session — les étapes précédentes avaient été validées correctement, mais l'exécution concrète a continué en solo. Absence d'un trip wire spécifique pour les run_in_terminal sur artefacts GSANE. Absence d'une règle interdisant explicitement la substitution de persona.
 - **Correctif**: Ajout de NO_PERSONA_SUBSTITUTION et PRE-ACTION-GATE dans master.md. Party mode élargi à 5 agents. Règle d'or universelle sur tous les agents.
 - **Règle ajoutée**: NO_PERSONA_SUBSTITUTION dans master.md — toute simulation non routée est [NON-AUTHORITATIVE]. PRE-ACTION-GATE step — obligatoire avant toute validation/test/review.
+
+## FM-005 : Post-Flattening Ghost Workflows Recovery
+L'aplatissement a silencieusement effacé les workflows de gouvernance vitaux et le core. Opération Phénix déclenchée pour remonter l'infrastructure, réparer les chemins et consolider l'agent Builder & QA.
+
+## FM-005 : Post-Flattening Ghost Workflows Recovery
+L'aplatissement a silencieusement effacé les workflows de gouvernance vitaux et le core. Opération Phénix déclenchée pour remonter l'infrastructure, réparer les chemins et consolider l'agent Builder & QA.
+## FM-006 : Namespace Cleanup (Flattening Phase 2) 
+Nettoyage global des namespaces bmb, cis, core, tea dans les fichiers .customize.yaml, delegation-matrix.yaml et agents/*.md. Le Flat Design est d�sormais total et strict. 

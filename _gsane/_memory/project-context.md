@@ -1,96 +1,18 @@
-# Contexte Projet — zav-sandbox
-
-> Ce fichier est chargé par tous les agents GSANE au démarrage.
-> Il est la source de vérité pour le contexte projet partagé entre toutes les sessions.
-> **Remplis les sections marquées ✏️ — c'est le seul fichier que tous les agents lisent.**
-> Mis à jour manually ou via `/gsane-session-bootstrap` lors de la première session.
-
----
-
-## Projet
-
-- **Nom** : zav-sandbox — GSANE Framework Enhancement Project
-- **Objectif** : ✏️ _Amélioration continue du framework GSANE multi-agents — optimisation token, orchestration, workflows, DX_
-- **Phase actuelle** : ✏️ _Phase 4 — Benchmark BMB+Grimoire, auto-routing, session artifacts_
-- **Branche active** : ✏️ _feature/cis-module-import-2026-03-02_
-
----
-
-## Stack & Technologies
-
-| Couche | Technologie | Notes |
-|--------|-------------|-------|
-| Framework | GSANE v6.0.5 | Multi-agent, Copilot-native |
-| Modules | core, bmb, cis, tea, cis | 22 agents |
-| Runtime | GitHub Copilot (VS Code) | Pas de subagents disponibles |
-| Config | YAML + CSV | agent-manifest, workflow-manifest |
-| Outputs | `_gsane-output/` | Jamais commités sur main |
-
----
+# Project Context (Flat Design)
 
 ## Architecture
+- **Flat Design**: 5 agents, no sub-modules
+- **Strike Team**: Master (Langis), Dev (Amelia), QA (Quinn), Architect (Winston), Bond (Agent Builder)
+- **Config**: `_gsane/config.yaml`
+- **Agents**: `_gsane/agents/*.md`
+- **Workflows**: `_gsane/workflows/`
+- **Manifests**: `_gsane/_config/*.yaml`
 
-```
-_gsane/
-  core/     → orchestration, master, workflows fondamentaux
-  bmb/      → bond (Bond), morgan (Morgan), wendy (Wendy), aria (Aria)
-  cis/      → pipeline business : analyst→pm→architect→sm→ux→dev→qa→tech-writer
-  cis/      → créativité : brainstorming, design-thinking, innovation, storytelling
-  tea/      → tests : Murat (ATDD, CI/CD)
-_gsane-output/ → artefacts générés (session-plans, distillates, rapports)
-.github/
-  prompts/  → slash commands Copilot (/gsane-*)
-  agents/   → mode fichiers Copilot (master, etc.)
-  skills/   → compétences domaine (gsane-framework, agent-design-patterns, etc.)
-```
-
----
-
-## Conventions
-
-- **Langue** : Français (communication) + Français (documents)
-- **Commits** : Conventional Commits (`feat/fix/chore(scope): description`)
-- **Branches** : `feature/{description}-YYYY-MM-DD` ou `fix/{description}-YYYY-MM-DD`
-- **Jamais** commit direct sur `main`
-- **Party Mode** obligatoire avant tout changement aux artefacts GSANE non-trivial
-- **CC obligatoire** avant "c'est fait"
-
----
-
-## Décisions architecturales clés
-
-<!-- Ajouter ici les décisions majeures pour informer tous les agents -->
-- **YAML double-format** : certains workflows ont YAML + MD par design (engine requis) — ne pas supprimer
-- **advanced-elicitation** : utilisé dans 20+ workflows BMB/CIS — ne pas modifier
-- **Party Mode** : roleplay JIT (pas de subagents Copilot) — l'agent simule les voix
-
----
-
-## Agents & Points de contact
-
-| Besoin | Agent | Module |
-|--------|-------|--------|
-| Implémenter/corriger | Amelia (dev) | cis |
-| Architecture système | Winston (architect) | cis |
-| PRD / spécifications | John (pm) | cis |
-| Tests & CI | Murat (tea) | tea |
-| Créer un agent GSANE | Bond (bond) | bmb |
-| Créer un workflow | Wendy (wendy) | bmb |
-| Valider conformité | Aria (aria) | bmb |
-| Optimiser tokens | Léo (optimizer) | core |
-| Brainstorming | Carson (brainstorming-coach) | cis |
-
----
-
-## Points de vigilance
-
-<!-- Mis à jour au fil des sessions -->
-- Toujours bumper `manifest.yaml` lors de changements de schéma CSV
-- `session-plan-{date}.md` dans `_gsane-output/` — lire avant de lancer une phase
-- `project-context.md` (ce fichier) — mettre à jour si la phase ou branche change
-
----
-
-## État de session récent
-
-→ Voir `_gsane/_memory/sessions/session-state.md` pour l'état de la dernière session.
+## Commands
+| Action | Agent |
+|---|---|
+| Create agent | Bond |
+| TDD code | Amelia |
+| Validate tests | Quinn |
+| System design | Winston |
+| Orchestrate | Langis (Master) |

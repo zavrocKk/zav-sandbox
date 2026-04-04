@@ -17,7 +17,7 @@ Lire `{project-root}/_gsane/_memory/project-context.md` → extraire :
 
 ## STEP 2 — Charger l'état de la dernière session
 
-Lire `{project-root}/_gsane/_memory/session-state.md` → extraire :
+Lire `{project-root}/_gsane/_memory/sessions/session-state.md` → extraire :
 - `{last_session_date}`
 - `{last_agent_active}`
 - `{last_workflow_run}`

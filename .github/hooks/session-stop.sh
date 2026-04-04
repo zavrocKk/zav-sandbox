@@ -4,7 +4,7 @@
 set -euo pipefail
 
 WORKSPACE_ROOT="${GITHUB_WORKSPACE:-$(pwd)}"
-PSA_WORKFLOW="$WORKSPACE_ROOT/_gsane/core/workflows/post-session-analysis/workflow.md"
+PSA_WORKFLOW="$WORKSPACE_ROOT/_gsane/workflows/post-session-analysis/workflow.md"
 
 echo "[SessionStop] Session ending — triggering post-session-analysis..."
 

@@ -11,7 +11,7 @@ delegation:
   delegation_required: true
   agents_can_self_execute: false
   delegation_matrix_path: '{project-root}/_gsane/_config/delegation-matrix.yaml'
-  delegation_workflow_path: '{project-root}/_gsane/core/workflows/delegation/workflow.md'
+  delegation_workflow_path: '{project-root}/_gsane/workflows/delegation/workflow.md'
   audit_log_path: '{output_folder}/delegation-audit.md'
 violations:
   enabled: true

@@ -4,8 +4,8 @@
 set -euo pipefail
 
 WORKSPACE_ROOT="${GITHUB_WORKSPACE:-$(pwd)}"
-AGGREGATE_WF="$WORKSPACE_ROOT/_gsane/core/workflows/flywheel/workflow-aggregate.md"
-APPLY_WF="$WORKSPACE_ROOT/_gsane/core/workflows/flywheel/workflow-apply.md"
+AGGREGATE_WF="$WORKSPACE_ROOT/_gsane/workflows/flywheel/workflow-aggregate.md"
+APPLY_WF="$WORKSPACE_ROOT/_gsane/workflows/flywheel/workflow-apply.md"
 SESSION_COUNT_FILE="$WORKSPACE_ROOT/_gsane/_memory/.session_count"
 
 SESSION_COUNT=$(cat "$SESSION_COUNT_FILE" 2>/dev/null || echo "unknown")

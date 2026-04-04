@@ -1,36 +1,64 @@
+- name: delegation
+  description: 'Core routing workflow. Analyzes every incoming request, matches keywords
+    against the delegation matrix, and routes to the correct Strike Team agent via
+    runSubagent. Triggers party-mode validation before any file write. Non-negotiable
+    governance layer — all requests pass through this.'
+  path: _gsane/workflows/delegation/workflow.md
+  agent: master
+  agent_display: Gsane Master
+
+- name: cc-verify
+  description: Completion Contract — 20-point checklist to verify a task is truly
+    done before declaring it complete. Covers git, CHANGELOG, quality, manifests,
+    and CI. Run with [CC] or /gsane-cc-verify before any PR.
+  path: _gsane/workflows/cc-verify/workflow.md
+  agent: master
+  agent_display: Gsane Master
+
+- name: git-workflow
+  description: 'Mandatory git protocol. Never commit to main. Always create a feature/*
+    or fix/* branch, commit changes, push, then open a PR with a filled description.
+    All agents must follow this workflow for any GSANE artifact change.'
+  path: _gsane/workflows/git-workflow/workflow.md
+  agent: master
+  agent_display: Gsane Master
+
 - name: post-session-analysis
-  description: "Automated post-session hook. Runs silently after every master session\
-    \ or party mode exit. L\xE9o logs token patterns and optimization insights. Aria\
-    \ logs compliance and regression signals. Appends to _gsane/_memory/session-analysis-log.md.\
-    \ Counts sessions and fires FlywheelTrigger every N sessions (config: flywheel.trigger_every_n_sessions).\
-    \ No user interaction required."
-  module: core
+  description: 'Automated post-session hook. Runs silently after every session.
+    Logs token patterns and optimization insights. Appends to
+    _gsane/_memory/sessions/session-analysis-log.md. Counts sessions and fires the
+    Cognitive Flywheel every N sessions (config: flywheel.trigger_every_n_sessions).
+    No user interaction required.'
   path: _gsane/workflows/post-session-analysis/workflow.md
   agent: master
   agent_display: Gsane Master
+
 - name: flywheel-aggregate
-  description: "Cognitive Flywheel \u2014 Aggregation cycle. Reads session-analysis-log.md,\
-    \ extracts recurring patterns (\u22653 occurrences = confirmed), calculates flywheel-score\
-    \ and trend, writes flywheel-report.md. Triggered automatically by post-session-analysis\
-    \ every N sessions. Silent."
-  module: core
+  description: Cognitive Flywheel — Aggregation cycle. Reads session-analysis-log.md,
+    extracts recurring patterns (>=3 occurrences = confirmed), calculates flywheel-score
+    and trend, writes flywheel-report.md. Triggered automatically by post-session-analysis
+    every N sessions. Silent.
   path: _gsane/workflows/flywheel/workflow-aggregate.md
-  agent: optimizer
-  agent_display: "L\xE9o"
+  agent: master
+  co_agent: qa
+  agent_display: Gsane Master + Quinn
+
 - name: flywheel-apply
-  description: "Cognitive Flywheel \u2014 Application cycle. Reads flywheel-report.md,\
-    \ auto-applies low/medium corrections (max 5 per cycle), escalates high findings\
-    \ to user. Creates fix/flywheel-{date} branch, commits, pushes PR, appends to\
-    \ flywheel-history.md. Called by workflow-aggregate."
-  module: core
+  description: Cognitive Flywheel — Application cycle. Reads flywheel-report.md, auto-applies
+    low/medium corrections (max 5 per cycle), escalates high findings to user. Creates
+    fix/flywheel-{date} branch, commits, pushes PR, appends to flywheel-history.md.
+    Called by workflow-aggregate.
   path: _gsane/workflows/flywheel/workflow-apply.md
-  agent: optimizer
-  agent_display: "L\xE9o"
-- name: cc-verify
-  description: "Completion Contract \u2014 20-point checklist to verify a task is\
-    \ truly done before declaring it complete. Covers git, CHANGELOG, quality, manifests,\
-    \ and CI. Run with [CC] or /gsane-cc-verify before any PR."
-  module: core
-  path: _gsane/workflows/cc-verify/workflow.md
+  agent: master
+  co_agent: qa
+  agent_display: Gsane Master + Quinn
+
+- name: party-mode
+  description: 'Collective validation protocol. Before any GSANE artifact modification,
+    scores each agent by keyword match against the topic. Consensus requires >=2 APPROVE
+    votes. BLOCK>=2 stops the action. Conflict (1 APPROVE + 1 BLOCK) escalates to Master.
+    Audit trail written to _gsane-output/party-mode-audit.md. Zero exceptions for
+    governance rules and schema changes.'
+  path: _gsane/workflows/party-mode/workflow.md
   agent: master
   agent_display: Gsane Master

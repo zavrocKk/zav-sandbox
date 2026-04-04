@@ -25,12 +25,8 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 
 | Trigger words | Target agent |
 |---|---|
-| tester, valider, run tests, check CI, vérifier le projet, smoke test, regression | 🧪 Murat (TEA) |
-| validate agent/workflow, qa gsane, persona check, manifest sync | 🔍 Aria (aria) |
-| create/edit agent, workflow, module | 🤖 Bond / 🔄 Wendy / 🏗️ Morgan |
 | implement, modifier, fix, apply changes, corriger, ajouter, supprimer | 🧙 Gsane Master (party mode) |
 | **git commit, git add, git push, créer une branche, stager, pousser** sur fichiers GSANE | 🧙 Gsane Master (party mode) — Step 0 git-workflow obligatoire |
-| optimize gsane, token usage | ⚙️ Léo (optimizer) |
 
 > ⚠️ **If this gate is not applied, the response is in violation of GSANE governance rules.**
 
@@ -46,27 +42,13 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 
 ## GSANE Runtime Structure
 
-- **Agent definitions**:
-  - `_gsane/agents/` — master (core orchestrator)
-  - `_gsane/agents/` — BMB module (bond, morgan, wendy)
-  - `_gsane/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
-  - `_gsane/agents/` — TEA module (test architect)
-- **Workflow definitions**:
-  - `_gsane/core/workflows/` — brainstorming, party-mode, delegation, git-workflow, advanced-elicitation
-  - `_gsane/bmb/workflows/` — agent/module/workflow creation and validation
-  - `_gsane/cis/workflows/` — design-thinking, innovation-strategy, problem-solving, storytelling
-  - `_gsane/tea/workflows/` — test architecture workflows
-- **Core tasks**: `_gsane/core/tasks/` (help, editorial review, indexing, sharding, adversarial review)
-- **Workflow engine**: `_gsane/core/tasks/workflow.xml` (executes YAML-based workflows)
-- **Module configurations**: `_gsane/core/config.yaml`, `_gsane/bmb/config.yaml`, `_gsane/cis/config.yaml`, `_gsane/tea/config.yaml`
-- **Core configuration**: `_gsane/core/config.yaml`
-- **Agent manifest**: `_gsane/_config/agent-manifest.csv`
-- **Workflow manifest**: `_gsane/_config/workflow-manifest.csv`
-- **Help manifest**: `_gsane/_config/gsane-help.csv`
+- **Strike Team definitions**: `_gsane/agents/*.md`
+- **Workflow definitions**: `_gsane/workflows/` (delegation, cc-verify, git-workflow, etc.)
+- **Core tasks**: `_gsane/tasks/`
+- **Core configuration**: `_gsane/config.yaml`
+- **Manifests**: `_gsane/_config/*.yaml`
 - **Agent memory**: `_gsane/_memory/`
-- **Delegation Matrix**: `_gsane/_config/delegation-matrix.yaml`
-- **Delegation Workflow**: `_gsane/core/workflows/delegation/workflow.md`
-- **Git Workflow**: `_gsane/core/workflows/git-workflow/workflow.md` (standardized commit & PR process)
+- **Git Workflow**: `_gsane/workflows/git-workflow/workflow.md` (standardized commit & PR process)
 
 ## Agent Delegation System — MANDATORY ROUTING
 
@@ -87,7 +69,7 @@ User Request
     ↓
 [Need to access an agent capability]
     ↓
-Load: _gsane/core/workflows/delegation/workflow.md
+Load: _gsane/workflows/delegation/workflow.md
     ↓
 Step 1: Analyze request type
     ↓
@@ -102,7 +84,7 @@ Step 5: Log routing decision
 
 ### Enforcement Rules
 
-From `_gsane/core/config.yaml`:
+From `_gsane/config.yaml`:
 - ✅ `delegation.enabled: true` — System is active
 - ✅ `delegation.enforcement_mode: strict` — No bypasses allowed
 - ✅ `delegation.delegation_required: true` — All requests must route
@@ -138,7 +120,7 @@ From `_gsane/core/config.yaml`:
 
 ### Applying to Agents
 When any agent or workflow needs to commit changes:
-1. Load: `_gsane/core/workflows/git-workflow/workflow.md`
+1. Load: `_gsane/workflows/git-workflow/workflow.md`
 2. Follow all workflow steps
 3. Never bypass this process
 4. Log all commits in memory
@@ -155,24 +137,19 @@ I need to commit changes following the Git Workflow
 ```
 
 ## Key Conventions
-- **ANTI-ECHO CHAMBER (QA/TESTS)**: Any agent validating a file (like Aria or Murat) MUST run strictly python tests/qa-linter.py <file> to validate instead of subjective reading. LLMs suffer from confirmation bias.
 - **APPEND-ONLY PREFERENCE**: When writing large documents, do not overwrite the full file or mid-frontmatter. Ask the tool to Append-Only to the end of the file unless restructuring is mandatory.
 
-- Always load `_gsane/core/config.yaml` before any agent activation or workflow execution
-- Store all config fields as session variables: `{user_name}`, `{communication_language}`, `{output_folder}`
+- Always load `_gsane/config.yaml` before any agent activation or workflow execution
 - MD-based workflows execute directly — load and follow the `.md` file
 - YAML-based workflows require the workflow engine — load `workflow.xml` first, then pass the `.yaml` config
 - Follow step-based workflow execution: load steps JIT, never multiple at once
 - Save outputs after EACH step when using the workflow engine
-- The `{project-root}` variable resolves to the workspace root at runtime
-- **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/core/workflows/delegation/workflow.md` for any agent-based capability request.
-- **PARTY MODE MANDATORY**: Before implementing ANY change to GSANE files (workflows, agents, config, skills, prompts, manifests) — activate party mode, score agents against topic keywords, get validation from ≥2 agents BEFORE writing. Never implement solo. Exception (strictly closed list): single-character typo in a non-rule/non-schema line, or CHANGELOG append only. Everything else requires party mode — no interpretation allowed.
+- **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/workflows/delegation/workflow.md` for any agent-based capability request.
 - **SOLO TRIP WIRE**: At the exact moment a file-write operation (edit, create, replace) is about to be called on any GSANE artifact — STOP. Declare: (1) target file, (2) trivial or not per the closed list, (3) which agents validated if non-trivial. No validation on record → abort, activate party mode first. Read-only operations do not trigger this rule.
-- **[NON-AUTHORITATIVE] TAG**: Any response produced by an agent without loading the specialist’s `.md` file via the delegation workflow MUST be tagged `[NON-AUTHORITATIVE]`. This signals the response is NOT an official agent output and cannot be treated as a valid compliance verdict, test result, or specialist recommendation. Examples: running tests without loading Murat, compliance check without loading Aria, agent design review without loading Bond. Zero exceptions.
-- **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
+- **GIT COMMITS**: Always use the Git Workflow (`_gsane/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to master.
-- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL tous les agents. No exceptions.
+- **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL tous les agents. No exceptions.
 
 ## Universal Session End Hook — MANDATORY FOR ALL AGENTS
 
@@ -181,40 +158,32 @@ I need to commit changes following the Git Workflow
 ### The Rule (applies to ALL agents, ALL sessions)
 
 Before ending ANY session with ANY GSANE agent:
-1. **ALWAYS run** `_gsane/core/workflows/post-session-analysis/workflow.md`
+1. **ALWAYS run** `_gsane/workflows/post-session-analysis/workflow.md`
 2. **EVEN IF** the user did not issue a `[DA]` dismiss command
 3. **EVEN IF** the session was short or incomplete
 4. **EVEN IF** no agent was formally activated — the flywheel must receive data
 
 ### Why This Matters
 
-The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N sessions (configured in `_gsane/core/config.yaml → flywheel.trigger_every_n_sessions`). If sessions go unlogged, the flywheel never reaches its trigger threshold, and the system never self-improves.
+The cognitive flywheel (`_gsane/workflows/flywheel/`) fires every N sessions (configured in `_gsane/config.yaml → flywheel.trigger_every_n_sessions`). If sessions go unlogged, the flywheel never reaches its trigger threshold, and the system never self-improves.
 
 ### Enforcement
 
-- All tous les agents GSANE have `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
+- All tous les agents GSANE have `exec="{project-root}/_gsane/workflows/post-session-analysis/workflow.md"` wired to their `[DA]` item
 - This global instruction is the fallback for sessions where `[DA]` is never explicitly issued
 - Any agent NOT running post-session-analysis at session end is in violation — log to `_gsane/_memory/sessions/session-analysis-log.md` with status `SKIPPED` if workflow cannot complete
 
-> ⚠️ **NOTE**: The count “tous les agents” above refers to the original GSANE set. The project currently has **tous les agents** after CIS module import (9 additional CIS agents). All tous les agents follow this session end hook.
+> ⚠️ **NOTE**: Le projet a exactement **5 agents actifs** (Strike Team). Tous les agents suivent ce session end hook.
 
 ## Available Agents
 
-| Agent | Persona | Title | Capabilities |
-|---|---|---|---|
-| master | 🧙 Gsane Master | Gsane Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
-| bond | 🤖 Bond | Agent Building Expert | create/edit/validate GSANE agents |
-| morgan | 🏗️ Morgan | Module Creation Master | create/edit/validate GSANE modules |
-| wendy | 🔄 Wendy | Workflow Building Master | create/edit/validate GSANE workflows |
-| brainstorming-coach | 🧠 Carson | Elite Brainstorming Specialist | brainstorming, ideation, creative techniques |
-| creative-problem-solver | 🔬 Dr. Quinn | Master Problem Solver | TRIZ, systematic problem solving, root cause analysis |
-| design-thinking-coach | 🎨 Maya | Design Thinking Maestro | human-centered design, empathy mapping, prototyping |
-| innovation-strategist | ⚡ Victor | Disruptive Innovation Oracle | innovation strategy, business model disruption |
-| presentation-master | 🎨 Caravaggio | Visual Communication Expert | presentations, pitch decks, visual storytelling |
-| storyteller | 📖 Sophia | Master Storyteller | narrative, storytelling, brand stories |
-| tea | 🧪 Murat | Master Test Architect | test architecture, ATDD, CI/CD, quality gates |
-| optimizer | ⚙️ Léo | GSANE Framework Optimizer | token analysis, session metrics, framework improvement, GSANE evolution |
-| aria | 🔍 Aria | GSANE Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, GSANE compliance |
+| Agent | Persona | Specialty |
+|---|---|---|
+| Master | 🧙 Langis | Orchestration, task execution, Delivery Contracts |
+| Dev | 💻 Amelia | TDD Code implementation |
+| QA | 🧪 Quinn | Test execution, quality gate validation |
+| Architect | 🏗️ Winston | System design, toolsmithing |
+| Builder | 🤖 Bond | Create/edit/validate GSANE agents |
 
 ## Slash Commands
 

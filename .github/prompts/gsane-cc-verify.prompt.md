@@ -4,7 +4,7 @@ description: Run the Completion Contract — verify a task is truly done before 
 applyTo: "**"
 ---
 
-Load and execute `{project-root}/_gsane/core/workflows/cc-verify/workflow.md`.
+Load and execute `{project-root}/_gsane/workflows/cc-verify/workflow.md`.
 
 Run all 20 checks. Output the result as:
 - `[CC] ✅ PASS — {N}/20 checks OK` if all pass

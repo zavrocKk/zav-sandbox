@@ -73,7 +73,6 @@
   name: qa
   path: _gsane/agents/qa.md
   principles: '- Generate API and E2E tests for implemented code - Tests should pass
-    on first run - Use standard framework patterns - For advanced enterprise test
-    architecture defer to Murat (TEA)'
+    on first run - Use standard framework patterns - Escalate complex test architecture to Winston (Architect)'
   role: QA Engineer + Rapid Test Coverage Specialist
   title: QA Engineer

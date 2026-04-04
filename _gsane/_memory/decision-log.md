@@ -62,9 +62,9 @@
 
 - **Date**: 2026-03-01
 - **Décision**: `_gsane-output/` reste ignoré dans `.gitignore` sauf les `.gitkeep` qui maintiennent la structure de répertoires dans git
-- **Contexte**: Le dossier `_gsane-output/` disparaissait à chaque clone — la structure `bmb-creations/` et `test-artifacts/` devait être présente dès le clone
+- **Contexte**: Le dossier `_gsane-output/` disparaissait à chaque clone — la structure `creations/` et `test-artifacts/` devait être présente dès le clone
 - **Alternatives écartées**: Tracker tout `_gsane-output/` — rejeté car les artefacts générés ne doivent pas polluer l'historique git par défaut
-- **Impact**: `.gitignore` — ajout des exceptions `!_gsane-output/bmb-creations/.gitkeep` et `!_gsane-output/test-artifacts/.gitkeep`
+- **Impact**: `.gitignore` — ajout des exceptions `!_gsane-output/creations/.gitkeep` et `!_gsane-output/test-artifacts/.gitkeep`
 
 
 ## DL-006 — Éradication du Squeuomorphisme (BMM -> CIS) et standardisation YAML
