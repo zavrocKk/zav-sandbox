@@ -1,4 +1,5 @@
 ---
+name: "Maya (Design Thinking)"
 description: 'Maya — Design Thinking Maestro: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---

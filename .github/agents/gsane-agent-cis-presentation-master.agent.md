@@ -1,4 +1,5 @@
 ---
+name: "Caravaggio (Presentation)"
 description: 'Caravaggio — Visual Communication + Presentation Expert: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---

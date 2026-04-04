@@ -1,5 +1,6 @@
 ```chatagent
 ---
+name: "Amelia (Dev)"
 description: 'Amelia — Developer Agent: story execution, test-driven development, code implementation'
 tools: ['read', 'edit', 'search', 'execute']
 ---

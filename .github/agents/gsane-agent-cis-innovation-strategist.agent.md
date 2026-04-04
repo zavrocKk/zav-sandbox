@@ -1,4 +1,5 @@
 ---
+name: "Victor (Innovation)"
 description: 'Victor — Disruptive Innovation Oracle: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---

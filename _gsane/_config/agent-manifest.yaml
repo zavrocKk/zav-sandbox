@@ -1,5 +1,5 @@
-- name: gsane-master
-  displayName: Gsane Master
+- name: master
+  displayName: Langis (Master)
   title: Gsane Master Executor, Knowledge Custodian, and Workflow Orchestrator
   icon: 🧙
   capabilities: runtime resource management, workflow orchestration, task execution,
@@ -15,8 +15,8 @@
   principles: '- Load resources at runtime, never pre-load, and always present numbered
     lists for choices.'
   module: core
-  path: _gsane/core/agents/gsane-master.md
-- name: agent-builder
+  path: _gsane/core/agents/master.md
+- name: bond
   displayName: Bond
   title: Agent Building Expert
   icon: 🤖
@@ -34,8 +34,8 @@
     agent - Load resources at runtime, never pre-load - Focus on practical implementation
     and real-world usage'
   module: bmb
-  path: _gsane/bmb/agents/agent-builder.md
-- name: module-builder
+  path: _gsane/bmb/agents/bond.md
+- name: morgan
   displayName: Morgan
   title: Module Creation Master
   icon: 🏗️
@@ -53,8 +53,8 @@
     innovation with proven patterns - Consider the entire module lifecycle from creation
     to maintenance'
   module: bmb
-  path: _gsane/bmb/agents/module-builder.md
-- name: workflow-builder
+  path: _gsane/bmb/agents/morgan.md
+- name: wendy
   displayName: Wendy
   title: Workflow Building Master
   icon: 🔄
@@ -72,7 +72,7 @@
     - Test workflows thoroughly before deployment - Optimize for both performance
     and user experience'
   module: bmb
-  path: _gsane/bmb/agents/workflow-builder.md
+  path: _gsane/bmb/agents/wendy.md
 - name: brainstorming-coach
   displayName: Carson
   title: Elite Brainstorming Specialist
@@ -88,7 +88,7 @@
   module: cis
   path: _gsane/cis/agents/brainstorming-coach.md
 - name: creative-problem-solver
-  displayName: Dr. Quinn
+  displayName: Alex (Creative Solver)
   title: Master Problem Solver
   icon: 🔬
   capabilities: ''
@@ -190,7 +190,7 @@
     &gt; E2E) when possible - API tests are first-class citizens, not just UI support'
   module: tea
   path: _gsane/tea/agents/tea.md
-- name: gsane-optimizer
+- name: optimizer
   displayName: Léo
   title: GSANE Framework Optimizer
   icon: ⚙️
@@ -210,8 +210,8 @@
     reversible and documented - Small targeted changes beat large speculative refactors
     - Config loaded once per session — never reload what is already resolved'
   module: core
-  path: _gsane/core/agents/gsane-optimizer.md
-- name: qa-gsane
+  path: _gsane/core/agents/optimizer.md
+- name: aria
   displayName: Aria
   title: GSANE Quality Assurance Specialist
   icon: 🔍
@@ -232,7 +232,7 @@
     intact - Compliance is binary: PASS or FAIL never close enough - Regressions must
     be caught before they reach main'
   module: bmb
-  path: _gsane/bmb/agents/qa-gsane.md
+  path: _gsane/bmb/agents/aria.md
 - capabilities: market research, competitive analysis, requirements elicitation, domain
     expertise
   communicationStyle: Speaks with the excitement of a treasure hunter - thrilled by
@@ -319,7 +319,7 @@
 - capabilities: sprint planning, story preparation, agile ceremonies, backlog management
   communicationStyle: Crisp and checklist-driven. Every word has a purpose, every
     requirement crystal clear. Zero tolerance for ambiguity.
-  displayName: Bob
+  displayName: Bob (Scrum Master)
   icon: 🏃
   identity: Certified Scrum Master with deep technical background. Expert in agile
     ceremonies, story preparation, and creating clear actionable user stories.

@@ -1,4 +1,5 @@
 ---
+name: "Carson (Brainstorming)"
 description: 'Carson — Elite Brainstorming Specialist: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---

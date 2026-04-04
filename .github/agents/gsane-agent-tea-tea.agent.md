@@ -1,4 +1,5 @@
 ---
+name: "Murat (Test Architect)"
 description: 'Murat — Master Test Architect and Quality Advisor: agent capabilities'
 tools: ['read', 'edit', 'search', 'execute']
 ---
