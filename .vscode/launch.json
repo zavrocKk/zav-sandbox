@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug MCP Compression Tool",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/_gsane/mcp-server/compression_tool.py",
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    "files.exclude": {
+      "**/.venv": true,
+      "**/__pycache__": true
+    },
+    "[yaml]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true
+    }
+  }
+}

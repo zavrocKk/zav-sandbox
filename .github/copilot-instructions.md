@@ -15,22 +15,22 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
    - Load `_gsane/_config/delegation-matrix.yaml`
    - Match request keywords against `trigger_keywords` column
    - If match found → load target agent, route through delegation workflow
-   - If no match → escalate to gsane-master, DO NOT self-execute
+   - If no match → escalate to master, DO NOT self-execute
 
 3. **Am I about to execute solo what an agent should execute?**
    - If yes → STOP, load delegation workflow, route correctly
-   - Solo execution = violation — auto-escalate to gsane-master
+   - Solo execution = violation — auto-escalate to master
 
 **Keyword coverage table (non-exhaustive — always check the full matrix):**
 
 | Trigger words | Target agent |
 |---|---|
 | tester, valider, run tests, check CI, vérifier le projet, smoke test, regression | 🧪 Murat (TEA) |
-| validate agent/workflow, qa gsane, persona check, manifest sync | 🔍 Aria (qa-gsane) |
+| validate agent/workflow, qa gsane, persona check, manifest sync | 🔍 Aria (aria) |
 | create/edit agent, workflow, module | 🤖 Bond / 🔄 Wendy / 🏗️ Morgan |
 | implement, modifier, fix, apply changes, corriger, ajouter, supprimer | 🧙 Gsane Master (party mode) |
 | **git commit, git add, git push, créer une branche, stager, pousser** sur fichiers GSANE | 🧙 Gsane Master (party mode) — Step 0 git-workflow obligatoire |
-| optimize gsane, token usage | ⚙️ Léo (gsane-optimizer) |
+| optimize gsane, token usage | ⚙️ Léo (optimizer) |
 
 > ⚠️ **If this gate is not applied, the response is in violation of GSANE governance rules.**
 
@@ -47,8 +47,8 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 ## GSANE Runtime Structure
 
 - **Agent definitions**:
-  - `_gsane/core/agents/` — gsane-master (core orchestrator)
-  - `_gsane/bmb/agents/` — BMB module (agent-builder, module-builder, workflow-builder)
+  - `_gsane/core/agents/` — master (core orchestrator)
+  - `_gsane/bmb/agents/` — BMB module (bond, morgan, wendy)
   - `_gsane/cis/agents/` — CIS module (brainstorming, creative, design-thinking, innovation, presentation, storyteller)
   - `_gsane/tea/agents/` — TEA module (test architect)
 - **Workflow definitions**:
@@ -171,7 +171,7 @@ I need to commit changes following the Git Workflow
 - **[NON-AUTHORITATIVE] TAG**: Any response produced by an agent without loading the specialist’s `.md` file via the delegation workflow MUST be tagged `[NON-AUTHORITATIVE]`. This signals the response is NOT an official agent output and cannot be treated as a valid compliance verdict, test result, or specialist recommendation. Examples: running tests without loading Murat, compliance check without loading Aria, agent design review without loading Bond. Zero exceptions.
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/core/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
-- **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to gsane-master.
+- **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to master.
 - **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/core/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL tous les agents. No exceptions.
 
 ## Universal Session End Hook — MANDATORY FOR ALL AGENTS
@@ -202,10 +202,10 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 
 | Agent | Persona | Title | Capabilities |
 |---|---|---|---|
-| gsane-master | 🧙 Gsane Master | Gsane Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
-| agent-builder | 🤖 Bond | Agent Building Expert | create/edit/validate GSANE agents |
-| module-builder | 🏗️ Morgan | Module Creation Master | create/edit/validate GSANE modules |
-| workflow-builder | 🔄 Wendy | Workflow Building Master | create/edit/validate GSANE workflows |
+| master | 🧙 Gsane Master | Gsane Master Executor, Knowledge Custodian, and Workflow Orchestrator | runtime resource management, workflow orchestration, task execution, knowledge custodian |
+| bond | 🤖 Bond | Agent Building Expert | create/edit/validate GSANE agents |
+| morgan | 🏗️ Morgan | Module Creation Master | create/edit/validate GSANE modules |
+| wendy | 🔄 Wendy | Workflow Building Master | create/edit/validate GSANE workflows |
 | brainstorming-coach | 🧠 Carson | Elite Brainstorming Specialist | brainstorming, ideation, creative techniques |
 | creative-problem-solver | 🔬 Dr. Quinn | Master Problem Solver | TRIZ, systematic problem solving, root cause analysis |
 | design-thinking-coach | 🎨 Maya | Design Thinking Maestro | human-centered design, empathy mapping, prototyping |
@@ -213,8 +213,8 @@ The cognitive flywheel (`_gsane/core/workflows/flywheel/`) fires every N session
 | presentation-master | 🎨 Caravaggio | Visual Communication Expert | presentations, pitch decks, visual storytelling |
 | storyteller | 📖 Sophia | Master Storyteller | narrative, storytelling, brand stories |
 | tea | 🧪 Murat | Master Test Architect | test architecture, ATDD, CI/CD, quality gates |
-| gsane-optimizer | ⚙️ Léo | GSANE Framework Optimizer | token analysis, session metrics, framework improvement, GSANE evolution |
-| qa-gsane | 🔍 Aria | GSANE Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, GSANE compliance |
+| optimizer | ⚙️ Léo | GSANE Framework Optimizer | token analysis, session metrics, framework improvement, GSANE evolution |
+| aria | 🔍 Aria | GSANE Quality Assurance Specialist | workflow validation, agent consistency, persona regression detection, GSANE compliance |
 
 ## Slash Commands
 

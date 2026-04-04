@@ -24,7 +24,7 @@ Every PR MUST have a filled description body. Open the GitHub compare URL, fill 
 ## Module Structure
 
 - `core/` — Gsane Master orchestrator + shared tasks + core workflows
-- `bmb/` — Builder agents (agent-builder, module-builder, workflow-builder)
+- `bmb/` — Builder agents (bond, morgan, wendy)
 - `cis/` — Creative/Innovation/Storytelling agents
 - `tea/` — Test architecture agent (Murat)
 

@@ -62,8 +62,8 @@ Vérifier l'existence des fichiers agents core :
 
 | Fichier | Statut |
 |---|---|
-| `_gsane/core/agents/gsane-master.md` | ✅/❌ |
-| `_gsane/bmb/agents/agent-builder.md` | ✅/❌ |
+| `_gsane/core/agents/master.md` | ✅/❌ |
+| `_gsane/bmb/agents/bond.md` | ✅/❌ |
 | `_gsane/tea/agents/tea.md` | ✅/❌ |
 
 Score : +1 si tous présents, 0 sinon.

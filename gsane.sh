@@ -79,17 +79,18 @@ if errors > 0: exit(1)
         ;;
 
     validate)
-        echo "🔍 Validation statique des manifestes YAML..."
-        python -c "
-import yaml, glob
-files = glob.glob('_gsane/_config/*.yaml')
-for f in files:
-    try:
-        yaml.safe_load(open(f, encoding='utf-8'))
-        print(f'✅ {f} : OK')
-    except Exception as e:
-        print(f'❌ {f} : ERREUR ({e})')
-"
+        echo "🔍 Quality Gate : Exécution de la suite de tests Python..."
+
+        python -m pytest tests/
+        EXIT_CODE=$?
+
+        if [ $EXIT_CODE -ne 0 ]; then
+            echo "❌ Quality Gate Failed : Des tests ont échoué ! (Code: $EXIT_CODE)"
+            exit 1
+        fi
+
+        echo "✅ Quality Gate Passed : Tous les tests sont validés !"
+        exit 0
         ;;
     *)
         echo "❌ Commande '$ACTION' non reconnue."

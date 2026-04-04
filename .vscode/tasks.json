@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "GSANE: 🥳 Lancer le Party Mode",
+            "label": "GSANE: \ud83e\udd73 Lancer le Party Mode",
             "type": "shell",
             "command": "bash gsane.sh party-mode",
             "group": "build",
@@ -13,7 +13,7 @@
             }
         },
         {
-            "label": "GSANE: 🧠 Nouvelle session Brainstorming",
+            "label": "GSANE: \ud83e\udde0 Nouvelle session Brainstorming",
             "type": "shell",
             "command": "bash gsane.sh brainstorming",
             "group": "none",
@@ -24,7 +24,7 @@
             }
         },
         {
-            "label": "GSANE: 🩺 Doctor",
+            "label": "GSANE: \ud83e\ude7a Doctor",
             "type": "shell",
             "command": "bash gsane.sh doctor",
             "group": "test",
@@ -35,7 +35,7 @@
             }
         },
         {
-            "label": "GSANE: 🔍 Valider les Manifestes (YAML)",
+            "label": "GSANE: \ud83d\udd0d Valider les Manifestes (YAML)",
             "type": "shell",
             "command": "bash gsane.sh validate",
             "group": "none",
@@ -44,7 +44,16 @@
                 "panel": "shared",
                 "clear": true
             }
+        },
+        {
+            "label": "Run MCP Compression Tool",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe ${workspaceFolder}\\_gsane\\mcp-server\\compression_tool.py",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
         }
     ]
 }
-

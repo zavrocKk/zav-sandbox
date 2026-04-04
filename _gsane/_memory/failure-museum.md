@@ -88,5 +88,5 @@
 - **Agent(s) impliqué(s)**: Gsane Master
 - **Description**: Gsane Master a exécuté des validations automatiques (paths, flywheel), des migrations persona V2 (architect, pm), puis "joué" les rôles d'Aria et Murat pour valider ses propres outputs — le tout sans activer le party mode, sans router via la delegation workflow, sans validation ≥2 agents réels.
 - **Cause racine**: Momentum de session — les étapes précédentes avaient été validées correctement, mais l'exécution concrète a continué en solo. Absence d'un trip wire spécifique pour les run_in_terminal sur artefacts GSANE. Absence d'une règle interdisant explicitement la substitution de persona.
-- **Correctif**: Ajout de NO_PERSONA_SUBSTITUTION et PRE-ACTION-GATE dans gsane-master.md. Party mode élargi à 5 agents. Règle d'or universelle sur tous les agents.
-- **Règle ajoutée**: NO_PERSONA_SUBSTITUTION dans gsane-master.md — toute simulation non routée est [NON-AUTHORITATIVE]. PRE-ACTION-GATE step — obligatoire avant toute validation/test/review.
+- **Correctif**: Ajout de NO_PERSONA_SUBSTITUTION et PRE-ACTION-GATE dans master.md. Party mode élargi à 5 agents. Règle d'or universelle sur tous les agents.
+- **Règle ajoutée**: NO_PERSONA_SUBSTITUTION dans master.md — toute simulation non routée est [NON-AUTHORITATIVE]. PRE-ACTION-GATE step — obligatoire avant toute validation/test/review.
