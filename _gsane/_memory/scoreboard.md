@@ -10,13 +10,13 @@
 
 | Agent | Sessions Actives | Compliance | Token Impact | Prompt Signals | Score |
 |---|---|---|---|---|---|
-| gsane-master | 6 | 83% | medium | none yet | A |
-| aria (qa-gsane) | 6 | 83% | low | none yet | A |
-| leo (gsane-optimizer) | 6 | 83% | low | none yet | A |
+| master | 6 | 83% | medium | none yet | A |
+| aria (aria) | 6 | 83% | low | none yet | A |
+| leo (optimizer) | 6 | 83% | low | none yet | A |
 | murat (tea) | 1 | 100% | low | none yet | A+ |
-| bond (agent-builder) | 1 | 100% | low | none yet | A+ |
-| wendy (workflow-builder) | 1 | 100% | low | none yet | A+ |
-| morgan (module-builder) | 1 | 100% | low | none yet | A+ |
+| bond (bond) | 1 | 100% | low | none yet | A+ |
+| wendy (wendy) | 1 | 100% | low | none yet | A+ |
+| morgan (morgan) | 1 | 100% | low | none yet | A+ |
 | carson (brainstorming) | 1 | 100% | low | none yet | A+ |
 | victor (innovation) | 1 | 100% | low | none yet | A+ |
 | dr-quinn (problem-solver) | 1 | 100% | low | none yet | A+ |

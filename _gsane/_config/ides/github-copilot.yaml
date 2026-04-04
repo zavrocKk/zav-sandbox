@@ -8,55 +8,55 @@ configuration:
   # Copilot Chat — Agent activators
   # These activate specific GSANE agents via the agents dropdown or slash commands
   agents:
-    - name: gsane-master
+    - name: master
       description: "Gsane Master — orchestrator principal GSANE. Point d'entrée pour toutes les opérations."
-      activation_file: "_gsane/core/agents/gsane-master.md"
-    - name: gsane-agent-builder
+      activation_file: "_gsane/agents/master.md"
+    - name: gsane-bond
       description: "Bond — Expert en création et validation d'agents GSANE."
-      activation_file: "_gsane/bmb/agents/agent-builder.md"
-    - name: gsane-module-builder
+      activation_file: "_gsane/agents/bond.md"
+    - name: gsane-morgan
       description: "Morgan — Expert en création et validation de modules GSANE."
-      activation_file: "_gsane/bmb/agents/module-builder.md"
-    - name: gsane-workflow-builder
+      activation_file: "_gsane/agents/morgan.md"
+    - name: gsane-wendy
       description: "Wendy — Expert en création et validation de workflows GSANE."
-      activation_file: "_gsane/bmb/agents/workflow-builder.md"
-    - name: gsane-optimizer
+      activation_file: "_gsane/agents/wendy.md"
+    - name: optimizer
       description: "Léo — GSANE Framework Optimizer: token analysis, session metrics, framework improvement."
-      activation_file: "_gsane/core/agents/gsane-optimizer.md"
-    - name: gsane-qa-gsane
+      activation_file: "_gsane/agents/optimizer.md"
+    - name: aria
       description: "Aria — GSANE Quality Assurance Specialist: workflow validation, compliance, persona regression detection."
-      activation_file: "_gsane/bmb/agents/qa-gsane.md"
+      activation_file: "_gsane/agents/aria.md"
     - name: gsane-tea
       description: "Murat — Master Test Architect: ATDD, CI/CD, test design, quality gates."
-      activation_file: "_gsane/tea/agents/tea.md"
+      activation_file: "_gsane/agents/tea.md"
     # CIS Module — Business Methodology agents
-    - name: gsane-analyst
+    - name: analyst
       description: "Mary — Business Analyst: market research, competitive analysis, requirements elicitation, domain expertise."
-      activation_file: "_gsane/cis/agents/analyst.md"
-    - name: gsane-pm
+      activation_file: "_gsane/agents/analyst.md"
+    - name: pm
       description: "John — Product Manager: PRD creation, requirements discovery, stakeholder alignment."
-      activation_file: "_gsane/cis/agents/pm.md"
-    - name: gsane-architect
+      activation_file: "_gsane/agents/pm.md"
+    - name: architect
       description: "Winston — Architect: distributed systems, cloud infrastructure, API design, scalable patterns."
-      activation_file: "_gsane/cis/agents/architect.md"
-    - name: gsane-sm
+      activation_file: "_gsane/agents/architect.md"
+    - name: sm
       description: "Bob — Scrum Master: sprint planning, story preparation, agile ceremonies, backlog management."
-      activation_file: "_gsane/cis/agents/sm.md"
-    - name: gsane-dev
+      activation_file: "_gsane/agents/sm.md"
+    - name: dev
       description: "Amelia — Developer Agent: story execution, test-driven development, code implementation."
-      activation_file: "_gsane/cis/agents/dev.md"
-    - name: gsane-ux-designer
+      activation_file: "_gsane/agents/dev.md"
+    - name: ux-designer
       description: "Sally — UX Designer: user research, interaction design, UI patterns, experience strategy."
-      activation_file: "_gsane/cis/agents/ux-designer.md"
-    - name: gsane-qa
+      activation_file: "_gsane/agents/ux-designer.md"
+    - name: qa
       description: "Quinn — QA Engineer: test automation, API testing, E2E testing, rapid coverage."
-      activation_file: "_gsane/cis/agents/qa.md"
+      activation_file: "_gsane/agents/qa.md"
     - name: gsane-tech-writer
       description: "Paige — Technical Writer: documentation, Mermaid diagrams, standards compliance, concept explanation."
-      activation_file: "_gsane/cis/agents/tech-writer.md"
+      activation_file: "_gsane/agents/tech-writer.md"
     - name: gsane-quick-flow-solo-dev
       description: "Barry — Quick Flow Solo Dev: rapid spec creation, lean implementation, minimum ceremony."
-      activation_file: "_gsane/cis/agents/quick-flow-solo-dev.md"
+      activation_file: "_gsane/agents/quick-flow-solo-dev.md"
 
   # Context files always injected into Copilot context window
   context_files:
@@ -80,3 +80,4 @@ configuration:
     never_commit_to: "main"
     output_folder: "_gsane-output/"
     workflow_engine: "_gsane/core/tasks/workflow.xml"
+

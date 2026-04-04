@@ -13,7 +13,7 @@ if [[ ! -f "$PSA_WORKFLOW" ]]; then
   exit 0
 fi
 
-# Note: L'exécution réelle du workflow est gérée par l'agent (gsane-master).
+# Note: L'exécution réelle du workflow est gérée par l'agent (master).
 # Ce script sert de signal d'audit — l'agent lit hooks.json et sait que
 # Stop → post-session-analysis doit être déclenché avant de rendre la main.
 echo "[SessionStop] ✅ Post-session hook signaled. Workflow: $PSA_WORKFLOW"

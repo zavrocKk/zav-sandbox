@@ -6,8 +6,8 @@
   workflow-file: _gsane/bmb/workflows/agent/workflow-create-agent.md
   command: gsane_bmb_create_agent
   required: false
-  agent-name: agent-builder
-  agent-command: gsane:Precise and technical:agent:agent-builder
+  agent-name: bond
+  agent-command: gsane:Precise and technical:agent:bond
   agent-display-name: Bond
   agent-title: "\U0001F916 Agent Building Expert"
   options: Create Mode
@@ -22,8 +22,8 @@
   workflow-file: _gsane/bmb/workflows/agent/workflow-edit-agent.md
   command: gsane_bmb_edit_agent
   required: false
-  agent-name: agent-builder
-  agent-command: gsane:Precise and technical:agent:agent-builder
+  agent-name: bond
+  agent-command: gsane:Precise and technical:agent:bond
   agent-display-name: Bond
   agent-title: "\U0001F916 Agent Building Expert"
   options: Edit Mode
@@ -38,8 +38,8 @@
   workflow-file: _gsane/bmb/workflows/agent/workflow-validate-agent.md
   command: gsane_bmb_validate_agent
   required: false
-  agent-name: agent-builder
-  agent-command: gsane:Precise and technical:agent:agent-builder
+  agent-name: bond
+  agent-command: gsane:Precise and technical:agent:bond
   agent-display-name: Bond
   agent-title: "\U0001F916 Agent Building Expert"
   options: Validate Mode
@@ -54,8 +54,8 @@
   workflow-file: _gsane/bmb/workflows/module/workflow-create-module-brief.md
   command: gsane_bmb_create_module_brief
   required: false
-  agent-name: module-builder
-  agent-command: gsane:Strategic and holistic:agent:module-builder
+  agent-name: morgan
+  agent-command: gsane:Strategic and holistic:agent:morgan
   agent-display-name: Morgan
   agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Module Brief Mode
@@ -70,8 +70,8 @@
   workflow-file: _gsane/bmb/workflows/module/workflow-create-module.md
   command: gsane_bmb_create_module
   required: false
-  agent-name: module-builder
-  agent-command: gsane:Strategic and holistic:agent:module-builder
+  agent-name: morgan
+  agent-command: gsane:Strategic and holistic:agent:morgan
   agent-display-name: Morgan
   agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Create Mode
@@ -86,8 +86,8 @@
   workflow-file: _gsane/bmb/workflows/module/workflow-edit-module.md
   command: gsane_bmb_edit_module
   required: false
-  agent-name: module-builder
-  agent-command: gsane:Strategic and holistic:agent:module-builder
+  agent-name: morgan
+  agent-command: gsane:Strategic and holistic:agent:morgan
   agent-display-name: Morgan
   agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Edit Mode
@@ -102,8 +102,8 @@
   workflow-file: _gsane/bmb/workflows/module/workflow-validate-module.md
   command: gsane_bmb_validate_module
   required: false
-  agent-name: module-builder
-  agent-command: gsane:Strategic and holistic:agent:module-builder
+  agent-name: morgan
+  agent-command: gsane:Strategic and holistic:agent:morgan
   agent-display-name: Morgan
   agent-title: "\U0001F3D7\uFE0F Module Creation Master"
   options: Validate Mode
@@ -118,8 +118,8 @@
   workflow-file: _gsane/bmb/workflows/workflow/workflow-create-workflow.md
   command: gsane_bmb_create_workflow
   required: false
-  agent-name: workflow-builder
-  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
+  agent-name: wendy
+  agent-command: gsane:Methodical and process-oriented:agent:wendy
   agent-display-name: Wendy
   agent-title: "\U0001F504 Workflow Building Master"
   options: Create Mode
@@ -134,8 +134,8 @@
   workflow-file: _gsane/bmb/workflows/workflow/workflow-edit-workflow.md
   command: gsane_bmb_edit_workflow
   required: false
-  agent-name: workflow-builder
-  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
+  agent-name: wendy
+  agent-command: gsane:Methodical and process-oriented:agent:wendy
   agent-display-name: Wendy
   agent-title: "\U0001F504 Workflow Building Master"
   options: Edit Mode
@@ -150,8 +150,8 @@
   workflow-file: _gsane/bmb/workflows/workflow/workflow-validate-workflow.md
   command: gsane_bmb_validate_workflow
   required: false
-  agent-name: workflow-builder
-  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
+  agent-name: wendy
+  agent-command: gsane:Methodical and process-oriented:agent:wendy
   agent-display-name: Wendy
   agent-title: "\U0001F504 Workflow Building Master"
   options: Validate Mode
@@ -166,8 +166,8 @@
   workflow-file: _gsane/bmb/workflows/workflow/workflow-validate-max-parallel-workflow.md
   command: gsane_bmb_validate_max_parallel
   required: false
-  agent-name: workflow-builder
-  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
+  agent-name: wendy
+  agent-command: gsane:Methodical and process-oriented:agent:wendy
   agent-display-name: Wendy
   agent-title: "\U0001F504 Workflow Building Master"
   options: Max Parallel Validate
@@ -183,8 +183,8 @@
   workflow-file: _gsane/bmb/workflows/workflow/workflow-rework-workflow.md
   command: gsane_bmb_rework_workflow
   required: false
-  agent-name: workflow-builder
-  agent-command: gsane:Methodical and process-oriented:agent:workflow-builder
+  agent-name: wendy
+  agent-command: gsane:Methodical and process-oriented:agent:wendy
   agent-display-name: Wendy
   agent-title: "\U0001F504 Workflow Building Master"
   options: Rework Mode
@@ -583,8 +583,8 @@
   workflow-file: _gsane/core/workflows/cc-verify/workflow.md
   command: gsane-cc-verify
   required: false
-  agent-name: gsane-master
-  agent-command: gsane:Direct and comprehensive:agent:gsane-master
+  agent-name: master
+  agent-command: gsane:Direct and comprehensive:agent:master
   agent-display-name: Gsane Master
   agent-title: "\U0001F9D9 Gsane Master Executor"
   options: Validate Mode
@@ -600,8 +600,8 @@
   workflow-file: _gsane/core/workflows/session-branch/workflow.md
   command: gsane-session-branch
   required: false
-  agent-name: gsane-master
-  agent-command: gsane:Direct and comprehensive:agent:gsane-master
+  agent-name: master
+  agent-command: gsane:Direct and comprehensive:agent:master
   agent-display-name: Gsane Master
   agent-title: "\U0001F9D9 Gsane Master Executor"
   options: Validate Mode
@@ -614,11 +614,11 @@
   name: Optimize GSANE
   code: LO
   sequence: ''
-  workflow-file: _gsane/core/agents/gsane-optimizer.md
-  command: gsane-gsane-optimizer
+  workflow-file: _gsane/agents/optimizer.md
+  command: gsane-optimizer
   required: false
-  agent-name: gsane-optimizer
-  agent-command: gsane:data-driven and precise:agent:gsane-optimizer
+  agent-name: optimizer
+  agent-command: gsane:data-driven and precise:agent:optimizer
   agent-display-name: "L\xE9o"
   agent-title: "\u2699\uFE0F GSANE Framework Optimizer"
   options: Optimize Mode
@@ -631,11 +631,11 @@
   name: QA GSANE
   code: QA
   sequence: ''
-  workflow-file: _gsane/bmb/agents/qa-gsane.md
-  command: gsane-qa-gsane
+  workflow-file: _gsane/agents/aria.md
+  command: aria
   required: false
-  agent-name: qa-gsane
-  agent-command: gsane:methodical and thorough:agent:qa-gsane
+  agent-name: aria
+  agent-command: gsane:methodical and thorough:agent:aria
   agent-display-name: Aria
   agent-title: "\U0001F50D GSANE Quality Assurance Specialist"
   options: Validate Mode
@@ -643,3 +643,4 @@
     you want to check agent consistency, workflow compliance, or manifest sync.
   output-location: _gsane-output/
   outputs: QA report
+

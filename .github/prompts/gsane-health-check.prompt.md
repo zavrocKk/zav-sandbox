@@ -62,9 +62,9 @@ Vérifier l'existence des fichiers agents core :
 
 | Fichier | Statut |
 |---|---|
-| `_gsane/core/agents/gsane-master.md` | ✅/❌ |
-| `_gsane/bmb/agents/agent-builder.md` | ✅/❌ |
-| `_gsane/tea/agents/tea.md` | ✅/❌ |
+| `_gsane/agents/master.md` | ✅/❌ |
+| `_gsane/agents/bond.md` | ✅/❌ |
+| `_gsane/agents/tea.md` | ✅/❌ |
 
 Score : +1 si tous présents, 0 sinon.
 
@@ -97,3 +97,4 @@ SCORE GLOBAL : {score}/5
 
 📌 Actions : [CC] Completion Contract · [SR] Smart Router · [gsane-session-bootstrap] Reprendre la session
 ```
+

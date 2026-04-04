@@ -42,15 +42,15 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 
 **[feat]** gsane-master.md — détection WARM/COLD session + step 2b (chargement project-context + session-state) + step 5 enrichi
 - Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/core/_gsane/core/agents/gsane-master.md` — step 2b ajouté, step 5 reécrit avec WARM/COLD routing
+- Impact: `_gsane/core/_gsane/agents/gsane-master.md` — step 2b ajouté, step 5 reécrit avec WARM/COLD routing
 
 **[feat]** gsane-master.md — 4 nouvelles règles de gouvernance (HUP, ALS, AFFORDANCE, ARTIFACT_HANDOFF) inspirées de Grimoire agent-base.md
 - Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/core/_gsane/core/agents/gsane-master.md` — règles HUP/ALS/AFFORDANCE/ARTIFACT_HANDOFF dans `<rules>`
+- Impact: `_gsane/core/_gsane/agents/gsane-master.md` — règles HUP/ALS/AFFORDANCE/ARTIFACT_HANDOFF dans `<rules>`
 
 **[feat]** gsane-master.md — `#first-run-prompt` — onboarding première session (COLD session trigger)
 - Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
-- Impact: `_gsane/core/_gsane/core/agents/gsane-master.md` — `<prompt id="first-run-prompt">` ajouté dans `<prompts>`
+- Impact: `_gsane/core/_gsane/agents/gsane-master.md` — `<prompt id="first-run-prompt">` ajouté dans `<prompts>`
 
 **[feat]** post-session-analysis — Step 5b — écriture structurée de session-state.md en fin de session
 - Agent: Gsane Master | Workflow: party-mode | Initié par: Mon Seigneur
@@ -136,7 +136,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 - Impact: `_gsane/_memory/decision-log.md` — nouveau, DL-001 à DL-005 documentés
 - Impact: `_gsane/core/workflows/cc-verify/workflow.md` — nouveau, 20 vérifications CC en 5 sections
 - Impact: `.github/prompts/gsane-cc-verify.prompt.md` — commande `/gsane-cc-verify`
-- Impact: `_gsane/core/_gsane/core/agents/gsane-master.md` — 4 nouvelles règles: PLAN/ACT MODE, [THINK], COMPLETION CONTRACT, FAILURE MUSEUM + menu item [CC]
+- Impact: `_gsane/core/_gsane/agents/gsane-master.md` — 4 nouvelles règles: PLAN/ACT MODE, [THINK], COMPLETION CONTRACT, FAILURE MUSEUM + menu item [CC]
 - Impact: `_gsane/core/workflows/post-session-analysis/workflow.md` — Step 2b: auto-append Failure Museum pour violations HIGH
 - Impact: `_gsane/_config/workflow-manifest.yaml` — entrée `cc-verify` ajoutée
 - Branche: `feature/tier1-failure-museum-cc-planact-2026-03-01`
@@ -302,7 +302,7 @@ adapté à l'architecture multi-agents et multi-modules du framework GSANE.
 ### [Core]
 **[feat]** Agents gsane-optimizer (Léo ⚙️) et qa-gsane (Aria 🔍) créés et validés
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
-- Impact: `_gsane/core/agents/gsane-optimizer.md`, `_gsane/bmb/agents/qa-gsane.md`, manifests mis à jour (13 agents)
+- Impact: `_gsane/agents/gsane-optimizer.md`, `_gsane/agents/qa-gsane.md`, manifests mis à jour (13 agents)
 
 **[feat]** Workflow post-session-analysis — analyse automatique silencieuse à chaque fin de session
 - Agent: Gsane Master | Workflow: git-workflow | Initié par: Mon Seigneur
@@ -504,3 +504,4 @@ Exemples:
 **Last Updated**: 2026-03-01  
 **Format Version**: 1.0 (Adapted from Keep a Changelog)  
 **Maintainers**: All GSANE agents via Git Workflow
+

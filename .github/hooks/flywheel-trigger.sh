@@ -22,9 +22,9 @@ if [[ ! -f "$APPLY_WF" ]]; then
   exit 1
 fi
 
-# Note: L'exécution des workflows est gérée par l'agent (gsane-master).
+# Note: L'exécution des workflows est gérée par l'agent (master).
 # Ce script valide que les fichiers cibles existent et loggue le déclenchement.
 echo "[FlywheelTrigger] ✅ Targets verified:"
 echo "  aggregate: $AGGREGATE_WF"
 echo "  apply:     $APPLY_WF"
-echo "[FlywheelTrigger] Flywheel execution handed to gsane-master."
+echo "[FlywheelTrigger] Flywheel execution handed to master."

@@ -32,15 +32,15 @@
 
 ```
 _gsane/
-  core/     → orchestration, gsane-master, workflows fondamentaux
-  bmb/      → agent-builder (Bond), module-builder (Morgan), workflow-builder (Wendy), qa-gsane (Aria)
+  core/     → orchestration, master, workflows fondamentaux
+  bmb/      → bond (Bond), morgan (Morgan), wendy (Wendy), aria (Aria)
   cis/      → pipeline business : analyst→pm→architect→sm→ux→dev→qa→tech-writer
   cis/      → créativité : brainstorming, design-thinking, innovation, storytelling
   tea/      → tests : Murat (ATDD, CI/CD)
 _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
 .github/
   prompts/  → slash commands Copilot (/gsane-*)
-  agents/   → mode fichiers Copilot (gsane-master, etc.)
+  agents/   → mode fichiers Copilot (master, etc.)
   skills/   → compétences domaine (gsane-framework, agent-design-patterns, etc.)
 ```
 
@@ -74,10 +74,10 @@ _gsane-output/ → artefacts générés (session-plans, distillates, rapports)
 | Architecture système | Winston (architect) | cis |
 | PRD / spécifications | John (pm) | cis |
 | Tests & CI | Murat (tea) | tea |
-| Créer un agent GSANE | Bond (agent-builder) | bmb |
-| Créer un workflow | Wendy (workflow-builder) | bmb |
-| Valider conformité | Aria (qa-gsane) | bmb |
-| Optimiser tokens | Léo (gsane-optimizer) | core |
+| Créer un agent GSANE | Bond (bond) | bmb |
+| Créer un workflow | Wendy (wendy) | bmb |
+| Valider conformité | Aria (aria) | bmb |
+| Optimiser tokens | Léo (optimizer) | core |
 | Brainstorming | Carson (brainstorming-coach) | cis |
 
 ---

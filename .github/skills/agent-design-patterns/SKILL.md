@@ -64,10 +64,10 @@ In party mode, gsane Master is the sole orchestrator:
 For GitHub Copilot agent files (`.agent.md`), sub-agents must declare:
 ```yaml
 user-invokable: false
-orchestrated-by: gsane-master
+orchestrated-by: master
 ```
 
-The main orchestrator (`gsane-master`) must NOT have `user-invokable: false`.
+The main orchestrator (`master`) must NOT have `user-invokable: false`.
 
 ## Validation Checklist
 
@@ -76,4 +76,4 @@ The main orchestrator (`gsane-master`) must NOT have `user-invokable: false`.
 - [ ] All menu items have valid `cmd` shortcuts
 - [ ] `exec` paths use `{project-root}` variable
 - [ ] Rules include language constraint
-- [ ] Agent passes Aria (qa-gsane) validation
+- [ ] Agent passes Aria (aria) validation

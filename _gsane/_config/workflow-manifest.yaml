@@ -1,12 +1,12 @@
 - name: post-session-analysis
-  description: 'Automated post-session hook. Runs silently after every gsane-master
+  description: 'Automated post-session hook. Runs silently after every master
     session or party mode exit. Léo logs token patterns and optimization insights.
     Aria logs compliance and regression signals. Appends to _gsane/_memory/session-analysis-log.md.
     Counts sessions and fires FlywheelTrigger every N sessions (config: flywheel.trigger_every_n_sessions).
     No user interaction required.'
   module: core
   path: _gsane/core/workflows/post-session-analysis/workflow.md
-  agent: gsane-master
+  agent: master
   agent_display: Gsane Master
 - name: flywheel-aggregate
   description: Cognitive Flywheel — Aggregation cycle. Reads session-analysis-log.md,
@@ -15,7 +15,7 @@
     every N sessions. Silent.
   module: core
   path: _gsane/core/workflows/flywheel/workflow-aggregate.md
-  agent: gsane-optimizer
+  agent: optimizer
   agent_display: Léo
 - name: flywheel-apply
   description: Cognitive Flywheel — Application cycle. Reads flywheel-report.md, auto-applies
@@ -24,7 +24,7 @@
     Called by workflow-aggregate.
   module: core
   path: _gsane/core/workflows/flywheel/workflow-apply.md
-  agent: gsane-optimizer
+  agent: optimizer
   agent_display: Léo
 - name: brainstorming
   description: Facilitate interactive brainstorming sessions using diverse creative
@@ -40,80 +40,80 @@
     on topic — never pre-loads all profiles. Use when user requests party mode.
   module: core
   path: _gsane/core/workflows/party-mode/workflow.md
-  agent: gsane-master
+  agent: master
   agent_display: Gsane Master
 - name: create-agent
   description: Create a new GSANE agent with best practices and compliance
   module: bmb
   path: _gsane/bmb/workflows/agent/workflow-create-agent.md
-  agent: agent-builder
+  agent: bond
   agent_display: Bond
 - name: edit-agent
   description: Edit existing GSANE agents while maintaining compliance
   module: bmb
   path: _gsane/bmb/workflows/agent/workflow-edit-agent.md
-  agent: agent-builder
+  agent: bond
   agent_display: Bond
 - name: validate-agent
   description: Validate existing GSANE agents and offer to improve deficiencies
   module: bmb
   path: _gsane/bmb/workflows/agent/workflow-validate-agent.md
-  agent: qa-gsane
+  agent: aria
   agent_display: Aria
 - name: create-module-brief
   description: Create product brief for GSANE module development
   module: bmb
   path: _gsane/bmb/workflows/module/workflow-create-module-brief.md
-  agent: module-builder
+  agent: morgan
   agent_display: Morgan
 - name: create-module
   description: Create a complete GSANE module with agents, workflows, and infrastructure
   module: bmb
   path: _gsane/bmb/workflows/module/workflow-create-module.md
-  agent: module-builder
+  agent: morgan
   agent_display: Morgan
 - name: edit-module
   description: Edit existing GSANE modules while maintaining coherence
   module: bmb
   path: _gsane/bmb/workflows/module/workflow-edit-module.md
-  agent: module-builder
+  agent: morgan
   agent_display: Morgan
 - name: validate-module
   description: Run compliance check on GSANE modules against best practices
   module: bmb
   path: _gsane/bmb/workflows/module/workflow-validate-module.md
-  agent: qa-gsane
+  agent: aria
   agent_display: Aria
 - name: create-workflow
   description: Create a new GSANE workflow with proper structure and best practices
   module: bmb
   path: _gsane/bmb/workflows/workflow/workflow-create-workflow.md
-  agent: workflow-builder
+  agent: wendy
   agent_display: Wendy
 - name: edit-workflow
   description: Edit existing GSANE workflows while maintaining integrity
   module: bmb
   path: _gsane/bmb/workflows/workflow/workflow-edit-workflow.md
-  agent: workflow-builder
+  agent: wendy
   agent_display: Wendy
 - name: rework-workflow
   description: Rework a Workflow to a V6 Compliant Version
   module: bmb
   path: _gsane/bmb/workflows/workflow/workflow-rework-workflow.md
-  agent: workflow-builder
+  agent: wendy
   agent_display: Wendy
 - name: validate-max-parallel-workflow
   description: Run validation checks in MAX-PARALLEL mode against a workflow requires
     a tool that supports Parallel Sub-Processes
   module: bmb
   path: _gsane/bmb/workflows/workflow/workflow-validate-max-parallel-workflow.md
-  agent: qa-gsane
+  agent: aria
   agent_display: Aria
 - name: validate-workflow
   description: Run validation check on GSANE workflows against best practices
   module: bmb
   path: _gsane/bmb/workflows/workflow/workflow-validate-workflow.md
-  agent: qa-gsane
+  agent: aria
   agent_display: Aria
 - name: design-thinking
   description: Guide human-centered design processes using empathy-driven methodologies.
@@ -214,7 +214,7 @@
     and CI. Run with [CC] or /gsane-cc-verify before any PR.
   module: core
   path: _gsane/core/workflows/cc-verify/workflow.md
-  agent: gsane-master
+  agent: master
   agent_display: Gsane Master
 - name: session-branch
   description: Session Branch Setup — ensures every work session starts on a properly
@@ -222,7 +222,7 @@
     one. Run at start of any session with GSANE modifications.
   module: core
   path: _gsane/core/workflows/session-branch/workflow.md
-  agent: gsane-master
+  agent: master
   agent_display: Gsane Master
 - name: session-close
   description: Session Close — Clôturer formellement une session de travail. Génère
@@ -230,7 +230,7 @@
     déclenche post-session-analysis.
   module: core
   path: _gsane/core/workflows/session-close/workflow.md
-  agent: gsane-master
+  agent: master
   agent_display: Gsane Master
 - agent: analyst
   agent_display: Mary

@@ -1,9 +1,9 @@
 version: '1.0'
 rules:
 - request_type: create-workflow
-  target_agent: workflow-builder
+  target_agent: wendy
   target_module: bmb
-  target_path: _gsane/bmb/agents/workflow-builder.md
+  target_path: _gsane/agents/wendy.md
   icon: 🔄
   description: Create or design new GSANE workflows
   trigger_keywords:
@@ -12,9 +12,9 @@ rules:
   - design workflow
   - build workflow
 - request_type: create-agent
-  target_agent: agent-builder
+  target_agent: bond
   target_module: bmb
-  target_path: _gsane/bmb/agents/agent-builder.md
+  target_path: _gsane/agents/bond.md
   icon: 🤖
   description: Create or design new GSANE agents
   trigger_keywords:
@@ -23,9 +23,9 @@ rules:
   - design agent
   - build agent
 - request_type: create-module
-  target_agent: module-builder
+  target_agent: morgan
   target_module: bmb
-  target_path: _gsane/bmb/agents/module-builder.md
+  target_path: _gsane/agents/morgan.md
   icon: 🏗️
   description: Create or design new GSANE modules
   trigger_keywords:
@@ -34,9 +34,9 @@ rules:
   - design module
   - build module
 - request_type: edit-workflow
-  target_agent: workflow-builder
+  target_agent: wendy
   target_module: bmb
-  target_path: _gsane/bmb/agents/workflow-builder.md
+  target_path: _gsane/agents/wendy.md
   icon: 🔄
   description: Edit or modify existing GSANE workflows
   trigger_keywords:
@@ -45,9 +45,9 @@ rules:
   - update workflow
   - change workflow
 - request_type: edit-agent
-  target_agent: agent-builder
+  target_agent: bond
   target_module: bmb
-  target_path: _gsane/bmb/agents/agent-builder.md
+  target_path: _gsane/agents/bond.md
   icon: 🤖
   description: Edit or modify existing GSANE agents
   trigger_keywords:
@@ -56,9 +56,9 @@ rules:
   - update agent
   - change agent
 - request_type: validate-workflow
-  target_agent: workflow-builder
+  target_agent: wendy
   target_module: bmb
-  target_path: _gsane/bmb/agents/workflow-builder.md
+  target_path: _gsane/agents/wendy.md
   icon: 🔄
   description: Validate workflows against GSANE standards
   requires_real_agent_load: true
@@ -67,9 +67,9 @@ rules:
   - check workflow
   - test workflow
 - request_type: validate-agent
-  target_agent: agent-builder
+  target_agent: bond
   target_module: bmb
-  target_path: _gsane/bmb/agents/agent-builder.md
+  target_path: _gsane/agents/bond.md
   icon: 🤖
   description: Validate agents against GSANE standards
   requires_real_agent_load: true
@@ -80,7 +80,7 @@ rules:
 - request_type: analyze-problem
   target_agent: creative-problem-solver
   target_module: cis
-  target_path: _gsane/cis/agents/creative-problem-solver.md
+  target_path: _gsane/agents/creative-problem-solver.md
   icon: 🔬
   description: Analyze and solve complex problems
   trigger_keywords:
@@ -92,7 +92,7 @@ rules:
 - request_type: brainstorm
   target_agent: brainstorming-coach
   target_module: cis
-  target_path: _gsane/cis/agents/brainstorming-coach.md
+  target_path: _gsane/agents/brainstorming-coach.md
   icon: 🧠
   description: Facilitate brainstorming and ideation sessions
   trigger_keywords:
@@ -103,7 +103,7 @@ rules:
 - request_type: design-thinking
   target_agent: design-thinking-coach
   target_module: cis
-  target_path: _gsane/cis/agents/design-thinking-coach.md
+  target_path: _gsane/agents/design-thinking-coach.md
   icon: 🎨
   description: Apply design thinking to challenges
   trigger_keywords:
@@ -114,7 +114,7 @@ rules:
 - request_type: innovate
   target_agent: innovation-strategist
   target_module: cis
-  target_path: _gsane/cis/agents/innovation-strategist.md
+  target_path: _gsane/agents/innovation-strategist.md
   icon: ⚡
   description: Develop innovation and business strategies
   trigger_keywords:
@@ -125,7 +125,7 @@ rules:
 - request_type: present
   target_agent: presentation-master
   target_module: cis
-  target_path: _gsane/cis/agents/presentation-master.md
+  target_path: _gsane/agents/presentation-master.md
   icon: 🎨
   description: Design presentations and visual communication
   trigger_keywords:
@@ -136,7 +136,7 @@ rules:
 - request_type: storytelling
   target_agent: storyteller
   target_module: cis
-  target_path: _gsane/cis/agents/storyteller/storyteller.md
+  target_path: _gsane/agents/storyteller/storyteller.md
   icon: 📖
   description: Craft narratives and stories
   trigger_keywords:
@@ -145,9 +145,9 @@ rules:
   - storytelling
   - story structure
 - request_type: optimize-gsane
-  target_agent: gsane-optimizer
+  target_agent: optimizer
   target_module: core
-  target_path: _gsane/core/agents/gsane-optimizer.md
+  target_path: _gsane/agents/optimizer.md
   icon: ⚙️
   description: Analyze and optimize GSANE token usage and framework improvements
   trigger_keywords:
@@ -159,10 +159,10 @@ rules:
   - session analysis
   - audit manifests
   - recommend improvements
-- request_type: qa-gsane
-  target_agent: qa-gsane
+- request_type: aria
+  target_agent: aria
   target_module: bmb
-  target_path: _gsane/bmb/agents/qa-gsane.md
+  target_path: _gsane/agents/aria.md
   icon: 🔍
   description: Validate GSANE artifact quality and detect regressions
   requires_real_agent_load: true
@@ -176,7 +176,7 @@ rules:
   - regression check
   - validate gsane
 - request_type: flywheel
-  target_agent: gsane-master
+  target_agent: master
   target_module: core
   target_path: _gsane/core/workflows/flywheel/workflow-aggregate.md
   icon: 🔄
@@ -190,7 +190,7 @@ rules:
   - auto-corriger
   - apprentissage automatique
 - request_type: implement-changes
-  target_agent: gsane-master
+  target_agent: master
   target_module: core
   target_path: _gsane/core/workflows/party-mode/workflow.md
   icon: 🧙
@@ -223,7 +223,7 @@ rules:
 - request_type: run-tests
   target_agent: tea
   target_module: tea
-  target_path: _gsane/tea/agents/tea.md
+  target_path: _gsane/agents/tea.md
   icon: 🧪
   description: Run or coordinate project tests — CI checks
   trigger_keywords:
@@ -231,7 +231,7 @@ rules:
 - request_type: project-audit
   target_agent: tea
   target_module: tea
-  target_path: _gsane/tea/agents/tea.md
+  target_path: _gsane/agents/tea.md
   icon: 🧪
   description: Audit project integrity — validate structure
   trigger_keywords:
@@ -317,3 +317,4 @@ rules:
   - spec rapide
   - implémentation rapide
 delegation_rules: []
+

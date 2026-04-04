@@ -83,3 +83,12 @@
   2. **Adversarial Unit Tests (	ests/agents/)** : Mettre en place un juge-LLM pour tester dynamiquement le respect du MAX_TTL et du TRIPARTITE_CONSENSUS par les agents.
   3. **Semantic Routing** : Remplacer les expressions régulières de delegation-matrix.yaml par un résolveur d'intentions lisant et pondérant les meta-descriptions des agents.
 - **Impact**: Priorisation de la *Context Compression* pour le prochain cycle de développement V3.
+
+## DL-008 — Transition vers la Strike Team (Absorption Analyste/PM par le Master)
+- **Date**: 2026-04-04
+- **Décision**: Purge des agents superflus (Analyste, PM, Scrum Master, spécialistes) pour ne conserver qu'une "Strike Team" d'élite de 5 agents (Master, Dev, QA, Architect, Agent Builder). L'Orchestrateur (Master) absorbe les responsabilités d'analyse technique et de Delivery Contract.
+- **Contexte**: Aligner l'architecture sur le modèle Grimoire-kit (ultra-lean) pour éliminer le téléphone arabe et la latence liés aux intermédiaires (comme l'Analyste). Le LLM du Master est déjà compétent pour analyser avant de déléguer, réduisant la consommation de tokens.
+- **Alternatives écartées**: Maintenir une équipe complète virtuellement complète — rejeté, génère trop de bruit et ralentit l'enchaînement.
+- **Impact**: Suppression massive de fichiers dans .github/agents/, agent-manifest.yaml, mise à jour des permissions tools.
+
+

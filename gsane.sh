@@ -79,17 +79,28 @@ if errors > 0: exit(1)
         ;;
 
     validate)
-        echo "🔍 Validation statique des manifestes YAML..."
-        python -c "
-import yaml, glob
-files = glob.glob('_gsane/_config/*.yaml')
-for f in files:
-    try:
-        yaml.safe_load(open(f, encoding='utf-8'))
-        print(f'✅ {f} : OK')
-    except Exception as e:
-        print(f'❌ {f} : ERREUR ({e})')
-"
+        echo "🔍 Quality Gate : Exécution de la suite de tests Python..."
+
+        python -m pytest tests/
+        EXIT_CODE=$?
+
+        if [ $EXIT_CODE -ne 0 ]; then
+            echo "❌ Quality Gate Failed : Des tests ont échoué ! (Code: $EXIT_CODE)"
+            exit 1
+        fi
+
+
+        echo "🔍 Vérification documentaire..."
+        if git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "src/"; then
+            if ! git status --porcelain | grep -E '^ M|^ A|^AM|^A |^M |^\?\?' | grep -q "CHANGELOG.md"; then
+                echo "❌ ERREUR: Code source modifié mais CHANGELOG.md ignoré."
+                echo "➡️ Règle de la Strike Team : Tout nouveau code exige une ligne de changelog."
+                exit 1
+            fi
+        fi
+
+        echo "✅ Quality Gate Passed : Tous les tests sont validés !"
+        exit 0
         ;;
     *)
         echo "❌ Commande '$ACTION' non reconnue."

@@ -31,4 +31,10 @@ def gsane_fetch_compressed_memory(query: str) -> str:
     return "COMPRESSED SUMMARY: \n" + "\n---\n".join(results[:5])
 
 if __name__ == "__main__":
-    mcp.run()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        print("--- RUNNING MANUAL TEST ---")
+        result = gsane_fetch_compressed_memory("failure")
+        print(result)
+    else:
+        mcp.run()
