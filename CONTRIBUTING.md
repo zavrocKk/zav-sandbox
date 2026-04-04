@@ -6,7 +6,7 @@ Ce document fixe les règles de développement et de collaboration de l'architec
 Avant de commencer, familiarisez-vous avec ces trois concepts piliers :
 - **Delivery Contract** : Un document Markdown formel (rédigé par l'agent *Master*) validant les critères d'acceptation et les contraintes techniques *avant* d'écrire la moindre ligne de code métier.
 - **Zero-Touch Fix-Loop** : Notre boucle de correction asynchrone. L'agent QA vérifie le code de l'agent Dev, et lui renvoie les erreurs de la console jusqu'à obtenir un succès parfait (Exit 0), sans jamais solliciter l'aide de l'humain.
-- **Quality Gate** : Le script impitoyable (ash gsane.sh validate) qui exécute la suite de tests et vérifie la conformité documentaire.
+- **Quality Gate** : Le script impitoyable `bash gsane.sh validate` qui exécute la suite de tests et vérifie la conformité documentaire.
 
 ## 💻 Setup Développeur
 Veuillez suivre les étapes d'installation de base détaillées dans le [README.md](README.md).
