@@ -34,7 +34,7 @@ Nous utilisons les **Conventional Commits**. Votre message de commit doit ressem
 
 ### 3. Pull Requests (PR)
 - Soumettez votre PR vers main.
-- La description de la PR **doit obligatoirement être remplie**. Notre CI Github crashera si la description est vide (règle définie dans copilot-instructions.md).
+- La description de la PR **doit obligatoirement être remplie**. Notre CI GitHub échouera si la description est vide (règle définie dans copilot-instructions.md).
 
 ## 🛡️ Style et Qualité de Code
 - **Linter/Formatteur** : Bien que nous n'imposions pas encore d'outils comme Ruff ou Flake8 de manière bloquante, le code doit être propre et typé (Python 3).
