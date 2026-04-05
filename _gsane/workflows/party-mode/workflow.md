@@ -1,7 +1,11 @@
 ---
 name: party-mode
-description: "Deux niveaux : Huddle ciblé (validation) + Full brainstorming (exploration). Gouvernance collective avant toute décision GSANE significative."
-version: 2.0
+description: "Trois phases : Huddle ciblé (validation) + Full brainstorming (exploration) + Planning (artefacts d'exécution). Gouvernance collective avant toute décision GSANE significative."
+version: 3.0
+phases:
+  - huddle
+  - brainstorm
+  - planning
 ---
 
 # Workflow : Party Mode
@@ -214,6 +218,170 @@ DL-{prochain_id} | {date} | {topic} | {décision} | {agents_consultés}
 
 ---
 
+## PHASE 3 — Planning
+
+### 3.0 Déclencheur
+
+La Phase 3 s'active automatiquement si **l'une des conditions suivantes** est remplie :
+
+- La décision finale (section 2.5) contient un **verbe d'action** : `créer | modifier | implémenter | refactorer | migrer | déployer | ajouter | supprimer`
+- Un Huddle (Niveau 1) conclut sur une action avec impact **MEDIUM** ou **HIGH**
+
+La Phase 3 est **optionnelle et ignorée** si le Niveau 1 résout un point trivial sans action structurante.
+
+> ⚠️ `risk_level=HIGH` ne déclenche **pas** un nouveau Party Mode. Il impose une validation humaine ou le mode [THINK] avant exécution. Jamais de récursion Party Mode → plan → Party Mode.
+
+---
+
+### 3.1 Setup du chemin de session
+
+```
+DATE_ID    = format : {YYYY-MM-DD}-{HH-MM}
+SESSION_DIR = _gsane-output/sessions/{DATE_ID}/
+
+Créer si nécessaire :
+  _gsane-output/sessions/{DATE_ID}/
+  _gsane-output/sessions/{DATE_ID}/contracts/
+```
+
+---
+
+### 3.2 Production des artefacts
+
+Le Master produit **3 artefacts** dans `SESSION_DIR` :
+
+```
+1. brainstorm-brief.md
+   Contenu : archive du sujet, contributions brutes des agents, contexte de consultation
+   Format  : Markdown libre
+   Accès   : jamais affiché par défaut — disponible sur demande explicite
+
+2. design-conclusion.md
+   Contenu : conclusion consolidée, décisions retenues, failles mitigées
+   Format  : Markdown structuré, lisible par humain
+   Accès   : disponible sur demande explicite
+
+3. execution-plan.yaml
+   Contenu : plan parseable par le Master pour exécution
+   Format  : YAML — schéma obligatoire (voir _gsane/workflows/party-mode/templates/execution-plan.yaml)
+   Accès   : parsé et consommé par le Master pour génération des Delivery Contracts
+```
+
+**Schéma `execution-plan.yaml`** (champs obligatoires) :
+
+```yaml
+plan_id:           "{date-id}-{slug}"
+session_date:      "{YYYY-MM-DD}"
+source_brief:      "sessions/{date-id}/brainstorm-brief.md"
+source_conclusion: "sessions/{date-id}/design-conclusion.md"
+objective:         "[objectif en 1 phrase]"
+scope:             "[périmètre des fichiers et systèmes impactés]"
+decisions:
+  - id: D1
+    decision:    "[décision retenue]"
+    rationale:   "[justification]"
+    source_agent: "[agent qui a proposé]"
+tasks:
+  - id: T1
+    description:      "[livrable atomique]"
+    owner:            "[agent principal]"
+    depends_on:       []
+    parallel_group:   "A"
+    validation_agent: "[agent qui valide]"
+    done_definition:  "[critère observable]"
+    risk_level:       LOW | MEDIUM | HIGH
+    acceptance_criteria:
+      - "[critère 1]"
+```
+
+**Règles de qualité du plan** :
+
+```
+- Maximum 7 tâches par plan
+- Une tâche = un owner principal
+- Une tâche = un livrable vérifiable
+- Pas de dépendance circulaire
+- parallel_group identique = exécution parallèle possible
+- risk_level=HIGH → arrêt avant dispatch automatique, validation humaine requise
+```
+
+---
+
+### 3.3 Sortie haute-niveau utilisateur
+
+> **Règle UX** : jamais de dump brut. Ne jamais afficher `brainstorm-brief.md`, `design-conclusion.md` ou le contenu complet de `execution-plan.yaml` sauf demande explicite.
+
+Le Master présente **uniquement** la synthèse suivante :
+
+```
+Résumé proposé :
+
+Décision : [résumé en 1-2 phrases]
+
+Plan :
+  {owner_1} : [travail]
+  {owner_2} : [travail]
+  ...
+
+Parallélisme :
+  Groupe A : [tâches]
+  Groupe B : [tâches]
+
+Risques :
+  [1-3 points maximum — risk_level MEDIUM ou HIGH uniquement]
+
+---
+Est-ce que ce plan aligne bien ton intention initiale ?
+▷ oui    → j'exécute
+▷ ajuste → je corrige le plan avant exécution
+```
+
+---
+
+### 3.4 Confirmation utilisateur
+
+```
+SI "oui" (ou équivalent) :
+  → Passer à 3.5 — exécution des Delivery Contracts
+
+SI "ajuste" (ou équivalent) :
+  → Reprendre les points modifiés dans execution-plan.yaml
+  → Re-présenter la synthèse haute-niveau (retourner à 3.3)
+  → Ne jamais relancer Niveau 1 ou Niveau 2 pour un simple ajustement de plan
+
+SI risk_level=HIGH présent dans le plan :
+  → Afficher avant la question :
+    "⚠️ Tâche(s) HIGH : {liste}. Validation humaine requise avant dispatch."
+  → Ne jamais dispatcher automatiquement les tâches HIGH
+```
+
+---
+
+### 3.5 Remise au Master pour exécution
+
+```
+Après confirmation utilisateur :
+
+1. Fournir au Master le chemin : sessions/{date-id}/execution-plan.yaml
+2. Master exécute l'enchaînement :
+   a. Parser execution-plan.yaml
+   b. Grouper les tâches par parallel_group
+   c. Résoudre depends_on en ordre topologique (couches)
+   d. Pour chaque tâche (hors HIGH non confirmées) :
+      → Copier delivery-contract.tpl.md → sessions/{date-id}/contracts/dc-{task_id}.md
+      → Remplir le frontmatter YAML (task_id, owner, validation_agent, risk_level,
+        depends_on, parallel_group, done_definition)
+      → Copier dc-{task_id}.md → _gsane-output/current-delivery-contract.md (contrat actif)
+      → Dispatcher via runSubagent(owner, current-delivery-contract.md)
+   e. Tâches du même parallel_group sans depends_on bloquant → dispatch simultané
+   f. Attendre la fin d'un groupe avant de lancer le groupe dépendant suivant
+   g. Quinn valide chaque livrable → CONTRACT ARCHIVING (règle master.md) s'applique
+```
+
+---
+
+---
+
 ## Règles de gouvernance (les deux niveaux)
 
 ```
@@ -238,3 +406,6 @@ DL-{prochain_id} | {date} | {topic} | {décision} | {agents_consultés}
 | complexity = HIGH + requête multi-étapes  | Niveau 2 — Full brainstorm |
 | Huddle révèle complexity >= 3             | Upgrade -> Niveau 2        |
 | Conflit non résolu après Niveau 1         | Escalade utilisateur       |
+| Décision contient un verbe d'action       | Phase 3 — Planning         |
+| Huddle N1 → impact MEDIUM ou HIGH         | Phase 3 — Planning         |
+| risk_level=HIGH dans le plan              | Validation humaine / THINK |

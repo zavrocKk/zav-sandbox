@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://img.shields.io/badge/CI-passing-success)](#) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#) [![Tests](https://img.shields.io/badge/Tests-107%20passing-brightgreen)](#) [![MCP](https://img.shields.io/badge/MCP-5%20outils-purple)](#) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](#)
+[![CI](https://img.shields.io/badge/CI-passing-success)](#) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#) [![Tests](https://img.shields.io/badge/Tests-113%20passing-brightgreen)](#) [![MCP](https://img.shields.io/badge/MCP-5%20outils-purple)](#) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](#)
 
 ## 💡 Qu'est-ce que GSANE ?
 
@@ -33,6 +33,50 @@ graph TD
 | **Quinn** | 🧪 QA | Exécution Quality Gate, validation `gsane.sh validate` |
 | **Winston** | 🏗️ Architect | Design système, ADR, outillage |
 | **Bond** | 🤖 Agent Builder | Création/édition/validation des agents GSANE |
+
+---
+
+## 🎉 Party Mode v3.0 — Brainstorm → Design → Planning → Exécution
+
+Le **Party Mode** est le protocole de gouvernance collective de GSANE. Il s'organise en **3 phases additives** :
+
+| Phase | Description | Déclencheur |
+|---|---|---|
+| **Niveau 1 — Huddle ciblé** | Vote rapide (APPROVE/BLOCK/ABSTAIN) sur un point précis | Conflit, domaines ≥ 2, confiance JAUNE |
+| **Niveau 2 — Full Brainstorming** | Tous les agents scorent le sujet, Devil’s Advocate, 2 rounds max | Mots-clés stratégiques, complexity=HIGH |
+| **Phase 3 — Planning** | Distillation des décisions en artefacts exécutables | Verbe d’action dans la décision finale |
+
+### Phase 3 — Planning
+
+Lorsque la synthèse du brainstorm aboutit à une action concrète (`créer`, `modifier`, `implémenter`, `refactorer`…), la Phase 3 produit **3 artefacts** dans `_gsane-output/sessions/{date-id}/` :
+
+```
+brainstorm-brief.md      ← archive des contributions brutes des agents
+design-conclusion.md     ← décisions consolidées, lisibles par l’humain
+execution-plan.yaml      ← plan parseable par le Master (schéma validé)
+```
+
+Le Master présente ensuite une **synthèse haute-niveau** (décision + plan par agent + parallélisme + risques) et demande confirmation avant de générer les Delivery Contracts et dispatcher les agents.
+
+```
+▷ oui    → génère les Delivery Contracts et exécute
+▷ ajuste → corrige le plan avant exécution (sans relancer le brainstorm)
+```
+
+### Delivery Contract hybride
+
+Le template `_gsane/workflows/delivery-contract.tpl.md` est désormais au format **hybride frontmatter YAML + corps Markdown** :
+- Le frontmatter YAML (`task_id`, `owner`, `validation_agent`, `risk_level`, `depends_on`, `parallel_group`, `done_definition`) est lu par le Master pour le routage automatique
+- Le corps Markdown reste lisible par les agents et l’humain
+
+Les contrats par tâche vivent dans `sessions/{date-id}/contracts/dc-{task_id}.md`. Le fichier `_gsane-output/current-delivery-contract.md` reste le contrat actif courant — compatible avec l’écosystème `STRICT-HANDOFF` et `CONTRACT ARCHIVING` existants.
+
+### Validation de schéma
+
+Tout `execution-plan.yaml` produit est validé automatiquement lors de la Quality Gate :
+```bash
+bash gsane.sh validate  # inclut maintenant la validation schéma execution-plan.yaml
+```
 
 ---
 
@@ -135,10 +179,12 @@ _gsane/                    ← Réacteur GSANE
   _config/                 ← Manifestes YAML (agents, workflows, delegation-matrix)
   _memory/                 ← Mémoire persistante (sidecars, trace.log, sessions/)
   mcp-server/              ← Serveur MCP local (compression_tool.py — 5 outils)
-  workflows/               ← Workflows (party-mode, delegation, cc-verify, flywheel...)
+  workflows/               ← Workflows (party-mode v3.0, delegation, cc-verify, flywheel...)
+    party-mode/templates/  ← Template execution-plan.yaml (schéma Phase 3)
   tools/                   ← Outils infrastructure (gsane-bootstrap.sh)
 _gsane-output/             ← Artefacts générés (delegation-audit, bond-creations, etc.)
-tests/                     ← Suite de tests (107 tests : structurel + comportemental + MCP)
+  sessions/                ← Sessions Party Mode v3.0 (brainstorm-brief, design-conclusion, execution-plan.yaml)
+tests/                     ← Suite de tests (113 tests : structurel + comportemental + MCP)
 docs/architecture/decisions/  ← ADR (Architecture Decision Records)
 .github/
   skills/                  ← Skills GSANE pour Copilot Chat
