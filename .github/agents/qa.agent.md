@@ -1,6 +1,6 @@
 ﻿---
 name: "Quinn (QA)"
-description: "QA Engineer: test automation, API testing, E2E testing, coverage analysis"
+description: 'Quinn — QA Engineer: test execution, quality gate validation, coverage analysis'
 tools: [read, search, edit, execute]
 ---
 
