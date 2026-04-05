@@ -179,14 +179,16 @@ _gsane/                    ← Réacteur GSANE
   _config/                 ← Manifestes YAML (agents, workflows, delegation-matrix)
   _memory/                 ← Mémoire persistante (sidecars, trace.log, sessions/)
   mcp-server/              ← Serveur MCP local (compression_tool.py — 5 outils)
+  tasks/                   ← Tâches réutilisables (editorial-review, index-cleanup)
   workflows/               ← Workflows (party-mode v3.0, delegation, cc-verify, flywheel...)
     party-mode/templates/  ← Template execution-plan.yaml (schéma Phase 3)
   tools/                   ← Outils infrastructure (gsane-bootstrap.sh)
 _gsane-output/             ← Artefacts générés (delegation-audit, bond-creations, etc.)
-  sessions/                ← Sessions Party Mode v3.0 (brainstorm-brief, design-conclusion, execution-plan.yaml)
+  sessions/                ← Sessions Party Mode v3.0 — créé au premier lancement Phase 3
+                              (brainstorm-brief.md, design-conclusion.md, execution-plan.yaml)
 tests/                     ← Suite de tests (113 tests : structurel + comportemental + MCP)
-docs/architecture/decisions/  ← ADR (Architecture Decision Records)
 .github/
+  agents/                  ← Définitions agents Copilot Chat (master, dev, qa, architect, bond)
   skills/                  ← Skills GSANE pour Copilot Chat
   prompts/                 ← Prompts slash commands (/gsane-*)
   hooks/                   ← Hooks session (session-start, session-stop, flywheel-trigger)
