@@ -74,6 +74,25 @@ if errors > 0: sys.exit(1)
             fi
         fi
 
+        echo "🔍 Validation schéma execution-plan.yaml (sessions)..."
+        PLAN_COUNT=0
+        for f in $(find _gsane-output/sessions -name "execution-plan.yaml" 2>/dev/null); do
+            PLAN_COUNT=$((PLAN_COUNT + 1))
+            python -c "
+import sys
+sys.path.insert(0, 'tests')
+import qa_linter
+exit(qa_linter.validate_execution_plan_schema('$f'))
+"
+            if [ $? -ne 0 ]; then
+                echo "❌ Schéma invalide : $f"
+                exit 1
+            fi
+        done
+        if [ $PLAN_COUNT -eq 0 ]; then
+            echo "   (aucun execution-plan.yaml trouvé — skip)"
+        fi
+
         echo "✅ Quality Gate Passed : Tous les tests sont validés !"
         exit 0
         ;;

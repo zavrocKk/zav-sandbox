@@ -110,6 +110,56 @@ def check_hooks():
 # 1c — Manifests YAML check
 # ──────────────────────────────────────────────────────────────
 
+# ──────────────────────────────────────────────────────────────
+# 1d — execution-plan.yaml schema validator
+# ──────────────────────────────────────────────────────────────
+
+EXECUTION_PLAN_REQUIRED_TOP = ["plan_id", "session_date", "objective", "scope", "tasks"]
+EXECUTION_PLAN_REQUIRED_TASK = [
+    "id", "description", "owner", "depends_on",
+    "parallel_group", "validation_agent",
+    "done_definition", "risk_level", "acceptance_criteria",
+]
+VALID_RISK_LEVELS = {"LOW", "MEDIUM", "HIGH"}
+
+
+def validate_execution_plan_schema(path):
+    """Valide un fichier execution-plan.yaml contre le schéma GSANE Phase 3."""
+    errors = 0
+    with open(path, "r", encoding="utf-8") as f:
+        try:
+            data = yaml.safe_load(f)
+        except yaml.YAMLError as exc:
+            print(f"[FAIL] {path}: YAML parse error — {exc}")
+            return 1
+    if not isinstance(data, dict):
+        print(f"[FAIL] {path}: contenu YAML invalide (doit être un mapping)")
+        return 1
+    for field in EXECUTION_PLAN_REQUIRED_TOP:
+        if field not in data:
+            print(f"[FAIL] {path}: champ requis manquant '{field}'")
+            errors += 1
+    tasks = data.get("tasks", [])
+    if not isinstance(tasks, list) or len(tasks) == 0:
+        print(f"[FAIL] {path}: 'tasks' doit être une liste non vide")
+        errors += 1
+    if isinstance(tasks, list) and len(tasks) > 7:
+        print(f"[FAIL] {path}: {len(tasks)} tâches — maximum autorisé est 7")
+        errors += 1
+    for i, task in enumerate(tasks if isinstance(tasks, list) else []):
+        for field in EXECUTION_PLAN_REQUIRED_TASK:
+            if field not in task:
+                print(f"[FAIL] {path}: task[{i}] champ manquant '{field}'")
+                errors += 1
+        risk = task.get("risk_level", "")
+        if risk not in VALID_RISK_LEVELS:
+            print(f"[FAIL] {path}: task[{i}].risk_level='{risk}' invalide (LOW|MEDIUM|HIGH attendu)")
+            errors += 1
+    if errors == 0:
+        print(f"[OK]   {path}: schéma execution-plan valide")
+    return errors
+
+
 def check_all_manifests():
     """Charge tous les _gsane/_config/*.yaml et vérifie qu'ils parsent sans erreur."""
     errors = 0
@@ -153,6 +203,12 @@ if __name__ == '__main__':
 
     total_errors += check_hooks()
     total_errors += check_all_manifests()
+
+    # ── Validation schéma execution-plan.yaml ────────────────────
+    import glob as _glob
+    execution_plans = _glob.glob("_gsane-output/sessions/**/execution-plan.yaml", recursive=True)
+    for ep_path in execution_plans:
+        total_errors += validate_execution_plan_schema(ep_path)
     # ────────────────────────────────────────────────────────────
 
     if total_errors > 0:

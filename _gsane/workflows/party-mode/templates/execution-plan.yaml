@@ -1,0 +1,56 @@
+# execution-plan.yaml — Template GSANE Party Mode Phase 3
+#
+# Ce fichier est le template de plan d'exécution produit par la Phase 3 — Planning.
+# Le Master parse ce fichier pour générer les Delivery Contracts et dispatcher les agents.
+#
+# Chemin de sortie à l'exécution : _gsane-output/sessions/{date-id}/execution-plan.yaml
+# Schéma validé par : tests/qa-linter.py (validate_execution_plan_schema)
+#
+# RÈGLES DE QUALITÉ :
+#   - maximum 7 tâches par plan
+#   - une tâche = un owner principal
+#   - une tâche = un livrable vérifiable
+#   - pas de dépendance circulaire
+#   - parallel_group identique = exécution parallèle possible
+#   - risk_level=HIGH → arrêt avant exécution automatique, validation humaine requise
+
+# ─── NIVEAU PLAN ─────────────────────────────────────────────────────────────
+
+plan_id: ""                        # ex: "2026-04-04-14-30-pm-v3-design"
+session_date: ""                   # ex: "2026-04-04"
+source_brief: ""                   # chemin relatif vers brainstorm-brief.md
+source_conclusion: ""              # chemin relatif vers design-conclusion.md
+objective: ""                      # objectif principal en 1 phrase
+scope: ""                          # périmètre des fichiers et systèmes impactés
+
+decisions:
+  - id: "D1"
+    decision: ""                   # décision retenue en 1 phrase
+    rationale: ""                  # justification courte
+    source_agent: ""               # agent qui a proposé cette décision
+
+# ─── NIVEAU TÂCHES ───────────────────────────────────────────────────────────
+# Champs obligatoires par tâche (validés par qa-linter.py)
+
+tasks:
+  - id: "T1"
+    description: ""                # description du livrable atomique
+    owner: ""                      # agent principal responsable (ex: "Amelia (Dev)")
+    depends_on: []                 # ids des tâches à terminer avant celle-ci ([] si indépendante)
+    parallel_group: "A"            # tâches du même groupe = dispatch simultané possible
+    validation_agent: ""           # agent qui valide la tâche (ex: "Quinn (QA)")
+    done_definition: ""            # critère observable de completion
+    risk_level: "LOW"              # LOW | MEDIUM | HIGH
+    acceptance_criteria:
+      - ""                         # critère 1 — mesurable et vérifiable
+
+  - id: "T2"
+    description: ""
+    owner: ""
+    depends_on: ["T1"]
+    parallel_group: "B"
+    validation_agent: ""
+    done_definition: ""
+    risk_level: "LOW"
+    acceptance_criteria:
+      - ""

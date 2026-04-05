@@ -128,6 +128,44 @@ class TestHuddle:
             content = f.read()
         assert "devil" in content.lower() or "Devil" in content
 
+    def test_party_mode_has_phase3_planning_section(self):
+        with open("_gsane/workflows/party-mode/workflow.md", encoding="utf-8") as f:
+            content = f.read()
+        assert "PHASE 3" in content and "Planning" in content, \
+            "party-mode/workflow.md doit contenir 'PHASE 3 — Planning'"
+
+    def test_execution_plan_template_exists(self):
+        assert os.path.exists("_gsane/workflows/party-mode/templates/execution-plan.yaml"), \
+            "Le template execution-plan.yaml doit exister"
+
+    def test_execution_plan_template_has_required_fields(self):
+        with open("_gsane/workflows/party-mode/templates/execution-plan.yaml", encoding="utf-8") as f:
+            content = f.read()
+        required = ["plan_id", "session_date", "objective", "scope", "tasks",
+                    "owner", "depends_on", "parallel_group", "validation_agent",
+                    "done_definition", "risk_level", "acceptance_criteria"]
+        for field in required:
+            assert field in content, \
+                f"execution-plan.yaml template doit contenir le champ '{field}'"
+
+    def test_delivery_contract_tpl_has_frontmatter_yaml(self):
+        with open("_gsane/workflows/delivery-contract.tpl.md", encoding="utf-8") as f:
+            content = f.read()
+        assert content.startswith("---"), \
+            "delivery-contract.tpl.md doit commencer par un frontmatter YAML '---'"
+        assert "task_id" in content and "risk_level" in content, \
+            "delivery-contract.tpl.md doit contenir task_id et risk_level dans le frontmatter"
+
+    def test_master_post_brainstorm_action_present(self):
+        content = read_agent("master")
+        assert "POST-PARTY-MODE ACTION" in content, \
+            "master.md doit contenir le bloc POST-PARTY-MODE ACTION dans PAE-BRAINSTORM"
+
+    def test_master_brainstorm_cmd_has_planning_gateway(self):
+        content = read_agent("master")
+        assert "PHASE 3 GATEWAY" in content, \
+            "master.md BRAINSTORM-CMD doit contenir la Phase 3 Gateway"
+
 
 # ============================================================
 # 4. CROSS-VALIDATION
