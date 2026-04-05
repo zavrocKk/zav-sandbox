@@ -18,12 +18,18 @@ Le projet repose sur une architecture plate (**Flat Design**) pilotée par 5 age
 graph TD
     User((Hôte Humain)) -->|Demande| Master
     Master[🧙 Langis — Master\nOrchestration + DC] -->|Delivery Contract| Dev
+    Master -->|Sujet complexe / stratégique| PM
+
+    subgraph PM[🎉 Party Mode v3.0 — Strike Team complète]
+        direction LR
+        H[Huddle] --> BR[Brainstorm] --> PL[Planning\nexecution-plan.yaml]
+    end
+
+    PM -->|execution-plan.yaml| Master
     Dev[💻 Amelia — Dev\nTDD + Implémentation] -->|Code + Tests| QA
     QA[🧪 Quinn — QA\nQuality Gate] -->|bash gsane.sh validate| Gate{Exit 0?}
     Gate -- ❌ Échec --> Dev
     Gate -- ✅ Succès --> Arch[📝 ADR + CHANGELOG]
-    Master -.->|Party Mode| Bond[🤖 Bond — Agent Builder]
-    Master -.->|Design| Winston[🏗️ Winston — Architect]
 ```
 
 | Agent | Persona | Spécialité |
