@@ -47,6 +47,8 @@ RETENIR : agents avec total >= 3, max 3 participants
 
 ### 1.3 Exécution du Huddle
 
+> **Règle des Voters Actifs** : L'agent orchestrateur (celui qui a initié le Party Mode) NE VOTE PAS dans les sessions qu'il orchestre lui-même. Les voters actifs sont les agents NON orchestrateurs présents en session (maximum 4 : Winston, Amelia, Quinn, Bond). L'orchestrateur conserve son rôle de trancheur en cas de CONFLIT (voir 1.5).
+
 ```
 1. Générer un HUDDLE BRIEF :
    topic:     {sujet du désaccord ou de la décision}
@@ -67,23 +69,37 @@ RETENIR : agents avec total >= 3, max 3 participants
 ### 1.4 Protocole de consensus
 
 ```
-APPROVE >= 2  +  BLOCK = 0               -> consensus positif     -> procéder
-APPROVE >= 2  +  BLOCK = 1               -> consensus conditionnel -> appliquer suggestion du BLOCK
-BLOCK >= 2                               -> consensus négatif      -> STOP + présenter objections à l'utilisateur
-APPROVE = 1,  BLOCK = 1,  ABSTAIN >= 1  -> CONFLIT                -> escalade Master (Step 1.5)
-Tous ABSTAIN                             -> escalade Master avec note "Huddle non concluant"
+voters_actifs = agents présents en session MOINS l'orchestrateur
+majorité = ceil(len(voters_actifs) / 2)
+  ex: 4 voters → majorité = 2
+  ex: 3 voters → majorité = 2
+  ex: 2 voters → majorité = 1
+
+APPROVE >= majorité  +  BLOCK = 0               -> consensus positif     -> procéder
+APPROVE >= majorité  +  BLOCK = 1               -> consensus conditionnel -> appliquer suggestion du BLOCK
+BLOCK >= 2                                       -> consensus négatif      -> STOP + présenter objections à l'utilisateur
+APPROVE = 1,  BLOCK = 1,  ABSTAIN >= 1          -> CONFLIT                -> escalade orchestrateur (Step 1.5)
+Tous ABSTAIN                                     -> escalade orchestrateur avec note "Huddle non concluant"
+
+CAS SPÉCIAL — 1 seul voter actif :
+  Le voter unique ne peut pas former de majorité à lui seul.
+  -> escalation automatique vers l'orchestrateur qui statue directement
+  -> l'orchestrateur documente sa décision dans le party-mode-audit.md
 ```
 
 ---
 
-### 1.5 Escalade Master (sur CONFLIT ou ABSTAIN total)
+### 1.5 Escalade Orchestrateur (sur CONFLIT, ABSTAIN total ou voter unique)
 
 ```
 1. Assembler le HUDDLE BRIEF + tous les votes détaillés
-2. Appeler runSubagent(master, {huddle_brief + votes})
-3. Master statue :
+2. L'orchestrateur (celui qui a lancé le Party Mode) statue directement :
    - RESOLVE {décision} : la décision est forcée avec justification
    - ESCALATE_USER      : le conflit dépasse l'autorité interne -> présenter à l'utilisateur
+
+NOTE ANTI-DEADLOCK : L'orchestrateur TRANCHE — il ne s'escalade jamais à lui-même.
+Si l'orchestrateur estime ne pas avoir assez de contexte, il ESCALATE_USER.
+Le pattern "Langis escalade vers Langis" est structurellement impossible.
 ```
 
 ---

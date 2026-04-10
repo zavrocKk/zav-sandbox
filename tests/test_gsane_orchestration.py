@@ -6,7 +6,11 @@ import os
 import re
 import yaml
 import glob
+from pathlib import Path
 import pytest
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 # ============================================================
@@ -380,7 +384,7 @@ class TestBehavioral:
             pytest.skip("Git Bash non disponible sur ce système")
         result = subprocess.run(
             [bash, "-c", "bash gsane.sh validate"],
-            cwd="c:\\Users\\Zav\\Documents\\Github\\zav-sandbox",
+            cwd=REPO_ROOT,
             capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60
         )
         assert result.returncode == 0, f"gsane.sh validate FAIL:\n{result.stdout}\n{result.stderr}"
@@ -392,7 +396,7 @@ class TestBehavioral:
             pytest.skip("Git Bash non disponible")
         result = subprocess.run(
             [bash, "-c", "bash gsane.sh trace --tail 5"],
-            cwd="c:\\Users\\Zav\\Documents\\Github\\zav-sandbox",
+            cwd=REPO_ROOT,
             capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30
         )
         assert result.returncode == 0, f"trace --tail FAIL:\n{result.stdout}\n{result.stderr}"
@@ -404,7 +408,7 @@ class TestBehavioral:
             pytest.skip("Git Bash non disponible")
         result = subprocess.run(
             [bash, "-c", "bash gsane.sh trace --summary"],
-            cwd="c:\\Users\\Zav\\Documents\\Github\\zav-sandbox",
+            cwd=REPO_ROOT,
             capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30
         )
         assert result.returncode == 0, f"trace --summary FAIL:\n{result.stdout}\n{result.stderr}"

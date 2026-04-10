@@ -1,1 +1,34 @@
-[]
+# files-manifest.yaml — Inventaire des fichiers critiques du projet
+# Mis à jour manuellement ou via index-cleanup task
+
+- path: _gsane/config.yaml
+  role: configuration
+  owner: master
+
+- path: _gsane/standard-agent-behavior.md
+  role: governance
+  owner: bond
+
+- path: _gsane/_config/agent-manifest.yaml
+  role: registry
+  owner: bond
+
+- path: _gsane/_config/workflow-manifest.yaml
+  role: registry
+  owner: master
+
+- path: _gsane/_config/delegation-matrix.yaml
+  role: routing
+  owner: master
+
+- path: _gsane/_memory/failure-museum.md
+  role: memory
+  owner: all
+
+- path: _gsane/_memory/decision-log.md
+  role: memory
+  owner: architect
+
+- path: _gsane/_memory/trace.log
+  role: audit
+  owner: master

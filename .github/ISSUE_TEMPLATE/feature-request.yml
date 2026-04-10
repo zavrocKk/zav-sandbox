@@ -1,0 +1,44 @@
+name:  Feature Request
+description: Proposer une nouvelle fonctionnalit ou amioration au framework GSANE.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de contribuer  l'amioration de GSANE !
+  - type: textarea
+    id: description
+    attributes:
+      label: Description de la fonctionnalit
+      description: Dcrivez clairement ce que vous voulez ajouter ou amiorer.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Pourquoi cette fonctionnalit est-elle nessaire ? Quel problme rsout-elle ?
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - "Agent (master/dev/qa/architect/bond)"
+        - "Workflow"
+        - "MCP Server"
+        - "CLI / Tools"
+        - "Documentation"
+        - "CI / Infrastructure"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Critres d'acceptation
+      description: Comment saura-t-on que c'est termin ?
+      placeholder: |
+        - [ ] AC1: ...
+        - [ ] AC2: ...

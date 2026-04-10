@@ -13,10 +13,7 @@ The Cognitive Flywheel is gsane's self-improvement engine. Every session generat
 ```mermaid
 flowchart TD
     A([Session ends]) --> B[post-session-analysis runs]
-    B --> LEO[⚙️ Léo — token waste signals]
-    B --> ARIA[🔍 Aria — compliance check]
-    LEO --> LOG[(session-analysis-log.md)]
-    ARIA --> LOG
+  B --> LOG[session-analysis-log.md updated]
     LOG --> CNT{session_count % N == 0?}
     CNT -->|NO| SKIP[Skip flywheel\nnote next trigger]
     SKIP --> END([Done])
@@ -38,7 +35,7 @@ flowchart TD
 
 ## Configuration
 
-In `_gsane/core/config.yaml`:
+In `_gsane/config.yaml`:
 ```yaml
 flywheel:
   enabled: true
@@ -54,7 +51,7 @@ flywheel:
 | 2 | WATCH | Flag for next cycle |
 | ≥3 | CONFIRMED | Auto-apply correction |
 
-## Severity Gates (Murat's Rules)
+## Severity Gates
 
 - **Gate 1**: Max 5 corrections per cycle
 - **Gate 2**: If same file gets 2 medium corrections → elevate both to high (notify user)
@@ -64,7 +61,7 @@ flywheel:
 
 | File | Purpose |
 |---|---|
-| `_gsane/_memory/session-analysis-log.md` | Persistent log of all session findings |
+| `_gsane/_memory/sessions/session-analysis-log.md` | Persistent log of all session findings |
 | `_gsane/_memory/flywheel-report.md` | Latest flywheel cycle report |
 | `_gsane/_memory/flywheel-history.md` | All past cycles with corrections applied |
 
@@ -72,13 +69,13 @@ flywheel:
 
 | File | Purpose |
 |---|---|
-| `_gsane/core/workflows/post-session-analysis/workflow.md` | Session hook — runs after every session |
-| `_gsane/core/workflows/flywheel/workflow-aggregate.md` | Aggregation — extracts patterns, calculates score |
-| `_gsane/core/workflows/flywheel/workflow-apply.md` | Application — applies corrections, creates branch + PR |
+| `_gsane/workflows/post-session-analysis/workflow.md` | Session hook — runs after every session |
+| `_gsane/workflows/flywheel/workflow-aggregate.md` | Aggregation — extracts patterns, calculates score |
+| `_gsane/workflows/flywheel/workflow-apply.md` | Application — applies corrections, creates branch + PR |
 
 ## Universal Activation
 
-Every agent has `exec="{project-root}/_gsane/core/workflows/post-session-analysis/workflow.md"` wired
+Every agent has `exec="{project-root}/_gsane/workflows/post-session-analysis/workflow.md"` wired
 to its `[DA]` dismiss item. The global fallback in `.github/copilot-instructions.md` covers sessions
 where `[DA]` is never explicitly issued.
 

@@ -1,62 +1,60 @@
 # GSANE MCP Server
 
-Serveur MCP local exposant 5 outils pour l'intégration Copilot Chat ↔ GSANE.
+Serveur MCP local exposant les vues canoniques de lecture du runtime GSANE, plus quelques outils historiques conserves pour compatibilite et continuite technique.
 
-**Point d'entrée unique** : `compression_tool.py`  
-**Configuré dans** : `github-copilot.mcp.json`
-
----
-
-## Outils Exposés
-
-### 1. `gsane_fetch_compressed_memory(query: str) → str`
-Recherche dans tous les fichiers `.md` de `_gsane/_memory/` les passages correspondant à `query`.
-Retourne un résumé compressé (max 5 extraits de 300 chars) pour éviter le prompt bloat.
-
-**Usage typique** : Le Master lit la mémoire projet au démarrage de session.
+**Point d'entree unique** : `compression_tool.py`  
+**Configure dans** : `github-copilot.mcp.json`
 
 ---
 
-### 2. `gsane_write_session_checkpoint(plan_active, next_step, decisions, open_items, risks, exchange_count) → str`
-Sérialise l'état de session dans `_gsane/_memory/sessions/session-state.md`.
-Préserve les champs existants (`last_agent_active`, `first_run`) et met à jour le bloc `checkpoint_compressed`.
+## Modele canonique
 
-**Usage typique** : Le Master écrit un checkpoint toutes les N exchanges pour garantir la continuité.
-
----
-
-### 3. `gsane_read_checkpoint() → str`
-Lit le bloc `checkpoint_compressed` de `session-state.md` pour reprendre une session warm.
-Retourne `"No checkpoint found — cold session."` si aucun fichier n'existe.
-
-**Usage typique** : Détection WARM/COLD session au démarrage du Master.
+- `_gsane/_memory/project-context.md` est le brief canonique humain, court et durable.
+- `_gsane-output/current-delivery-contract.md` porte le travail actif mutable.
+- Les vues MCP canoniques exposent des lectures structurees derivees du repo.
+- `session-state.md` et `session-analysis-log.md` restent des fichiers d'audit/continuite, pas des sources de verite du present.
 
 ---
 
-### 4. `gsane_route(query: str) → str`
+## Outils exposes
+
+### 1. `gsane_read_canonical_brief() -> str`
+Retourne une vue YAML structuree du brief canonique humain.
+
+**Usage typique** : Charger le cap durable du projet sans relire d'anciens resumes de session.
+
+### 2. `gsane_read_active_delivery_contract() -> str`
+Retourne une vue YAML structuree du Delivery Contract actif, avec ses metadonnees et son contenu.
+
+**Usage typique** : Comprendre la tache courante et ses criteres d'acceptation.
+
+### 3. `gsane_read_project_snapshot() -> str`
+Retourne un snapshot YAML derive du repo : agents actifs, compte des workflows, contrat actif et statut des fichiers d'audit/continuite.
+
+**Usage typique** : Obtenir l'etat courant sans inventer une nouvelle source de verite humaine.
+
+### 4. `gsane_fetch_compressed_memory(query: str) -> str`
+Recherche dans les fichiers `.md` de `_gsane/_memory/` les passages correspondant a `query`.
+Retourne un resume compresse (max 5 extraits de 300 chars) pour eviter le prompt bloat.
+
+### 5. `gsane_write_session_checkpoint(plan_active, next_step, decisions, open_items, risks, exchange_count) -> str`
+Sérialise un checkpoint dans `_gsane/_memory/sessions/session-state.md`.
+
+**Statut** : historique / audit / continuite technique. Ne pas utiliser comme source de verite du present.
+
+### 6. `gsane_read_checkpoint() -> str`
+Lit le bloc `checkpoint_compressed` de `session-state.md`.
+
+**Statut** : historique / audit / continuite technique.
+
+### 7. `gsane_route(query: str) -> str`
 Routage déterministe vers l'agent GSANE cible via `_gsane/_config/delegation-matrix.yaml`.
-Utilise un scoring par mots-clés sur la liste `trigger` de chaque règle.
+Si la requête matche le bloc déclaratif `security_gate`, le MCP remonte vers le Master avec `owner=Winston`, `validation=Quinn` et `Bond` uniquement si la surface est GSANE/policy/guardrail/runtime critique.
 
-**Schéma delegation-matrix.yaml requis** :
-```yaml
-rules:
-  - trigger: [liste, de, mots-clés]
-    agent: "Nom Agent (Persona)"
-    description: "..."
-```
-
-**Usage typique** : Routage initial d'une requête ambiguë avant activation d'un agent.
-
----
-
-### 5. `gsane_memory_fetch(agent_name: str, topic: str = "") → str`
+### 8. `gsane_memory_fetch(agent_name: str, topic: str = "") -> str`
 Extrait les `learned-lessons.md` du sidecar d'un agent sans charger tout le fichier.
-- Sans `topic` : retourne les 15 premières lignes
-- Avec `topic` : recherche textuelle, retourne max 5 extraits avec contexte
 
 **Agents valides** : `master`, `dev`, `qa`, `architect`, `bond`
-
-**Usage typique** : Chargement JIT des leçons apprises d'un agent avant exécution.
 
 ---
 
@@ -76,16 +74,16 @@ Chaque invocation outil est automatiquement journalisée dans `_gsane/_memory/tr
 
 ---
 
-## Chemins — Robustesse
+## Chemins et confinement
 
-Tous les accès fichiers utilisent des chemins dérivés de `__file__` :
-```python
-_GSANE_DIR = Path(__file__).parent.parent   # → _gsane/
-MEMORY_DIR = _GSANE_DIR / "_memory"        # → _gsane/_memory/
-CONFIG_DIR = _GSANE_DIR / "_config"        # → _gsane/_config/
-```
+Tous les accès fichiers utilisent des chemins dérivés de `__file__` et sont indépendants du répertoire de travail du client MCP.
 
-Indépendants du répertoire de travail du client MCP.
+Les accès exposés par le MCP sont confinés aux racines autorisées déclarées dans `delegation-matrix.yaml` :
+- `_gsane/_memory/`
+- `_gsane/_config/`
+- `_gsane-output/`
+
+`gsane_memory_fetch` refuse aussi tout nom d'agent hors allowlist (`master`, `dev`, `qa`, `architect`, `bond`).
 
 ---
 
@@ -100,6 +98,6 @@ pip install -r _gsane/mcp-server/requirements.txt
 
 ```bash
 bash gsane.sh mcp --health      # Vérifie dépendances + imports + schéma
-bash gsane.sh mcp --smoke-test  # Smoke test des 5 outils
-python -m pytest tests/test_mcp.py -v  # Suite de tests complète
+bash gsane.sh mcp --smoke-test  # Smoke test des vues canoniques + outils historiques
+python -m pytest tests/test_mcp.py -v
 ```

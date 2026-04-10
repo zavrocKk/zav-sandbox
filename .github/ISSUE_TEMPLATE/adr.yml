@@ -1,0 +1,48 @@
+name:  Architecture Decision Record (ADR)
+description: Proposer ou documenter une dcision architecturale.
+title: "[ADR]: "
+labels: ["architecture", "decision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ce template suit le format ADR standard du projet GSANE.
+  - type: input
+    id: adr-title
+    attributes:
+      label: Titre de la dcision
+      placeholder: "ex: Adoption du format JSONL pour trace.log"
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Statut
+      options:
+        - "Propos"
+        - "Accept"
+        - "Dprcie"
+        - "Remplac"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte
+      description: Quel est le problme ou la situation qui motive cette dcision ?
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Dcision
+      description: Quelle dcision a t prise et pourquoi ?
+    validations:
+      required: true
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consquences
+      description: Quels sont les impacts positifs et ngatifs de cette dcision ?
+    validations:
+      required: true

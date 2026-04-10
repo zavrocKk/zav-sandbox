@@ -21,10 +21,10 @@
   workflow-file: _gsane/workflows/party-mode/workflow.md
   command: gsane-party-mode
   required: false
-  agent-name: party-mode facilitator
+  agent-name: master
   agent-command: ''
-  agent-display-name: ''
-  agent-title: ''
+  agent-display-name: Gsane Master
+  agent-title: 🧙 Gsane Master Executor
   options: ''
   description: Orchestrate multi-agent discussions. Use when you need multiple agent
     perspectives or want agents to collaborate.

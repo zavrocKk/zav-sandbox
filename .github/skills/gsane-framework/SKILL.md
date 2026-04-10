@@ -6,7 +6,7 @@ applyTo: "**"
 
 # GSANE Framework Knowledge
 
-GSANE (Governance System for AI-Native Execution) is a multi-agent system running on GitHub Copilot Chat. Agents are organized in modules and orchestrated by Gsane Master.
+GSANE (Governance System for AI-Native Execution) is a flat-design multi-agent system running on GitHub Copilot Chat. The active runtime is the 5-agent Strike Team orchestrated by Gsane Master.
 
 ## Setup Requirements (one-time per machine)
 
@@ -21,9 +21,12 @@ Every PR MUST have a filled description body. Open the GitHub compare URL, fill 
 - `git-workflow/workflow.md` Step 5 (compare URL + body template)
 - `copilot-instructions.md` PR DESCRIPTION convention
 
-## Module Structure
+## Active Runtime Structure
 
-- `core/` — Gsane Master orchestrator + shared tasks + core workflows
+- `_gsane/agents/` — the 5 active agents: master, bond, architect, dev, qa
+- `_gsane/workflows/` — active workflows executed directly from markdown files
+- `_gsane/_config/*.yaml` — manifests, routing rules, IDE config, and global metadata
+- `.github/prompts/` and `.github/skills/` — active user-facing guidance surfaces
 
 ## JIT Loading Protocol
 
@@ -31,14 +34,14 @@ Every PR MUST have a filled description body. Open the GitHub compare URL, fill 
 
 | Context | What to load | What NOT to load |
 |---|---|---|
-| Party mode init | CSV index (4 fields: name, icon, capabilities, path) | Full agent `.md` files |
-| Per turn | 1 CSV row for the selected agent only | All other agent profiles |
-| Workflow exec | The workflow file being executed | Future steps in advance |
-| Config | Once per session from `core/config.yaml` | Never reload if already resolved |
+| Party mode init | The manifest or routing data needed to score the 5 active agents | Full agent `.md` files for every agent |
+| Per turn | Only the selected agent file or manifest entries needed for the current turn | All other agent profiles |
+| Workflow exec | The workflow file being executed or the targeted YAML manifest | Future steps in advance |
+| Config | Once per session from `_gsane/config.yaml` | Never reload if already resolved |
 
 **Signals that JIT is being violated:**
 - `unnecessary-load` — file loaded but never referenced after load
-- `profile-overload` — full agent `.md` loaded when CSV row would suffice
+- `profile-overload` — multiple agent files loaded when one target agent or manifest entry would suffice
 - `config-reload-waste` — `config.yaml` loaded more than once per session
 - `redundant-step` — same step or file loaded again after already in context
 
@@ -54,7 +57,7 @@ When any of these signals recur ≥3 times across sessions, the Cognitive Flywhe
 ## JIT Loading Pattern
 
 Agents and workflows are loaded just-in-time — never preloaded:
-- Party mode: load lightweight CSV index at init, load one CSV row per turn, discard after turn
+- Party mode: score active agents from the current manifests, then load only the selected agent guidance needed for that turn
 - Full `.md` agent files loaded only when executing a specific workflow
 - Config resolved once — cached for entire session
 

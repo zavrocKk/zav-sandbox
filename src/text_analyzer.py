@@ -1,5 +1,6 @@
 import re
 
+
 def analyze_text(text: str) -> dict:
     if not text or not text.strip():
         raise ValueError("Text cannot be empty or None")
@@ -8,7 +9,7 @@ def analyze_text(text: str) -> dict:
     word_count = len(words)
 
     # Count sentences based on delimiters
-    sentences = [s.strip() for s in re.split(r'[.!?]+', text) if s.strip()]
+    sentences = [s.strip() for s in re.split(r"[.!?]+", text) if s.strip()]
     sentence_count = len(sentences)
 
     # Edge case: text without final punctuation
@@ -17,8 +18,4 @@ def analyze_text(text: str) -> dict:
 
     readability_ratio = word_count / sentence_count if sentence_count > 0 else 0.0
 
-    return {
-        "word_count": word_count,
-        "sentence_count": sentence_count,
-        "readability_ratio": readability_ratio
-    }
+    return {"word_count": word_count, "sentence_count": sentence_count, "readability_ratio": readability_ratio}

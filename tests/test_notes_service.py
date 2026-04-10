@@ -1,5 +1,5 @@
-"""test_notes_service.py — Suite de tests exhaustive (Quinn / QA).
-Cas couverts d'après l'analyse de Mary (Analyst).
+"""test_notes_service.py — Suite de tests du module notes.
+Cas CRUD et persistance locale couverts.
 """
 import pytest
 from src import notes_service as ns

@@ -19,7 +19,7 @@ trigger_threshold: 5
 - High severity pending: 0
 - Trend: stable ➡️ (premier cycle — pas de baseline comparative)
 
-### Confirmed Patterns — Token & Optimization (Léo)
+### Confirmed Patterns — Token & Optimization (Langis)
 - Pattern: unnecessary-load
   Occurrences: 4
   Severity: medium
@@ -27,7 +27,7 @@ trigger_threshold: 5
   Action: Ajouter section "JIT Loading Protocol" avec les 4 signaux de violation
   Status: applied ✅
 
-### Confirmed Patterns — Compliance & Quality (Aria)
+### Confirmed Patterns — Compliance & Quality (Quinn)
 - Pattern: manifest-sync
   Occurrences: 3
   Severity: medium

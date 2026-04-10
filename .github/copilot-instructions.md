@@ -13,7 +13,7 @@ Before producing any output or taking any action, the AI MUST check these 3 ques
 
 2. **Is this request covered by the Delegation Matrix?**
    - Load `_gsane/_config/delegation-matrix.yaml`
-   - Match request keywords against `trigger_keywords` column
+    - Match request keywords against the active declarative routing rules (`rules[*].trigger`) and, when relevant, the `security_gate` block
    - If match found → load target agent, route through delegation workflow
    - If no match → escalate to master, DO NOT self-execute
 
@@ -141,10 +141,11 @@ I need to commit changes following the Git Workflow
 
 - Always load `_gsane/config.yaml` before any agent activation or workflow execution
 - MD-based workflows execute directly — load and follow the `.md` file
-- YAML-based workflows require the workflow engine — load `workflow.xml` first, then pass the `.yaml` config
+- YAML files in the active runtime are manifests/config data — read them directly; do not route them through a legacy workflow engine
 - Follow step-based workflow execution: load steps JIT, never multiple at once
-- Save outputs after EACH step when using the workflow engine
+- Save outputs after EACH workflow step when the workflow explicitly requires persisted outputs
 - **AGENT ROUTING**: Always route requests through delegation workflow. Load `_gsane/workflows/delegation/workflow.md` for any agent-based capability request.
+- **SECURITY GATE LITE**: If a request matches the declarative `security_gate` topics in `_gsane/_config/delegation-matrix.yaml`, escalate to Master and preserve `owner=Winston (Architect)` plus `validation=Quinn (QA)`. Add Bond only when the request touches GSANE, policy, guardrails, or runtime-critical surfaces.
 - **SOLO TRIP WIRE**: At the exact moment a file-write operation (edit, create, replace) is about to be called on any GSANE artifact — STOP. Declare: (1) target file, (2) trivial or not per the closed list, (3) which agents validated if non-trivial. No validation on record → abort, activate party mode first. Read-only operations do not trigger this rule.
 - **GIT COMMITS**: Always use the Git Workflow (`_gsane/workflows/git-workflow/workflow.md`). No direct commits to main. Ever.
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
@@ -189,4 +190,27 @@ The cognitive flywheel (`_gsane/workflows/flywheel/`) fires every N sessions (co
 
 Type `/gsane-` in Copilot Chat to see all available GSANE workflows and agent activators. Agents are also available in the agents dropdown.
 <!-- GSANE:END -->
+
+---
+
+## Available Skills (14)
+
+The following skills provide domain-specific knowledge. Reference them when context is needed:
+
+| Skill | Domain | Path |
+|-------|--------|------|
+| `gsane-framework` | Core GSANE concepts, architecture, canonical model | `.github/skills/gsane-framework/` |
+| `delivery-contract` | Delivery Contract lifecycle (create, validate, archive) | `.github/skills/delivery-contract/` |
+| `git-workflow` | Branch strategy, Conventional Commits, PR rules | `.github/skills/git-workflow/` |
+| `cognitive-flywheel` | Auto-improvement cycle (aggregate, apply, score) | `.github/skills/cognitive-flywheel/` |
+| `mcp-development` | Creating and maintaining MCP tools (FastMCP) | `.github/skills/mcp-development/` |
+| `mcp-integration` | Using MCP tools from agents (11 tools reference) | `.github/skills/mcp-integration/` |
+| `debugging-gsane` | Diagnosing agent routing, MCP failures, trace analysis | `.github/skills/debugging-gsane/` |
+| `prompt-engineering` | Designing effective prompts for GSANE agents | `.github/skills/prompt-engineering/` |
+| `agent-design-patterns` | Agent architecture, persona, tension modeling | `.github/skills/agent-design-patterns/` |
+| `agent-customization` | Customizing agent behavior and activation chains | `.github/skills/agent-customization/` |
+| `qa-linter` | Quality linter rules, legacy pattern detection | `.github/skills/qa-linter/` |
+| `session-management` | Session lifecycle, checkpoints, continuity | `.github/skills/session-management/` |
+| `task-decomposition` | Breaking complex requests into delegatable tasks | `.github/skills/task-decomposition/` |
+| `zero-touch-fix-loop` | Automatic QA↔Dev correction cycle | `.github/skills/zero-touch-fix-loop/` |
 

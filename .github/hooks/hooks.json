@@ -38,7 +38,7 @@
     },
     {
       "event": "PostToolUse",
-      "description": "Log tool results and update session state. If file write: check Gate 3 (Aria) basic validation before confirm."
+      "description": "Log tool results and update session state. If file write: check Gate 3 basic validation before confirm."
     },
     {
       "event": "NotifyUser",
@@ -54,7 +54,7 @@
     "flywheelApply": "_gsane/workflows/flywheel/workflow-apply.md",
     "scoreboard": "_gsane/_memory/scoreboard.md",
     "deprecatedPaths": [
-      "_gsane/",
+      "_gsane/core/",
       "_tmad/"
     ]
   }

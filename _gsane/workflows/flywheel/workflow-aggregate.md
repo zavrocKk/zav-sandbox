@@ -38,9 +38,9 @@ Extract all session entries using format-resilient parsing:
 - `corrections_applied` → list
 - `open_items` → list
 
-**Ancien format (champs legacy — compatibilité only):**
-- `compliance_status` (from Quinn/Aria sections) → map to `compliance`
-- `waste_signals` / `optimization_opportunities` (from Optimizer agent sections) → map to `corrections_applied`
+**Ancien format (champs historiques — compatibilité lecture seule):**
+- `compliance_status` (from older compliance sections) → map to `compliance`
+- `waste_signals` / `optimization_opportunities` (from older optimization sections) → map to `corrections_applied`
 - `rule_violations` → map to `open_items`
 
 **Format-resilient algorithm:**

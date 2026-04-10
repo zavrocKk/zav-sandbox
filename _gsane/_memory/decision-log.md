@@ -91,4 +91,12 @@
 - **Alternatives écartées**: Maintenir une équipe complète virtuellement complète — rejeté, génère trop de bruit et ralentit l'enchaînement.
 - **Impact**: Suppression massive de fichiers dans .github/agents/, agent-manifest.yaml, mise à jour des permissions tools.
 
+## DL-009 — Sécurité explicite sans 6e agent immédiat
+
+- **Date**: 2026-04-09
+- **Décision**: Ne pas créer immédiatement un agent sécurité dédié. Formaliser d'abord une responsabilité sécurité explicite légère (owner + revue + gate), puis réévaluer un 6e agent après les vagues de fondation.
+- **Contexte**: Un brainstorm multi-agents a recoupé l'audit externe avec l'état réel du repo. Le consensus initial contre un 6e agent a été challengé par un Devil's Advocate, qui a confirmé qu'un vrai risque subsiste sans owner sécurité explicite. Les défauts dominants restent toutefois des défauts de socle: packaging, paths, logging, validation et quality gates.
+- **Alternatives écartées**: Créer immédiatement un agent sécurité permanent — rejeté car coût de gouvernance trop élevé à ce stade. Laisser la sécurité totalement diffuse — rejeté car angle mort de responsabilité.
+- **Impact**: La prochaine trajectoire recommandée devient: (1) fondations techniques, (2) garde-fous sécurité/QA plus sévères, (3) owner sécurité explicite avec droit de revue/veto, puis éventuelle création d'agent si la charge devient récurrente.
+
 

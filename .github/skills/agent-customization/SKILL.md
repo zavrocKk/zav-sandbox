@@ -81,15 +81,15 @@ persona:
 
 Both types are loaded at activation. Sidecar data takes precedence over customize memories when there is a conflict (most recent = most relevant).
 
-## Quick Start — Add Project Context to All Key Agents
+## Quick Start — Add Project Context to Active Agents
 
 Edit these three files to give all agents instant project knowledge:
 
 ```yaml
-# morgan.customize.yaml
+# master.customize.yaml
 memories:
-  - "Stack du projet : {technologies}"
-  - "Pattern architectural imposé : {pattern}"
+  - "Architecture active : flat-design avec 5 agents core."
+  - "Les changements GSANE passent par delegation + Delivery Contract quand il y a implementation."
 
 # dev.customize.yaml  
 memories:
@@ -97,8 +97,8 @@ memories:
   - "Convention de code : {conventions}"
   - "Tests : tous les tests sont dans /tests, runner = {test-runner}"
 
-# pm.customize.yaml
+# qa.customize.yaml
 memories:
-  - "Projet : {nom} — {description courte}"
-  - "Priorité actuelle : {sprint ou phase}"
+  - "Qualite attendue : aucune regression legacy sur les surfaces actives."
+  - "Executer la quality gate apres chaque correction significative."
 ```

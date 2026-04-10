@@ -1,11 +1,12 @@
 """notes_service.py — Micro-service CRUD de gestion de notes avec stockage JSON local.
 
-Architecture (Winston): module unique, stockage _notes.json, ID court UUID-8, timestamps ISO.
-Périmètre MVP (John): create / read-one / list-all / update / delete. Hors scope: auth, tags, search.
+Architecture: module unique, stockage notes.json, ID court UUID-8, timestamps ISO.
+Périmètre MVP: create / read-one / list-all / update / delete. Hors scope: auth, tags, search.
 """
+
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 STORAGE_FILE = Path("notes.json")
@@ -13,11 +14,13 @@ STORAGE_FILE = Path("notes.json")
 
 # ── I/O ───────────────────────────────────────────────────────────────────────
 
+
 def _load() -> dict:
     if not STORAGE_FILE.exists():
         return {}
     with STORAGE_FILE.open(encoding="utf-8") as f:
-        return json.load(f)
+        data: dict = json.load(f)
+        return data
 
 
 def _save(data: dict) -> None:
@@ -26,10 +29,11 @@ def _save(data: dict) -> None:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 # ── CRUD ──────────────────────────────────────────────────────────────────────
+
 
 def create_note(title: str, content: str) -> dict:
     """Crée une note et la persiste. Retourne la note créée."""
@@ -72,7 +76,8 @@ def update_note(note_id: str, title: str | None = None, content: str | None = No
         notes[note_id]["content"] = content
     notes[note_id]["updated_at"] = _now()
     _save(notes)
-    return notes[note_id]
+    result: dict = notes[note_id]
+    return result
 
 
 def delete_note(note_id: str) -> bool:

@@ -111,12 +111,12 @@
 1. Lire chaque fichier modifié par le dernier cycle
 2. Vérifier que le frontmatter YAML est intact
 3. Vérifier qu'aucune variable `{project-root}` est brisée
-4. Vérifier qu'aucun chemin déprécié (ancien module `bmb`) n'a été réintroduit
+4. Vérifier qu'aucun chemin déprécié (`_gsane/core/`, ancien module `bmb`) n'a été réintroduit
 
 **Gate Quinn (Gate 3 de workflow-apply) :**
 - [ ] YAML frontmatter intact dans tous les fichiers modifiés
 - [ ] Variables `{project-root}`, `{communication_language}` non brisées
-- [ ] Chemins `_gsane/core/` (pas ancien `bmb`) dans tous les fichiers modifiés
+- [ ] Aucun chemin `_gsane/core/` ni ancien module `bmb` réintroduit dans les fichiers modifiés
 - [ ] `get_errors` → 0 erreurs après corrections
 
 **Résultat attendu :** ✅ PASS sur tous les fichiers modifiés

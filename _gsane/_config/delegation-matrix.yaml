@@ -1,44 +1,210 @@
+security_gate:
+  enabled: true
+  escalation_agent: Langis (Master)
+  owner: Winston (Architect)
+  validation_agent: Quinn (QA)
+  bond_review:
+    agent: bond
+    required_keywords:
+      - agent
+      - gsane
+      - hook
+      - manifest
+      - policy
+      - prompt
+      - skill
+      - workflow
+      - guardrail
+      - runtime critique
+      - mcp
+      - sandbox
+      - confinement
+  topics:
+    secrets:
+      keywords:
+        - secret
+        - secrets
+        - token
+        - password
+        - credential
+        - api key
+        - private key
+    auth:
+      keywords:
+        - auth
+        - authentication
+        - authorization
+        - oauth
+        - jwt
+        - login
+        - session
+    hardening:
+      keywords:
+        - security
+        - securite
+        - hardening
+        - harden
+        - vulnerability
+        - secure
+    exec:
+      keywords:
+        - subprocess
+        - shell
+        - exec
+        - command injection
+        - os.system
+        - popen
+        - spawn
+    network:
+      keywords:
+        - network
+        - networking
+        - http
+        - https
+        - socket
+        - tls
+        - ssl
+        - webhook
+    compliance:
+      keywords:
+        - compliance
+        - conformite
+        - gdpr
+        - soc2
+        - iso 27001
+        - policy
+    execution_trust:
+      keywords:
+        - trust
+        - integrity
+        - provenance
+        - supply chain
+        - dependency confusion
+        - tamper
+    sensitive_files:
+      keywords:
+        - sensitive file
+        - file access
+        - filesystem
+        - path traversal
+        - permission
+        - permissions
+    mcp_confinement:
+      keywords:
+        - mcp
+        - sandbox
+        - confinement
+        - prompt injection
+        - traversal
+  dependency_sources:
+    python:
+      - _gsane/mcp-server/requirements.txt
+  validation:
+    secrets_scan:
+      provider: _gsane/tools/security_gate.py scan-secrets
+    sast:
+      tool: bandit
+      targets:
+        - src
+        - _gsane/mcp-server
+    dependency_audit:
+      tool: pip-audit
+  reevaluation_thresholds:
+    security_requests_30d: 8
+    bond_reviews_per_sprint: 3
+    blocking_escalation_sprints: 2
+    coordination_cost_points: 8
+  mcp:
+    allowed_roots:
+      - _gsane/_memory
+      - _gsane/_config
+      - _gsane-output
+    allowed_agents:
+      - master
+      - dev
+      - qa
+      - architect
+      - bond
+
+# Agent references use short canonical names matching agent-manifest.yaml `name` field.
+# Display names: master=Langis, dev=Amelia, qa=Quinn, architect=Winston, bond=Bond
 rules:
-- trigger:
-  - architecture
-  - design
-  - scalable
-  - cloud
-  - api
-  agent: Winston (Architect)
-  action: runSubagent
-  description: System design, cloud infrastructure, API decisions.
-- trigger:
-  - code
-  - implement
-  - story
-  - test-driven
-  - dev
-  agent: Amelia (Dev)
-  action: runSubagent
-  description: Code implementation governed by Delivery Contracts.
-- trigger:
-  - test
-  - qa
-  - validate
-  - coverage
-  - automate
-  agent: Quinn (QA)
-  action: runSubagent
-  description: Test generation and execution, pipeline validation.
-- trigger:
-  - agent
-  - persona
-  - prompt
-  - builder
-  agent: Bond (Agent Builder)
-  action: runSubagent
-  description: GSANE agent construction and compliance validation.
-- trigger:
-  - orchestrate
-  - master
-  - plan
-  - delivery contract
-  agent: Langis (Master)
-  action: runSubagent
-  description: Create Delivery Contracts, coordinate strike team, manage workflow.
+  - trigger:
+      - architecture
+      - design
+      - scalable
+      - cloud
+      - api
+      - ci
+      - pipeline
+      - github actions
+      - dependabot
+      - ci/cd
+    agent: architect
+    action: runSubagent
+    priority: 2
+    exclude_keywords:
+      - implement
+      - code
+      - test
+      - qa
+    description: System design, cloud infrastructure, API decisions.
+  - trigger:
+      - code
+      - implement
+      - story
+      - test-driven
+      - dev
+    agent: dev
+    action: runSubagent
+    priority: 3
+    exclude_keywords:
+      - architecture
+      - design
+      - scalable
+    description: Code implementation governed by Delivery Contracts.
+  - trigger:
+      - test
+      - qa
+      - validate
+      - coverage
+      - automate
+    agent: qa
+    action: runSubagent
+    priority: 4
+    exclude_keywords:
+      - architecture
+      - design
+      - implement
+      - code
+    description: Test generation and execution, pipeline validation.
+  - trigger:
+      - agent
+      - persona
+      - prompt
+      - builder
+    agent: bond
+    action: runSubagent
+    priority: 5
+    exclude_keywords:
+      - implement
+      - code
+      - test
+    description: GSANE agent construction and compliance validation.
+  - trigger:
+      - orchestrate
+      - master
+      - plan
+      - delivery contract
+    agent: master
+    action: runSubagent
+    priority: 6
+    exclude_keywords: []
+    description: Create Delivery Contracts, coordinate strike team, manage workflow.
+  - trigger:
+      - "*"
+    agent: master
+    action: runSubagent
+    priority: 99
+    exclude_keywords: []
+    description: Fallback — aucune règle ne matche clairement.

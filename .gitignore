@@ -7,6 +7,8 @@ _bmb/
 instructions.md
 
 # Large generated outputs (commit only intentionally)
+
+# Sortie GSANE
 _gsane-output/*
 !_gsane-output/bond-creations/.gitkeep
 !_gsane-output/test-artifacts/.gitkeep
@@ -24,7 +26,10 @@ __pycache__/
 Thumbs.db
 
 # Editor
-.vscode/settings.json
+
+# Ne versionner que .vscode/extensions.json
+.vscode/*
+!.vscode/extensions.json
 *.swp
 *.swo
 
@@ -33,13 +38,12 @@ _gsane/_memory/sessions/*.md
 _gsane/_memory/sessions/*.yaml
 
 # MCP Configuration
-.vscode/mcp.json
-.vscode/github-copilot.mcp.json
+
 
 github-copilot.mcp.json
 
 # GSANE — Fichiers volatiles (générés à runtime, ne pas committer)
-_gsane/_memory/trace.log
+# _gsane/_memory/trace.log is tracked with a seed entry for CI
 _gsane/_memory/sessions/session-state.md
 _gsane/_memory/.session_count
 _gsane-output/delegation-audit.md

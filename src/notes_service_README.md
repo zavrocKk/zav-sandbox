@@ -27,17 +27,17 @@ note = update_note("a1b2c3d4", title="Nouveau titre")
 deleted = delete_note("a1b2c3d4")    # True / False
 ```
 
-## CLI (proposé par Sally / UX Designer)
+## CLI proposée
 
 | Commande | Résultat attendu | Erreur lisible |
-|---|---|---|
+| --- | --- | --- |
 | `notes add "Titre" "Corps"` | `✅ Note créée [id: a1b2c3d4]` | `❌ Le titre est obligatoire.` |
 | `notes list` | Tableau formaté id / titre / date | `(vide) Aucune note trouvée.` |
 | `notes get <id>` | Fiche détaillée | `❌ Note introuvable : <id>` |
 | `notes update <id> --title "Nouveau"` | `✅ Note mise à jour` | `❌ Note introuvable : <id>` |
 | `notes delete <id>` | `✅ Note supprimée` | `❌ Note introuvable : <id>` |
 
-## Schéma JSON (Winston / Architect)
+## Schéma JSON
 
 ```json
 {
@@ -57,6 +57,6 @@ deleted = delete_note("a1b2c3d4")    # True / False
 pytest test_notes_service.py -v
 ```
 
-## Idée V2 (Carson / Brainstorming)
+## Piste V2
 
 **Semantic Snapshot** : À la fermeture de la session, générer automatiquement un résumé vectoriel léger de chaque note modifiée dans la journée (via un hash sémantique local), permettant une recherche fulltext offline sans dépendance réseau.
