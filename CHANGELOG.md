@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(ci)**: Correction syntaxe YAML dans `pr-autofill.yml` — template literal JS multi-lignes remplacé par array join (ligne 116 cassait le bloc `|`)
 - **docs(contributing)**: Section "Prérequis Windows" ajoutée — WSL recommandé, Git Bash alternatif, CI comme validation de référence
 - **fix(cli)**: `gsane.sh doctor` détecte Windows/Git Bash et affiche un warning explicite au lieu de crasher silencieusement
 - **docs(skills)**: Batch P4 — création/réécriture de 5 skills Copilot : `prompt-engineering` (structure DC, AC, requêtes complexes), `delivery-contract` (template officiel, numérotation, fix trivial), `git-workflow` (cheat-sheet branches/commits/PR), `mcp-integration` (5 outils MCP avec exemples et retry pattern), `debugging-gsane` (arbre diagnostic 5 symptômes)
