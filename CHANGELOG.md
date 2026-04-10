@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **feat(agents)**: Optimisation token du manifest — titles raccourcis (2-3 mots), identity en 1 phrase, principles en listes YAML, ajout golden_rule, suppression "ship it" de Quinn. Réduction 15% (8142→6916 octets). 18 champs uniformes par agent.
 - **feat(agents)**: Différenciation des blocs `<persona>` XML — chaque agent a désormais des balises `<identity>`, `<communication_style>`, `<principles>` uniques alignées sur ses sections narratives. Frontmatter unifié (version 2.0, persona-template-v2) sur les 5 agents.
 - **feat(ci)**: Pipeline CI consolidé en un seul job `gsane-quality-gate` — checkout, setup Python 3.11, `pip install -e ".[mcp,test]"`, ruff check, mypy, pytest (149 tests, behavioral exclus), MCP health check
 - **feat(lint)**: Configuration ruff (line-length=100, E501 ignoré, exclude _gsane-output/) et mypy (warn_unused_ignores, files mcp-server/) — 63 erreurs ruff corrigées, 10 erreurs mypy résolues
