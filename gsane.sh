@@ -147,21 +147,31 @@ case $ACTION in
 
         echo "🔍 SAST Python léger (Bandit)..."
         if ! run_python _gsane/tools/security_gate.py run-bandit; then
-            echo "❌ Bandit Failed : vulnérabilités ou configuration outillage à corriger."
-            exit 1
+            if run_python -c "import bandit" 2>/dev/null; then
+                echo "❌ Bandit Failed : vulnérabilités ou configuration outillage à corriger."
+                exit 1
+            else
+                echo "⚠️  Bandit non installé — skip local. CI Ubuntu valide cette gate."
+            fi
         fi
 
         echo "🔍 Audit dépendances Python (pip-audit)..."
         if ! run_python _gsane/tools/security_gate.py run-pip-audit; then
-            echo "❌ pip-audit Failed : dépendances vulnérables ou audit non exécutable."
-            exit 1
+            if run_python -c "import pip_audit" 2>/dev/null; then
+                echo "❌ pip-audit Failed : dépendances vulnérables ou audit non exécutable."
+                exit 1
+            else
+                echo "⚠️  pip-audit non installé — skip local. CI Ubuntu valide cette gate."
+            fi
         fi
 
         echo "🔍 Vérification documentaire..."
         STATUS_OUTPUT="$(git status --porcelain)"
-        if printf '%s\n' "$STATUS_OUTPUT" | grep -Eq '^( M| A|AM|A |M |\?\?)' && \
-            printf '%s\n' "$STATUS_OUTPUT" | grep -q "src/\|_gsane/mcp-server/\|_gsane/workflows/\|_gsane/agents/"; then
-            if ! printf '%s\n' "$STATUS_OUTPUT" | grep -q "CHANGELOG.md"; then
+        # Exclure _gsane/_memory/ (fichiers runtime) du gate CHANGELOG
+        CODE_CHANGES="$(printf '%s\n' "$STATUS_OUTPUT" | grep -v '_gsane/_memory/')"
+        if printf '%s\n' "$CODE_CHANGES" | grep -Eq '^( M| A|AM|A |M |\?\?)' && \
+            printf '%s\n' "$CODE_CHANGES" | grep -q "src/\|_gsane/mcp-server/\|_gsane/workflows/\|_gsane/agents/"; then
+            if ! printf '%s\n' "$CODE_CHANGES" | grep -q "CHANGELOG.md"; then
                 echo "❌ ERREUR: Code source modifié mais CHANGELOG.md ignoré." 
                 echo "➡️ Règle de la Strike Team : Tout nouveau code exige une ligne de changelog."
                 exit 1
