@@ -445,6 +445,7 @@ def gsane_write_session_checkpoint(
             + f"exchange_count: {exchange_count}\n"
             + f"checkpoint_exchange: {exchange_count}\n"
             + f"checkpoint_date: {datetime.now().isoformat()}\n"
+            + f"interrupted: false\n"
             + "checkpoint_compressed: |\n"
             + indented_block
             + "\n"
@@ -486,6 +487,39 @@ def gsane_read_checkpoint() -> str:
         checkpoint_content = "\n".join(line[2:] if line.startswith("  ") else line for line in block_lines).strip()
         if not checkpoint_content:
             return "No checkpoint found — cold session."
+
+        # Check for interrupted session
+        interrupted = False
+        for line in lines:
+            if line.strip() == "interrupted: true":
+                interrupted = True
+                break
+
+        if interrupted:
+            # Extract task and next_step from checkpoint
+            task = ""
+            next_step_val = ""
+            last_agent = ""
+            for bl in block_lines:
+                stripped = bl.strip()
+                if stripped.startswith("PLAN ACTIF :"):
+                    task = stripped.replace("PLAN ACTIF :", "").strip()
+                elif stripped.startswith("PROCHAINE ÉTAPE :"):
+                    next_step_val = stripped.replace("PROCHAINE ÉTAPE :", "").strip()
+
+            # Extract last_agent from session state
+            for line in lines:
+                if line.startswith("last_agent_active:"):
+                    last_agent = line.split(":", 1)[1].strip()
+                    break
+
+            return (
+                "⚠️ SESSION INTERROMPUE DÉTECTÉE\n"
+                f"Dernière tâche : {task}\n"
+                f"Dernier agent : {last_agent}\n"
+                f"Prochaine étape : {next_step_val}\n"
+                "Reprendre ? [oui/non]"
+            )
 
         return f"=== CHECKPOINT TROUVÉ ===\n{checkpoint_content}"
     except Exception as error:

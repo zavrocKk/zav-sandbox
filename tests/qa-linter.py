@@ -218,7 +218,7 @@ def check_github_copilot_alignment():
     manifest = load_yaml_file(manifest_path) or []
     ide_config = load_yaml_file(ide_path) or {}
 
-    expected_agents = [entry.get("name") for entry in manifest]
+    expected_agents = [entry.get("name") for entry in manifest if entry.get("status") != "subagent"]
     expected_paths = {entry.get("name"): entry.get("path") for entry in manifest}
 
     configuration = ide_config.get("configuration", {})
@@ -575,7 +575,7 @@ def check_agent_versioning():
     agents = load_yaml_file(manifest_path) or []
     semver_re = re.compile(r"^\d+\.\d+\.\d+$")
     date_re = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-    valid_statuses = {"active", "deprecated", "experimental"}
+    valid_statuses = {"active", "deprecated", "experimental", "subagent"}
 
     for agent in agents:
         name = agent.get("name", "<unknown>")

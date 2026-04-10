@@ -87,6 +87,7 @@ if [ -z "$ACTION" ]; then
     echo "  flywheel     : Gestion du flywheel — sous-commande : --rollback <tag>"
     echo "  mcp --health     : Vérifie les prérequis MCP (dépendances, imports, schéma)"
     echo "  mcp --smoke-test : Vérifie que tous les outils MCP fonctionnent end-to-end"
+    echo "  session --resume : Reprend une session interrompue via le dernier checkpoint"
     exit 1
 fi
 
@@ -504,6 +505,30 @@ print('[OK] MCP Smoke Test : TOUS LES CHECKS PASSÉS')
                 ;;
             *)
                 echo "Usage: bash gsane.sh mcp --health | --smoke-test"
+                exit 1
+                ;;
+        esac
+        ;;
+    session)
+        SESSIONCMD="${2:-}"
+        case $SESSIONCMD in
+            --resume)
+                echo "🔄 GSANE Session Resume"
+                echo "---"
+                run_python -c "
+import sys
+sys.path.insert(0, '_gsane/mcp-server')
+sys.path.insert(0, '_gsane/tools')
+from compression_tool import gsane_read_checkpoint
+result = gsane_read_checkpoint()
+if 'SESSION INTERROMPUE' in result:
+    print(result)
+else:
+    print('Aucune session interrompue. Prêt pour une nouvelle session.')
+"
+                ;;
+            *)
+                echo "Usage: bash gsane.sh session --resume"
                 exit 1
                 ;;
         esac

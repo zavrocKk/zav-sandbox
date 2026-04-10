@@ -6,6 +6,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **feat(session)**: P6-F — Session resumption : reprise de session interrompue via checkpoint MCP, commande `gsane.sh session --resume`, marquage automatique dans session-stop.sh
+- **feat(agents)**: P6-G — Subagents Vera (Security Reviewer 🔒) et Sage (Context Guardian 📊) : revue sécurité en lecture seule et surveillance budget tokens, status subagent dans agent-manifest.yaml
+- **feat(tests)**: P6-E — Tests de token budget : métriques de régression pour détecter l'inflation des fichiers GSANE (seuils calibrés par Winston, marker pytest `token_budget`)
 - **docs**: P6-DOC — Synchronisation documentation racine (README, CONTRIBUTING, AGENTS) avec l'état réel post-sprints P1→P6 Batch 1 : badges mis à jour (164 tests, 10 MCP), nouvelles commandes CLI documentées, Context Budget section ajoutée, version agents dans les tableaux, glossaire dédupliqué
 - **feat(tools)**: P6-B — Validation JSON des Delivery Contracts : `dc-validator.py` + `dc-schema.json` + commande `gsane.sh dc --validate <fichier.md>` avec tests
 - **feat(flywheel)**: P6-D — Mécanisme de rollback flywheel : tag git `gsane-flywheel-pre-{timestamp}` avant chaque auto-correction, revert automatique si tests échouent, commande `gsane.sh flywheel --rollback <tag>`
