@@ -20,6 +20,11 @@ __pycache__/
 *.pyd
 .venv/
 *.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # OS artifacts
 .DS_Store
