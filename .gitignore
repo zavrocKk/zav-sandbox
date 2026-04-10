@@ -43,7 +43,7 @@ _gsane/_memory/sessions/*.yaml
 github-copilot.mcp.json
 
 # GSANE — Fichiers volatiles (générés à runtime, ne pas committer)
-_gsane/_memory/trace.log
+# _gsane/_memory/trace.log is tracked with a seed entry for CI
 _gsane/_memory/sessions/session-state.md
 _gsane/_memory/.session_count
 _gsane-output/delegation-audit.md
