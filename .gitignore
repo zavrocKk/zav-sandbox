@@ -38,6 +38,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# VS Code workspace file (chemins locaux, ne pas commiter)
+*.code-workspace
+
 # GSANE Stateless sessions
 _gsane/_memory/sessions/*.md
 _gsane/_memory/sessions/*.yaml
