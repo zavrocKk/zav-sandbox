@@ -600,9 +600,8 @@ def gsane_search_memory(query: str, scope: str = "all") -> str:
     normalized_query = query.lower()
 
     for path in _iter_memory_markdown_files():
-        if scope != "all" and scope in scope_map:
-            if path.name not in scope_map[scope]:
-                continue
+        if scope != "all" and scope in scope_map and path.name not in scope_map[scope]:
+            continue
 
         content = _read_text_or_none(path)
         if content is None or normalized_query not in content.lower():

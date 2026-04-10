@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(style)**: Merge nested `if` statements dans `gsane_search_memory` — ruff SIM102 (compression_tool.py)
 - **chore(git)**: Ignore `*.code-workspace` et retire `zav-sandbox.code-workspace` + `.vscode/launch.json` du suivi git (fichiers locaux, ne doivent pas être partagés)
 - **fix(cli)**: `gsane.sh mcp --health` fallback gracieux si module `mcp` absent (Windows/WSL) — warning + EXIT 0 au lieu de EXIT 1, CI Ubuntu reste la référence
 - **feat(mcp)**: P5-B — Refactor `gsane_search_memory` : contexte ±2 lignes, scopes `all/sessions/failures/decisions`, format retour `"Résultats pour '{query}' dans {scope}:"`
