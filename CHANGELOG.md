@@ -6,6 +6,8 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(cli)**: Gate CHANGELOG dans `gsane.sh validate` exclut `_gsane/_memory/` (fichiers runtime) pour éviter les faux positifs locaux
+- **fix(cli)**: Bandit et pip-audit optionnels dans `gsane.sh validate` — warning + skip si non installés, CI reste la référence
 - **feat(ci)**: Step post-release dans `release-please.yml` — sync automatique `version` dans `_gsane/config.yaml` et `version.txt` après chaque release
 - **fix(style)**: Merge nested `if` statements dans `gsane_search_memory` — ruff SIM102 (compression_tool.py)
 - **chore(git)**: Ignore `*.code-workspace` et retire `zav-sandbox.code-workspace` + `.vscode/launch.json` du suivi git (fichiers locaux, ne doivent pas être partagés)
