@@ -1,16 +1,18 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://img.shields.io/badge/CI-passing-success)](#) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#) [![Tests](https://img.shields.io/badge/Tests-113%20passing-brightgreen)](#) [![MCP](https://img.shields.io/badge/MCP-5%20outils-purple)](#) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](#)
+[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-passing-brightgreen)](tests/) [![MCP](https://img.shields.io/badge/MCP-8%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
+
+Le workflow `ci.yml` couvre la CI de branche (tests), tandis que `validate-pr.yml` conserve les contrôles de gouvernance PR et quality gate complète.
 
 ## 💡 Qu'est-ce que GSANE ?
 
 **GSANE** (Governance System for AI-Native Execution) est un framework multi-agents fonctionnant directement dans VS Code via GitHub Copilot Chat et la CLI `gsane.sh`. Il orchestre une équipe de 5 agents IA — la **Strike Team** — capables de concevoir, implémenter, tester et documenter du code de manière autonome grâce à une boucle d'amélioration continue : le **Zero-Touch Fix-Loop**.
 
-GSANE est également **MCP-solid** : ses 5 outils MCP locaux sont intégrés au runtime du Master pour les opérations de mémoire compressée, de checkpoint de session, et de routage déterministe vers l'agent approprié.
+GSANE est également **MCP-solid** : ses vues MCP canoniques exposent le brief humain, le contrat actif et un snapshot derive du repo, tandis que les outils historiques de checkpoint restent limites a l'audit et a la continuite technique.
 
 ---
 
-## 🧩 Architecture Strike Team
+## 🧩 Les Agents GSANE
 
 Le projet repose sur une architecture plate (**Flat Design**) pilotée par 5 agents spécialisés. Pas d'intermédiaires, pas de hiérarchies profondes — chaque agent est autonome et collabore via des signaux P2P.
 
@@ -54,7 +56,7 @@ Le **Party Mode** est le protocole de gouvernance collective de GSANE. Il s'orga
 
 ### Phase 3 — Planning
 
-Lorsque la synthèse du brainstorm aboutit à une action concrète (`créer`, `modifier`, `implémenter`, `refactorer`…), la Phase 3 produit **3 artefacts** dans `_gsane-output/sessions/{date-id}/` :
+Lorsque la synthèse du brainstorm aboutit à une action concrète (`créer`, `modifier`, `implémenter`, `refactorer`…), la Phase 3 produit **3 artefacts de session** générés à l'exécution dans l'espace de sortie volatil :
 
 ```
 brainstorm-brief.md      ← archive des contributions brutes des agents
@@ -75,7 +77,7 @@ Le template `_gsane/workflows/delivery-contract.tpl.md` est désormais au format
 - Le frontmatter YAML (`task_id`, `owner`, `validation_agent`, `risk_level`, `depends_on`, `parallel_group`, `done_definition`) est lu par le Master pour le routage automatique
 - Le corps Markdown reste lisible par les agents et l’humain
 
-Les contrats par tâche vivent dans `sessions/{date-id}/contracts/dc-{task_id}.md`. Le fichier `_gsane-output/current-delivery-contract.md` reste le contrat actif courant — compatible avec l’écosystème `STRICT-HANDOFF` et `CONTRACT ARCHIVING` existants.
+Les contrats par tâche sont archivés comme artefacts de session (exemple : `dc-{task_id}.md`). Le fichier `_gsane-output/current-delivery-contract.md` reste le contrat actif courant — compatible avec l’écosystème `STRICT-HANDOFF` et `CONTRACT ARCHIVING` existants.
 
 ### Validation de schéma
 
@@ -86,16 +88,30 @@ bash gsane.sh validate  # inclut maintenant la validation schéma execution-plan
 
 ---
 
+## 🧭 Contexte canonique
+
+Le runtime GSANE actif repose sur une separation simple et stricte :
+
+- `_gsane/_memory/project-context.md` = brief canonique humain, court, durable, sans narratif de session.
+- `_gsane-output/current-delivery-contract.md` = travail actif mutable et criteres d'acceptation du lot en cours.
+- Vues MCP canoniques = lectures structurees derivees du repo actif.
+- `_gsane/_memory/sessions/session-state.md` et `_gsane/_memory/sessions/session-analysis-log.md` = audit/continuite seulement.
+
+---
+
 ## 🔌 Intégration MCP
 
-GSANE expose **5 outils MCP locaux** via `_gsane/mcp-server/compression_tool.py` — le point d'entrée unique branché dans VS Code/Copilot Chat.
+GSANE expose **8 outils MCP locaux** via `_gsane/mcp-server/compression_tool.py` — le point d'entrée unique branché dans VS Code/Copilot Chat.
 
 | Outil | Description |
 |---|---|
+| `gsane_read_canonical_brief` | Lit le brief canonique humain durable depuis `_gsane/_memory/project-context.md` |
+| `gsane_read_active_delivery_contract` | Lit le Delivery Contract actif et ses métadonnées depuis `_gsane-output/current-delivery-contract.md` |
+| `gsane_read_project_snapshot` | Retourne un snapshot structuré dérivé du repo, des manifests et du contrat actif |
 | `gsane_fetch_compressed_memory` | Recherche dans les fichiers mémoire agents, retourne un extrait compressé pertinent |
-| `gsane_write_session_checkpoint` | Sérialise l'état de session dans `session-state.md` (plan actif, décisions, risques) |
-| `gsane_read_checkpoint` | Lit le checkpoint pour reprendre une session warm sans relire tout le contexte |
-| `gsane_route` | Routage déterministe vers l'agent cible via `delegation-matrix.yaml` (schéma `trigger`/`agent`) |
+| `gsane_write_session_checkpoint` | Sérialise un checkpoint historique dans `session-state.md` pour la continuité technique |
+| `gsane_read_checkpoint` | Lit le checkpoint historique de continuité sans le traiter comme vérité du présent |
+| `gsane_route` | Routage déterministe vers l'agent cible via `delegation-matrix.yaml`, avec escalade sécurité légère vers Master quand `security_gate` matche |
 | `gsane_memory_fetch` | Extrait les learned-lessons d'un agent sidecar spécifique sans charger tout le fichier |
 
 Les chemins sont dérivés de `Path(__file__)` — **indépendants du répertoire de travail du client MCP**.
@@ -103,8 +119,23 @@ Les chemins sont dérivés de `Path(__file__)` — **indépendants du répertoir
 Pour vérifier l'état de l'intégration MCP :
 ```bash
 bash gsane.sh mcp --health      # Vérifie dépendances, imports et schéma
-bash gsane.sh mcp --smoke-test  # Exécute les 5 outils en conditions réelles
+bash gsane.sh mcp --smoke-test  # Exécute les vues canoniques et les outils historiques en conditions réelles
 ```
+
+---
+
+## 🔐 Security Gate Lite
+
+Le runtime actif n'introduit pas de 6e agent sécurité. Les requêtes classifiées sécurité sont uniquement escaladées vers le Master avec métadonnées de responsabilité explicites : owner Winston, gate Quinn, revue Bond seulement si la demande touche une surface GSANE, une policy, un guardrail central ou un runtime critique.
+
+Le point d'entrée MCP `_gsane/mcp-server/compression_tool.py` lit cette source de vérité dans `_gsane/_config/delegation-matrix.yaml`, puis applique en plus un confinement strict des accès disque aux racines autorisées `_gsane/_memory/`, `_gsane/_config/` et `_gsane-output/`.
+
+La Quality Gate `bash gsane.sh validate` exécute désormais, en plus des tests et du QA linter : scan secrets bloquant, Bandit sur les surfaces Python actives, et `pip-audit` sur la source de vérité réelle des dépendances Python du repo, soit `_gsane/mcp-server/requirements.txt`.
+
+Seuils de réévaluation d'un vrai agent sécurité dédié :
+- `>= 8` requêtes classifiées sécurité sur 30 jours glissants.
+- `>= 3` revues Bond conditionnelles par sprint pour surfaces GSANE/policy/runtime critique.
+- `>= 2` sprints consécutifs avec findings sécurité bloquants qui dépassent le circuit owner Winston + gate Quinn sans absorption dans le lot courant.
 
 ---
 
@@ -124,7 +155,7 @@ bash gsane.sh trace --p2p        # Messages P2P entre agents
 
 - **Python 3.10+**
 - **Git + Bash** (natif Linux/macOS, ou Git Bash/WSL sous Windows)
-- **pytest** — moteur de la Quality Gate
+- **pytest**, **bandit**, **pip-audit** — outillage de la Quality Gate
 - **GitHub Copilot Chat** — interface de communication avec la Strike Team
 - **mcp[cli]** + **pyyaml** — dépendances du serveur MCP local
 
@@ -146,8 +177,8 @@ python -m venv .venv
 # Linux/macOS :
 source .venv/bin/activate
 
-# 4. Installer les dépendances
-pip install pytest
+# 4. Installer les dépendances de validation
+pip install pytest bandit pip-audit
 pip install -r _gsane/mcp-server/requirements.txt
 
 # 5. Initialiser le runtime GSANE (crée sidecars, trace.log, dossiers volatiles)
@@ -159,7 +190,7 @@ bash _gsane/tools/gsane-bootstrap.sh
 ## 🛠️ Commandes CLI
 
 ```bash
-# Quality Gate — exécute tests + qa-linter + vérification CHANGELOG
+# Quality Gate — exécute tests + qa-linter + secret scan + Bandit + pip-audit + vérification CHANGELOG
 bash gsane.sh validate
 
 # Doctor — vérifie l'intégrité de l'environnement
@@ -183,22 +214,21 @@ bash gsane.sh mcp --smoke-test
 _gsane/                    ← Réacteur GSANE
   agents/                  ← Les 5 agents Strike Team (master, dev, qa, architect, bond)
   _config/                 ← Manifestes YAML (agents, workflows, delegation-matrix)
-  _memory/                 ← Mémoire persistante (sidecars, trace.log, sessions/)
-  mcp-server/              ← Serveur MCP local (compression_tool.py — 5 outils)
+  _memory/                 ← Mémoire persistante (brief canonique, sidecars, trace.log, sessions/ d'audit)
+  mcp-server/              ← Serveur MCP local (compression_tool.py — vues canoniques + outils historiques)
   tasks/                   ← Tâches réutilisables (editorial-review, index-cleanup)
-  workflows/               ← Workflows (party-mode v3.0, delegation, cc-verify, flywheel...)
-    party-mode/templates/  ← Template execution-plan.yaml (schéma Phase 3)
+  workflows/               ← Workflows (Party Mode v3.0, delegation, cc-verify, flywheel...)
   tools/                   ← Outils infrastructure (gsane-bootstrap.sh)
 _gsane-output/             ← Artefacts générés (delegation-audit, bond-creations, etc.)
-  sessions/                ← Sessions Party Mode v3.0 — créé au premier lancement Phase 3
-                              (brainstorm-brief.md, design-conclusion.md, execution-plan.yaml)
-tests/                     ← Suite de tests (113 tests : structurel + comportemental + MCP)
+tests/                     ← Suite de tests Python (structurel + comportemental + MCP)
 .github/
   agents/                  ← Définitions agents Copilot Chat (master, dev, qa, architect, bond)
   skills/                  ← Skills GSANE pour Copilot Chat
   prompts/                 ← Prompts slash commands (/gsane-*)
   hooks/                   ← Hooks session (session-start, session-stop, flywheel-trigger)
 ```
+
+Note: les artefacts de session de la Phase 3 du Party Mode sont créés à la demande au runtime (exemples : `brainstorm-brief.md`, `design-conclusion.md`, `execution-plan.yaml`) et ne représentent pas une arborescence statique du dépôt.
 
 ---
 

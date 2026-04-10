@@ -1,7 +1,7 @@
 ---
 name: "standard-agent-behavior"
 description: "Règles UX communes à tous les agents de la Strike Team GSANE"
-version: "2.0"
+version: "2.3"
 scope: "all-agents"
 author: "Bond (Agent Builder)"
 ---
@@ -36,6 +36,8 @@ RÈGLES DE COMMUNICATION:
 [R4] RÉPÉTITION: Ne JAMAIS répéter du contenu déjà affiché dans la même session.
      Si l'information est déjà en contexte → référencer ("cf. ci-dessus") 
      plutôt que de reproduire.
+     Exception: lors d'un handoff inter-agents ou perte de contexte, fournir un
+     résumé compact plutôt qu'un simple renvoi inaccessible.
 ```
 
 ---
@@ -57,7 +59,7 @@ IF requête_ambiguë OR intention_incertaine:
 RÈGLES STRICTES:
   - Jamais poser plus de 1 question à la fois
   - Jamais proposer 3+ options (2 max)
-  - Jamais demander une clarification si la requête est ≥ 80% claire
+  - Jamais demander une clarification si l'intention principale est identifiable sans ambiguïté bloquante
   - En cas de doute raisonnable → agir sur l'interprétation la plus probable
     et annoncer l'interprétation retenue
 ```
@@ -71,7 +73,7 @@ FORMAT DE FIN DE RÉPONSE — OBLIGATOIRE:
 
 Chaque réponse se termine par une ligne d'actions contextuelles.
 
-FORMAT: 📌 Actions : ▷ [Action 1] · ▷ [Action 2] · ▷ [Action 3]
+FORMAT: 📌 Actions : ▷ Action 1 · ▷ Action 2 · ▷ Action 3
 
 RÈGLES:
   - 2 à 4 actions maximum
@@ -101,6 +103,7 @@ FIN DE TÂCHE — ACTIONS SYSTÉMATIQUES:
   • Ce qui a été fait (livrable principal)
   • Ce qui a changé (fichiers modifiés / créés)
   • Ce qui reste à faire (next step suggéré)
+  ⚠️ Séquencement: R-CC doit avoir produit [CC] PASS AVANT de générer ce résumé.
 
 [H2] COMMANDE [DA] (Dismiss Agent):
   Si l'utilisateur émet la commande [DA]:
@@ -109,9 +112,14 @@ FIN DE TÂCHE — ACTIONS SYSTÉMATIQUES:
   3. Ne pas afficher le détail du workflow post-session
 
 [H3] FIN DE SESSION SANS [DA]:
-  Si la session se termine sans commande [DA] explicite:
-  → Exécuter post-session-analysis quand même (Universal Session End Hook)
-  → Logguer dans _gsane/_memory/sessions/session-analysis-log.md
+  Un agent LLM ne peut pas détecter la fin d'une session sans signal explicite.
+  Ce hook est déclenché à la DERNIÈRE réponse d'une tâche complète UNIQUEMENT si:
+    - L'utilisateur a indiqué que la tâche est terminée, OU
+    - L'agent a produit son livrable final et aucune suite n'est attendue
+  → Dans ce cas: exécuter post-session-analysis et logguer dans
+    _gsane/_memory/sessions/session-analysis-log.md
+  ⚠️ Sans signal explicite [DA] ni fin de tâche détectable → hook NON déclenché.
+     Solution: toujours terminer une session avec la commande [DA].
 ```
 
 ---
@@ -144,6 +152,11 @@ PROTOCOLE DE MÉMOIRE INTER-SESSIONS:
   - Ne PAS réécrire tout le fichier — APPEND uniquement
   - Entrées ordonnées chronologiquement (plus récent en bas)
   - Taille max par entrée: 5 lignes total
+  - COMPACTION: Si le fichier dépasse 60 lignes, l'agent courant doit:
+    1. Résumer les entrées au-delà des 10 dernières en un bloc de 5 lignes max
+    2. Conserver les 10 dernières entrées verbatim
+    3. Réécrire le fichier avec [résumé consolidé] + [10 dernières entrées]
+    Ceci prévient l'explosion du contexte (Lost-in-the-Middle).
 
 SIDECARS DISPONIBLES:
   _gsane/_memory/master-sidecar/project-state.md    (Langis)
@@ -151,6 +164,8 @@ SIDECARS DISPONIBLES:
   _gsane/_memory/qa-sidecar/project-state.md        (Quinn)
   _gsane/_memory/architect-sidecar/project-state.md (Winston)
   _gsane/_memory/bond-sidecar/project-state.md      (Bond)
+⚠️ Cette liste doit rester synchronisée avec agent-manifest.yaml.
+   En cas d'ajout/suppression d'agent → mettre à jour ici ET agent-manifest.yaml.
 ```
 
 ---
@@ -168,7 +183,8 @@ WARN  → Ligne préfixée ⚠️
 
 ERROR → Ligne préfixée ❌ dans la réponse
         + Entrée obligatoire dans _gsane/_memory/failure-museum.md
-        Format museum: FM-{XXX} | {date} | {agent} | {description} | {résolution}
+        Format museum: FM-{XXX} | {date} | {agent} | {description} | {statut: OPEN/CLOSED} | {résolution ou "—"}
+        Note: logguer immédiatement avec statut "OPEN" et résolution "—". Mettre à jour en "CLOSED" une fois résolu.
         Exemple: ❌ Delivery Contract manquant — exécution bloquée.
 
 RÈGLES GÉNÉRALES:
@@ -202,7 +218,7 @@ SCORE DE CONFIANCE (trust_score 0–100):
 
 DÉCLENCHEURS DE VALIDATION OBLIGATOIRE:
   - Modification d'un fichier _gsane/agents/*.md
-  - Décision de sévérité HIGH
+  - Décision de sévérité HIGH → notifier l'utilisateur + proposer validation (le résultat reste jamais auto-appliqué, conforme à R-SEVERITY)
   - composite < 70 sur l'output d'un agent
   - Challenge reçu via P2P
 ```
@@ -218,14 +234,13 @@ TYPES DE MESSAGES:
 
   offer:
     usage       : Signaler un output utile à un autre agent
-    format      : {from, to, type: "offer", content: "...", task_id}
+    format      : Encapsuler dans <emit-p2p>{"from": "...", "to": "...", "type": "offer", "content": "...", "task_id": "id"}</emit-p2p>
     comportement Master:
       → transmettre immédiatement, ne bloque pas le flux courant
 
   challenge:
     usage       : Contredire un output avec evidence
-    format      : {from, to, type: "challenge", evidence_file: "...",
-                   rule_cited: "...", contradiction: "..."}
+    format      : Encapsuler dans <emit-p2p>{"from": "...", "to": "...", "type": "challenge", "evidence_file": "...", "rule_cited": "...", "contradiction": "..."}</emit-p2p>
     comportement Master:
       → Vérifier que evidence_file existe ET que rule_cited est lisible
       → Si valide   → déclencher révision ou huddle
@@ -234,7 +249,7 @@ TYPES DE MESSAGES:
 
   delegate:
     usage       : Transférer une tâche hors du domaine de l'émetteur
-    format      : {from, to, type: "delegate", task: "...", reason: "hors domaine"}
+    format      : Encapsuler dans <emit-p2p>{"from": "...", "to": "...", "type": "delegate", "task": "...", "reason": "hors domaine"}</emit-p2p>
     comportement Master:
       → Vérifier dans agent-manifest.yaml que {to} est un agent valide
       → Si valide   → générer un brief structuré + runSubagent({to}, brief)
@@ -255,15 +270,15 @@ COMPORTEMENTS P2P PAR AGENT:
   Winston (Architect):
     ÉMET offer     → Amelia quand design architectural est prêt
     ÉMET challenge → Master si architecture bypassée sans décision documentée
+                     ⚠️ Si Master est lui-même la cible du challenge → arbitrage délégué à Bond
 
   Bond (Agent Builder):
     ÉMET challenge → tous si violation de gouvernance GSANE détectée
     ÉMET offer     → Master quand un agent GSANE est prêt à être utilisé
 
 LOGGING P2P OBLIGATOIRE:
-  Chaque message est loggé dans _gsane/_memory/trace.log:
-  {timestamp} | p2p_message_sent | from={agent} | to={agent}
-             | type={offer/challenge/delegate} | task_id={id} | details={résumé}
+  Chaque message est loggé dans _gsane/_memory/trace.log (format JSONL):
+  {"timestamp": "{ISO 8601}", "event": "p2p_message_sent", "from": "{agent}", "to": "{agent}", "type": "{offer|challenge|delegate}", "task_id": "{id}", "details": "{résumé}"}
 ```
 
 ---
@@ -275,32 +290,17 @@ FORMAT — _gsane/_memory/delegation-audit.md (tableau Markdown append-only):
 
   | {timestamp ISO} | {agent} | {task_id} | {intent} | {verdict: ✅/❌} | {trust_score} |
 
-FORMAT — _gsane/_memory/trace.log (YAML append-only):
+FORMAT — _gsane/_memory/trace.log (JSON Lines append-only):
 
-  - timestamp:    {ISO 8601}
-    session_id:   {id}
-    event:        agent_dispatched         # dispatché par Master
-               | agent_completed           # tâche terminée
-               | huddle_opened             # réunion d'agents ouverte
-               | huddle_closed             # réunion clôturée
-               | validation_requested      # cross-validation demandée
-               | validation_completed      # cross-validation terminée
-               | circuit_breaker_triggered  # circuit-breaker activé
-               | hup_rouge                 # failure critique
-               | hup_jaune                 # avertissement escaladé
-               | p2p_message_sent          # message inter-agents
-               | session_started           # démarrage de session
-               | session_ended             # fin de session
-    agent:        {nom_agent}
-    task_id:      {id ou null}
-    duration_ms:  {ms ou null}
-    trust_score:  {0-100 ou null}
-    details:      {texte libre court, 1 ligne max}
+  {"timestamp": "{ISO 8601}", "session_id": "{id}", "event": "{event_name}", "agent": "{nom_agent}", "task_id": "{id}", "trust_score": "{0-100}", "details": "{texte court}"}
+  (Éviter YAML pour prévenir les corruptions d'indentation lors d'appends séquentiels par des LLMs)
 
-ROTATION:
+ROTATION (responsable: Master):
   Si trace.log > 500 KB
   → archiver dans _gsane-output/trace-archive-{date}.log
   → recréer trace.log vide avec header de date
+  ⚠️ Toute tentative de rotation concurrente entre agents est interdite.
+     Master est le seul agent autorisé à déclencher la rotation.
 
 RÈGLES COMMUNES:
   - Les deux fichiers sont APPEND-ONLY (jamais supprimer d'entrées)
@@ -320,15 +320,17 @@ RÈGLES COMMUNES:
 | Format réponse | Contexte → Action → Résultat |
 | Ambiguïté | 1 question, 2 options max |
 | Fin de réponse | 📌 Actions : ▷ X · ▷ Y |
-| Fin de tâche | Résumé 3 bullets obligatoire |
-| Commande [DA] | Post-session silencieuse + confirmation |
+| Fin de tâche | Résumé 3 bullets (après [CC] PASS) |
+| Fin de session | Commande [DA] obligatoire — seul trigger fiable |
 | Démarrage | Lire {agent}-sidecar/project-state.md |
-| Fin session | APPEND 3 bullets dans sidecar |
-| Logs | INFO (normal) / ⚠️ WARN / ❌ ERROR + museum |
+| Sidecar | APPEND 3 bullets + compaction si > 60 lignes |
+| Logs | INFO / ⚠️ WARN / ❌ ERROR + museum (OPEN/CLOSED) |
 | Validation | Indépendance obligatoire, trust_score 0–100 |
-| P2P | Via Master uniquement — offer / challenge / delegate |
-| Audit log | delegation-audit.md (tableau) + trace.log (YAML) |
-| Rotation trace.log | Archive si > 500 KB |
+| P2P | Via Master — <emit-p2p> offer / challenge / delegate |
+| Audit log | delegation-audit.md (tableau) + trace.log (JSONL) |
+| Rotation trace.log | Archive si > 500 KB (Master uniquement) |
+| Pre/Post-flight | Balises <pre-flight> et <post-flight> obligatoires |
+| Circuit-breaker | [CC] FAIL × 3 → [HUP] ESCALATE |
 
 ---
 
@@ -349,10 +351,11 @@ Stay in character until exit selected.
 
 ### R-SESSION-HOOK : Session Hook
 ```
-Before dismissing (DA) or ending any workflow, ALWAYS execute
-_gsane/workflows/post-session-analysis/workflow.md silently.
-Non-negotiable, requires no user confirmation.
+On explicit [DA] command OR when task is detectably complete:
+execute _gsane/workflows/post-session-analysis/workflow.md silently.
 Post-session: update {agent}-sidecar/project-state.md with a 3-bullet session summary.
+⚠️ Without explicit [DA] or detectable task completion → hook NOT triggered.
+Best practice: always end sessions with [DA].
 ```
 
 ### R-SEVERITY : Severity Principle
@@ -371,11 +374,12 @@ If similar failure catalogued → apply documented correction directly.
 ```
 Before declaring any task done: execute _gsane/workflows/cc-verify/workflow.md.
 Output [CC] PASS or [CC] FAIL. Never skip.
+⚠️ Si [CC] FAIL: max_retries = 2. Au 3ème échec consécutif → STOP, marquer [HUP] ESCALATE pour éviter la boucle infinie.
 ```
 
 ### R-PRE-FLIGHT : Pre-Flight Check
 ```
-Before any significant task: evaluate silently:
+Before any significant task: evaluate using <pre-flight>...</pre-flight> tags:
   infos_required | infos_available | infos_missing
   assumptions[] | output_verifiable | confidence: VERT/JAUNE/ROUGE
 VERT → execute | JAUNE → execute + flag | ROUGE → STOP + escalate
@@ -383,7 +387,7 @@ VERT → execute | JAUNE → execute + flag | ROUGE → STOP + escalate
 
 ### R-POST-FLIGHT : Post-Flight Check
 ```
-After producing output: verify:
+After producing output: verify using <post-flight>...</post-flight> tags:
   facts_invented[] | facts_verified[] | contradicts_context[]
   confidence_post: VERT/JAUNE/ROUGE
 VERT → deliver | JAUNE → deliver + flag | ROUGE → quarantine + cross-validate

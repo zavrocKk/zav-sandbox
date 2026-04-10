@@ -54,3 +54,23 @@ tasks:
     risk_level: "LOW"
     acceptance_criteria:
       - ""
+ # Template d'un plan d'exécution party-mode
+ # Utilisé par Master pour orchestrer des tâches multi-agents en parallèle
+
+ plan_id: ""
+ session_date: ""
+ objective: ""
+ scope: ""
+ owner: ""
+ risk_level: "LOW"
+ acceptance_criteria: []
+
+ tasks:
+   - id: ""
+     description: ""
+     assigned_agent: ""
+     depends_on: []
+     parallel_group: ""
+     acceptance_criteria: []
+     done_definition: ""
+     validation_agent: ""

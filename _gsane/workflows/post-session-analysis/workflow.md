@@ -26,6 +26,8 @@ Write to `_gsane/_memory/sessions/session-state.md`:
 
 If `session-state.md` does not exist, create it with template fields.
 
+Important: `session-state.md` is an audit/continuité file. It must not be treated as the current project truth by active runtime surfaces.
+
 ## STEP 3 — Append to session analysis log
 
 Append the following block to `_gsane/_memory/sessions/session-analysis-log.md`:
@@ -42,6 +44,8 @@ Append the following block to `_gsane/_memory/sessions/session-analysis-log.md`:
 - open_items: []
 - notes: "{tokens_observed} | {issues_encountered}"
 ```
+
+Important: `session-analysis-log.md` is an audit trail for PSA and flywheel. It is not a source of truth for the present state of the project.
 
 ## STEP 4 — Check flywheel trigger
 

@@ -29,13 +29,26 @@ output:
     - "_gsane-output/current-delivery-contract.md"
     - "_gsane-output/delegation-audit.md"
     - "_gsane/_memory/trace.log"
-    - "_gsane/_memory/sessions/session-state.md"
     - "_gsane/_memory/flywheel-report.md"
     - "_gsane/_memory/scoreboard.md"
   durable:
     - "_gsane/_memory/failure-museum.md"
     - "_gsane/_memory/decision-log.md"
     - "_gsane/_memory/flywheel-history.md"
+
+runtime:
+  active_sources:
+    human_brief: "_gsane/_memory/project-context.md"
+    active_delivery_contract: "_gsane-output/current-delivery-contract.md"
+    canonical_mcp_views:
+      - "gsane_read_canonical_brief"
+      - "gsane_read_active_delivery_contract"
+      - "gsane_read_project_snapshot"
+  audit_continuity:
+    note: "Les fichiers de session servent a l'audit et a la continuite technique. Ils ne sont pas des sources de verite du present."
+    files:
+      - "_gsane/_memory/sessions/session-state.md"
+      - "_gsane/_memory/sessions/session-analysis-log.md"
 
 deprecated:
   note: "The legacy CIS, TEA, and BMB module suites are fully retired as of v3.0.0. Only the 5-agent Strike Team remains active."

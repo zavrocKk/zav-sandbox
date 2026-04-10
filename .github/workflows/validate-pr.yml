@@ -12,6 +12,16 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest bandit pip-audit -r _gsane/mcp-server/requirements.txt
+
       - name: Verify CHANGELOG.md exists
         run: |
           echo "🔍 Checking if CHANGELOG.md exists..."
@@ -80,9 +90,11 @@ jobs:
           fi
           echo "✅ Branch naming check complete!"
 
+      - name: Run repo quality gate
+        run: bash gsane.sh validate
+
       - name: Validate workflow manifest integrity
         run: |
-          pip3 install pyyaml --break-system-packages
           echo "🔍 Checking workflow manifest file integrity..."
           python3 - <<'EOF'
           import yaml, sys, os
@@ -137,6 +149,7 @@ jobs:
           echo "✅ Agent .agent.md count verified"
           echo "✅ GSANE directory structure complete"
           echo "✅ Branch naming convention checked"
+          echo "✅ Repo quality gate passed (pytest non-behavioral + QA linter + guards)"
           echo "✅ Workflow manifest file integrity verified"
           echo "✅ Agent persona fields populated"
           echo "✅ All checks passed - Ready for merge!"

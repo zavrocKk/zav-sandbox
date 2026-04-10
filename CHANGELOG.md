@@ -6,6 +6,24 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **chore**: Ajout [build-system] et extras mcp/test dans pyproject.toml
+
+**[repo]** Sprint 2 : Nettoyage .vscode/ (seul extensions.json versionné, autres ignorés), suppression V2-RELEASE-NOTES.md, neutralisation release-v2.sh (supprimé, plus de génération accidentelle possible).
+
+**[audit]** Aucun fichier fix_ci.py n'existe dans le dépôt (hors caches/artefacts ignorés). Conformité confirmée.
+
+**[feat]** Modèle canonique activé: brief humain durable dans `_gsane/_memory/project-context.md`, vues MCP canoniques de lecture, et fichiers de session formellement déclassés en audit/continuité.
+
+**[feat]** Mode sécurité léger centralisé: escalade Master avec owner Winston, gate Quinn, revue Bond conditionnelle, confinement MCP et quality gate enrichie par scan secrets, Bandit et pip-audit.
+
+**[docs]** Nettoyage éditorial historique du module notes et clarification des notes de release V2, sans changement fonctionnel.
+
+**[docs]** Fusion des points utiles de `V2-RELEASE-NOTES.md` dans l'historique `Unreleased`.
+
+**[fix]** Durcissement hygiène sécurité: suppression de la config MCP VS Code versionnée, garde-fou Git contre chemins absolus/secrets, et sécurisation de `gsane.sh`.
+
+**[fix]** Nettoyage des prompts, skills et configs IDE GSANE actifs; garde-fous QA/pytest ajoutés contre les références legacy cassées.
+
 ### ✨ Refonte Architecture — Flat Design Strike Team
 
 **[Refactor]** Migration de l'architecture CIS/TEA/BMB (20+ agents) vers Flat Design 5 agents (Strike Team)
@@ -13,7 +31,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - ADR documenté : `docs/architecture/decisions/ADR-001-flat-design.md`
 
 **[feat]** Intégration MCP complète et cohérente
-- Point d'entrée unique : `_gsane/mcp-server/compression_tool.py` avec 5 outils MCP
+- Point d'entrée unique : `_gsane/mcp-server/compression_tool.py` avec 8 outils MCP (3 vues canoniques + 5 outils historiques)
 - Outils : `gsane_fetch_compressed_memory`, `gsane_write_session_checkpoint`, `gsane_read_checkpoint`, `gsane_route`, `gsane_memory_fetch`
 - Chemins dérivés de `Path(__file__)` — indépendants du cwd
 - Alignement schéma `delegation-matrix.yaml` : clés `trigger` + `agent`

@@ -1,4 +1,28 @@
-# Tasks and tools are now exposed as prompts in .github/prompts/.
-# Legacy XML task paths (core/tasks/) have been removed.
-# This manifest is reserved for future use.
-[]
+# Tool Manifest — GSANE Runtime
+#
+# Les outils CLI et scripts sont exposés comme prompts dans .github/prompts/.
+# Les anciens chemins XML (core/tasks/) ont été retirés lors de la migration v3.0.
+#
+# Ce manifeste documente les outils runtime disponibles dans le système.
+# Il ne déclenche aucune logique automatique — il sert de registre humain.
+
+tools:
+  - name: gsane-cli
+    path: gsane.sh
+    type: shell
+    description: "CLI router principal — doctor, validate, trace, mcp"
+
+  - name: security-gate
+    path: _gsane/tools/security_gate.py
+    type: python
+    description: "Classification sécurité, scanning secrets, audit dépendances"
+
+  - name: mcp-server
+    path: _gsane/mcp-server/compression_tool.py
+    type: python-mcp
+    description: "Serveur MCP FastMCP — 11 outils (brief, contract, memory, routing, events)"
+
+  - name: qa-linter
+    path: tests/qa-linter.py
+    type: python
+    description: "Détection de patterns legacy dans README et fichiers Markdown"

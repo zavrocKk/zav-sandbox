@@ -1,7 +1,7 @@
 """notes_service.py — Micro-service CRUD de gestion de notes avec stockage JSON local.
 
-Architecture (Winston): module unique, stockage _notes.json, ID court UUID-8, timestamps ISO.
-Périmètre MVP (John): create / read-one / list-all / update / delete. Hors scope: auth, tags, search.
+Architecture: module unique, stockage notes.json, ID court UUID-8, timestamps ISO.
+Périmètre MVP: create / read-one / list-all / update / delete. Hors scope: auth, tags, search.
 """
 import json
 import uuid

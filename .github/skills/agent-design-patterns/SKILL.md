@@ -30,7 +30,7 @@ description: 'Persona — Title: capabilities'
 
 - `name` — kebab-case identifier matching the filename
 - `description` — format: `'PersonaName — Title: capability1, capability2'`
-- Config reference: always `{project-root}/_gsane/core/config.yaml` or module config
+- Config reference: always `_gsane/config.yaml` or the active manifest/config file for the surface being designed
 
 ## Menu Item Pattern
 
@@ -48,16 +48,16 @@ description: 'Persona — Title: capabilities'
 | Type | Execution |
 |---|---|
 | `.md` workflow | Load and follow directly |
-| `.yaml` workflow | Requires workflow engine — load `_gsane/core/tasks/workflow.xml` first |
+| `.yaml` manifest/config | Read directly as data; do not route through a legacy workflow engine |
 
 ## Party Mode Agent Protocol
 
 In party mode, gsane Master is the sole orchestrator:
-1. Init: load CSV index (name, icon, capabilities) only
+1. Init: load only the active manifest or delegation summary needed to score the 5 core agents
 2. Per turn: score agents against keywords, select 2-3 max
-3. Load CSV row for selected agents only
+3. Load only the selected agent files if deeper instructions are actually needed
 4. Generate response, discard profile data
-5. Never load full `.md` files during party mode
+5. Never load every agent file in one pass during party mode
 
 ## Sub-Agent Declaration (GitHub Copilot)
 
@@ -74,6 +74,6 @@ The main orchestrator (`master`) must NOT have `user-invokable: false`.
 - [ ] Persona name and icon defined
 - [ ] Communication style specified
 - [ ] All menu items have valid `cmd` shortcuts
-- [ ] `exec` paths use `{project-root}` variable
+- [ ] `exec` paths point to files that exist in the active workspace
 - [ ] Rules include language constraint
-- [ ] Agent passes Aria (aria) validation
+- [ ] Agent passes repo validation (`pytest` + `bash gsane.sh validate` when applicable)

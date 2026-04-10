@@ -1,9 +1,64 @@
-
 import glob
 import os
 import re
 import sys
-import yaml
+import unicodedata
+from pathlib import Path
+
+import pytest
+import yaml  # type: ignore[import-untyped]
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+README_PATH = REPO_ROOT / "README.md"
+README_LEGACY_PATTERNS = {
+    "CIS": re.compile(r"\bcis\b"),
+    "TEA": re.compile(r"\btea\b"),
+    "BMB": re.compile(r"\bbmb\b"),
+    "Léo": re.compile(r"\bleo\b"),
+    "Aria": re.compile(r"\baria\b"),
+    "Morgan": re.compile(r"\bmorgan\b"),
+    "Wendy": re.compile(r"\bwendy\b"),
+    "gsane-master": re.compile(r"\bgsane-master\b"),
+    "party-mode": re.compile(r"\bparty-mode\b"),
+}
+
+
+def normalize_legacy_text(text):
+    normalized = unicodedata.normalize("NFKD", text)
+    return "".join(
+        character for character in normalized if not unicodedata.combining(character)
+    ).casefold()
+
+
+def collect_readme_legacy_hits():
+    hits = []
+    with README_PATH.open("r", encoding="utf-8") as fh:
+        for line_no, line in enumerate(fh, start=1):
+            normalized_line = normalize_legacy_text(line)
+            for label, pattern in README_LEGACY_PATTERNS.items():
+                if pattern.search(normalized_line):
+                    hits.append((line_no, label, line.rstrip()))
+    return hits
+
+
+def check_readme_legacy_refs():
+    hits = collect_readme_legacy_hits()
+    for line_no, label, line in hits:
+        print(
+            f"[FAIL] README.md:{line_no}: référence legacy trouvée — '{label}' | {line}"
+        )
+    return len(hits)
+
+
+def test_no_legacy_refs_in_readme():
+    hits = collect_readme_legacy_hits()
+    if hits:
+        details = "\n".join(
+            f"- README.md:{line_no}: '{label}' | {line}"
+            for line_no, label, line in hits
+        )
+        pytest.fail("Références legacy trouvées dans README.md:\n" + details)
 
 def check_file(path):
     errors = 0
@@ -53,6 +108,62 @@ LEGACY_SCAN_FILES = [
     "gsane.sh",
 ]
 
+ACTIVE_GUIDANCE_FILES = [
+    ".github/copilot-instructions.md",
+    ".github/prompts/gsane-session-bootstrap.prompt.md",
+    ".github/prompts/gsane-editorial-review-prose.prompt.md",
+    ".github/prompts/gsane-editorial-review-structure.prompt.md",
+    ".github/prompts/gsane-index-docs.prompt.md",
+    ".github/prompts/gsane-review-adversarial-general.prompt.md",
+    ".github/prompts/gsane-review-edge-case-hunter.prompt.md",
+    ".github/prompts/gsane-shard-doc.prompt.md",
+    ".github/prompts/gsane-smart-router.prompt.md",
+    ".github/prompts/gsane-health-check.prompt.md",
+    ".github/skills/agent-customization/SKILL.md",
+    ".github/skills/agent-design-patterns/SKILL.md",
+    ".github/skills/cognitive-flywheel/SKILL.md",
+    ".github/skills/gsane-framework/SKILL.md",
+    "_gsane/agents/master.md",
+    "_gsane/agents/architect.md",
+    "_gsane/_config/gsane-help.yaml",
+    "_gsane/_config/ides/github-copilot.yaml",
+    "_gsane/workflows/flywheel/workflow-aggregate.md",
+]
+
+ACTIVE_GUIDANCE_FORBIDDEN_PATTERNS = [
+    ("legacy core path", re.compile(r"_gsane/core/", re.IGNORECASE)),
+    ("legacy workflow engine", re.compile(r"workflow\.xml", re.IGNORECASE)),
+    ("legacy manifest CSV", re.compile(r"(?:agent|workflow)-manifest\.csv", re.IGNORECASE)),
+    ("retired agent/persona name", re.compile(r"\b(?:Carson|Mary|John|Bob|Morgan|Wendy|Murat|Aria)\b", re.IGNORECASE)),
+    ("retired optimizer alias", re.compile(r"\boptimizer\b", re.IGNORECASE)),
+    ("retired strategy route", re.compile(r"\banalyst\+pm\+architect\b", re.IGNORECASE)),
+    (
+        "retired agent activation file",
+        re.compile(
+            r"_gsane/agents/(?:analyst|pm|sm|ux-designer|tech-writer|quick-flow-solo-dev|morgan|wendy|optimizer|aria|tea)\.md",
+            re.IGNORECASE,
+        ),
+    ),
+    ("invalid party-mode agent alias", re.compile(r"\bparty-mode facilitator\b", re.IGNORECASE)),
+]
+
+CANONICAL_BRIEF_REQUIRED_HEADINGS = [
+    "1. Cap du Projet",
+    "2. Invariants de Fonctionnement",
+    "3. Carte des Sources de Vérité (Ordre de Lecture)",
+    "4. Règles d'Usage Humain",
+    "5. Politique de Migration & Règles de Mise à Jour",
+]
+
+CANONICAL_BRIEF_FORBIDDEN_TOKENS = [
+    "last_session_date",
+    "last_agent_active",
+    "last_workflow_run",
+    "plan_active",
+    "next_step",
+    "active_branch",
+]
+
 
 def check_legacy_references(files_to_scan):
     """Scan files for forbidden legacy terms. Returns list of (file, line_no, term)."""
@@ -68,6 +179,297 @@ def check_legacy_references(files_to_scan):
         except (OSError, UnicodeDecodeError):
             pass
     return hits
+
+
+def load_yaml_file(path):
+    with open(path, "r", encoding="utf-8") as fh:
+        return yaml.safe_load(fh)
+
+
+def check_active_guidance_surfaces():
+    """Block legacy runtime references on prompts, skills, and active IDE/help config."""
+    errors = 0
+
+    for filepath in ACTIVE_GUIDANCE_FILES:
+        if not os.path.isfile(filepath):
+            print(f"[FAIL] {filepath}: surface active introuvable")
+            errors += 1
+            continue
+
+        with open(filepath, "r", encoding="utf-8") as fh:
+            for line_no, line in enumerate(fh, start=1):
+                for label, pattern in ACTIVE_GUIDANCE_FORBIDDEN_PATTERNS:
+                    if pattern.search(line):
+                        print(f"[FAIL] {filepath}:{line_no}: {label}")
+                        errors += 1
+
+    return errors
+
+
+def check_github_copilot_alignment():
+    """Ensure the active IDE config exposes only the 5 current agents and real files."""
+    errors = 0
+    manifest_path = "_gsane/_config/agent-manifest.yaml"
+    ide_path = "_gsane/_config/ides/github-copilot.yaml"
+
+    if not os.path.isfile(manifest_path) or not os.path.isfile(ide_path):
+        print("[FAIL] github-copilot alignment: fichiers manifest/config absents")
+        return 1
+
+    manifest = load_yaml_file(manifest_path) or []
+    ide_config = load_yaml_file(ide_path) or {}
+
+    expected_agents = [entry.get("name") for entry in manifest]
+    expected_paths = {entry.get("name"): entry.get("path") for entry in manifest}
+
+    configuration = ide_config.get("configuration", {})
+    actual_agents = configuration.get("agents", [])
+    actual_names = [entry.get("name") for entry in actual_agents]
+
+    if actual_names != expected_agents:
+        print(
+            f"[FAIL] {ide_path}: agents exposes {actual_names} au lieu de {expected_agents}"
+        )
+        errors += 1
+
+    for entry in actual_agents:
+        name = entry.get("name")
+        activation_file = entry.get("activation_file")
+        if expected_paths.get(name) != activation_file:
+            print(
+                f"[FAIL] {ide_path}: activation_file pour '{name}' = '{activation_file}', attendu '{expected_paths.get(name)}'"
+            )
+            errors += 1
+        if activation_file and not os.path.isfile(activation_file):
+            print(f"[FAIL] {ide_path}: activation_file absent '{activation_file}'")
+            errors += 1
+
+    for entry in configuration.get("context_files", []):
+        path = entry.get("path", "")
+        if path and not os.path.isfile(path):
+            print(f"[FAIL] {ide_path}: context file absent '{path}'")
+            errors += 1
+        if "_gsane/core/" in path or "workflow.xml" in path:
+            print(f"[FAIL] {ide_path}: chemin legacy dans context_files '{path}'")
+            errors += 1
+
+    return errors
+
+
+def check_gsane_help_agent_names():
+    """Ensure active help entries only reference valid active agent names and real workflows."""
+    errors = 0
+    manifest_path = "_gsane/_config/agent-manifest.yaml"
+    help_path = "_gsane/_config/gsane-help.yaml"
+
+    if not os.path.isfile(manifest_path) or not os.path.isfile(help_path):
+        print("[FAIL] gsane-help alignment: fichiers manifest/help absents")
+        return 1
+
+    valid_agents = {
+        entry.get("name")
+        for entry in (load_yaml_file(manifest_path) or [])
+        if entry.get("name")
+    }
+
+    for index, entry in enumerate(load_yaml_file(help_path) or []):
+        agent_name = entry.get("agent-name")
+        workflow_file = entry.get("workflow-file")
+        if agent_name and agent_name not in valid_agents:
+            print(
+                f"[FAIL] {help_path}: entree[{index}] agent-name='{agent_name}' n'est pas un agent actif"
+            )
+            errors += 1
+        if workflow_file and not os.path.isfile(workflow_file):
+            print(
+                f"[FAIL] {help_path}: entree[{index}] workflow-file absent '{workflow_file}'"
+            )
+            errors += 1
+
+    return errors
+
+
+def check_hooks_json_config():
+    """Ensure hooks.json uses generic PostToolUse wording and specific legacy roots only."""
+    errors = 0
+    hooks_path = ".github/hooks/hooks.json"
+
+    if not os.path.isfile(hooks_path):
+        print(f"[FAIL] {hooks_path}: fichier hooks absent")
+        return 1
+
+    hooks_config = load_yaml_file(hooks_path) or {}
+    hooks = hooks_config.get("hooks") or []
+    deprecated_paths = ((hooks_config.get("config") or {}).get("deprecatedPaths") or [])
+
+    post_tool_use = next((hook for hook in hooks if hook.get("event") == "PostToolUse"), None)
+    description = (post_tool_use or {}).get("description", "")
+
+    if "Aria" in description:
+        print(f"[FAIL] {hooks_path}: PostToolUse reference encore Aria")
+        errors += 1
+
+    if "_gsane/" in deprecated_paths:
+        print(f"[FAIL] {hooks_path}: deprecatedPaths contient '_gsane/' trop large pour le flat-design")
+        errors += 1
+
+    for expected_path in ("_gsane/core/", "_tmad/"):
+        if expected_path not in deprecated_paths:
+            print(f"[FAIL] {hooks_path}: deprecatedPaths doit contenir '{expected_path}'")
+            errors += 1
+
+    return errors
+
+
+def check_flywheel_checklist_guard():
+    """Ensure the regression checklist explicitly bans the legacy core path in negative form."""
+    errors = 0
+    checklist_path = "_gsane/workflows/flywheel/flywheel-test-checklist.md"
+
+    if not os.path.isfile(checklist_path):
+        print(f"[FAIL] {checklist_path}: checklist introuvable")
+        return 1
+
+    content = open(checklist_path, "r", encoding="utf-8").read()
+    expected_guard = "Aucun chemin `_gsane/core/` ni ancien module `bmb` réintroduit dans les fichiers modifiés"
+    legacy_guard = "Chemins `_gsane/core/` (pas ancien `bmb`) dans tous les fichiers modifiés"
+
+    if expected_guard not in content:
+        print(f"[FAIL] {checklist_path}: garde negative `_gsane/core/` absente ou incorrecte")
+        errors += 1
+    if legacy_guard in content:
+        print(f"[FAIL] {checklist_path}: ancienne garde `_gsane/core/` encore presente")
+        errors += 1
+
+    return errors
+
+
+def check_security_gate_alignment():
+    """Ensure the declarative security gate exists and points to real repo surfaces."""
+    errors = 0
+    matrix_path = "_gsane/_config/delegation-matrix.yaml"
+
+    if not os.path.isfile(matrix_path):
+        print(f"[FAIL] {matrix_path}: delegation matrix absente")
+        return 1
+
+    matrix = load_yaml_file(matrix_path) or {}
+    gate = matrix.get("security_gate") or {}
+
+    expected_scalars = {
+        "owner": "Winston (Architect)",
+        "validation_agent": "Quinn (QA)",
+        "escalation_agent": "Langis (Master)",
+    }
+    for key, expected in expected_scalars.items():
+        if gate.get(key) != expected:
+            print(f"[FAIL] {matrix_path}: security_gate.{key}='{gate.get(key)}' attendu '{expected}'")
+            errors += 1
+
+    dependency_sources = ((gate.get("dependency_sources") or {}).get("python") or [])
+    if not dependency_sources:
+        print(f"[FAIL] {matrix_path}: security_gate.dependency_sources.python vide")
+        errors += 1
+    for rel_path in dependency_sources:
+        if not os.path.isfile(rel_path):
+            print(f"[FAIL] {matrix_path}: source de dépendances absente '{rel_path}'")
+            errors += 1
+
+    bond_keywords = ((gate.get("bond_review") or {}).get("required_keywords") or [])
+    for required_keyword in ("gsane", "policy", "guardrail", "mcp", "hook", "manifest"):
+        if required_keyword not in bond_keywords:
+            print(f"[FAIL] {matrix_path}: mot-clé Bond manquant '{required_keyword}'")
+            errors += 1
+
+    thresholds = gate.get("reevaluation_thresholds") or {}
+    required_thresholds = (
+        "security_requests_30d",
+        "bond_reviews_per_sprint",
+        "blocking_escalation_sprints",
+        "coordination_cost_points",
+    )
+    for threshold in required_thresholds:
+        value = thresholds.get(threshold)
+        if not isinstance(value, int) or value <= 0:
+            print(f"[FAIL] {matrix_path}: seuil de réévaluation invalide '{threshold}'={value}")
+            errors += 1
+
+    allowed_roots = ((gate.get("mcp") or {}).get("allowed_roots") or [])
+    for rel_path in allowed_roots:
+        if not os.path.isdir(rel_path):
+            print(f"[FAIL] {matrix_path}: racine MCP absente '{rel_path}'")
+            errors += 1
+
+    return errors
+
+
+def check_canonical_runtime_alignment():
+    """Ensure the canonical brief and runtime surfaces follow the new source-of-truth model."""
+    errors = 0
+
+    brief_path = "_gsane/_memory/project-context.md"
+    if not os.path.isfile(brief_path):
+        print(f"[FAIL] {brief_path}: brief canonique introuvable")
+        return 1
+
+    with open(brief_path, "r", encoding="utf-8") as fh:
+        brief_content = fh.read()
+
+    for heading in CANONICAL_BRIEF_REQUIRED_HEADINGS:
+        if f"## {heading}" not in brief_content:
+            print(f"[FAIL] {brief_path}: heading canonique manquant '{heading}'")
+            errors += 1
+
+    for token in CANONICAL_BRIEF_FORBIDDEN_TOKENS:
+        if token in brief_content:
+            print(f"[FAIL] {brief_path}: token mutable interdit trouve '{token}'")
+            errors += 1
+
+    runtime_files = {
+        "_gsane/agents/master.md": [
+            "gsane_read_canonical_brief()",
+            "gsane_read_active_delivery_contract()",
+            "gsane_read_project_snapshot()",
+        ],
+        ".github/prompts/gsane-session-bootstrap.prompt.md": [
+            "gsane_read_canonical_brief()",
+            "gsane_read_active_delivery_contract()",
+            "gsane_read_project_snapshot()",
+        ],
+    }
+    for filepath, required_tokens in runtime_files.items():
+        if not os.path.isfile(filepath):
+            print(f"[FAIL] {filepath}: surface runtime introuvable")
+            errors += 1
+            continue
+        with open(filepath, "r", encoding="utf-8") as fh:
+            content = fh.read()
+        for token in required_tokens:
+            if token not in content:
+                print(f"[FAIL] {filepath}: vue MCP canonique manquante '{token}'")
+                errors += 1
+
+    bootstrap_path = ".github/prompts/gsane-session-bootstrap.prompt.md"
+    if os.path.isfile(bootstrap_path):
+        bootstrap_content = open(bootstrap_path, "r", encoding="utf-8").read()
+        legacy_line = "Lire `{project-root}/_gsane/_memory/sessions/session-state.md`"
+        if legacy_line in bootstrap_content:
+            print(f"[FAIL] {bootstrap_path}: session-state.md encore lu comme etat actif")
+            errors += 1
+
+    manifest_path = "_gsane/_config/manifest.yaml"
+    manifest = load_yaml_file(manifest_path) or {}
+    runtime = manifest.get("runtime") or {}
+    audit_continuity = (runtime.get("audit_continuity") or {}).get("files") or []
+    for required_file in (
+        "_gsane/_memory/sessions/session-state.md",
+        "_gsane/_memory/sessions/session-analysis-log.md",
+    ):
+        if required_file not in audit_continuity:
+            print(f"[FAIL] {manifest_path}: fichier d'audit non classe '{required_file}'")
+            errors += 1
+
+    return errors
 
 
 # ──────────────────────────────────────────────────────────────
@@ -201,6 +603,14 @@ if __name__ == '__main__':
         print(f"[FAIL] {filepath}:{line_no}: référence legacy trouvée — '{term}'")
         total_errors += 1
 
+    total_errors += check_active_guidance_surfaces()
+    total_errors += check_github_copilot_alignment()
+    total_errors += check_gsane_help_agent_names()
+    total_errors += check_hooks_json_config()
+    total_errors += check_flywheel_checklist_guard()
+    total_errors += check_security_gate_alignment()
+    total_errors += check_canonical_runtime_alignment()
+    total_errors += check_readme_legacy_refs()
     total_errors += check_hooks()
     total_errors += check_all_manifests()
 

@@ -1,0 +1,9 @@
+{
+  // Extensions recommandées pour un repo Python GSANE
+  "recommendations": [
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "github.copilot",
+    "github.vscode-pull-request-github"
+  ]
+}

@@ -1,6 +1,6 @@
 ide: github-copilot
 configured_date: 2026-03-01T18:45:35.594Z
-last_updated: 2026-03-01T18:45:35.594Z
+last_updated: 2026-04-09T00:00:00.000Z
 configuration:
   instructions_file: ".github/copilot-instructions.md"
   agents_file: "AGENTS.md"
@@ -11,56 +11,22 @@ configuration:
     - name: master
       description: "Gsane Master — orchestrator principal GSANE. Point d'entrée pour toutes les opérations."
       activation_file: "_gsane/agents/master.md"
-    - name: gsane-bond
+    - name: bond
       description: "Bond — Expert en création et validation d'agents GSANE."
       activation_file: "_gsane/agents/bond.md"
-    - name: gsane-morgan
-      description: "Morgan — Expert en création et validation de modules GSANE."
-      activation_file: "_gsane/agents/morgan.md"
-    - name: gsane-wendy
-      description: "Wendy — Expert en création et validation de workflows GSANE."
-      activation_file: "_gsane/agents/wendy.md"
-    - name: optimizer
-      description: "Léo — GSANE Framework Optimizer: token analysis, session metrics, framework improvement."
-      activation_file: "_gsane/agents/optimizer.md"
-    - name: aria
-      description: "Aria — GSANE Quality Assurance Specialist: workflow validation, compliance, persona regression detection."
-      activation_file: "_gsane/agents/aria.md"
-    - name: gsane-tea
-      description: "Murat — Master Test Architect: ATDD, CI/CD, test design, quality gates."
-      activation_file: "_gsane/agents/tea.md"
-    # CIS Module — Business Methodology agents
-    - name: analyst
-      description: "Mary — Business Analyst: market research, competitive analysis, requirements elicitation, domain expertise."
-      activation_file: "_gsane/agents/analyst.md"
-    - name: pm
-      description: "John — Product Manager: PRD creation, requirements discovery, stakeholder alignment."
-      activation_file: "_gsane/agents/pm.md"
     - name: architect
       description: "Winston — Architect: distributed systems, cloud infrastructure, API design, scalable patterns."
       activation_file: "_gsane/agents/architect.md"
-    - name: sm
-      description: "Bob — Scrum Master: sprint planning, story preparation, agile ceremonies, backlog management."
-      activation_file: "_gsane/agents/sm.md"
     - name: dev
       description: "Amelia — Developer Agent: story execution, test-driven development, code implementation."
       activation_file: "_gsane/agents/dev.md"
-    - name: ux-designer
-      description: "Sally — UX Designer: user research, interaction design, UI patterns, experience strategy."
-      activation_file: "_gsane/agents/ux-designer.md"
     - name: qa
       description: "Quinn — QA Engineer: test automation, API testing, E2E testing, rapid coverage."
       activation_file: "_gsane/agents/qa.md"
-    - name: gsane-tech-writer
-      description: "Paige — Technical Writer: documentation, Mermaid diagrams, standards compliance, concept explanation."
-      activation_file: "_gsane/agents/tech-writer.md"
-    - name: gsane-quick-flow-solo-dev
-      description: "Barry — Quick Flow Solo Dev: rapid spec creation, lean implementation, minimum ceremony."
-      activation_file: "_gsane/agents/quick-flow-solo-dev.md"
 
   # Context files always injected into Copilot context window
   context_files:
-    - path: "_gsane/core/config.yaml"
+    - path: "_gsane/config.yaml"
       reason: "Global config — user_name, communication_language, output_folder"
     - path: "_gsane/_config/agent-manifest.yaml"
       reason: "Agent index for JIT selection and routing"
@@ -71,7 +37,7 @@ configuration:
   token_optimization:
     load_strategy: "jit"                 # Load files only when needed
     avoid_reloading_config: true         # Config resolved once per session
-    party_mode_profile_loading: "per-turn-csv-only"  # Use CSV rows, not full .md files
+    party_mode_profile_loading: "selected-agent-files-only"  # Load only the manifest entries or agent files needed for the turn
 
   # Encoding of project conventions for Copilot inline suggestions
   conventions:
@@ -79,5 +45,5 @@ configuration:
     branch_prefix: ["feature/", "fix/"]
     never_commit_to: "main"
     output_folder: "_gsane-output/"
-    workflow_engine: "_gsane/core/tasks/workflow.xml"
+    workflow_execution: "Load `.md` workflows directly; use YAML manifests as data, not via a workflow engine."
 

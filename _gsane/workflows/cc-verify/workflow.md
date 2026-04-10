@@ -47,6 +47,40 @@ EXÉCUTER : bash gsane.sh validate
 
 ---
 
+## ÉTAPE 2b — Security Review (checklist intégrée)
+
+> Cette étape remplace le besoin d'un agent sécurité dédié. Quinn exécute la checklist directement.
+
+```
+CHECKLIST SÉCURITÉ (4 points obligatoires) :
+
+CHECK_SEC_1 — Secrets exposés :
+  EXÉCUTER : python _gsane/tools/security_gate.py scan-secrets
+  SI exit_code != 0 → SEC_FAIL
+  SI exit_code = 0 → SEC_PASS
+
+CHECK_SEC_2 — Injection shell/prompt :
+  SCANNER les fichiers modifiés pour :
+    - os.system(), subprocess.call() avec shell=True, eval(), exec()
+    - Prompt injection patterns dans les fichiers .md agents
+  SI trouvé sans sanitization → SEC_WARN (log, non bloquant sauf si HIGH risk)
+
+CHECK_SEC_3 — Chemins non sanitisés :
+  VÉRIFIER que tout accès fichier utilise ensure_path_within_roots() ou équivalent
+  SI accès fichier brut détecté dans _gsane/mcp-server/ → SEC_WARN
+
+CHECK_SEC_4 — Dépendances vulnérables :
+  EXÉCUTER : python _gsane/tools/security_gate.py run-pip-audit
+  SI exit_code != 0 → SEC_WARN (non bloquant — log uniquement)
+
+RÉSULTAT :
+  SEC_FAIL (au moins 1 SEC_FAIL) → [SEC] FAIL — bloquant pour [CC] PASS
+  SEC_WARN uniquement → [SEC] WARN — log dans le rapport CC, non bloquant
+  Aucun finding → [SEC] PASS
+```
+
+---
+
 ## ÉTAPE 3 — Vérification des artefacts obligatoires
 
 ```
@@ -69,11 +103,13 @@ CONDITIONS POUR [CC] PASS :
   GATE_AUTO = PASS
   AND aucun critère FAILED à l'étape 1
   AND CHECK_CHANGELOG = true (si code modifié)
+  AND SEC != FAIL
 
 CONDITIONS POUR [CC] FAIL :
   GATE_AUTO = FAIL
   OR au moins 1 critère FAILED
   OR CHECK_CHANGELOG = false et code modifié
+  OR SEC = FAIL
 
 [CC] INCOMPLETE :
   Au moins 1 critère UNTESTABLE ET aucun FAILED ET GATE_AUTO = PASS
@@ -111,4 +147,17 @@ SI [CC] FAIL et GATE_AUTO = FAIL :
   3. Quinn ré-exécute cc-verify automatiquement (pas d'intervention humaine)
   4. Maximum 3 itérations (CIRCUIT-BREAKER au bout de 3 échecs consécutifs)
   5. L'humain n'est notifié QUE en cas de [CC] PASS final OU circuit-breaker déclenché
+```
+
+---
+
+## ÉTAPE 5 — Post-feature documentation
+
+> Déclenché automatiquement après [CC] PASS. Non bloquant — avertissement uniquement.
+
+```
+SI [CC] = PASS :
+  EXÉCUTER le workflow _gsane/workflows/post-feature-doc/workflow.md
+  Ce workflow vérifie la complétude documentaire et émet des avertissements.
+  Résultat : [DOC] PASS ou [DOC] WARN (jamais bloquant)
 ```

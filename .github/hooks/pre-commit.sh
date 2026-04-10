@@ -1,26 +1,44 @@
 #!/usr/bin/env bash
 # Pre-Commit Hook — Bloque les commits directs sur main.
-# Vérifie le nommage de branche et les chemins dépréciés dans les fichiers stagés.
+# Vérifie le nommage de branche, la syntaxe YAML récursive et les garde-fous sécurité locaux.
 set -euo pipefail
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+PYTHON_CMD=()
+
+resolve_python_cmd() {
+  if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" >/dev/null 2>&1; then
+    PYTHON_CMD=(python3)
+    return 0
+  fi
+  if command -v python >/dev/null 2>&1 && python -c "import sys" >/dev/null 2>&1; then
+    PYTHON_CMD=(python)
+    return 0
+  fi
+  if command -v py >/dev/null 2>&1 && py -3 -c "import sys" >/dev/null 2>&1; then
+    PYTHON_CMD=(py -3)
+    return 0
+  fi
+  return 1
+}
 
 echo "[PreCommit] Branch: $CURRENT_BRANCH"
 
-# ── 1. Bloquer commit direct sur main ──────────────────────────────────────────
 if [[ "$CURRENT_BRANCH" == "main" ]]; then
   echo "[PreCommit] ❌ BLOCKED: Direct commit to 'main' is forbidden!"
   echo "  Create a feature/* or fix/* branch first (Git Workflow — copilot-instructions.md)."
   exit 1
 fi
 
-# ── 2. Avertir si convention de nommage non respectée ──────────────────────────
 if [[ ! "$CURRENT_BRANCH" =~ ^(feature|fix)\/[a-z0-9\-]+-[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
   echo "[PreCommit] ⚠️  WARNING: Branch '$CURRENT_BRANCH' doesn't follow feature/fix-YYYY-MM-DD convention"
 fi
 
+if ! resolve_python_cmd; then
+  echo "[PreCommit] ❌ Python introuvable : impossible d'exécuter la validation YAML et la gate sécurité locale."
+  exit 1
+fi
 
-# ── 3. Blacklist Linter (Prévention des String Magiques) ────────────────────────
 STAGED_FILES=$(git diff --cached --name-only)
 if [[ -n "$STAGED_FILES" ]]; then
   BANNED_WORDS=("bmm" "bmad" "_tmad")
@@ -33,48 +51,49 @@ if [[ -n "$STAGED_FILES" ]]; then
   done
 fi
 
-
-# ── 4. Validation des fichiers YAML (Prévention Crash Parser) ───────────────────
-echo "🔍 Vérification de la syntaxe YAML..."
+echo "🔍 Vérification récursive de la syntaxe YAML..."
 YAML_STATUS=0
 
-if command -v python3 >/dev/null 2>&1; then
-  if python3 - << 'EOF'
-import glob
+if "${PYTHON_CMD[@]}" - <<'EOF'
+from pathlib import Path
 import sys
 
 try:
     import yaml  # type: ignore[import]
 except ImportError:
-    # Code de sortie spécial pour signaler l'absence de PyYAML au hook shell
     sys.exit(42)
 
-for f in glob.glob('_gsane/_config/*.yaml'):
-    with open(f, encoding='utf-8') as fh:
-        yaml.safe_load(fh)
+files = sorted(Path("_gsane/_config").rglob("*.yaml"))
+if not files:
+    sys.exit(1)
+
+for file_path in files:
+    with file_path.open(encoding='utf-8') as handle:
+        yaml.safe_load(handle)
 EOF
-  then
-    YAML_STATUS=0
-  else
-    PY_STATUS=$?
-    if [[ "$PY_STATUS" -eq 42 ]]; then
-      echo "[PreCommit] ⚠️  Le module Python 'yaml' n'est pas installé."
-      echo "  La validation YAML est sautée pour ne pas bloquer le commit."
-      echo "  Pour activer la validation locale : python3 -m pip install pyyaml"
-      YAML_STATUS=0
-    else
-      YAML_STATUS=1
-    fi
-  fi
-else
-  echo "[PreCommit] ⚠️  Aucun validateur YAML disponible (python3 introuvable)."
-  echo "  La validation YAML est sautée pour ne pas bloquer le commit."
+then
   YAML_STATUS=0
+else
+  PY_STATUS=$?
+  if [[ "$PY_STATUS" -eq 42 ]]; then
+    echo "[PreCommit] ❌ Le module Python 'yaml' est requis par la validation locale et la gate sécurité."
+    echo "  Installe-le avec : python -m pip install pyyaml"
+  else
+    echo "[PreCommit] ❌ Validation YAML récursive impossible sur _gsane/_config/**."
+  fi
+  YAML_STATUS=1
 fi
 
 if [[ "$YAML_STATUS" -ne 0 ]]; then
   echo "❌ YAML invalide ! Interruption du commit."
   exit 1
 fi
-echo "✅ YAML valide (ou validation sautée avec avertissement)."
+echo "✅ YAML valide sur _gsane/_config/**."
+
+echo "🔍 Scan secrets sur le staging..."
+"${PYTHON_CMD[@]}" _gsane/tools/security_gate.py scan-secrets --staged
+
+echo "🔍 Bandit sur les fichiers Python stagés..."
+"${PYTHON_CMD[@]}" _gsane/tools/security_gate.py run-bandit --staged
+
 echo "[PreCommit] ✅ All checks passed."

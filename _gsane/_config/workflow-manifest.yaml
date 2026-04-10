@@ -15,6 +15,15 @@
   agent: master
   agent_display: Gsane Master
 
+- name: validate-agent
+  description: Agent compliance gate. Run after any GSANE agent/persona/manifest
+    change. Verifies nested YAML under _gsane/_config, runs qa-linter on agents,
+    executes the repo quality gate, then requires a Quinn verdict before delivery.
+  path: _gsane/workflows/workflow-validate-agent.md
+  agent: bond
+  co_agent: qa
+  agent_display: Bond + Quinn
+
 - name: git-workflow
   description: 'Mandatory git protocol. Never commit to main. Always create a feature/*
     or fix/* branch, commit changes, push, then open a PR with a filled description.
@@ -25,19 +34,20 @@
 
 - name: post-session-analysis
   description: 'Automated post-session hook. Runs silently after every session.
-    Logs token patterns and optimization insights. Appends to
-    _gsane/_memory/sessions/session-analysis-log.md. Counts sessions and fires the
-    Cognitive Flywheel every N sessions (config: flywheel.trigger_every_n_sessions).
-    No user interaction required.'
+    Logs token patterns and optimization insights into audit/continuity files.
+    Appends to _gsane/_memory/sessions/session-analysis-log.md and can update
+    session-state.md for continuity only. These files are not current project truth.
+    Counts sessions and fires the Cognitive Flywheel every N sessions (config:
+    flywheel.trigger_every_n_sessions). No user interaction required.'
   path: _gsane/workflows/post-session-analysis/workflow.md
   agent: master
   agent_display: Gsane Master
 
 - name: flywheel-aggregate
-  description: Cognitive Flywheel — Aggregation cycle. Reads session-analysis-log.md,
-    extracts recurring patterns (>=3 occurrences = confirmed), calculates flywheel-score
-    and trend, writes flywheel-report.md. Triggered automatically by post-session-analysis
-    every N sessions. Silent.
+  description: Cognitive Flywheel — Aggregation cycle. Reads the audit log
+    session-analysis-log.md, extracts recurring patterns (>=3 occurrences = confirmed),
+    calculates flywheel-score and trend, writes flywheel-report.md. Triggered
+    automatically by post-session-analysis every N sessions. Silent.
   path: _gsane/workflows/flywheel/workflow-aggregate.md
   agent: master
   co_agent: qa
@@ -62,3 +72,17 @@
   path: _gsane/workflows/party-mode/workflow.md
   agent: master
   agent_display: Gsane Master
+
+- name: post-feature-doc
+  description: 'Vérifie la complétude documentaire post-feature. Déclenché par cc-verify après PASS. Non bloquant. Piloté par Langis, validé par Quinn.'
+  path: _gsane/workflows/post-feature-doc/workflow.md
+  agent: master
+  co_agent: qa
+  agent_display: Langis + Quinn
+
+- name: ci-setup
+  description: 'Setup CI/CD pipeline. Crée ci.yml, configure ruff/mypy/pytest-cov, Dependabot. Piloté par Winston, validé par Quinn.'
+  path: _gsane/workflows/ci-setup/workflow.md
+  agent: architect
+  co_agent: qa
+  agent_display: Winston + Quinn

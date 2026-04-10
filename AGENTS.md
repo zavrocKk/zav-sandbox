@@ -80,7 +80,6 @@ AGENTS.md                     ← This file — universal agent entry point
 - **Solo Trip Wire**: When making systemic file rewrites, invoke the team 
 unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation then act."
 
----
 
 ## Strike Team (Active Agents)
 
@@ -93,7 +92,31 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 | Builder | 🤖 Bond | Create/edit/validate GSANE agents |
 
 
----
+## Glossaire GSANE
+
+| Terme | Définition |
+|-------|-----------|
+| **GSANE** | Governance System for AI-Native Execution — le framework de gouvernance multi-agents |
+| **Strike Team** | Les 5 agents core : Langis, Amelia, Quinn, Winston, Bond |
+| **Delivery Contract** | Document formel requis avant toute implémentation, contient les AC et le DoD |
+| **AC** | Acceptance Criteria — critère de succès vérifiable d'une tâche |
+| **DoD** | Definition of Done — conditions de complétion d'un livrable |
+| **[CC]** | Completion Contract — checklist de vérification avant de déclarer une tâche terminée |
+| **[DA]** | Dismiss Agent — commande de fin de session qui déclenche le post-session hook |
+| **Party Mode** | Workflow de brainstorming multi-agents en parallèle |
+| **Flywheel** | Boucle d'amélioration continue du framework GSANE |
+| **Sidecar** | Fichier mémoire persistant par agent (`_gsane/_memory/{agent}-sidecar/`) |
+| **Failure Museum** | Catalogue append-only des erreurs passées et de leurs résolutions |
+| **Trust Score** | Score de confiance composite (0-100) évalué lors des cross-validations |
+| **Pre-flight** | Vérification silencieuse avant l'exécution d'une tâche (confiance VERT/JAUNE/ROUGE) |
+| **Post-flight** | Vérification après production d'un output (facts inventés, contradictions) |
+| **P2P** | Communication point-à-point entre agents, toujours routée via Master |
+| **HUP** | Honest Uncertainty Protocol — escalade en cas de doute (ROUGE = STOP) |
+| **Zero-Touch** | Mode où le pipeline s'auto-corrige sans intervention humaine jusqu'au succès |
+| **Circuit Breaker** | Mécanisme de protection contre les boucles infinies (max_retries = 2) |
+| **JSONL** | JSON Lines — format de log append-only (1 objet JSON par ligne) |
+| **MCP** | Model Context Protocol — interface outillée pour les agents LLM |
+| **emit-p2p** | Balise XML d'encapsulation des messages inter-agents pour le routage Master |
 
 ## Slash Commands (GitHub Copilot Chat)
 
@@ -105,3 +128,18 @@ Type /gsane- in Copilot Chat to see all available commands. Key ones:
 - /gsane-cc-verify — Run Completion Contract before closing a task
 
 ---
+
+## Glossaire GSANE
+
+| Terme | Définition |
+|-------|-----------|
+| **Delivery Contract** | Contrat de livraison obligatoire avant toute implémentation (scope, AC, risques) |
+| **Party Mode** | Validation collective en 3 phases (Huddle → Brainstorm → Planning) |
+| **CC-Verify** | Checklist de 20 points de complétion avant clôture |
+| **Flywheel** | Cycle d'amélioration cognitive automatique (toutes les 5 sessions) |
+| **Canonical Brief** | Brief humain durable dans `project-context.md` — source de vérité primaire |
+| **Sidecar** | Mémoire persistante propre à chaque agent (`*-sidecar/`) |
+| **Delegation Matrix** | Matrice de routage déterministe des requêtes vers l'agent approprié |
+| **Trust Score** | Métrique de confiance enregistrée dans le trace log |
+| **Quality Gate** | Validation obligatoire : pytest + qa-linter + security + CHANGELOG |
+| **Zero-Touch Fix-Loop** | Boucle QA↔Dev automatique sans intervention humaine |
