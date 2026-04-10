@@ -6,6 +6,8 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **docs(contributing)**: Section "Prérequis Windows" ajoutée — WSL recommandé, Git Bash alternatif, CI comme validation de référence
+- **fix(cli)**: `gsane.sh doctor` détecte Windows/Git Bash et affiche un warning explicite au lieu de crasher silencieusement
 - **docs(skills)**: Batch P4 — création/réécriture de 5 skills Copilot : `prompt-engineering` (structure DC, AC, requêtes complexes), `delivery-contract` (template officiel, numérotation, fix trivial), `git-workflow` (cheat-sheet branches/commits/PR), `mcp-integration` (5 outils MCP avec exemples et retry pattern), `debugging-gsane` (arbre diagnostic 5 symptômes)
 - **fix(agents)**: Suppression du BOM UTF-8 dans `qa.agent.md` qui empêchait le parsing du frontmatter YAML
 - **fix(template)**: PR template corrigé — encodage UTF-8 restauré (accents + checkboxes), chemin ruff corrigé `_gsane/ tests/` au lieu de `src/`

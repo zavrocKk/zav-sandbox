@@ -32,6 +32,23 @@ bash gsane.sh mcp --health
 python -m pytest tests/
 ```
 
+### Prérequis Windows
+
+`bash gsane.sh` requiert un environnement Bash. Options :
+
+| Option | Commande | Notes |
+|--------|----------|-------|
+| **WSL (recommandé)** | `wsl --install -d Ubuntu` | Aligné avec le CI GitHub Actions (Ubuntu) |
+| **Git Bash** | `"C:\Program Files\Git\bin\bash.exe" gsane.sh validate` | Fonctionne pour la plupart des commandes |
+| **CI uniquement** | Pousser sur branche feature, le CI valide | Aucune dépendance locale requise |
+
+Sans Bash, la validation structurelle Python reste accessible directement :
+```powershell
+python -m pytest tests/ -m "not behavioral"
+```
+
+Le CI GitHub Actions est la **validation de référence** — `gsane.sh doctor` affiche un warning si WSL/Bash n'est pas détecté.
+
 ---
 
 ## 🔄 Workflow Git — OBLIGATOIRE
