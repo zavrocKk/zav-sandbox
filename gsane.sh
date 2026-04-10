@@ -168,7 +168,8 @@ case $ACTION in
         echo "🔍 Vérification documentaire..."
         STATUS_OUTPUT="$(git status --porcelain)"
         # Exclure _gsane/_memory/ (fichiers runtime) du gate CHANGELOG
-        CODE_CHANGES="$(printf '%s\n' "$STATUS_OUTPUT" | grep -v '_gsane/_memory/')"
+        # || true : grep -v retourne exit 1 quand aucune ligne ne passe le filtre (set -e)
+        CODE_CHANGES="$(printf '%s\n' "$STATUS_OUTPUT" | grep -v '_gsane/_memory/' || true)"
         if printf '%s\n' "$CODE_CHANGES" | grep -Eq '^( M| A|AM|A |M |\?\?)' && \
             printf '%s\n' "$CODE_CHANGES" | grep -q "src/\|_gsane/mcp-server/\|_gsane/workflows/\|_gsane/agents/"; then
             if ! printf '%s\n' "$CODE_CHANGES" | grep -q "CHANGELOG.md"; then

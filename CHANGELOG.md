@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(cli)**: `grep -v` dans le gate documentaire de `gsane.sh validate` absorbé avec `|| true` — `set -e` tuait le script quand seul `_gsane/_memory/trace.log` était dirty (exit code 1 de grep sans résultat)
 - **fix(ci)**: Guard pr-autofill remplacé — comparaison au contenu du PR template au lieu du seuil `body.length > 200` (le template GitHub de 746 chars déclenchait toujours le skip)
 - **fix(cli)**: Gate CHANGELOG dans `gsane.sh validate` exclut `_gsane/_memory/` (fichiers runtime) pour éviter les faux positifs locaux
 - **fix(cli)**: Bandit et pip-audit optionnels dans `gsane.sh validate` — warning + skip si non installés, CI reste la référence
