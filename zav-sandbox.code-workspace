@@ -8,7 +8,23 @@
     "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
     "files.exclude": {
       "**/.venv": true,
-      "**/__pycache__": true
+      "**/__pycache__": true,
+      "**/.mypy_cache": true,
+      "**/.pytest_cache": true,
+      "**/.ruff_cache": true
+    },
+    "search.exclude": {
+      "**/.mypy_cache": true,
+      "**/.pytest_cache": true,
+      "**/.ruff_cache": true,
+      "_gsane-output/**": true
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.mypy_cache/**": true,
+      "**/.pytest_cache/**": true,
+      "**/.ruff_cache/**": true,
+      "_gsane-output/**": true
     },
     "[yaml]": {
       "editor.tabSize": 2,
