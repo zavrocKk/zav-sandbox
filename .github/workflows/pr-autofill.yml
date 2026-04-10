@@ -107,32 +107,34 @@ jobs:
             // Build body
             const check = (v) => v ? '[x]' : '[ ]';
 
-            const body = `## Description
-
-Auto-générée depuis ${commitLines.length} commit(s) : ${commitSummary}
-
-## Type de changement
-
-${Object.entries(typeChecks).map(([label, checked]) =>
-  `- ${check(checked)} ${label}`
-).join('\n')}
-
-## Checklist
-
-- ${check(hasTests)} Tests ajoutés/mis à jour et passent (\`pytest tests/ -v\`)
-- [ ] Linting OK (\`ruff check _gsane/ tests/\`)
-- ${check(hasChangelog)} CHANGELOG.md mis à jour (section \`[Unreleased]\`)
-- [ ] Pas de secrets hardcodés
-- [ ] Delivery Contract référencé (si applicable)
-
-## Agent(s) impliqué(s)
-
-${detectedAgents.size > 0 ? [...detectedAgents].join(', ') : '_Aucun agent détecté_'}
-
-## Notes pour le reviewer
-
-<!-- Contexte supplémentaire, screenshots, ou points d'attention. -->
-`;
+            const bodyLines = [
+              '## Description',
+              '',
+              'Auto-g\u00e9n\u00e9r\u00e9e depuis ' + commitLines.length + ' commit(s) : ' + commitSummary,
+              '',
+              '## Type de changement',
+              '',
+              ...Object.entries(typeChecks).map(([label, checked]) =>
+                '- ' + check(checked) + ' ' + label
+              ),
+              '',
+              '## Checklist',
+              '',
+              '- ' + check(hasTests) + ' Tests ajout\u00e9s/mis \u00e0 jour et passent (`pytest tests/ -v`)',
+              '- [ ] Linting OK (`ruff check _gsane/ tests/`)',
+              '- ' + check(hasChangelog) + ' CHANGELOG.md mis \u00e0 jour (section `[Unreleased]`)',
+              '- [ ] Pas de secrets hardcod\u00e9s',
+              '- [ ] Delivery Contract r\u00e9f\u00e9renc\u00e9 (si applicable)',
+              '',
+              '## Agent(s) impliqu\u00e9(s)',
+              '',
+              detectedAgents.size > 0 ? [...detectedAgents].join(', ') : '_Aucun agent d\u00e9tect\u00e9_',
+              '',
+              '## Notes pour le reviewer',
+              '',
+              '<!-- Contexte suppl\u00e9mentaire, screenshots, ou points d\'attention. -->',
+            ];
+            const body = bodyLines.join('\n');
 
             // Update PR body
             await github.rest.pulls.update({
