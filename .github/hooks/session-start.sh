@@ -134,6 +134,10 @@ if percentage > critical_thr * 100:
     print(f"[SessionStart] \U0001f534 CRITICAL: Context budget near exhaustion ({percentage:.0f}%) — consider reducing loaded context")
 elif percentage > warning_thr * 100:
     print(f"[SessionStart] ⚠️ WARNING: Context budget approaching limit ({percentage:.0f}%)")
+
+if percentage > warning_thr * 100:
+  print(f"[SessionStart] ⚡ Sage activé — budget à {percentage:.0f}%")
+  print("[SessionStart] Suggestion : décharger les agents inactifs")
 PYEOF
   else
     # Fallback: basic estimation without python3
@@ -153,6 +157,10 @@ PYEOF
       echo "[SessionStart] 🔴 CRITICAL: Context budget near exhaustion (${PERCENTAGE}%) — consider reducing loaded context"
     elif [[ "$PERCENTAGE" -gt 75 ]]; then
       echo "[SessionStart] ⚠️ WARNING: Context budget approaching limit (${PERCENTAGE}%)"
+    fi
+    if [[ "$PERCENTAGE" -gt 75 ]]; then
+      echo "[SessionStart] ⚡ Sage activé — budget à ${PERCENTAGE}%"
+      echo "[SessionStart] Suggestion : décharger les agents inactifs"
     fi
   fi
 fi

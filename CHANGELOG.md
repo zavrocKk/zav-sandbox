@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **feat(hooks)**: activation de Sage dans `session-start.sh` au-dessus du warning threshold du context budget avec suggestion de décharger les agents inactifs
 - **fix(agents)**: ajout des fichiers `vera.customize.yaml` et `sage.customize.yaml` + garde qa-linter pour exiger un `.customize.yaml` par agent du manifest
 - **feat(session)**: P6-F — Session resumption : reprise de session interrompue via checkpoint MCP, commande `gsane.sh session --resume`, marquage automatique dans session-stop.sh
 - **feat(agents)**: P6-G — Subagents Vera (Security Reviewer 🔒) et Sage (Context Guardian 📊) : revue sécurité en lecture seule et surveillance budget tokens, status subagent dans agent-manifest.yaml
