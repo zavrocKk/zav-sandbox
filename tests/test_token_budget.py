@@ -1,7 +1,9 @@
 """Tests de régression sur le budget tokens des fichiers GSANE."""
-import os
+
 import glob
+import os
 import warnings
+
 import pytest
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +44,8 @@ def test_agent_manifest_token_budget():
     if tokens > threshold * WARNING_RATIO:
         warnings.warn(
             f"⚠️ {rel_path} à {tokens}/{threshold} tokens "
-            f"({tokens / threshold * 100:.0f}%) — proche du seuil"
+            f"({tokens / threshold * 100:.0f}%) — proche du seuil",
+            stacklevel=2,
         )
     assert tokens <= threshold, (
         f"❌ {rel_path} dépasse le seuil : {tokens} > {threshold} tokens"
@@ -64,7 +67,8 @@ def test_agent_files_token_budget():
         if tokens > threshold * WARNING_RATIO:
             warnings.warn(
                 f"⚠️ {rel_path} à {tokens}/{threshold} tokens "
-                f"({tokens / threshold * 100:.0f}%) — proche du seuil"
+                f"({tokens / threshold * 100:.0f}%) — proche du seuil",
+                stacklevel=2,
             )
         assert tokens <= threshold, (
             f"❌ {rel_path} dépasse le seuil : {tokens} > {threshold} tokens"
@@ -88,7 +92,8 @@ def test_skill_files_token_budget():
         if tokens > threshold * WARNING_RATIO:
             warnings.warn(
                 f"⚠️ {rel_path} à {tokens}/{threshold} tokens "
-                f"({tokens / threshold * 100:.0f}%) — proche du seuil"
+                f"({tokens / threshold * 100:.0f}%) — proche du seuil",
+                stacklevel=2,
             )
         assert tokens <= threshold, (
             f"❌ {rel_path} dépasse le seuil : {tokens} > {threshold} tokens"
@@ -104,7 +109,8 @@ def test_config_token_budget():
     if tokens > threshold * WARNING_RATIO:
         warnings.warn(
             f"⚠️ {rel_path} à {tokens}/{threshold} tokens "
-            f"({tokens / threshold * 100:.0f}%) — proche du seuil"
+            f"({tokens / threshold * 100:.0f}%) — proche du seuil",
+            stacklevel=2,
         )
     assert tokens <= threshold, (
         f"❌ {rel_path} dépasse le seuil : {tokens} > {threshold} tokens"
@@ -149,7 +155,8 @@ def test_session_budget_total():
     if total > threshold * WARNING_RATIO:
         warnings.warn(
             f"⚠️ Session budget total à {total}/{threshold} tokens "
-            f"({total / threshold * 100:.0f}%) — proche du seuil"
+            f"({total / threshold * 100:.0f}%) — proche du seuil",
+            stacklevel=2,
         )
     assert total <= threshold, (
         f"❌ Session budget total dépasse le seuil : {total} > {threshold} tokens "

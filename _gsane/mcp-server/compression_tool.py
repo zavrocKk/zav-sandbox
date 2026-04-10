@@ -445,7 +445,7 @@ def gsane_write_session_checkpoint(
             + f"exchange_count: {exchange_count}\n"
             + f"checkpoint_exchange: {exchange_count}\n"
             + f"checkpoint_date: {datetime.now().isoformat()}\n"
-            + f"interrupted: false\n"
+                + "interrupted: false\n"
             + "checkpoint_compressed: |\n"
             + indented_block
             + "\n"
