@@ -115,9 +115,9 @@ jobs:
           print("✅ All workflow manifest files exist!")
           EOF
 
-      - name: Validate agent persona fields
+      - name: Validate agent manifest registry fields
         run: |
-          echo "🔍 Checking agent manifest persona fields..."
+          echo "🔍 Checking agent manifest registry fields..."
           python3 - <<'EOF'
           import yaml, sys
           errors = 0
@@ -126,18 +126,18 @@ jobs:
               if reader:
                   for row in reader:
                       name = row.get('name', '').strip()
-                      cs = row.get('communicationStyle', '').strip()
-                      pr = row.get('principles', '').strip()
-                      if not cs:
-                          print(f"❌ ERROR: Agent '{name}' has empty communicationStyle")
+                      gr = str(row.get('golden_rule', '')).strip()
+                      nd = row.get('never_do', [])
+                      if not gr:
+                          print(f"❌ ERROR: Agent '{name}' has empty golden_rule")
                           errors += 1
-                      if not pr:
-                          print(f"❌ ERROR: Agent '{name}' has empty principles")
+                      if not nd:
+                          print(f"❌ ERROR: Agent '{name}' has empty never_do")
                           errors += 1
           if errors > 0:
-              print(f"❌ {errors} agent persona field(s) empty!")
+              print(f"❌ {errors} agent registry field(s) empty!")
               sys.exit(1)
-          print("✅ All agent persona fields populated!")
+          print("✅ All agent registry fields populated!")
           EOF
 
       - name: Validation Summary
@@ -147,6 +147,7 @@ jobs:
           echo "✅ CHANGELOG.md exists and is properly formatted"
           echo "✅ PR body is not empty"
           echo "✅ Agent .agent.md count verified"
+          echo "✅ Agent registry fields populated"
           echo "✅ GSANE directory structure complete"
           echo "✅ Branch naming convention checked"
           echo "✅ Repo quality gate passed (pytest non-behavioral + QA linter + guards)"
