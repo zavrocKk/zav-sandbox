@@ -1,62 +1,83 @@
 ---
 name: debugging-gsane
 description: "Diagnostiquer les problèmes courants du framework GSANE : boucles, TTL, hallucinations, MCP, sidecars."
+applyTo: "**"
 ---
 
-# Debugging GSANE
+# Debugging GSANE — Arbre de diagnostic
 
-## Diagnostic rapide
+## 1. Tests rouges après un changement
 
-| Symptôme | Cause probable | Action |
-|----------|---------------|--------|
-| Agent en boucle infinie | Pas de circuit-breaker, [CC] FAIL répété | Vérifier max_retries dans R-CC (max 2) |
-| Réponse hors sujet | Sidecar pollué (> 60 lignes) | Lancer compaction du sidecar |
-| MCP tool timeout | Chemin Windows vs Unix | Vérifier `Path(__file__).resolve()` |
-| Agent ne charge pas le contexte | Fichier sidecar absent | Créer `_gsane/_memory/{agent}-sidecar/project-state.md` |
-| [DA] ne ferme pas la session | Syntaxe Markdown interceptée | Utiliser `/DA` ou vérifier le parser |
-| Trust score toujours > 90 | Auto-évaluation biaisée | Forcer cross-validation par un autre agent |
-| trace.log corrompu | Format YAML avec append | Migrer vers JSONL (v2.3+) |
-
-## Vérifier la santé MCP
-
-```bash
-# Test de connectivité
-python _gsane/mcp-server/server.py --help
-
-# Vérifier les chemins
-python -c "from _gsane.mcp-server.compression_tool import MEMORY_DIR; print(MEMORY_DIR.exists())"
+```
+SYMPTÔME : pytest échoue après modification
+  ├─ Erreur dans src/ ?
+  │   → Agent : Amelia (Dev) — corriger le code
+  │   → Commande : pytest tests/test_{module}.py -v --tb=short
+  ├─ Erreur dans tests/ (test obsolète) ?
+  │   → Agent : Quinn (QA) — mettre à jour le test
+  │   → Commande : pytest tests/ -k "test_qui_echoue" -v
+  └─ Erreur d'import / dépendance manquante ?
+      → Commande : pip install -e ".[test]"
+      → Puis : pytest tests/ -v
 ```
 
-## Lire les logs
+## 2. MCP health check échoue
 
-```bash
-# Dernières entrées trace.log
-tail -20 _gsane/_memory/trace.log
-
-# Échecs dans le failure museum
-grep "OPEN" _gsane/_memory/failure-museum.md
+```
+SYMPTÔME : bash gsane.sh mcp --health retourne erreur
+  ├─ ImportError ?
+  │   → pip install -e ".[mcp]"
+  │   → Vérifier : python -c "from mcp.server.fastmcp import FastMCP"
+  ├─ FileNotFoundError (chemins) ?
+  │   → Vérifier : Path(__file__).resolve() dans compression_tool.py
+  │   → Les chemins doivent dériver de __file__, jamais du cwd
+  ├─ Erreur de schéma YAML ?
+  │   → python -c "import yaml; yaml.safe_load(open('_gsane/_config/delegation-matrix.yaml'))"
+  └─ Tout OK mais timeout ?
+      → Agent : Winston (Architect) — vérifier la config réseau
 ```
 
-## Vérifier la cohérence des manifests
+## 3. gsane.sh validate échoue sur CHANGELOG
 
-```bash
-# Compter les agents déclarés vs fichiers réels
-ls _gsane/agents/*.md | wc -l          # doit être 5
-grep "^- name:" _gsane/_config/agent-manifest.yaml | wc -l  # doit être 5
+```
+SYMPTÔME : validate signale CHANGELOG manquant
+  → Cause : nouveau code dans src/ sans entrée CHANGELOG
+  → Fix : ajouter une ligne dans CHANGELOG.md section [Unreleased]
+  → Format : - **{type}({scope})**: {description}
+  → Relancer : bash gsane.sh validate
 ```
 
-## Patterns d'erreur fréquents
+## 4. delegation-matrix route vers le mauvais agent
 
-### 1. Flywheel qui ne converge pas
-- Vérifier `_gsane/_memory/flywheel-history.md` — les entrées se répètent-elles ?
-- Cause : pas de delta mesurable entre les itérations
-- Fix : ajouter un `delta_threshold` dans le workflow flywheel
+```
+SYMPTÔME : requête envoyée au mauvais agent
+  ├─ Identifier le faux positif :
+  │   → Lire _gsane/_config/delegation-matrix.yaml
+  │   → Chercher le trigger qui a matché par erreur
+  │   → Comparer keywords requête vs triggers agent
+  ├─ Corriger :
+  │   → Ajouter/retirer des keywords dans le trigger fautif
+  │   → Agent : Bond (Agent Builder) pour modifier la matrice
+  └─ Valider :
+      → bash gsane.sh validate
+      → Tester : gsane_route("requête problématique")
+```
 
-### 2. Delivery Contract manquant
-- L'agent dev refuse de coder → comportement NORMAL (gouvernance)
-- Fix : demander à Master de générer le contract d'abord
+## 5. Session dégradée (réponses incohérentes)
 
-### 3. Cross-validation impossible
-- Tous les validateurs sont aussi producteurs → deadlock
+```
+SYMPTÔME : agent répond hors sujet ou se contredit
+  ├─ Signaux d'alerte :
+  │   → Répétitions dans les réponses
+  │   → Références à des fichiers inexistants
+  │   → Ignorance du Delivery Contract actif
+  ├─ Actions immédiates :
+  │   → Recharger config : relire _gsane/config.yaml
+  │   → Compresser mémoire : gsane_fetch_compressed_memory(agent)
+  │   → Vérifier sidecar : < 60 lignes, sinon compacter
+  └─ Si persistant :
+      → [DA] pour fermer la session
+      → Redémarrer une session propre
+```
 - Fix : vérifier le mapping dans standard-agent-behavior.md Section 7
 ```

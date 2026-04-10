@@ -1,61 +1,84 @@
 ---
 name: prompt-engineering
 description: "Structure un Delivery Contract, un brief agent, ou une requête composée pour maximiser la qualité de réponse."
+applyTo: "**"
 ---
 
 # Prompt Engineering — GSANE
 
-## Structurer un Delivery Contract
+## 1. Structure d'un Delivery Contract valide
 
-Un Delivery Contract est le document de référence entre Master (Langis) et un agent exécutant.
+Champs obligatoires : **TÂCHE**, **FICHIERS CIBLES**, **CONTRAINTES**, **CRITÈRES D'ACCEPTANCE**, **AGENT**.
 
-### Template minimal
+Règle : pas de DC = pas de code. Amelia refuse toute implémentation sans DC signé par Langis.
 
-```
-## Delivery Contract — {TASK_ID}
-
-**Objectif** : {description claire en 1 phrase}
-**Agent assigné** : {nom}
-**Sévérité** : LOW | MEDIUM | HIGH
-**Date** : {ISO 8601}
-
-### Critères d'acceptation (AC)
-- [ ] AC1: {critère vérifiable}
-- [ ] AC2: {critère vérifiable}
-
-### Contraintes
-- {contrainte technique ou métier}
-
-### Fichiers concernés
-- {chemin/fichier.ext} — {action: créer|modifier|supprimer}
-
-### Definition of Done
-- Tous les AC cochés
-- Tests passent (`pytest tests/ -v`)
-- [CC] PASS via cc-verify
-```
-
-## Structurer un brief agent (runSubagent)
+### Bon DC
 
 ```
-Contexte: {1 phrase sur l'état actuel}
-Tâche: {verbe d'action + objet + critère de succès}
-Contraintes: {ce qui est interdit ou obligatoire}
-Output attendu: {format exact de la réponse}
+DC-20260410-001 | Amelia (Dev) | 2026-04-10
+
+TÂCHE : Ajouter validation email dans src/notes_service.py
+
+FICHIERS CIBLES :
+- src/notes_service.py
+- tests/test_notes_service.py
+
+CONTRAINTES :
+- Regex RFC 5322 simplifié
+- Pas de dépendance externe
+
+CRITÈRES D'ACCEPTANCE :
+- AC-1 : notes_service.validate_email("bad") retourne False
+- AC-2 : notes_service.validate_email("a@b.com") retourne True
+- AC-3 : pytest tests/test_notes_service.py EXIT 0
+
+AGENT PRINCIPAL : Amelia (Dev)
+VALIDATION : Quinn (QA)
 ```
 
-## Requête composée (multi-step)
+### Mauvais DC (trop vague)
 
-Pour les tâches complexes, décomposer en étapes numérotées :
-1. **Analyser** — lire les fichiers X, Y, Z
-2. **Décider** — choisir l'approche selon {critère}
-3. **Implémenter** — modifier {fichier} avec {changement}
-4. **Valider** — exécuter les tests et confirmer [CC] PASS
-
-## Anti-patterns
-
-- ❌ Prompt vague : "améliore le code"
-- ❌ Pas de critère de succès mesurable
-- ❌ Mélanger analyse et implémentation dans un seul prompt
-- ❌ Oublier de spécifier le format de sortie attendu
 ```
+TÂCHE : Améliorer le service de notes
+CRITÈRES : Ça doit mieux fonctionner
+```
+
+Pourquoi mauvais : pas de fichiers cibles, pas de contraintes, AC non testable ("mieux" n'est pas mesurable).
+
+## 2. Formuler les Critères d'Acceptance
+
+Quinn valide par PASS/FAIL — chaque AC doit être vérifiable par une commande ou un assert.
+
+**Format** : `action` + `résultat mesurable`
+
+| Bon AC | Mauvais AC |
+|--------|-----------|
+| `pytest tests/test_X.py` EXIT 0 | "les tests passent" |
+| Fichier `X.md` contient section `## Setup` | "documentation à jour" |
+| `ruff check src/` retourne 0 erreur | "code propre" |
+| Réponse API retourne HTTP 201 + body JSON avec `id` | "l'API fonctionne bien" |
+
+## 3. Structurer une requête complexe
+
+### Décomposition en sous-tâches
+
+Numéroter chaque étape avec agent cible :
+1. **Analyser** — lire fichiers X, Y (Master)
+2. **Concevoir** — proposer architecture (Winston)
+3. **Implémenter** — modifier fichier Z (Amelia)
+4. **Valider** — exécuter tests + [CC] (Quinn)
+
+### Quand party-mode vs exécution directe
+
+| Signal | Mode |
+|--------|------|
+| 1 domaine, 1 agent, AC clairs | Exécution directe |
+| 3+ domaines, choix d'architecture | Party mode |
+| Mots-clés : "stratégie", "options", "alternatives" | Party mode |
+
+### Signaux d'un mauvais brief
+
+- Pas de verbe d'action en tête de tâche
+- AC absent ou non mesurable
+- Mélange analyse + implémentation dans un seul prompt
+- Format de sortie non spécifié

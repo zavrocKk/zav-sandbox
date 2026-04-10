@@ -1,30 +1,76 @@
-# Skill: MCP Integration — Utilisation des outils depuis un agent
+---
+name: mcp-integration
+description: "Guide d'utilisation des outils MCP GSANE depuis un agent — appels, retry, anti-patterns."
+applyTo: "**"
+---
 
-## Vue d'ensemble
-Ce skill enseigne aux agents GSANE comment **invoquer** les 8 outils MCP disponibles
-dans le runtime, quand les utiliser, et comment interpréter leurs résultats.
+# MCP Integration — Guide Agent
 
-## Outils disponibles
+## 1. gsane_fetch_compressed_memory(agent_name)
 
-| Outil | Usage | Quand l'utiliser |
-|-------|-------|-----------------|
-| `gsane_read_canonical_brief()` | Lire le brief humain canonique | Début de session, orientation |
-| `gsane_read_active_delivery_contract()` | Lire le contrat actif | Avant toute implémentation |
-| `gsane_read_project_snapshot()` | Snapshot du repo (agents, workflows, contrat) | Vue d'ensemble rapide |
-| `gsane_fetch_compressed_memory(query)` | Chercher dans _memory/ | Avant de prendre une décision |
-| `gsane_write_session_checkpoint(...)` | Sérialiser un checkpoint audit | Fin de session ou changement de contexte |
-| `gsane_read_checkpoint()` | Lire le dernier checkpoint | Reprise de session |
-| `gsane_route(query)` | Routage déterministe via delegation-matrix | Triage d'une requête entrante |
-| `gsane_memory_fetch(agent, topic)` | Mémoire sidecar d'un agent | Consultation inter-agent |
+**Quand** : Avant toute décision architecturale ou quand le contexte historique est nécessaire.
+**Retour** : YAML compressé des fichiers mémoire de l'agent (sidecar, failure-museum, decision-log).
 
-## Règles d'utilisation
-1. **Toujours** lire le brief canonique en début de session
-2. **Toujours** lire le Delivery Contract avant de coder
-3. **Ne jamais** écrire dans session-state.md manuellement — utiliser `gsane_write_session_checkpoint`
-4. Les résultats sont en YAML compressé — ne pas reformatter
-5. `gsane_route()` est déterministe — respecter le routage retourné
+```
+résultat = gsane_fetch_compressed_memory("master")
+# → YAML avec les entrées mémoire pertinentes
+```
 
-## Erreurs courantes
-- Oublier de consulter `gsane_fetch_compressed_memory` avant une décision (perte de contexte durable)
-- Ignorer le routage de `gsane_route()` (violation de gouvernance)
-- Écrire directement dans les fichiers mémoire au lieu d'utiliser les outils MCP
+## 2. gsane_write_session_checkpoint(agent, status, summary, next_steps)
+
+**Quand** : Fin de tâche longue, avant handoff inter-agent, avant [DA].
+**Effet** : Écrit dans `_gsane/_memory/sessions/session-state.md`.
+
+```
+gsane_write_session_checkpoint(
+  agent="amelia",
+  status="IN_PROGRESS",
+  summary="AC-1 et AC-2 validés, AC-3 en cours",
+  next_steps="Finaliser tests edge cases"
+)
+```
+
+## 3. gsane_read_checkpoint()
+
+**Quand** : Reprise de session interrompue, cold start avec contexte antérieur.
+**Retour** : Dernier checkpoint sérialisé (agent, status, summary, next_steps).
+
+```
+checkpoint = gsane_read_checkpoint()
+# → Reprendre là où la session précédente s'est arrêtée
+```
+
+## 4. gsane_route(request_text)
+
+**Quand** : Triage d'une requête entrante quand l'agent cible n'est pas évident.
+**Retour** : Agent recommandé + score de matching.
+**vs delegation-matrix directe** : `gsane_route` applique le scoring pondéré + trust_bonus. Utiliser la matrice directe uniquement pour le debug.
+
+```
+résultat = gsane_route("créer un nouvel agent de monitoring")
+# → {agent: "bond", score: 3, keywords_matched: ["créer", "agent"]}
+```
+
+## 5. gsane_memory_fetch(agent, query)
+
+**Quand** : Consultation ciblée de la mémoire d'un agent spécifique sur un sujet.  
+**vs gsane_fetch_compressed_memory** : `fetch_compressed_memory` retourne tout le sidecar compressé. `memory_fetch` filtre par query — plus léger, plus précis.
+
+```
+résultat = gsane_memory_fetch("winston", "décision architecture MCP")
+# → Entrées filtrées du sidecar Winston sur le sujet
+```
+
+## Pattern de retry
+
+Si un outil MCP échoue (timeout, FileNotFoundError, connexion perdue) :
+1. **Retry 1** : Attendre 2s, réessayer avec les mêmes paramètres
+2. **Retry 2** : Vérifier les prérequis (`bash gsane.sh mcp --health`)
+3. **Après 2 échecs** : Abandon + log dans failure-museum. Ne PAS boucler.
+
+## Anti-patterns
+
+- Ne PAS appeler MCP en boucle (circuit-breaker = 2 retries max)
+- Ne PAS écrire des checkpoints à chaque tour — uniquement aux jalons significatifs
+- Ne PAS ignorer le résultat de `gsane_route()` (violation de gouvernance)
+- Ne PAS reformatter le YAML compressé retourné — le consommer tel quel
