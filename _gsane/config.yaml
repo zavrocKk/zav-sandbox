@@ -48,3 +48,12 @@ flywheel:
   - prompts: .github/prompts/**
   - workflows: _gsane/**/workflows/**/workflow.md
   - manifests: _gsane/_config/*.yaml
+
+context_budget:
+  max_tokens_per_session: 8000
+  warning_threshold: 0.75
+  critical_threshold: 0.90
+  skills_budget: 1500
+  agents_budget: 2000
+  workflows_budget: 1000
+  reserve: 3500

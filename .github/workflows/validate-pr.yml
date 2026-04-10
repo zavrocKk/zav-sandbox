@@ -140,6 +140,28 @@ jobs:
           print("✅ All agent registry fields populated!")
           EOF
 
+      - name: Check agent version bump on agent file change
+        run: |
+          echo "🔍 Checking agent version bump consistency..."
+          python3 - <<'EOF'
+          import subprocess, sys
+          result = subprocess.run(
+              ["git", "diff", "--name-only", "origin/main...HEAD"],
+              capture_output=True, text=True
+          )
+          changed = result.stdout.strip().splitlines()
+          agent_md_changed = [f for f in changed if f.startswith("_gsane/agents/") and f.endswith(".md")]
+          manifest_changed = "_gsane/_config/agent-manifest.yaml" in changed
+          if agent_md_changed and not manifest_changed:
+              print(f"❌ ERROR: Agent file(s) modified ({', '.join(agent_md_changed)}) but _gsane/_config/agent-manifest.yaml was NOT updated.")
+              print("When modifying an agent .md file, you MUST bump its version in agent-manifest.yaml.")
+              sys.exit(1)
+          if agent_md_changed:
+              print(f"✅ Agent files changed and manifest updated: {', '.join(agent_md_changed)}")
+          else:
+              print("✅ No agent .md files changed — skip version bump check.")
+          EOF
+
       - name: Validation Summary
         run: |
           echo ""

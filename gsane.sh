@@ -83,6 +83,8 @@ if [ -z "$ACTION" ]; then
     echo "  doctor       : Vérifie l'intégrité de l'environnement (session-start + YAML validation)"
     echo "  validate     : Exécution de la Quality Gate (pytest + YAML + qa-linter + security gate + CHANGELOG)"
     echo "  trace        : Observabilité — sous-commandes : --tail N | --summary | --p2p | --report"
+    echo "  dc           : Delivery Contract — sous-commande : --validate <fichier.md>"
+    echo "  flywheel     : Gestion du flywheel — sous-commande : --rollback <tag>"
     echo "  mcp --health     : Vérifie les prérequis MCP (dépendances, imports, schéma)"
     echo "  mcp --smoke-test : Vérifie que tous les outils MCP fonctionnent end-to-end"
     exit 1
@@ -343,6 +345,46 @@ except Exception:
                 ;;
             *)
                 echo "Usage: bash gsane.sh trace --tail N | --summary | --p2p | --report"
+                exit 1
+                ;;
+        esac
+        ;;
+    dc)
+        DCCMD="${2:-}"
+        case $DCCMD in
+            --validate)
+                DC_FILE="${3:-}"
+                if [ -z "$DC_FILE" ]; then
+                    echo "Usage: bash gsane.sh dc --validate <fichier.md>"
+                    exit 1
+                fi
+                if [ ! -f "$DC_FILE" ]; then
+                    echo "❌ Fichier introuvable : $DC_FILE"
+                    exit 1
+                fi
+                run_python _gsane/tools/dc-validator.py "$DC_FILE"
+                ;;
+            *)
+                echo "Usage: bash gsane.sh dc --validate <fichier.md>"
+                exit 1
+                ;;
+        esac
+        ;;
+    flywheel)
+        FLYCMD="${2:-}"
+        case $FLYCMD in
+            --rollback)
+                TAG="${3:-}"
+                if [ -z "$TAG" ]; then
+                    echo "Usage: bash gsane.sh flywheel --rollback <tag>"
+                    echo "Tags disponibles:"
+                    git tag -l "gsane-flywheel-pre-*" 2>/dev/null || echo "  (aucun tag trouvé)"
+                    exit 1
+                fi
+                bash _gsane/tools/flywheel-rollback.sh rollback "$TAG"
+                ;;
+            *)
+                echo "Usage: bash gsane.sh flywheel --rollback <tag>"
                 exit 1
                 ;;
         esac

@@ -112,6 +112,16 @@ If validation fails → revert that specific correction, move to `failed_correct
 
 ---
 
+### Rollback Safety Net
+
+Avant chaque auto-correction (severity low ou medium) :
+1. Exécuter `bash _gsane/tools/flywheel-rollback.sh pre-tag` pour créer un point de restauration
+2. Appliquer la correction
+3. Exécuter `bash _gsane/tools/flywheel-rollback.sh verify` pour valider
+4. Si verify échoue → rollback automatique, log dans failure-museum.md, escalade severity → HIGH
+
+---
+
 ### Step 5 — Commit & Push
 
 ```
