@@ -1,5 +1,5 @@
-import os
 import glob
+import os
 import re
 
 print("Starting Namespace Cleansing...")
@@ -20,23 +20,23 @@ if os.path.exists(d):
 
 # 2. Clean up _gsane/agents/*.md
 for ap in glob.glob('_gsane/agents/*.md'):
-    with open(ap, 'r', encoding='utf-8') as file:
+    with open(ap, encoding='utf-8') as file:
         c = file.read()
-    
+
     # regex 1: `bmb-bond.customize.yaml` -> `bond.customize.yaml`
     c = re.sub(r'(?:bmb|cis|core|tea)-([a-zA-Z0-9_\-]+\.customize\.yaml)', r'\1', c)
-    
+
     # regex 2: replace text instructions about modules
     c = re.sub(r'derive path from module [^\.]+?\.', '', c, flags=re.IGNORECASE)
     c = re.sub(r"derive path from module \([^)]+\)", '', c, flags=re.IGNORECASE)
-    
+
     with open(ap, 'w', encoding='utf-8') as file:
         file.write(c)
 
 # 3. Clean delegation-matrix
 dm = '_gsane/_config/delegation-matrix.yaml'
 if os.path.exists(dm):
-    with open(dm, 'r', encoding='utf-8') as file:
+    with open(dm, encoding='utf-8') as file:
         c = file.read()
     c = re.sub(r'^[ \t]*target_module:\s*[^\n\r]+\r?\n', '', c, flags=re.MULTILINE)
     with open(dm, 'w', encoding='utf-8') as file:
@@ -45,7 +45,7 @@ if os.path.exists(dm):
 # 4. Agent manifest
 am = '_gsane/_config/agent-manifest.yaml'
 if os.path.exists(am):
-    with open(am, 'r', encoding='utf-8') as file:
+    with open(am, encoding='utf-8') as file:
         c = file.read()
     c = re.sub(r'\b(bmb|cis|core|tea)-', '', c)
     with open(am, 'w', encoding='utf-8') as file:

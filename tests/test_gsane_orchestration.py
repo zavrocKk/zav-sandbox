@@ -2,13 +2,13 @@
 test_gsane_orchestration.py — Tests structurels du système d'orchestration GSANE.
 Ces tests vérifient la présence, la structure et la cohérence des fichiers GSANE.
 """
-import os
-import re
-import yaml
 import glob
+import os
+import subprocess
 from pathlib import Path
-import pytest
 
+import pytest
+import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -369,8 +369,6 @@ class TestP2PCommunication:
 # 11. BEHAVIORAL TESTS — exécutent réellement des commandes
 # ============================================================
 
-import subprocess
-
 
 class TestBehavioral:
     """Tests comportementaux — exécutent réellement des commandes."""
@@ -432,7 +430,8 @@ class TestBehavioral:
         ]
         for hook in hooks:
             if os.path.exists(hook):
-                content = open(hook, encoding="utf-8", errors="replace").read()
+                with open(hook, encoding="utf-8", errors="replace") as fh:
+                    content = fh.read()
                 assert "_gsane/core/" not in content, \
                     f"{hook} contient encore '_gsane/core/' (chemin legacy)"
 

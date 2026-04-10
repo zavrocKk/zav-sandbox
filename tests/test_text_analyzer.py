@@ -1,4 +1,5 @@
 import pytest
+
 from src.text_analyzer import analyze_text
 
 

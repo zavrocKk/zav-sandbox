@@ -2,7 +2,6 @@ import importlib.util
 import sys
 from pathlib import Path
 
-
 QA_LINTER_PATH = Path(__file__).with_name("qa-linter.py")
 SPEC = importlib.util.spec_from_file_location("qa_linter_script", QA_LINTER_PATH)
 if SPEC is None or SPEC.loader is None:

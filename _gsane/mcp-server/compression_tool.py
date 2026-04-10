@@ -2,6 +2,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import cast
 
 import yaml  # type: ignore[import-untyped]
 from mcp.server.fastmcp import FastMCP
@@ -15,14 +16,19 @@ TOOLS_DIR = _GSANE_DIR / "tools"
 if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
-from security_gate import (  # type: ignore[import-not-found]  # noqa: E402
+from security_gate import (  # noqa: E402
     classify_security_request,
-    ensure_path_within_roots,
+    ensure_path_within_roots as _ensure_path_within_roots,
     get_allowed_mcp_roots,
     is_allowed_mcp_agent_name,
     load_delegation_matrix,
     normalize_text,
 )
+
+
+def ensure_path_within_roots(candidate: Path, allowed_roots: "list[Path]") -> Path:
+    """Typed wrapper around security_gate.ensure_path_within_roots."""
+    return cast(Path, _ensure_path_within_roots(candidate, allowed_roots))
 
 mcp = FastMCP("GSANE Memory Compressor")
 ALLOWED_MCP_ROOTS = get_allowed_mcp_roots()
@@ -217,7 +223,8 @@ def _parse_contract_document(content: str) -> tuple[dict, str]:
 
 
 def _dump_view(data: dict) -> str:
-    return yaml.safe_dump(data, sort_keys=False, allow_unicode=True)
+    result: str = yaml.safe_dump(data, sort_keys=False, allow_unicode=True)
+    return result
 
 
 def _canonical_brief_view() -> dict:
