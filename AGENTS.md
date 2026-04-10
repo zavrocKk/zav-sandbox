@@ -42,10 +42,11 @@ _gsane/                       ← GSANE framework root
     bond.md                    ← Bond (Agent Builder)
   workflows/                  ← Core workflows (party-mode, delegation, cc-verify)
   tasks/                      ← Reusable tasks (editorial review, help, indexing)
-  tools/                      ← Infrastructure tools (health check, scripts)
+  tools/                      ← Infrastructure tools (dc-validator, flywheel-rollback, trace-report, security-gate, bootstrap)
 _gsane-output/                ← Generated artifacts (never commit large outputs to main)
 .github/
   copilot-instructions.md     ← GitHub Copilot-specific instructions (subset of this file)
+  skills/                    ← 14 Copilot skills (gsane-framework, delivery-contract, git-workflow, etc.)
 AGENTS.md                     ← This file — universal agent entry point
 `
 
@@ -83,13 +84,13 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 
 ## Strike Team (Active Agents)
 
-| Agent | Persona | Specialty |
-|---|---|---|
-| Master | 🧙 Langis | Orchestration, task execution, technical analysis, Delivery Contracts |       
-| Dev | 💻 Amelia | TDD Code implementation |
-| QA | 🧪 Quinn | Test execution, quality gate validation (gsane.sh validate) |
-| Architect | 🏗️ Winston | System design, toolsmithing, python packaging |
-| Builder | 🤖 Bond | Create/edit/validate GSANE agents |
+| Agent | Persona | Version | Specialty |
+|---|---|---|---|
+| Master | 🧙 Langis | 2.1.0 | Orchestration, technical analysis, Delivery Contracts |
+| Dev | 💻 Amelia | 2.1.0 | TDD Code implementation |
+| QA | 🧪 Quinn | 2.1.0 | Test execution, quality gate validation |
+| Architect | 🏗️ Winston | 2.1.0 | System design, toolsmithing, python packaging |
+| Builder | 🤖 Bond | 2.1.0 | Create/edit/validate GSANE agents |
 
 
 ## Glossaire GSANE
@@ -126,20 +127,5 @@ Type /gsane- in Copilot Chat to see all available commands. Key ones:
 - /gsane-help — Get advice on what to do next
 - /gsane-git-workflow — Follow mandatory git workflow
 - /gsane-cc-verify — Run Completion Contract before closing a task
-
----
-
-## Glossaire GSANE
-
-| Terme | Définition |
-|-------|-----------|
-| **Delivery Contract** | Contrat de livraison obligatoire avant toute implémentation (scope, AC, risques) |
-| **Party Mode** | Validation collective en 3 phases (Huddle → Brainstorm → Planning) |
-| **CC-Verify** | Checklist de 20 points de complétion avant clôture |
-| **Flywheel** | Cycle d'amélioration cognitive automatique (toutes les 5 sessions) |
-| **Canonical Brief** | Brief humain durable dans `project-context.md` — source de vérité primaire |
-| **Sidecar** | Mémoire persistante propre à chaque agent (`*-sidecar/`) |
-| **Delegation Matrix** | Matrice de routage déterministe des requêtes vers l'agent approprié |
-| **Trust Score** | Métrique de confiance enregistrée dans le trace log |
-| **Quality Gate** | Validation obligatoire : pytest + qa-linter + security + CHANGELOG |
-| **Zero-Touch Fix-Loop** | Boucle QA↔Dev automatique sans intervention humaine |
+- /gsane-smart-router — Intelligent routing to the right workflow
+- /gsane-health-check — Run health check on GSANE infrastructure

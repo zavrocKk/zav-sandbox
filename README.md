@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-149%20passing-brightgreen)](tests/) [![Coverage](https://img.shields.io/badge/Coverage-99%25%20src-green)](pyproject.toml) [![MCP](https://img.shields.io/badge/MCP-8%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
+[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-164%20passing-brightgreen)](tests/) [![Coverage](https://img.shields.io/badge/Coverage-99%25%20src-green)](pyproject.toml) [![MCP](https://img.shields.io/badge/MCP-10%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
 
 Le workflow `ci.yml` couvre la CI de branche (tests), tandis que `validate-pr.yml` conserve les contrôles de gouvernance PR et quality gate complète.
 
@@ -34,13 +34,13 @@ graph TD
     Gate -- ✅ Succès --> Arch[📝 ADR + CHANGELOG]
 ```
 
-| Agent | Persona | Spécialité |
-|---|---|---|
-| **Langis** | 🧙 Master | Orchestration, Delivery Contracts, analyse technique |
-| **Amelia** | 💻 Dev | Implémentation TDD, code + tests concurrents |
-| **Quinn** | 🧪 QA | Exécution Quality Gate, validation `gsane.sh validate` |
-| **Winston** | 🏗️ Architect | Design système, ADR, outillage |
-| **Bond** | 🤖 Agent Builder | Création/édition/validation des agents GSANE |
+| Agent | Persona | Version | Spécialité |
+|---|---|---|---|
+| **Langis** | 🧙 Master | 2.1.0 | Orchestration, Delivery Contracts, analyse technique |
+| **Amelia** | 💻 Dev | 2.1.0 | Implémentation TDD, code + tests concurrents |
+| **Quinn** | 🧪 QA | 2.1.0 | Exécution Quality Gate, validation `gsane.sh validate` |
+| **Winston** | 🏗️ Architect | 2.1.0 | Design système, ADR, outillage |
+| **Bond** | 🤖 Agent Builder | 2.1.0 | Création/édition/validation des agents GSANE |
 
 ---
 
@@ -101,7 +101,7 @@ Le runtime GSANE actif repose sur une separation simple et stricte :
 
 ## 🔌 Intégration MCP
 
-GSANE expose **8 outils MCP locaux** via `_gsane/mcp-server/compression_tool.py` — le point d'entrée unique branché dans VS Code/Copilot Chat.
+GSANE expose **10 outils MCP locaux** via `_gsane/mcp-server/compression_tool.py` — le point d'entrée unique branché dans VS Code/Copilot Chat.
 
 | Outil | Description |
 |---|---|
@@ -113,6 +113,8 @@ GSANE expose **8 outils MCP locaux** via `_gsane/mcp-server/compression_tool.py`
 | `gsane_read_checkpoint` | Lit le checkpoint historique de continuité sans le traiter comme vérité du présent |
 | `gsane_route` | Routage déterministe vers l'agent cible via `delegation-matrix.yaml`, avec escalade sécurité légère vers Master quand `security_gate` matche |
 | `gsane_memory_fetch` | Extrait les learned-lessons d'un agent sidecar spécifique sans charger tout le fichier |
+| `gsane_search_memory` | Recherche par mot-clé dans les fichiers mémoire avec contexte ±2 lignes et scopes (all/sessions/failures/decisions) |
+| `gsane_emit_event` | Émet un événement structuré dans trace.log avec validation event_type et timestamp |
 
 Les chemins sont dérivés de `Path(__file__)` — **indépendants du répertoire de travail du client MCP**.
 
@@ -151,13 +153,26 @@ bash gsane.sh trace --p2p        # Messages P2P entre agents
 
 ---
 
+## 📊 Context Budget
+
+Le fichier `_gsane/config.yaml` définit un budget de tokens par session :
+
+| Paramètre | Valeur |
+|---|---|
+| `max_tokens_per_session` | 8000 |
+| `warning_threshold` | 75% |
+| `critical_threshold` | 90% |
+
+Le hook `session-start.sh` affiche le budget consommé au démarrage. En session longue, Langis (Master) surveille les signaux de dégradation et propose des actions correctives.
+
+---
+
 ## ⚙️ Prérequis
 
-- **Python 3.10+**
-- **Git + Bash** (natif Linux/macOS, ou Git Bash/WSL sous Windows)
-- **pytest**, **bandit**, **pip-audit** — outillage de la Quality Gate
+- **Python 3.11+**
+- **Git + Bash** (natif Linux/macOS, ou WSL/Git Bash sous Windows)
 - **GitHub Copilot Chat** — interface de communication avec la Strike Team
-- **mcp[cli]** + **pyyaml** — dépendances du serveur MCP local
+- Installation : `pip install -e ".[mcp,test]"` (inclut pytest, bandit, pip-audit, mcp, pyyaml)
 
 ---
 
@@ -177,13 +192,14 @@ python -m venv .venv
 # Linux/macOS :
 source .venv/bin/activate
 
-# 4. Installer les dépendances de validation
-pip install pytest bandit pip-audit
-pip install -r _gsane/mcp-server/requirements.txt
+# 4. Installer les dépendances
+pip install -e ".[mcp,test]"
 
-# 5. Initialiser le runtime GSANE (crée sidecars, trace.log, dossiers volatiles)
-bash _gsane/tools/gsane-bootstrap.sh
+# 5. Vérifier l'installation
+bash gsane.sh doctor
 ```
+
+> **Windows** : `bash gsane.sh` requiert WSL ou Git Bash. Alternative sans Bash : `python -m pytest tests/ -m "not behavioral"`. Le CI Ubuntu est la validation de référence.
 
 ---
 
@@ -204,6 +220,14 @@ bash gsane.sh trace --p2p
 # MCP — santé et smoke test
 bash gsane.sh mcp --health
 bash gsane.sh mcp --smoke-test
+# Delivery Contract — validation structurée
+bash gsane.sh dc --validate <fichier.md>
+
+# Flywheel — rollback avant auto-corrections
+bash gsane.sh flywheel --rollback <tag>
+
+# Trace — rapport HTML
+bash gsane.sh trace --report
 ```
 
 ---
@@ -218,7 +242,7 @@ _gsane/                    ← Réacteur GSANE
   mcp-server/              ← Serveur MCP local (compression_tool.py — vues canoniques + outils historiques)
   tasks/                   ← Tâches réutilisables (editorial-review, index-cleanup)
   workflows/               ← Workflows (Party Mode v3.0, delegation, cc-verify, flywheel...)
-  tools/                   ← Outils infrastructure (gsane-bootstrap.sh)
+  tools/                   ← Outils infrastructure (dc-validator, flywheel-rollback, trace-report, security-gate, bootstrap)
 _gsane-output/             ← Artefacts générés (delegation-audit, bond-creations, etc.)
 tests/                     ← Suite de tests Python (structurel + comportemental + MCP)
 .github/

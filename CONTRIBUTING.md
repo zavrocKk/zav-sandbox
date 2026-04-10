@@ -20,6 +20,8 @@ Tout contributeur humain ou agent IA **DOIT** s'y conformer strictement.
 
 Voir le [README.md](README.md) pour l'installation complète.
 
+Installation rapide : `pip install -e ".[mcp,test]"`
+
 Avant tout commit :
 ```bash
 # Quality Gate locale (structurelle + MCP, sans les tests comportementaux shell)
@@ -82,6 +84,7 @@ chore(deps): mise à jour de mcp[cli]
 - Toute nouvelle fonctionnalité finalisée dans `src/` doit avoir une entrée dans `CHANGELOG.md`
 - Les agents GSANE sont couverts par `tests/qa-linter.py` (structure, legacy refs, hooks, manifests)
 - Les outils MCP sont couverts par `tests/test_mcp.py` (imports, paths, smoke tests)
+- Les Delivery Contracts sont validés structurellement par `bash gsane.sh dc --validate <fichier.md>`
 
 ---
 
@@ -89,8 +92,9 @@ chore(deps): mise à jour de mcp[cli]
 
 1. Éditer `_gsane/agents/{nom-agent}.md`
 2. Mettre à jour `_gsane/_config/agent-manifest.yaml`
-3. Si nouvelles routes : mettre à jour `_gsane/_config/delegation-matrix.yaml` (schéma : `trigger` + `agent`)
-4. Relancer `bash gsane.sh validate`
+3. Bumper la `version` (semver X.Y.Z) et `updated_at` dans `agent-manifest.yaml`
+4. Si nouvelles routes : mettre à jour `_gsane/_config/delegation-matrix.yaml` (schéma : `trigger` + `agent`)
+5. Relancer `bash gsane.sh validate`
 
 **Ne jamais bypasser Party Mode** pour les modifications non-triviales aux agents.
 
