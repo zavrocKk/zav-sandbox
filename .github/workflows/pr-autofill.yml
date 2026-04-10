@@ -1,0 +1,145 @@
+name: PR Auto-Fill
+
+on:
+  pull_request:
+    types: [opened]
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  autofill:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Auto-fill PR body
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+
+            // Guard: don't overwrite manually filled body
+            if (pr.body && pr.body.trim().length > 200) {
+              console.log('PR body already filled (>200 chars) — skipping auto-fill.');
+              return;
+            }
+
+            // Get commits on this branch
+            const { execSync } = require('child_process');
+            const baseSha = pr.base.sha;
+            const headSha = pr.head.sha;
+            const commitLog = execSync(
+              `git log --oneline ${baseSha}..${headSha}`,
+              { encoding: 'utf-8' }
+            ).trim();
+            const commitLines = commitLog ? commitLog.split('\n') : [];
+
+            // Get changed files
+            const changedFiles = execSync(
+              `git diff --name-only ${baseSha}..${headSha}`,
+              { encoding: 'utf-8' }
+            ).trim().split('\n').filter(Boolean);
+
+            // Detect change type from conventional commit prefixes
+            const prefixes = commitLines.map(l => {
+              const m = l.match(/^\w+ (feat|fix|chore|refactor|docs|ci|test|style|perf|build)/i);
+              return m ? m[1].toLowerCase() : null;
+            }).filter(Boolean);
+            const uniquePrefixes = [...new Set(prefixes)];
+
+            const typeChecks = {
+              'Bug fix': uniquePrefixes.includes('fix'),
+              'Nouvelle fonctionnalité': uniquePrefixes.includes('feat'),
+              'Décision architecturale (ADR)': false,
+              'Refactoring': uniquePrefixes.includes('refactor'),
+              'Documentation': uniquePrefixes.includes('docs'),
+              'Agent / Workflow GSANE': changedFiles.some(f =>
+                f.startsWith('_gsane/agents/') || f.startsWith('_gsane/workflows/')
+              ),
+            };
+
+            // Detect agents from modified files
+            const agentMap = {
+              'master': 'Langis (Master)',
+              'dev': 'Amelia (Dev)',
+              'qa': 'Quinn (QA)',
+              'architect': 'Winston (Architect)',
+              'bond': 'Bond (Agent Builder)',
+            };
+            const detectedAgents = new Set();
+            for (const f of changedFiles) {
+              const agentMatch = f.match(/_gsane\/agents\/(\w+)\.md/);
+              if (agentMatch && agentMap[agentMatch[1]]) {
+                detectedAgents.add(agentMap[agentMatch[1]]);
+              }
+              const adapterMatch = f.match(/\.github\/agents\/(\w+)\.agent\.md/);
+              if (adapterMatch && agentMap[adapterMatch[1]]) {
+                detectedAgents.add(agentMap[adapterMatch[1]]);
+              }
+            }
+
+            // Detect from commit messages too
+            const commitText = commitLines.join(' ').toLowerCase();
+            for (const [key, label] of Object.entries(agentMap)) {
+              if (commitText.includes(key) || commitText.includes(label.toLowerCase())) {
+                detectedAgents.add(label);
+              }
+            }
+
+            // Checklist auto-checks
+            const hasChangelog = changedFiles.includes('CHANGELOG.md');
+            const hasTests = changedFiles.some(f => f.startsWith('tests/'));
+
+            // Build commit summary
+            const commitSummary = commitLines.length <= 3
+              ? commitLines.map(l => l.replace(/^\w+ /, '')).join(', ')
+              : commitLines.slice(0, 1).map(l => l.replace(/^\w+ /, ''))[0]
+                + ` + ${commitLines.length - 1} autres commits`;
+
+            // Build body
+            const check = (v) => v ? '[x]' : '[ ]';
+
+            const body = `## Description
+
+Auto-générée depuis ${commitLines.length} commit(s) : ${commitSummary}
+
+## Type de changement
+
+${Object.entries(typeChecks).map(([label, checked]) =>
+  `- ${check(checked)} ${label}`
+).join('\n')}
+
+## Checklist
+
+- ${check(hasTests)} Tests ajoutés/mis à jour et passent (\`pytest tests/ -v\`)
+- [ ] Linting OK (\`ruff check _gsane/ tests/\`)
+- ${check(hasChangelog)} CHANGELOG.md mis à jour (section \`[Unreleased]\`)
+- [ ] Pas de secrets hardcodés
+- [ ] Delivery Contract référencé (si applicable)
+
+## Agent(s) impliqué(s)
+
+${detectedAgents.size > 0 ? [...detectedAgents].join(', ') : '_Aucun agent détecté_'}
+
+## Notes pour le reviewer
+
+<!-- Contexte supplémentaire, screenshots, ou points d'attention. -->
+`;
+
+            // Update PR body
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              body: body,
+            });
+
+            console.log(`PR #${pr.number} body auto-filled.`);

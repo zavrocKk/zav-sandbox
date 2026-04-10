@@ -1,28 +1,28 @@
 ## Description
 
-<!-- Dcrivez les changements apports. Rferencez l'issue lie avec #numro. -->
+<!-- Décrivez les changements apportés. Référencez l'issue liée avec #numéro. -->
 
 ## Type de changement
 
-- [ ]  Bug fix
-- [ ]  Nouvelle fonctionnalit
-- [ ]  Dcision architecturale (ADR)
-- [ ]  Refactoring
-- [ ]  Documentation
-- [ ]  Agent / Workflow GSANE
+- [ ] Bug fix
+- [ ] Nouvelle fonctionnalité
+- [ ] Décision architecturale (ADR)
+- [ ] Refactoring
+- [ ] Documentation
+- [ ] Agent / Workflow GSANE
 
 ## Checklist
 
-- [ ] Tests ajouts/mis  jour et passent (`pytest tests/ -v`)
-- [ ] Linting OK (`ruff check src/ tests/`)
-- [ ] CHANGELOG.md mis  jour (section `[Unreleased]`)
-- [ ] Pas de secrets hardcods
-- [ ] Delivery Contract rferenc (si applicable)
+- [ ] Tests ajoutés/mis à jour et passent (`pytest tests/ -v`)
+- [ ] Linting OK (`ruff check _gsane/ tests/`)
+- [ ] CHANGELOG.md mis à jour (section `[Unreleased]`)
+- [ ] Pas de secrets hardcodés
+- [ ] Delivery Contract référencé (si applicable)
 
-## Agent(s) impliqu(s)
+## Agent(s) impliqué(s)
 
-<!-- Quel(s) agent(s) GSANE ont particip  ce changement ? -->
+<!-- Quel(s) agent(s) GSANE ont participé à ce changement ? -->
 
 ## Notes pour le reviewer
 
-<!-- Contexte supplmentaire, screenshots, ou points d'attention. -->
+<!-- Contexte supplémentaire, screenshots, ou points d'attention. -->
