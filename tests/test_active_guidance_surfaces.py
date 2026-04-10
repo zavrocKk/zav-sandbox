@@ -73,7 +73,7 @@ def test_github_copilot_agents_match_active_manifest_exactly():
     manifest = load_yaml("_gsane/_config/agent-manifest.yaml")
     ide_config = load_yaml("_gsane/_config/ides/github-copilot.yaml")
 
-    expected_names = [entry["name"] for entry in manifest]
+    expected_names = [entry["name"] for entry in manifest if entry.get("status") != "subagent"]
     expected_paths = {entry["name"]: entry["path"] for entry in manifest}
 
     configured_agents = ide_config["configuration"]["agents"]

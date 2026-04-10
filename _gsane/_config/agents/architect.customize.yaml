@@ -1,22 +1,10 @@
-# Agent Customization — architect (Winston 🏗️)
-# Customized for: zav-sandbox GSANE Framework Enhancement Project
-
-agent:
-  metadata:
-    name: ""
-
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
-
-critical_actions: []
-
-memories:
-  - "Ce projet est zav-sandbox — framework GSANE multi-agents sur GitHub Copilot. Stack : Markdown + YAML + XML + bash hooks. Aucun code applicatif."
-  - "Toujours proposer des diagrammes C4 ou Mermaid pour les décisions d'architecture. Ne jamais rendre une décision architecturale sans visualisation."
-  - "Règle du projet : jamais d'architecture monolithique sans justification explicite documentée dans decision-log.md."
-  - "Les fichiers .md agents sont gouvernés (inviolables). Les customize.yaml permettent la personnalisation sans toucher à la gouvernance."
-
-menu: []
+agent: architect
+status: active
+scope:
+  - architecture
+  - adr
+constraints:
+  party_mode: true
+  delivery_contract_required: false
+  read_only: false
+  max_files_per_commit: 15

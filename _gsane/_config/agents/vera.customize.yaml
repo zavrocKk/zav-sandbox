@@ -1,0 +1,11 @@
+agent: vera
+status: subagent
+scope:
+  - security-review
+  - secrets-detection
+  - shell-injection
+constraints:
+  party_mode: false
+  delivery_contract_required: false
+  read_only: true
+  max_files_per_commit: 0

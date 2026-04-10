@@ -56,14 +56,45 @@ jobs:
 
       - name: Validate agent manifest sync
         run: |
-          echo "🔍 Checking _gsane/agents/*.md files present..."
-          AGENT_MD_COUNT=$(find _gsane/agents -name "*.md" 2>/dev/null | wc -l)
-          echo "  .md files found: $AGENT_MD_COUNT (expected: 5)"
-          if [[ "$AGENT_MD_COUNT" -ne 5 ]]; then
-            echo "❌ ERROR: Expected exactly 5 agent .md files in _gsane/agents, found $AGENT_MD_COUNT"
-            exit 1
-          fi
-          echo "✅ Agent manifest check complete."
+          echo "🔍 Checking agent registry sync..."
+          python3 - <<'EOF'
+          import os
+          import sys
+          import yaml
+
+          with open('_gsane/_config/agent-manifest.yaml', encoding='utf-8') as fh:
+            manifest = yaml.safe_load(fh) or []
+
+          manifest_paths = [entry.get('path', '').strip() for entry in manifest if entry.get('path')]
+          agent_md_files = sorted(
+            os.path.join('_gsane', 'agents', name)
+            for name in os.listdir('_gsane/agents')
+            if name.endswith('.md') and os.path.isfile(os.path.join('_gsane/agents', name))
+          )
+
+          errors = 0
+          if len(agent_md_files) != len(manifest_paths):
+            print(
+              f"❌ ERROR: agent-manifest.yaml declares {len(manifest_paths)} agent path(s) but _gsane/agents contains {len(agent_md_files)} .md file(s)."
+            )
+            errors += 1
+
+          missing_from_manifest = sorted(set(agent_md_files) - set(manifest_paths))
+          missing_on_disk = sorted(path for path in manifest_paths if not os.path.isfile(path))
+
+          for path in missing_from_manifest:
+            print(f"❌ ERROR: Agent file not registered in manifest: {path}")
+            errors += 1
+
+          for path in missing_on_disk:
+            print(f"❌ ERROR: Manifest references missing agent file: {path}")
+            errors += 1
+
+          if errors:
+            sys.exit(1)
+
+          print(f"✅ Agent manifest sync OK ({len(agent_md_files)} agent files / {len(manifest_paths)} manifest entries).")
+          EOF
 
       - name: Validate GSANE Structure
         run: |
@@ -92,6 +123,11 @@ jobs:
 
       - name: Run repo quality gate
         run: bash gsane.sh validate
+
+      - name: Vera — Security Gate
+        run: |
+          echo "🔒 Vera — Security Gate : scan secrets en cours..."
+          python _gsane/tools/security_gate.py scan-secrets
 
       - name: Validate workflow manifest integrity
         run: |

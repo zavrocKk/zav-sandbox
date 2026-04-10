@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-164%20passing-brightgreen)](tests/) [![Coverage](https://img.shields.io/badge/Coverage-99%25%20src-green)](pyproject.toml) [![MCP](https://img.shields.io/badge/MCP-10%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
+[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-169%20passing-brightgreen)](tests/) [![Coverage](https://img.shields.io/badge/Coverage-99%25%20src-green)](pyproject.toml) [![MCP](https://img.shields.io/badge/MCP-10%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
 
 Le workflow `ci.yml` couvre la CI de branche (tests), tandis que `validate-pr.yml` conserve les contrôles de gouvernance PR et quality gate complète.
 
@@ -14,7 +14,7 @@ GSANE est également **MCP-solid** : ses vues MCP canoniques exposent le brief h
 
 ## 🧩 Les Agents GSANE
 
-Le projet repose sur une architecture plate (**Flat Design**) pilotée par 5 agents spécialisés. Pas d'intermédiaires, pas de hiérarchies profondes — chaque agent est autonome et collabore via des signaux P2P.
+Le projet repose sur une architecture plate (**Flat Design**) pilotée par 7 agents spécialisés : 5 agents core et 2 subagents ciblés. Pas d'intermédiaires, pas de hiérarchies profondes — chaque agent collabore via des signaux P2P avec un statut explicite dans le manifest.
 
 ```mermaid
 graph TD
@@ -34,13 +34,15 @@ graph TD
     Gate -- ✅ Succès --> Arch[📝 ADR + CHANGELOG]
 ```
 
-| Agent | Persona | Version | Spécialité |
-|---|---|---|---|
-| **Langis** | 🧙 Master | 2.1.0 | Orchestration, Delivery Contracts, analyse technique |
-| **Amelia** | 💻 Dev | 2.1.0 | Implémentation TDD, code + tests concurrents |
-| **Quinn** | 🧪 QA | 2.1.0 | Exécution Quality Gate, validation `gsane.sh validate` |
-| **Winston** | 🏗️ Architect | 2.1.0 | Design système, ADR, outillage |
-| **Bond** | 🤖 Agent Builder | 2.1.0 | Création/édition/validation des agents GSANE |
+| Agent | Persona | Status | Version | Spécialité |
+|---|---|---|---|---|
+| **Langis** | 🧙 Master | `active` | 2.1.1 | Orchestration, Delivery Contracts, analyse technique |
+| **Amelia** | 💻 Dev | `active` | 2.1.1 | Implémentation TDD, code + tests concurrents |
+| **Quinn** | 🧪 QA | `active` | 2.1.1 | Exécution Quality Gate, validation `gsane.sh validate` |
+| **Winston** | 🏗️ Architect | `active` | 2.1.1 | Design système, ADR, outillage |
+| **Bond** | 🤖 Agent Builder | `active` | 2.1.1 | Création/édition/validation des agents GSANE |
+| **Vera** | 🔒 Security Reviewer | `subagent` | 1.0.1 | Revue sécurité en lecture seule, secrets, injections, findings bloquants |
+| **Sage** | 📊 Context Guardian | `subagent` | 1.0.1 | Budget contexte, compression mémoire, recommandations de déchargement |
 
 ---
 
@@ -220,6 +222,10 @@ bash gsane.sh trace --p2p
 # MCP — santé et smoke test
 bash gsane.sh mcp --health
 bash gsane.sh mcp --smoke-test
+
+# Session — reprise depuis le dernier checkpoint
+bash gsane.sh session --resume
+
 # Delivery Contract — validation structurée
 bash gsane.sh dc --validate <fichier.md>
 
@@ -236,17 +242,17 @@ bash gsane.sh trace --report
 
 ```
 _gsane/                    ← Réacteur GSANE
-  agents/                  ← Les 5 agents Strike Team (master, dev, qa, architect, bond)
+  agents/                  ← Les 7 agents GSANE (5 core + 2 subagents : vera, sage)
   _config/                 ← Manifestes YAML (agents, workflows, delegation-matrix)
   _memory/                 ← Mémoire persistante (brief canonique, sidecars, trace.log, sessions/ d'audit)
   mcp-server/              ← Serveur MCP local (compression_tool.py — vues canoniques + outils historiques)
   tasks/                   ← Tâches réutilisables (editorial-review, index-cleanup)
   workflows/               ← Workflows (Party Mode v3.0, delegation, cc-verify, flywheel...)
-  tools/                   ← Outils infrastructure (dc-validator, flywheel-rollback, trace-report, security-gate, bootstrap)
+  tools/                   ← Outils infrastructure P6+ (dc-validator, flywheel-rollback, trace-report, security-gate, bootstrap)
 _gsane-output/             ← Artefacts générés (delegation-audit, bond-creations, etc.)
 tests/                     ← Suite de tests Python (structurel + comportemental + MCP)
 .github/
-  agents/                  ← Définitions agents Copilot Chat (master, dev, qa, architect, bond)
+  agents/                  ← Définitions agents Copilot Chat (7 agents exposés au runtime)
   skills/                  ← Skills GSANE pour Copilot Chat
   prompts/                 ← Prompts slash commands (/gsane-*)
   hooks/                   ← Hooks session (session-start, session-stop, flywheel-trigger)

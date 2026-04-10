@@ -96,6 +96,11 @@ chore(deps): mise à jour de mcp[cli]
 4. Si nouvelles routes : mettre à jour `_gsane/_config/delegation-matrix.yaml` (schéma : `trigger` + `agent`)
 5. Relancer `bash gsane.sh validate`
 
+Règles supplémentaires obligatoires :
+- Les 8 sections sont obligatoires pour TOUS les agents, y compris les subagents. Si une section manque, `tests/qa-linter.py` doit échouer.
+- Tout nouvel agent doit avoir un fichier `.customize.yaml` dédié dans `_gsane/_config/agents/`.
+- Chaque `.customize.yaml` doit contenir au minimum `agent`, `status`, `scope` et `constraints` avec des valeurs non vides et cohérentes avec le manifest.
+
 **Ne jamais bypasser Party Mode** pour les modifications non-triviales aux agents.
 
 ---
