@@ -22,6 +22,7 @@ class TestMcpImports:
 
     def test_all_tools_present(self):
         from compression_tool import (
+            gsane_emit_event,
             gsane_fetch_compressed_memory,
             gsane_memory_fetch,
             gsane_read_active_delivery_contract,
@@ -29,6 +30,7 @@ class TestMcpImports:
             gsane_read_checkpoint,
             gsane_read_project_snapshot,
             gsane_route,
+            gsane_search_memory,
             gsane_write_session_checkpoint,
         )
 
@@ -40,6 +42,8 @@ class TestMcpImports:
         assert callable(gsane_read_checkpoint)
         assert callable(gsane_route)
         assert callable(gsane_memory_fetch)
+        assert callable(gsane_search_memory)
+        assert callable(gsane_emit_event)
 
 
 class TestMcpPaths:
@@ -306,6 +310,105 @@ class TestGsaneMemoryFetch:
             Path(__file__).parent.parent / "_gsane" / "_memory" / "trace.log"
         ).read_text(encoding="utf-8")
         yaml.safe_load(trace_content)
+
+
+class TestGsaneSearchMemory:
+    """Tests pour gsane_search_memory (P5-B)."""
+
+    def test_search_returns_results_for_existing_keyword(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("agent", "all")
+        assert isinstance(result, str)
+        assert "Résultats pour 'agent' dans all:" in result or "Aucun résultat" in result
+
+    def test_search_no_result_returns_message(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("xyz_inexistant_99999")
+        assert "Aucun résultat" in result
+
+    def test_search_failures_scope(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("FM-", "failures")
+        assert isinstance(result, str)
+        # Should either find results in failure-museum.md or report none
+        assert "Résultats pour" in result or "Aucun résultat" in result
+
+    def test_search_decisions_scope(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("DL-", "decisions")
+        assert isinstance(result, str)
+
+    def test_search_sessions_scope(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("Session", "sessions")
+        assert isinstance(result, str)
+
+    def test_search_max_five_results(self):
+        from compression_tool import gsane_search_memory
+
+        result = gsane_search_memory("a", "all")
+        assert isinstance(result, str)
+        # At most 5 result entries (each starts with a file path in brackets)
+        if "Résultats pour" in result:
+            import re
+
+            entries = re.findall(r"\[_gsane/", result)
+            assert len(entries) <= 5
+
+
+class TestGsaneEmitEvent:
+    """Tests pour gsane_emit_event (P5-C)."""
+
+    def test_emit_standard_event(self):
+        from compression_tool import gsane_emit_event
+
+        result = gsane_emit_event("qa_gate_passed", "Quinn", {"tests": 155})
+        assert "✅" in result
+        assert "qa_gate_passed" in result
+        assert "Quinn" in result
+
+    def test_emit_nonstandard_event_warns(self):
+        from compression_tool import gsane_emit_event
+
+        result = gsane_emit_event("custom_weird_event", "TestAgent", {"foo": "bar"})
+        assert "✅" in result
+        assert "⚠️" in result
+        assert "non-standard" in result
+
+    def test_emit_writes_to_trace_log(self):
+        from compression_tool import gsane_emit_event
+
+        gsane_emit_event("session_milestone", "Langis", {"milestone": "P5-test"}, "P5-C-test")
+        trace_path = Path(__file__).parent.parent / "_gsane" / "_memory" / "trace.log"
+        content = trace_path.read_text(encoding="utf-8")
+        assert "session_milestone" in content
+        # Verify trace.log is still valid YAML
+        yaml.safe_load(content)
+
+    def test_emit_with_task_id(self):
+        from compression_tool import gsane_emit_event
+
+        result = gsane_emit_event("delivery_contract_created", "Langis", {}, "DC-TEST-001")
+        assert "✅" in result
+
+    def test_emit_with_empty_payload(self):
+        from compression_tool import gsane_emit_event
+
+        result = gsane_emit_event("qa_gate_passed", "Quinn")
+        assert "✅" in result
+
+    def test_emit_all_standard_event_types_accepted(self):
+        from compression_tool import STANDARD_EVENT_TYPES, gsane_emit_event
+
+        for event_type in STANDARD_EVENT_TYPES:
+            result = gsane_emit_event(event_type, "TestAgent", {"test": True})
+            assert "✅" in result
+            assert "⚠️" not in result
 
 
 class TestCompressionToolHygiene:

@@ -6,6 +6,14 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **chore(git)**: Ignore `*.code-workspace` et retire `zav-sandbox.code-workspace` + `.vscode/launch.json` du suivi git (fichiers locaux, ne doivent pas être partagés)
+- **fix(cli)**: `gsane.sh mcp --health` fallback gracieux si module `mcp` absent (Windows/WSL) — warning + EXIT 0 au lieu de EXIT 1, CI Ubuntu reste la référence
+- **feat(mcp)**: P5-B — Refactor `gsane_search_memory` : contexte ±2 lignes, scopes `all/sessions/failures/decisions`, format retour `"Résultats pour '{query}' dans {scope}:"`
+- **feat(mcp)**: P5-C — Refactor `gsane_emit_event` : signature `(event_type, agent, payload: dict, task_id)`, validation event_type standards avec warning non-standard, timestamp dans retour
+- **feat(hooks)**: P5-D — Détection sessions sans post-session-analysis dans `session-start.sh` : warning si dernière session > 24h sans marqueur de clôture
+- **feat(cli)**: P5-A — `gsane.sh trace --report` génère un rapport HTML auto-suffisant dans `_gsane-output/trace-report-{date}.html` via `_gsane/tools/trace-report.py`
+- **feat(cli)**: P5-E — `gsane.sh trace --summary` enrichi avec métriques par agent (invocations, trust score moy, dernier event, ratio pass/fail)
+
 - **fix(ci)**: Correction syntaxe YAML dans `pr-autofill.yml` — template literal JS multi-lignes remplacé par array join (ligne 116 cassait le bloc `|`)
 - **docs(contributing)**: Section "Prérequis Windows" ajoutée — WSL recommandé, Git Bash alternatif, CI comme validation de référence
 - **fix(cli)**: `gsane.sh doctor` détecte Windows/Git Bash et affiche un warning explicite au lieu de crasher silencieusement

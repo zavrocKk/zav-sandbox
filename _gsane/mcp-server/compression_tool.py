@@ -588,38 +588,43 @@ def gsane_memory_fetch(agent_name: str, topic: str = "") -> str:
 
 @mcp.tool()
 def gsane_search_memory(query: str, scope: str = "all") -> str:
-    """Search markdown memory files filtered by scope (all, failures, decisions, sidecars, sessions)."""
+    """Search markdown memory files filtered by scope (all, sessions, failures, decisions)."""
     _log_mcp_invocation("gsane_search_memory", f"query={query[:60]} scope={scope}")
     scope_map: dict[str, list[str]] = {
         "failures": ["failure-museum.md"],
         "decisions": ["decision-log.md"],
-        "sidecars": [],
-        "sessions": ["session-state.md", "session-analysis-log.md"],
+        "sessions": ["session-analysis-log.md"],
     }
 
     results: list[str] = []
     normalized_query = query.lower()
 
     for path in _iter_memory_markdown_files():
-        if scope != "all":
-            if scope == "sidecars":
-                if "-sidecar" not in str(path):
-                    continue
-            elif scope in scope_map and path.name not in scope_map[scope]:
+        if scope != "all" and scope in scope_map:
+            if path.name not in scope_map[scope]:
                 continue
 
         content = _read_text_or_none(path)
         if content is None or normalized_query not in content.lower():
             continue
 
-        index = content.lower().find(normalized_query)
-        start = max(0, index - 200)
-        end = min(len(content), index + 200)
-        results.append(f"[{_relative_project_path(path)}] ...{content[start:end]}...")
+        lines = content.splitlines()
+        for i, line in enumerate(lines):
+            if normalized_query in line.lower():
+                start = max(0, i - 2)
+                end = min(len(lines), i + 3)
+                snippet = "\n".join(lines[start:end])
+                entry = f"[{_relative_project_path(path)}]\n{snippet}"
+                if entry not in results:
+                    results.append(entry)
+                if len(results) >= 5:
+                    break
+        if len(results) >= 5:
+            break
 
     if not results:
-        return f"Aucune mémoire trouvée pour '{query}' (scope={scope})."
-    return "RÉSULTATS :\n" + "\n---\n".join(results[:5])
+        return f"Aucun résultat pour '{query}' dans {scope}."
+    return f"Résultats pour '{query}' dans {scope}:\n" + "\n---\n".join(results[:5])
 
 
 @mcp.tool()
@@ -652,26 +657,45 @@ def gsane_list_agents(filter_capability: str = "") -> str:
     return "AGENTS ENREGISTRÉS :\n" + "\n".join(results)
 
 
+STANDARD_EVENT_TYPES = (
+    "delivery_contract_created",
+    "delivery_contract_approved",
+    "qa_gate_passed",
+    "qa_gate_failed",
+    "handoff_initiated",
+    "session_milestone",
+)
+
+
 @mcp.tool()
-def gsane_emit_event(event_type: str, agent: str, details: str = "") -> str:
+def gsane_emit_event(event_type: str, agent: str, payload: dict | None = None, task_id: str = "") -> str:
     """Emit a structured event to the trace log for observability."""
     _log_mcp_invocation("gsane_emit_event", f"type={event_type} agent={agent}")
+    warning = ""
+    if event_type not in STANDARD_EVENT_TYPES:
+        warning = f" ⚠️ event_type '{event_type}' non-standard."
+    if payload is None:
+        payload = {}
     try:
+        import json as _json
+
         trace_file = ensure_path_within_roots(MEMORY_DIR / "trace.log", ALLOWED_MCP_ROOTS)
-        safe_details = _escape_yaml_details(details)
+        safe_details = _escape_yaml_details(_json.dumps(payload, ensure_ascii=False))
+        ts = datetime.now().isoformat()
+        effective_task_id = task_id or "custom_event"
         entry = (
-            f"- timestamp: {datetime.now().isoformat()}\n"
+            f"- timestamp: {ts}\n"
             f"  session_id: mcp\n"
             f"  event: {event_type}\n"
             f"  agent: {agent}\n"
-            f"  task_id: custom_event\n"
+            f"  task_id: {effective_task_id}\n"
             f"  duration_ms: 0\n"
             f"  trust_score: null\n"
             f'  details: "{safe_details}"\n'
         )
         with trace_file.open("a", encoding="utf-8") as handle:
             handle.write(entry)
-        return f"✅ Événement '{event_type}' émis par {agent}."
+        return f"✅ Événement '{event_type}' émis par {agent} à {ts}.{warning}"
     except OSError as error:
         return f"❌ Erreur d'écriture trace : {error}"
 
