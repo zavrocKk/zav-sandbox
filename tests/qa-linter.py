@@ -677,10 +677,9 @@ def check_agent_customize_files():
                 if not isinstance(value, bool):
                     print(f"[FAIL] {customize_path}: contrainte '{constraint_name}' doit être booléenne")
                     errors += 1
-            elif expected_type is int:
-                if not isinstance(value, int) or value < 0:
-                    print(f"[FAIL] {customize_path}: contrainte '{constraint_name}' doit être un entier >= 0")
-                    errors += 1
+            elif expected_type is int and (not isinstance(value, int) or value < 0):
+                print(f"[FAIL] {customize_path}: contrainte '{constraint_name}' doit être un entier >= 0")
+                errors += 1
 
     return errors
 
