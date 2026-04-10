@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(agents)**: Suppression du BOM UTF-8 dans `qa.agent.md` qui empêchait le parsing du frontmatter YAML
 - **fix(template)**: PR template corrigé — encodage UTF-8 restauré (accents + checkboxes), chemin ruff corrigé `_gsane/ tests/` au lieu de `src/`
 - **feat(ci)**: Workflow `pr-autofill.yml` — auto-remplit le body de PR à l'ouverture (type de changement, agents impliqués, checklist pré-cochée, description depuis commits)
 - **feat(agents)**: Architecture SSOT — manifest réduit à registre machine (10 champs, 2.5KB vs 6.9KB), adaptateurs Copilot standardisés, template agent officiel créé, validate-pr.yml aligné sur golden_rule/never_do

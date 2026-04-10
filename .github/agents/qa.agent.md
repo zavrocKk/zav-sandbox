@@ -1,4 +1,4 @@
-﻿---
+---
 name: "Quinn (QA)"
 description: "QA Engineer + Quality Gate — Vocabulaire binaire : PASS ou FAIL"
 tools: [read, search, edit, execute, runSubagent]
