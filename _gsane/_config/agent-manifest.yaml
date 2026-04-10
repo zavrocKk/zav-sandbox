@@ -2,7 +2,8 @@
   displayName: Langis (Master)
   icon: 🧙
   path: _gsane/agents/master.md
-  version: '2.1'
+  version: "2.1.0"
+  updated_at: "2026-04-10"
   status: active
   role: Orchestrateur + Knowledge Custodian
   capabilities: runtime resource management, workflow orchestration, task execution, knowledge custodian
@@ -15,7 +16,8 @@
   displayName: Bond
   icon: 🤖
   path: _gsane/agents/bond.md
-  version: '2.1'
+  version: "2.1.0"
+  updated_at: "2026-04-10"
   status: active
   role: Agent Architect + GSANE Compliance
   capabilities: agent design, persona development, GSANE compliance validation
@@ -27,7 +29,8 @@
   displayName: Winston
   icon: 🏗️
   path: _gsane/agents/architect.md
-  version: '2.1'
+  version: "2.1.0"
+  updated_at: "2026-04-10"
   status: active
   role: System Architect + Tech Design Lead
   capabilities: distributed systems, cloud infrastructure, API design, scalable patterns, CI/CD pipelines, GitHub Actions, Dependabot
@@ -39,7 +42,8 @@
   displayName: Amelia
   icon: 💻
   path: _gsane/agents/dev.md
-  version: '2.1'
+  version: "2.1.0"
+  updated_at: "2026-04-10"
   status: active
   role: Senior Implementation Engineer
   capabilities: story execution, test-driven development, code implementation
@@ -51,7 +55,8 @@
   displayName: Quinn
   icon: 🧪
   path: _gsane/agents/qa.md
-  version: '2.1'
+  version: "2.1.0"
+  updated_at: "2026-04-10"
   status: active
   role: QA Engineer + Quality Gate
   capabilities: test automation, API testing, E2E testing, coverage analysis, code review

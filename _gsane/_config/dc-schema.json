@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GSANE Delivery Contract Schema",
+  "type": "object",
+  "required": ["id", "task", "files", "constraints", "acceptance_criteria", "agent_principal", "validation_agent"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifiant unique du DC (ex: P6-A, DC-TOKEN-OPTIM)"
+    },
+    "task": {
+      "type": "string",
+      "description": "Description de la tâche"
+    },
+    "files": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "description": "Fichiers impactés"
+    },
+    "constraints": {
+      "type": "string",
+      "description": "Contraintes architecturales"
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^AC-\\d+\\s*:"
+      },
+      "minItems": 1,
+      "description": "Critères d'acceptance au format AC-N: action + résultat mesurable"
+    },
+    "agent_principal": {
+      "type": "string",
+      "description": "Agent qui implémente"
+    },
+    "validation_agent": {
+      "type": "string",
+      "description": "Agent qui valide"
+    }
+  }
+}

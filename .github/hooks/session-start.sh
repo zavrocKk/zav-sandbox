@@ -71,4 +71,90 @@ if [[ -f "$SESSION_LOG" ]]; then
   fi
 fi
 
+# ── 6. Context Budget Check ──────────────────────────────────────────────────
+CONFIG_FILE="$WORKSPACE_ROOT/_gsane/config.yaml"
+if [[ -f "$CONFIG_FILE" ]]; then
+  if command -v python3 &>/dev/null; then
+    python3 - "$CONFIG_FILE" "$WORKSPACE_ROOT" <<'PYEOF'
+import sys, os
+try:
+    import yaml
+except ImportError:
+    sys.exit(0)
+
+config_path = sys.argv[1]
+workspace = sys.argv[2]
+
+with open(config_path) as f:
+    cfg = yaml.safe_load(f)
+
+budget = cfg.get("context_budget")
+if not budget:
+    sys.exit(0)
+
+max_tokens = budget.get("max_tokens_per_session", 8000)
+warning_thr = budget.get("warning_threshold", 0.75)
+critical_thr = budget.get("critical_threshold", 0.90)
+skills_budget = budget.get("skills_budget", 1500)
+agents_budget = budget.get("agents_budget", 2000)
+workflows_budget = budget.get("workflows_budget", 1000)
+
+# Count skills
+skills_dir = os.path.join(workspace, ".github", "skills")
+skills_count = 0
+if os.path.isdir(skills_dir):
+    for entry in os.listdir(skills_dir):
+        skill_file = os.path.join(skills_dir, entry, "SKILL.md")
+        if os.path.isfile(skill_file):
+            skills_count += 1
+
+# Count agents
+agents_dir = os.path.join(workspace, "_gsane", "agents")
+agents_count = 0
+if os.path.isdir(agents_dir):
+    for entry in os.listdir(agents_dir):
+        if entry.endswith(".md"):
+            agents_count += 1
+
+# Config size (approximate tokens ~ bytes / 4)
+config_size = os.path.getsize(config_path)
+config_tokens = config_size // 4
+
+# Estimate budget used
+skills_used = min(skills_count * (skills_budget // max(skills_count, 1)), skills_budget) if skills_count > 0 else 0
+agents_used = min(agents_count * (agents_budget // max(agents_count, 1)), agents_budget) if agents_count > 0 else 0
+workflows_used = workflows_budget  # assume loaded at start
+budget_used = skills_used + agents_used + workflows_used + config_tokens
+
+percentage = (budget_used / max_tokens) * 100 if max_tokens > 0 else 0
+
+print(f"[SessionStart] Context Budget: {budget_used}/{max_tokens} tokens ({percentage:.0f}%)")
+
+if percentage > critical_thr * 100:
+    print(f"[SessionStart] \U0001f534 CRITICAL: Context budget near exhaustion ({percentage:.0f}%) — consider reducing loaded context")
+elif percentage > warning_thr * 100:
+    print(f"[SessionStart] ⚠️ WARNING: Context budget approaching limit ({percentage:.0f}%)")
+PYEOF
+  else
+    # Fallback: basic estimation without python3
+    SKILLS_COUNT=$(find "$WORKSPACE_ROOT/.github/skills" -name "SKILL.md" 2>/dev/null | wc -l)
+    AGENTS_COUNT=$(find "$WORKSPACE_ROOT/_gsane/agents" -name "*.md" 2>/dev/null | wc -l)
+    CONFIG_SIZE=$(wc -c < "$CONFIG_FILE" 2>/dev/null || echo 0)
+    CONFIG_TOKENS=$((CONFIG_SIZE / 4))
+    BUDGET_USED=$((1500 + 2000 + 1000 + CONFIG_TOKENS))
+    MAX_TOKENS=8000
+    if [[ "$MAX_TOKENS" -gt 0 ]]; then
+      PERCENTAGE=$((BUDGET_USED * 100 / MAX_TOKENS))
+    else
+      PERCENTAGE=0
+    fi
+    echo "[SessionStart] Context Budget: $BUDGET_USED/$MAX_TOKENS tokens (${PERCENTAGE}%)"
+    if [[ "$PERCENTAGE" -gt 90 ]]; then
+      echo "[SessionStart] 🔴 CRITICAL: Context budget near exhaustion (${PERCENTAGE}%) — consider reducing loaded context"
+    elif [[ "$PERCENTAGE" -gt 75 ]]; then
+      echo "[SessionStart] ⚠️ WARNING: Context budget approaching limit (${PERCENTAGE}%)"
+    fi
+  fi
+fi
+
 echo "[SessionStart] ✅ Session #$SESSION_COUNT ready."

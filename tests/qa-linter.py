@@ -563,6 +563,41 @@ def validate_execution_plan_schema(path):
     return errors
 
 
+def check_agent_versioning():
+    """Validate semver version, ISO updated_at, and status for all agents in agent-manifest.yaml."""
+    errors = 0
+    manifest_path = "_gsane/_config/agent-manifest.yaml"
+
+    if not os.path.isfile(manifest_path):
+        print(f"[FAIL] {manifest_path}: agent manifest introuvable")
+        return 1
+
+    agents = load_yaml_file(manifest_path) or []
+    semver_re = re.compile(r"^\d+\.\d+\.\d+$")
+    date_re = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+    valid_statuses = {"active", "deprecated", "experimental"}
+
+    for agent in agents:
+        name = agent.get("name", "<unknown>")
+
+        version = agent.get("version")
+        if not version or not semver_re.match(str(version)):
+            print(f"[FAIL] {manifest_path}: agent '{name}' version invalide ou absente ('{version}', attendu X.Y.Z)")
+            errors += 1
+
+        updated_at = agent.get("updated_at")
+        if not updated_at or not date_re.match(str(updated_at)):
+            print(f"[FAIL] {manifest_path}: agent '{name}' updated_at invalide ou absent ('{updated_at}', attendu YYYY-MM-DD)")
+            errors += 1
+
+        status = agent.get("status")
+        if not status or status not in valid_statuses:
+            print(f"[FAIL] {manifest_path}: agent '{name}' status invalide ou absent ('{status}', attendu {valid_statuses})")
+            errors += 1
+
+    return errors
+
+
 def check_all_manifests():
     """Charge tous les _gsane/_config/*.yaml et vérifie qu'ils parsent sans erreur."""
     errors = 0
@@ -614,6 +649,7 @@ if __name__ == '__main__':
     total_errors += check_readme_legacy_refs()
     total_errors += check_hooks()
     total_errors += check_all_manifests()
+    total_errors += check_agent_versioning()
 
     # ── Validation schéma execution-plan.yaml ────────────────────
     import glob as _glob

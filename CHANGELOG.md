@@ -6,6 +6,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **feat(tools)**: P6-B — Validation JSON des Delivery Contracts : `dc-validator.py` + `dc-schema.json` + commande `gsane.sh dc --validate <fichier.md>` avec tests
+- **feat(flywheel)**: P6-D — Mécanisme de rollback flywheel : tag git `gsane-flywheel-pre-{timestamp}` avant chaque auto-correction, revert automatique si tests échouent, commande `gsane.sh flywheel --rollback <tag>`
+- **feat(agents)**: P6-C — Versioning sémantique des agents : `version` (semver X.Y.Z), `updated_at` (ISO date), `status` dans agent-manifest.yaml. Validation qa-linter + CI step dans validate-pr.yml
 - **fix(cli)**: `grep -v` dans le gate documentaire de `gsane.sh validate` absorbé avec `|| true` — `set -e` tuait le script quand seul `_gsane/_memory/trace.log` était dirty (exit code 1 de grep sans résultat)
 - **fix(ci)**: Guard pr-autofill remplacé — comparaison au contenu du PR template au lieu du seuil `body.length > 200` (le template GitHub de 746 chars déclenchait toujours le skip)
 - **fix(cli)**: Gate CHANGELOG dans `gsane.sh validate` exclut `_gsane/_memory/` (fichiers runtime) pour éviter les faux positifs locaux
@@ -19,6 +22,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **feat(hooks)**: P5-D — Détection sessions sans post-session-analysis dans `session-start.sh` : warning si dernière session > 24h sans marqueur de clôture
 - **feat(cli)**: P5-A — `gsane.sh trace --report` génère un rapport HTML auto-suffisant dans `_gsane-output/trace-report-{date}.html` via `_gsane/tools/trace-report.py`
 - **feat(cli)**: P5-E — `gsane.sh trace --summary` enrichi avec métriques par agent (invocations, trust score moy, dernier event, ratio pass/fail)
+- **feat(config)**: P6-A — Context Budget Strategy : section `context_budget` dans config.yaml, calcul du budget au démarrage dans session-start.sh, section Context Budget Management dans master.md
 
 - **fix(ci)**: Correction syntaxe YAML dans `pr-autofill.yml` — template literal JS multi-lignes remplacé par array join (ligne 116 cassait le bloc `|`)
 - **docs(contributing)**: Section "Prérequis Windows" ajoutée — WSL recommandé, Git Bash alternatif, CI comme validation de référence
