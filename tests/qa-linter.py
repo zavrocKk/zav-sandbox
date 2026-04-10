@@ -8,7 +8,6 @@ from pathlib import Path
 import pytest
 import yaml  # type: ignore[import-untyped]
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 README_PATH = REPO_ROOT / "README.md"
 README_LEGACY_PATTERNS = {
@@ -62,7 +61,7 @@ def test_no_legacy_refs_in_readme():
 
 def check_file(path):
     errors = 0
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, encoding='utf-8') as f:
         content = f.read()
 
     if '{{project_name}}' in content:
@@ -72,7 +71,7 @@ def check_file(path):
     if '{project-root}' in content:
         print(f'[FAIL] {path}: Found forbidden pseudo-variable {{project-root}}')
         errors += 1
-        
+
     if '<menu>' in content:
         print(f'[FAIL] {path}: Found forbidden legacy <menu> tag (Zero-Touch architecture violation)')
         errors += 1
@@ -170,7 +169,7 @@ def check_legacy_references(files_to_scan):
     hits = []
     for filepath in files_to_scan:
         try:
-            with open(filepath, "r", encoding="utf-8") as fh:
+            with open(filepath, encoding="utf-8") as fh:
                 for line_no, line in enumerate(fh, start=1):
                     low = line.lower()
                     for term in LEGACY_TERMS:
@@ -182,7 +181,7 @@ def check_legacy_references(files_to_scan):
 
 
 def load_yaml_file(path):
-    with open(path, "r", encoding="utf-8") as fh:
+    with open(path, encoding="utf-8") as fh:
         return yaml.safe_load(fh)
 
 
@@ -196,7 +195,7 @@ def check_active_guidance_surfaces():
             errors += 1
             continue
 
-        with open(filepath, "r", encoding="utf-8") as fh:
+        with open(filepath, encoding="utf-8") as fh:
             for line_no, line in enumerate(fh, start=1):
                 for label, pattern in ACTIVE_GUIDANCE_FORBIDDEN_PATTERNS:
                     if pattern.search(line):
@@ -330,7 +329,8 @@ def check_flywheel_checklist_guard():
         print(f"[FAIL] {checklist_path}: checklist introuvable")
         return 1
 
-    content = open(checklist_path, "r", encoding="utf-8").read()
+    with open(checklist_path, encoding="utf-8") as fh:
+        content = fh.read()
     expected_guard = "Aucun chemin `_gsane/core/` ni ancien module `bmb` réintroduit dans les fichiers modifiés"
     legacy_guard = "Chemins `_gsane/core/` (pas ancien `bmb`) dans tous les fichiers modifiés"
 
@@ -412,7 +412,7 @@ def check_canonical_runtime_alignment():
         print(f"[FAIL] {brief_path}: brief canonique introuvable")
         return 1
 
-    with open(brief_path, "r", encoding="utf-8") as fh:
+    with open(brief_path, encoding="utf-8") as fh:
         brief_content = fh.read()
 
     for heading in CANONICAL_BRIEF_REQUIRED_HEADINGS:
@@ -442,7 +442,7 @@ def check_canonical_runtime_alignment():
             print(f"[FAIL] {filepath}: surface runtime introuvable")
             errors += 1
             continue
-        with open(filepath, "r", encoding="utf-8") as fh:
+        with open(filepath, encoding="utf-8") as fh:
             content = fh.read()
         for token in required_tokens:
             if token not in content:
@@ -451,7 +451,8 @@ def check_canonical_runtime_alignment():
 
     bootstrap_path = ".github/prompts/gsane-session-bootstrap.prompt.md"
     if os.path.isfile(bootstrap_path):
-        bootstrap_content = open(bootstrap_path, "r", encoding="utf-8").read()
+        with open(bootstrap_path, encoding="utf-8") as fh:
+            bootstrap_content = fh.read()
         legacy_line = "Lire `{project-root}/_gsane/_memory/sessions/session-state.md`"
         if legacy_line in bootstrap_content:
             print(f"[FAIL] {bootstrap_path}: session-state.md encore lu comme etat actif")
@@ -497,7 +498,7 @@ def check_hooks():
         if not os.path.isfile(hook_path):
             print(f"[WARN] {hook_path}: fichier absent (skip)")
             continue
-        with open(hook_path, "r", encoding="utf-8") as fh:
+        with open(hook_path, encoding="utf-8") as fh:
             content = fh.read()
         if rules["must_contain"] not in content:
             print(f"[FAIL] {hook_path}: manque '{rules['must_contain']}'")
@@ -528,7 +529,7 @@ VALID_RISK_LEVELS = {"LOW", "MEDIUM", "HIGH"}
 def validate_execution_plan_schema(path):
     """Valide un fichier execution-plan.yaml contre le schéma GSANE Phase 3."""
     errors = 0
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         try:
             data = yaml.safe_load(f)
         except yaml.YAMLError as exc:
@@ -571,7 +572,7 @@ def check_all_manifests():
         return 1
     for filepath in files:
         try:
-            with open(filepath, "r", encoding="utf-8") as fh:
+            with open(filepath, encoding="utf-8") as fh:
                 content = fh.read()
             yaml.safe_load(content)
         except yaml.YAMLError as exc:
@@ -591,12 +592,12 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print('Usage: python qa-linter.py <file-to-test>')
         sys.exit(1)
-        
+
     total_errors = 0
     for target in sys.argv[1:]:
         if os.path.isfile(target):
             total_errors += check_file(target)
-    
+
     # ── Nouvelles vérifications ──────────────────────────────────
     legacy_hits = check_legacy_references(LEGACY_SCAN_FILES)
     for filepath, line_no, term in legacy_hits:

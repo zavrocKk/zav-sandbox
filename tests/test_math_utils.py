@@ -1,5 +1,6 @@
 """test_math_utils.py — tests unitaires pour math_utils."""
 import pytest
+
 from src.math_utils import add, safe_divide
 
 

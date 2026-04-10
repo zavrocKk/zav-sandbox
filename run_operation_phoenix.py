@@ -1,7 +1,6 @@
-import os
-import yaml
 import glob
-import re
+import os
+import shutil
 
 print("Starting Operation Phoenix...")
 
@@ -14,7 +13,6 @@ for wf in workflows_to_restore:
     with open(f'{d}/{wf}/workflow.md', 'w', encoding='utf-8') as f:
         f.write(f'# {wf.upper()} Workflow\n\nRestauré via Opération Phénix.\n')
 
-import shutil
 if os.path.exists('_gsane/core'):
     shutil.rmtree('_gsane/core', ignore_errors=True)
 
@@ -23,18 +21,20 @@ qa_path = '_gsane/agents/qa.md'
 bond_path = '_gsane/agents/bond.md'
 
 if os.path.exists(qa_path):
-    with open(qa_path, 'r', encoding='utf-8') as f:
+    with open(qa_path, encoding='utf-8') as f:
         c = f.read()
     if '<mission>' not in c:
         c = c.replace('</agent>', '  <mission>Définition de rôle dans la "Zero-Touch Fix-Loop" : exécution automatique et asynchrone de gsane.sh validate, et retour direct des logs à Amelia sans confirmation humaine.</mission>\n</agent>')
-        with open(qa_path, 'w', encoding='utf-8') as f: f.write(c)
+        with open(qa_path, 'w', encoding='utf-8') as f:
+            f.write(c)
 
 if os.path.exists(bond_path):
-    with open(bond_path, 'r', encoding='utf-8') as f:
+    with open(bond_path, encoding='utf-8') as f:
         c = f.read()
     if '<mission>' not in c:
         c = c.replace('</agent>', '  <mission>Forger et construire les modules GSANE.</mission>\n  <backstory>Créateur original des agents, gardien du code source pur.</backstory>\n  <authority_stance>Niveau L3 sur l\'architecture de tout agent GSANE.</authority_stance>\n</agent>')
-        with open(bond_path, 'w', encoding='utf-8') as f: f.write(c)
+        with open(bond_path, 'w', encoding='utf-8') as f:
+            f.write(c)
 
 # PHASE 3
 skills = {
@@ -53,8 +53,9 @@ for sk, val in skills.items():
 
 # PHASE 4
 def update_file(path, replacements):
-    if not os.path.exists(path): return
-    with open(path, 'r', encoding='utf-8') as f:
+    if not os.path.exists(path):
+        return
+    with open(path, encoding='utf-8') as f:
         content = f.read()
     changed = False
     for o, n in replacements:

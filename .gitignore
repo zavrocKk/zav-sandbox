@@ -50,3 +50,4 @@ _gsane-output/delegation-audit.md
 _gsane-output/violations.log
 _gsane-output/party-mode-audit.md
 _gsane-output/cc-verify-*.log
+.coverage

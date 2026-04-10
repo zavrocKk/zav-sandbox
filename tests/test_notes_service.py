@@ -2,6 +2,7 @@
 Cas CRUD et persistance locale couverts.
 """
 import pytest
+
 from src import notes_service as ns
 
 

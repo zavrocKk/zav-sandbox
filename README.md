@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-passing-brightgreen)](tests/) [![MCP](https://img.shields.io/badge/MCP-8%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
+[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-149%20passing-brightgreen)](tests/) [![Coverage](https://img.shields.io/badge/Coverage-99%25%20src-green)](pyproject.toml) [![MCP](https://img.shields.io/badge/MCP-8%20outils-purple)](_gsane/mcp-server/README.md) [![License](https://img.shields.io/badge/License-Unspecified-lightgrey)](CONTRIBUTING.md)
 
 Le workflow `ci.yml` couvre la CI de branche (tests), tandis que `validate-pr.yml` conserve les contrôles de gouvernance PR et quality gate complète.
 

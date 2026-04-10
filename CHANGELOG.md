@@ -6,6 +6,10 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **feat(ci)**: Pipeline CI consolidé en un seul job `gsane-quality-gate` — checkout, setup Python 3.11, `pip install -e ".[mcp,test]"`, ruff check, mypy, pytest (149 tests, behavioral exclus), MCP health check
+- **feat(lint)**: Configuration ruff (line-length=100, E501 ignoré, exclude _gsane-output/) et mypy (warn_unused_ignores, files mcp-server/) — 63 erreurs ruff corrigées, 10 erreurs mypy résolues
+- **feat(coverage)**: Badge coverage (99% src) et 149 tests dans README, seuil coverage 50% validé
+- **chore(deps)**: Dependabot étendu — ajout pip racine "/" avec ignore major updates, schedule monday pour tous les ecosystems
 - **fix**: Correction erreurs CI mypy et ruff (18 erreurs) — typage explicite, imports triés, datetime.UTC, auto-exclusion security_gate du scan
 - **chore**: Ajout [build-system] et extras mcp/test dans pyproject.toml
 

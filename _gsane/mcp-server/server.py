@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import yaml
+import yaml  # type: ignore[import-untyped]
 from mcp.server.fastmcp import FastMCP
 
 raise ImportError("Ce fichier est ARCHIVÉ. Utilisez compression_tool.py comme point d'entrée MCP.")
