@@ -598,6 +598,27 @@ def check_agent_versioning():
     return errors
 
 
+def check_agent_customize_files():
+    """Ensure every agent in agent-manifest.yaml has a matching .customize.yaml file."""
+    errors = 0
+    manifest_path = "_gsane/_config/agent-manifest.yaml"
+    customize_dir = "_gsane/_config/agents"
+
+    if not os.path.isfile(manifest_path):
+        print(f"[FAIL] {manifest_path}: agent manifest introuvable")
+        return 1
+
+    agents = load_yaml_file(manifest_path) or []
+    for agent in agents:
+        name = agent.get("name", "<unknown>")
+        customize_path = os.path.join(customize_dir, f"{name}.customize.yaml")
+        if not os.path.isfile(customize_path):
+            print(f"[FAIL] {customize_path}: customize.yaml manquant pour l'agent '{name}'")
+            errors += 1
+
+    return errors
+
+
 def check_all_manifests():
     """Charge tous les _gsane/_config/*.yaml et vérifie qu'ils parsent sans erreur."""
     errors = 0
@@ -650,6 +671,7 @@ if __name__ == '__main__':
     total_errors += check_hooks()
     total_errors += check_all_manifests()
     total_errors += check_agent_versioning()
+    total_errors += check_agent_customize_files()
 
     # ── Validation schéma execution-plan.yaml ────────────────────
     import glob as _glob
