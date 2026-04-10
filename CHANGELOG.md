@@ -6,6 +6,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix**: Correction erreurs CI mypy et ruff (18 erreurs) — typage explicite, imports triés, datetime.UTC, auto-exclusion security_gate du scan
 - **chore**: Ajout [build-system] et extras mcp/test dans pyproject.toml
 
 **[repo]** Sprint 2 : Nettoyage .vscode/ (seul extensions.json versionné, autres ignorés), suppression V2-RELEASE-NOTES.md, neutralisation release-v2.sh (supprimé, plus de génération accidentelle possible).

@@ -34,21 +34,13 @@ CANONICAL_VIEW_NAMES = (
 
 
 def _escape_yaml_details(value: str) -> str:
-    return (
-        value[:120]
-        .replace("\\", "\\\\")
-        .replace('"', '\\"')
-        .replace("\n", "\\n")
-        .replace("\r", "\\r")
-    )
+    return value[:120].replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n").replace("\r", "\\r")
 
 
 def _log_mcp_invocation(tool_name: str, details: str = "") -> None:
     """Write a trace entry and rotate if trace.log exceeds 500 KB."""
     try:
-        trace_file = ensure_path_within_roots(
-            MEMORY_DIR / "trace.log", ALLOWED_MCP_ROOTS
-        )
+        trace_file = ensure_path_within_roots(MEMORY_DIR / "trace.log", ALLOWED_MCP_ROOTS)
         safe_details = _escape_yaml_details(details)
         entry = (
             f"- timestamp: {datetime.now().isoformat()}\n"
@@ -72,9 +64,7 @@ def _rotate_trace_if_needed(trace_file: Path, max_bytes: int = 512_000) -> None:
     try:
         if not trace_file.exists() or trace_file.stat().st_size <= max_bytes:
             return
-        archive_dir = ensure_path_within_roots(
-            PROJECT_ROOT / "_gsane-output", ALLOWED_MCP_ROOTS
-        )
+        archive_dir = ensure_path_within_roots(PROJECT_ROOT / "_gsane-output", ALLOWED_MCP_ROOTS)
         archive_name = f"trace-archive-{datetime.now().strftime('%Y-%m-%d-%H%M%S')}.log"
         archive_path = archive_dir / archive_name
         trace_file.rename(archive_path)
@@ -130,9 +120,7 @@ def _workflow_manifest_path() -> Path:
 
 
 def _agent_manifest_path() -> Path:
-    return ensure_path_within_roots(
-        CONFIG_DIR / "agent-manifest.yaml", ALLOWED_MCP_ROOTS
-    )
+    return ensure_path_within_roots(CONFIG_DIR / "agent-manifest.yaml", ALLOWED_MCP_ROOTS)
 
 
 def _iter_memory_markdown_files() -> list[Path]:
@@ -205,11 +193,7 @@ def _best_route_for_query(query: str, rules: list[dict]) -> dict | None:
         except (TypeError, ValueError):
             priority = 50
 
-        if score > max_score or (
-            score > 0
-            and score == max_score
-            and (best_match is None or priority < best_priority)
-        ):
+        if score > max_score or (score > 0 and score == max_score and (best_match is None or priority < best_priority)):
             max_score = score
             best_priority = priority
             best_match = rule
@@ -308,9 +292,7 @@ def _project_snapshot_view() -> dict:
         "view": "canonical_project_snapshot",
         "project": {
             "name": config.get("project_name"),
-            "architecture": manifest.get("architecture")
-            if isinstance(manifest, dict)
-            else None,
+            "architecture": manifest.get("architecture") if isinstance(manifest, dict) else None,
             "communication_language": config.get("communication_language"),
         },
         "sources_of_truth": {
@@ -325,11 +307,7 @@ def _project_snapshot_view() -> dict:
             "canonical_mcp_views": list(CANONICAL_VIEW_NAMES),
         },
         "runtime": {
-            "active_agents": [
-                entry.get("name")
-                for entry in agents
-                if isinstance(entry, dict) and entry.get("name")
-            ],
+            "active_agents": [entry.get("name") for entry in agents if isinstance(entry, dict) and entry.get("name")],
             "workflow_count": len(workflows) if isinstance(workflows, list) else 0,
             "active_delivery_contract": active_delivery_contract,
             "canonical_mcp_views": list(CANONICAL_VIEW_NAMES),
@@ -452,9 +430,7 @@ def gsane_write_session_checkpoint(
             f"ITEMS EN ATTENTE :\n"
             f"{open_items}"
         )
-        indented_block = "\n".join(
-            f"  {line}" if line else "" for line in checkpoint_block.split("\n")
-        )
+        indented_block = "\n".join(f"  {line}" if line else "" for line in checkpoint_block.split("\n"))
 
         new_content = (
             base_content
@@ -500,9 +476,7 @@ def gsane_read_checkpoint() -> str:
         if not block_lines:
             return "No checkpoint found — cold session."
 
-        checkpoint_content = "\n".join(
-            line[2:] if line.startswith("  ") else line for line in block_lines
-        ).strip()
+        checkpoint_content = "\n".join(line[2:] if line.startswith("  ") else line for line in block_lines).strip()
         if not checkpoint_content:
             return "No checkpoint found — cold session."
 
@@ -624,9 +598,8 @@ def gsane_search_memory(query: str, scope: str = "all") -> str:
             if scope == "sidecars":
                 if "-sidecar" not in str(path):
                     continue
-            elif scope in scope_map:
-                if path.name not in scope_map[scope]:
-                    continue
+            elif scope in scope_map and path.name not in scope_map[scope]:
+                continue
 
         content = _read_text_or_none(path)
         if content is None or normalized_query not in content.lower():
@@ -677,9 +650,7 @@ def gsane_emit_event(event_type: str, agent: str, details: str = "") -> str:
     """Emit a structured event to the trace log for observability."""
     _log_mcp_invocation("gsane_emit_event", f"type={event_type} agent={agent}")
     try:
-        trace_file = ensure_path_within_roots(
-            MEMORY_DIR / "trace.log", ALLOWED_MCP_ROOTS
-        )
+        trace_file = ensure_path_within_roots(MEMORY_DIR / "trace.log", ALLOWED_MCP_ROOTS)
         safe_details = _escape_yaml_details(details)
         entry = (
             f"- timestamp: {datetime.now().isoformat()}\n"

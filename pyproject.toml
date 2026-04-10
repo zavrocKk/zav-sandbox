@@ -45,6 +45,7 @@ ignore = ["S101"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S"]
+"_gsane/tools/security_gate.py" = ["S603", "S607"]
 
 [tool.mypy]
 python_version = "3.11"

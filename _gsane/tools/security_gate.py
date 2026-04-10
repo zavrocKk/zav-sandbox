@@ -5,10 +5,10 @@ import re
 import subprocess
 import sys
 import unicodedata
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Iterable, Sequence
 
 import yaml  # type: ignore[import-untyped]
 
@@ -164,7 +164,7 @@ def get_allowed_mcp_agents(
     matrix_path: Path = DELEGATION_MATRIX_PATH,
 ) -> tuple[str, ...]:
     config = load_security_gate_config(matrix_path)
-    return tuple((((config.get("mcp") or {}).get("allowed_agents")) or []))
+    return tuple(((config.get("mcp") or {}).get("allowed_agents")) or [])
 
 
 def is_allowed_mcp_agent_name(
@@ -238,6 +238,9 @@ def _read_repository_text_file(
     return rel_path, data.decode("utf-8", errors="replace")
 
 
+_SELF_PATH = Path(__file__).resolve()
+
+
 def collect_text_matches(
     repo_root: Path,
     patterns: Sequence[tuple[str, re.Pattern[str]]],
@@ -245,6 +248,8 @@ def collect_text_matches(
 ) -> list[str]:
     matches: list[str] = []
     for path in list_repository_files(repo_root, staged_only=staged_only):
+        if path.resolve() == _SELF_PATH:
+            continue
         text_blob = _read_repository_text_file(
             path,
             repo_root=repo_root,

@@ -1,11 +1,9 @@
-raise ImportError(
-    "Ce fichier est ARCHIVÉ. Utilisez compression_tool.py comme point d'entrée MCP."
-)
-
 from pathlib import Path
 
 import yaml
 from mcp.server.fastmcp import FastMCP
+
+raise ImportError("Ce fichier est ARCHIVÉ. Utilisez compression_tool.py comme point d'entrée MCP.")
 
 # Initialisation du serveur MCP pour GSANE
 mcp = FastMCP("GSANE-Core-Server")
@@ -31,7 +29,7 @@ def gsane_route(query: str) -> str:
         return "❌ ERROR: fichier delegation-matrix.yaml introuvable."
 
     try:
-        with open(matrix_path, "r", encoding="utf-8") as f:
+        with open(matrix_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
 
         query_lower = query.lower()
@@ -79,7 +77,7 @@ def gsane_memory_fetch(agent_name: str, topic: str = "") -> str:
         return f"ℹ️ Aucune mémoire persistante (learned-lessons) trouvée pour l'agent '{agent_name}'."
 
     try:
-        with open(target_memory, "r", encoding="utf-8") as f:
+        with open(target_memory, encoding="utf-8") as f:
             lines = f.readlines()
 
         if not topic:
@@ -99,20 +97,14 @@ def gsane_memory_fetch(agent_name: str, topic: str = "") -> str:
                 start = max(0, count - 1)
                 end = min(len(lines), count + 2)
                 context = "".join(lines[start:end])
-                if (
-                    context not in matches
-                ):  # Éviter les dédoublements de contexte superposés
+                if context not in matches:  # Éviter les dédoublements de contexte superposés
                     matches.append(context.strip())
 
         if matches:
-            found = "\n---\n".join(
-                matches[:5]
-            )  # Limiter aux 5 meilleurs matchs pour les tokens
+            found = "\n---\n".join(matches[:5])  # Limiter aux 5 meilleurs matchs pour les tokens
             if len(matches) > 5:
                 found += "\n... [Plusieurs autres correspondances trouvées]"
-            return (
-                f"🔍 Mémoires trouvées pour '{topic}' (Agent: {agent_name}):\n\n{found}"
-            )
+            return f"🔍 Mémoires trouvées pour '{topic}' (Agent: {agent_name}):\n\n{found}"
 
         return f"ℹ️ Aucune mémoire trouvée concernant '{topic}' pour {agent_name}."
 
