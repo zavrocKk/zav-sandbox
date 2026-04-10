@@ -31,3 +31,5 @@ Aucune
 ### Branch
 `feature/cognitive-flywheel-2026-03-01` — cycle de test initial
 ---
+
+- **Tag**: gsane-flywheel-pre-20260410-184854 — Correction flywheel en cours
