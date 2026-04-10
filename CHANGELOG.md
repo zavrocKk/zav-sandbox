@@ -6,6 +6,8 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **fix(template)**: PR template corrigé — encodage UTF-8 restauré (accents + checkboxes), chemin ruff corrigé `_gsane/ tests/` au lieu de `src/`
+- **feat(ci)**: Workflow `pr-autofill.yml` — auto-remplit le body de PR à l'ouverture (type de changement, agents impliqués, checklist pré-cochée, description depuis commits)
 - **feat(agents)**: Architecture SSOT — manifest réduit à registre machine (10 champs, 2.5KB vs 6.9KB), adaptateurs Copilot standardisés, template agent officiel créé, validate-pr.yml aligné sur golden_rule/never_do
 - **feat(agents)**: Optimisation token du manifest — titles raccourcis (2-3 mots), identity en 1 phrase, principles en listes YAML, ajout golden_rule, suppression "ship it" de Quinn. Réduction 15% (8142→6916 octets). 18 champs uniformes par agent.
 - **feat(agents)**: Différenciation des blocs `<persona>` XML — chaque agent a désormais des balises `<identity>`, `<communication_style>`, `<principles>` uniques alignées sur ses sections narratives. Frontmatter unifié (version 2.0, persona-template-v2) sur les 5 agents.
