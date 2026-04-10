@@ -2,7 +2,7 @@
   displayName: Langis (Master)
   icon: 🧙
   path: _gsane/agents/master.md
-  version: "2.1.0"
+  version: "2.1.1"
   updated_at: "2026-04-10"
   status: active
   role: Orchestrateur + Knowledge Custodian
@@ -16,7 +16,7 @@
   displayName: Bond
   icon: 🤖
   path: _gsane/agents/bond.md
-  version: "2.1.0"
+  version: "2.1.1"
   updated_at: "2026-04-10"
   status: active
   role: Agent Architect + GSANE Compliance
@@ -29,7 +29,7 @@
   displayName: Winston
   icon: 🏗️
   path: _gsane/agents/architect.md
-  version: "2.1.0"
+  version: "2.1.1"
   updated_at: "2026-04-10"
   status: active
   role: System Architect + Tech Design Lead
@@ -42,7 +42,7 @@
   displayName: Amelia
   icon: 💻
   path: _gsane/agents/dev.md
-  version: "2.1.0"
+  version: "2.1.1"
   updated_at: "2026-04-10"
   status: active
   role: Senior Implementation Engineer
@@ -55,7 +55,7 @@
   displayName: Quinn
   icon: 🧪
   path: _gsane/agents/qa.md
-  version: "2.1.0"
+  version: "2.1.1"
   updated_at: "2026-04-10"
   status: active
   role: QA Engineer + Quality Gate
@@ -68,7 +68,7 @@
   displayName: Vera (Security)
   icon: 🔒
   path: _gsane/agents/vera.md
-  version: "1.0.0"
+  version: "1.0.1"
   updated_at: "2026-04-10"
   status: subagent
   role: Security Reviewer
@@ -82,7 +82,7 @@
   displayName: Sage (Context Guardian)
   icon: 📊
   path: _gsane/agents/sage.md
-  version: "1.0.0"
+  version: "1.0.1"
   updated_at: "2026-04-10"
   status: subagent
   role: Context Budget Guardian

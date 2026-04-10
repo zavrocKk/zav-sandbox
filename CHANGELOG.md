@@ -6,6 +6,12 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+
+- **docs**: P6-H — README et CONTRIBUTING alignés sur 7 agents (5 core + 2 subagents), nouvelles commandes `gsane.sh` et règles customize/sections obligatoires
+- **fix(config)**: P6-H — les 7 fichiers `_gsane/_config/agents/*.customize.yaml` sont désormais non vides avec `agent`, `status`, `scope` et `constraints` cohérents avec le manifest
+- **fix(agents)**: P6-H — sections `## Activation` ajoutées aux 5 agents core, linter durci pour exiger littéralement les 8 sections sur tous les agents du manifest, et versions manifest bumpées pour les agents modifiés
+- **fix(ci)**: validation PR agent-sync rendue compatible avec 7 agents déclarés dans `agent-manifest.yaml` au lieu d'un comptage figé à 5
+- **feat(runtime)**: P6-H — câblage runtime Vera/Sage : étape Security Gate Vera dans `cc-verify`, step CI `Vera — Security Gate`, triggers Sage dans `master.md`, `post-session-analysis` et `session-start.sh`
 - **feat(hooks)**: activation de Sage dans `session-start.sh` au-dessus du warning threshold du context budget avec suggestion de décharger les agents inactifs
 - **fix(agents)**: ajout des fichiers `vera.customize.yaml` et `sage.customize.yaml` + garde qa-linter pour exiger un `.customize.yaml` par agent du manifest
 - **feat(session)**: P6-F — Session resumption : reprise de session interrompue via checkpoint MCP, commande `gsane.sh session --resume`, marquage automatique dans session-stop.sh

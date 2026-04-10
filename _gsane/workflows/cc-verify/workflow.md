@@ -151,7 +151,30 @@ SI [CC] FAIL et GATE_AUTO = FAIL :
 
 ---
 
-## ÉTAPE 5 — Post-feature documentation
+## ÉTAPE 5 — Security Gate Vera
+
+> Déclenché sur les fichiers modifiés du Delivery Contract après les vérifications CC existantes et avant le PASS final.
+
+```
+APRÈS les checks CC existants ET AVANT de prononcer le verdict final :
+  IDENTIFIER les fichiers modifiés couverts par le DC en cours
+  INVOQUER Vera sur ce changeset ciblé
+
+RÈGLES DE DÉCISION :
+  [VERA] CLEAR
+    → CC PASS autorisé
+
+  [VERA] FINDING critique
+    → CC FAIL obligatoire
+
+  [VERA] FINDING mineur
+    → warning dans le rapport CC
+    → CC PASS conditionnel autorisé si aucun autre blocage n'est présent
+```
+
+---
+
+## ÉTAPE 6 — Post-feature documentation
 
 > Déclenché automatiquement après [CC] PASS. Non bloquant — avertissement uniquement.
 

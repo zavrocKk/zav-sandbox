@@ -22,6 +22,17 @@ README_LEGACY_PATTERNS = {
     "party-mode": re.compile(r"\bparty-mode\b"),
 }
 
+AGENT_REQUIRED_SECTIONS = [
+    "## Identity",
+    "## Activation",
+    "## Voice",
+    "## Workflow opérationnel",
+    "## Handoff Protocol",
+    "## Never Do",
+    "## Golden Rule",
+    "## Escalation",
+]
+
 
 def normalize_legacy_text(text):
     normalized = unicodedata.normalize("NFKD", text)
@@ -599,7 +610,7 @@ def check_agent_versioning():
 
 
 def check_agent_customize_files():
-    """Ensure every agent in agent-manifest.yaml has a matching .customize.yaml file."""
+    """Ensure every agent in agent-manifest.yaml has a matching and minimally-populated .customize.yaml file."""
     errors = 0
     manifest_path = "_gsane/_config/agent-manifest.yaml"
     customize_dir = "_gsane/_config/agents"
@@ -611,10 +622,97 @@ def check_agent_customize_files():
     agents = load_yaml_file(manifest_path) or []
     for agent in agents:
         name = agent.get("name", "<unknown>")
+        status = agent.get("status")
         customize_path = os.path.join(customize_dir, f"{name}.customize.yaml")
         if not os.path.isfile(customize_path):
             print(f"[FAIL] {customize_path}: customize.yaml manquant pour l'agent '{name}'")
             errors += 1
+            continue
+
+        customize = load_yaml_file(customize_path)
+        if not isinstance(customize, dict):
+            print(f"[FAIL] {customize_path}: contenu YAML invalide ou vide")
+            errors += 1
+            continue
+
+        for required_field in ("agent", "status", "scope", "constraints"):
+            if required_field not in customize:
+                print(f"[FAIL] {customize_path}: champ obligatoire manquant '{required_field}'")
+                errors += 1
+
+        customize_agent = customize.get("agent")
+        if customize_agent != name:
+            print(f"[FAIL] {customize_path}: champ 'agent'='{customize_agent}' attendu '{name}'")
+            errors += 1
+
+        customize_status = customize.get("status")
+        if customize_status != status:
+            print(f"[FAIL] {customize_path}: champ 'status'='{customize_status}' attendu '{status}'")
+            errors += 1
+
+        scope = customize.get("scope")
+        if not isinstance(scope, list) or not scope or not all(str(item).strip() for item in scope):
+            print(f"[FAIL] {customize_path}: champ 'scope' vide ou invalide")
+            errors += 1
+
+        constraints = customize.get("constraints")
+        if not isinstance(constraints, dict):
+            print(f"[FAIL] {customize_path}: champ 'constraints' vide ou invalide")
+            errors += 1
+            continue
+
+        required_constraints = {
+            "party_mode": bool,
+            "delivery_contract_required": bool,
+            "read_only": bool,
+            "max_files_per_commit": int,
+        }
+        for constraint_name, expected_type in required_constraints.items():
+            if constraint_name not in constraints:
+                print(f"[FAIL] {customize_path}: contrainte obligatoire manquante '{constraint_name}'")
+                errors += 1
+                continue
+            value = constraints.get(constraint_name)
+            if expected_type is bool:
+                if not isinstance(value, bool):
+                    print(f"[FAIL] {customize_path}: contrainte '{constraint_name}' doit être booléenne")
+                    errors += 1
+            elif expected_type is int:
+                if not isinstance(value, int) or value < 0:
+                    print(f"[FAIL] {customize_path}: contrainte '{constraint_name}' doit être un entier >= 0")
+                    errors += 1
+
+    return errors
+
+
+def check_agent_required_sections():
+    """Ensure every agent declared in the manifest exposes the 8 required markdown sections."""
+    errors = 0
+    manifest_path = "_gsane/_config/agent-manifest.yaml"
+
+    if not os.path.isfile(manifest_path):
+        print(f"[FAIL] {manifest_path}: agent manifest introuvable")
+        return 1
+
+    agents = load_yaml_file(manifest_path) or []
+    for agent in agents:
+        agent_path = agent.get("path")
+        if not agent_path:
+            print(f"[FAIL] {manifest_path}: path manquant pour l'agent '{agent.get('name', '<unknown>')}'")
+            errors += 1
+            continue
+        if not os.path.isfile(agent_path):
+            print(f"[FAIL] {agent_path}: fichier agent introuvable")
+            errors += 1
+            continue
+
+        with open(agent_path, encoding="utf-8") as fh:
+            content = fh.read()
+
+        for heading in AGENT_REQUIRED_SECTIONS:
+            if not re.search(rf"^{re.escape(heading)}\s*$", content, re.MULTILINE):
+                print(f"[FAIL] {agent_path}: section manquante '{heading}'")
+                errors += 1
 
     return errors
 
@@ -672,6 +770,7 @@ if __name__ == '__main__':
     total_errors += check_all_manifests()
     total_errors += check_agent_versioning()
     total_errors += check_agent_customize_files()
+    total_errors += check_agent_required_sections()
 
     # ── Validation schéma execution-plan.yaml ────────────────────
     import glob as _glob

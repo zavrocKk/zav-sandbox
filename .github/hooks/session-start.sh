@@ -65,6 +65,9 @@ if [[ -f "$SESSION_LOG" ]]; then
         fi
       fi
     fi
+    if echo "$LAST_SESSION_BLOCK" | grep -q 'sage_recommended: true'; then
+      echo "[SessionStart] 💡 Sage recommandé — sessions récentes > 75% budget moyen."
+    fi
   fi
 fi
 

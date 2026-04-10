@@ -24,6 +24,14 @@ is_non_negative_integer() {
 }
 
 resolve_python_cmd() {
+    if command -v python.exe >/dev/null 2>&1 && python.exe -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD=(python.exe)
+        return 0
+    fi
+    if command -v py.exe >/dev/null 2>&1 && py.exe -3 -c "import sys" >/dev/null 2>&1; then
+        PYTHON_CMD=(py.exe -3)
+        return 0
+    fi
     if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" >/dev/null 2>&1; then
         PYTHON_CMD=(python3)
         return 0

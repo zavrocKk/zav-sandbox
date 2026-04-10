@@ -1,16 +1,10 @@
-# Agent Customization — dev (Amelia 💻)
-# Customize any section below - all are optional
-
-agent:
-  metadata:
-    name: ""
-
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
-
-critical_actions: []
-memories: []
-menu: []
+agent: dev
+status: active
+scope:
+  - implementation
+  - tdd
+constraints:
+  party_mode: true
+  delivery_contract_required: true
+  read_only: false
+  max_files_per_commit: 30
