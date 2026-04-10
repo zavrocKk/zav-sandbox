@@ -92,6 +92,16 @@ case $ACTION in
     doctor|health-check)
         echo "🩺 GSANE Doctor - Health Check global"
         echo "----------------------------------------"
+
+        # Détection Windows sans WSL natif
+        if [ "$(uname -s 2>/dev/null)" = "MINGW64_NT"* ] || [ "$(uname -s 2>/dev/null)" = "MSYS_NT"* ] || [ -n "${MSYSTEM:-}" ]; then
+            echo "⚠️  Environnement Windows détecté (Git Bash / MSYS2)."
+            echo "   gsane.sh fonctionne partiellement sous Git Bash."
+            echo "   Pour un environnement aligné avec le CI : wsl --install -d Ubuntu"
+            echo "   Alternative sans Bash : python -m pytest tests/ -m 'not behavioral'"
+            echo "----------------------------------------"
+        fi
+
         echo "1️⃣  Validation des liens morts (via session-start)..."
         if [ -f .github/hooks/session-start.sh ]; then
             bash .github/hooks/session-start.sh
