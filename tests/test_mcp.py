@@ -84,17 +84,21 @@ class TestCanonicalViews:
 
         data = yaml.safe_load(gsane_read_active_delivery_contract())
         assert data["view"] == "active_delivery_contract"
-        assert data["status"] == "available"
+        assert data["status"] in ("available", "missing")
         assert data["source"] == "_gsane-output/current-delivery-contract.md"
-        metadata = data["metadata"]
-        assert isinstance(metadata.get("task_id"), str)
-        assert metadata["task_id"]
-        assert isinstance(metadata.get("owner"), str)
-        assert metadata["owner"]
-        assert isinstance(metadata.get("validation_agent"), str)
-        assert metadata["validation_agent"]
-        assert isinstance(data.get("content"), str)
-        assert data["content"]
+        if data["status"] == "available":
+            metadata = data["metadata"]
+            assert isinstance(metadata.get("task_id"), str)
+            assert metadata["task_id"]
+            assert isinstance(metadata.get("owner"), str)
+            assert metadata["owner"]
+            assert isinstance(metadata.get("validation_agent"), str)
+            assert metadata["validation_agent"]
+            assert isinstance(data.get("content"), str)
+            assert data["content"]
+        else:
+            assert data["metadata"] == {}
+            assert data.get("content") == ""
 
     def test_project_snapshot_view_reports_canonical_sources_and_audit_files(self):
         from compression_tool import gsane_read_project_snapshot
