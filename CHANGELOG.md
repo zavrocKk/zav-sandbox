@@ -7,6 +7,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Fixed
+- **skills-jit**: Remplacement applyTo: "**" par patterns ciblés sur 9 skills — économie ~4500 tokens/requête
 - **H-04**: SHA-pin all GitHub Actions across 5 workflows (ci, validate-pr, release-please, pr-autofill, cleanup-branches)
 - **H-05**: `notes_service.py` STORAGE_FILE anchored to `__file__` (CWD-independent)
 - **H-07**: Remove `sys.path.insert` hacks from 3 test files (pythonpath in pyproject.toml)

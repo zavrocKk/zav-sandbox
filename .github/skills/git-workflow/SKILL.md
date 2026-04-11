@@ -1,10 +1,10 @@
 ---
 name: git-workflow
-description: "Cheat-sheet du workflow Git GSANE — branches, commits, PRs."
-applyTo: "**"
-trigger: "git, commit, push, PR, branch, merge, conventional commit"
-load: on-demand
-priority: high
+description: >
+  Workflow Git GSANE : branches, conventional
+  commits, squash merge, PR obligatoire.
+applyTo: ".github/**"
+trigger: "git, commit, push, PR, branch"
 ---
 
 # Git Workflow — Cheat Sheet

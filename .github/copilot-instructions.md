@@ -195,24 +195,26 @@ Type `/gsane-` in Copilot Chat to see all available GSANE workflows and agent ac
 
 ---
 
-## Available Skills (14)
+## Available Skills (JIT — chargement ciblé)
 
-The following skills provide domain-specific knowledge. Reference them when context is needed:
+Les skills se chargent automatiquement si un fichier correspondant à leur `applyTo:` est ouvert.
+Sinon, les sélectionner manuellement dans le skill picker Copilot ou via `#file:`.
+Ne jamais demander de "charger toutes les skills" — elles sont JIT par design.
 
-| Skill | Domain | Path |
-|-------|--------|------|
-| `gsane-framework` | Core GSANE concepts, architecture, canonical model | `.github/skills/gsane-framework/` |
-| `delivery-contract` | Delivery Contract lifecycle (create, validate, archive) | `.github/skills/delivery-contract/` |
-| `git-workflow` | Branch strategy, Conventional Commits, PR rules | `.github/skills/git-workflow/` |
-| `cognitive-flywheel` | Auto-improvement cycle (aggregate, apply, score) | `.github/skills/cognitive-flywheel/` |
-| `mcp-development` | Creating and maintaining MCP tools (FastMCP) | `.github/skills/mcp-development/` |
-| `mcp-integration` | Using MCP tools from agents (11 tools reference) | `.github/skills/mcp-integration/` |
-| `debugging-gsane` | Diagnosing agent routing, MCP failures, trace analysis | `.github/skills/debugging-gsane/` |
-| `prompt-engineering` | Designing effective prompts for GSANE agents | `.github/skills/prompt-engineering/` |
-| `agent-design-patterns` | Agent architecture, persona, tension modeling | `.github/skills/agent-design-patterns/` |
-| `agent-customization` | Customizing agent behavior and activation chains | `.github/skills/agent-customization/` |
-| `qa-linter` | Quality linter rules, legacy pattern detection | `.github/skills/qa-linter/` |
-| `session-management` | Session lifecycle, checkpoints, continuity | `.github/skills/session-management/` |
-| `task-decomposition` | Breaking complex requests into delegatable tasks | `.github/skills/task-decomposition/` |
-| `zero-touch-fix-loop` | Automatic QA↔Dev correction cycle | `.github/skills/zero-touch-fix-loop/` |
+| Skill | applyTo (auto) | Usage |
+|-------|----------------|-------|
+| `gsane-framework` | `_gsane/**` | Modifier le framework |
+| `agent-design-patterns` | `_gsane/agents/**` | Créer un agent |
+| `agent-customization` | `_gsane/agents/**` | Modifier un agent |
+| `cognitive-flywheel` | `_gsane/_memory/**` | Sessions flywheel |
+| `debugging-gsane` | `gsane.sh` | Debug et diagnostic |
+| `git-workflow` | `.github/**` | Git et PR |
+| `mcp-integration` | `_gsane/mcp-server/**` | Outils MCP |
+| `delivery-contract` | _(manuel)_ | Créer un DC |
+| `prompt-engineering` | _(manuel)_ | Améliorer un prompt |
+| `mcp-development` | _(manuel)_ | Développer MCP |
+| `qa-linter` | _(manuel)_ | Linter agents |
+| `session-management` | _(manuel)_ | Sessions |
+| `task-decomposition` | _(manuel)_ | Décomposer tâches |
+| `zero-touch-fix-loop` | _(manuel)_ | Fix-loop Quinn |
 

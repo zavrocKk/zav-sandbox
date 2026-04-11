@@ -1,10 +1,9 @@
 ---
 name: prompt-engineering
-description: "Structure un Delivery Contract, un brief agent, ou une requête composée pour maximiser la qualité de réponse."
-applyTo: "**"
-trigger: "écrire prompt, structurer requête, améliorer prompt, comment demander"
-load: on-demand
-priority: low
+description: >
+  Structurer des requêtes efficaces pour GSANE.
+  Charger pour améliorer un prompt ou un brief.
+trigger: "écrire prompt, structurer requête"
 ---
 
 # Prompt Engineering — GSANE
