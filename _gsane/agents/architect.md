@@ -188,6 +188,12 @@ non documentée est une architecture temporaire.
 > Une décision d'architecture non tracée se retourne contre l'équipe au premier
 > incident de production. Winston documente avant de décider, pas après.
 
+## Signature
+
+Début : ━━━ 🏗️ WINSTON — Activé ━━━━━━━━━━━━
+        Contexte : {ADR|review|benchmark}
+Fin   : ✅ WINSTON — {livrable} · Next : {agent}
+
 ## Escalation
 
 - Besoin d'implémentation concrète → Amelia (Dev)

@@ -480,3 +480,78 @@ class TestBehavioral:
         forbidden = ["creative-intelligence-suite", "test-architecture-enterprise", "builder-module-builder"]
         for term in forbidden:
             assert term not in content, f"manifest.yaml contient terme déprécié: {term}"
+
+
+# ============================================================
+
+
+class TestAgentSignature:
+    """Tests de conformité pour le système de signature d'agent."""
+
+    pytestmark = pytest.mark.compliance
+
+    REQUIRED_AGENTS = ["master.md", "dev.md", "qa.md", "architect.md", "bond.md"]
+
+    def test_all_agents_have_signature(self):
+        """5 agents .md doivent avoir ## Signature."""
+        agents_dir = Path("_gsane/agents")
+        missing = []
+        for name in self.REQUIRED_AGENTS:
+            md = agents_dir / name
+            if not md.exists():
+                missing.append(f"{name}: absent")
+                continue
+            content = md.read_text(encoding="utf-8")
+            if "## Signature" not in content:
+                missing.append(f"{name}: ## Signature absent")
+        assert not missing, (
+            "Agents sans ## Signature:\n" + "\n".join(f"  - {m}" for m in missing)
+        )
+
+    def test_signature_is_minimal(self):
+        """## Signature doit être concise — max 6 lignes."""
+        agents_dir = Path("_gsane/agents")
+        violations = []
+        for md in agents_dir.glob("*.md"):
+            content = md.read_text(encoding="utf-8")
+            if "## Signature" not in content:
+                continue
+            sig_start = content.index("## Signature")
+            rest = content[sig_start + len("## Signature") :]
+            next_section = rest.find("\n## ")
+            sig_content = rest[:next_section] if next_section > 0 else rest
+            lines = [ln for ln in sig_content.splitlines() if ln.strip()]
+            if len(lines) > 6:
+                violations.append(f"{md.name}: {len(lines)} lignes (max 6)")
+        assert not violations, (
+            "Signatures trop longues:\n" + "\n".join(f"  - {v}" for v in violations)
+        )
+
+    def test_session_report_command_exists(self):
+        """gsane.sh doit avoir session --report."""
+        content = Path("gsane.sh").read_text(encoding="utf-8")
+        assert "--report" in content, "Commande session --report absente de gsane.sh"
+
+    def test_report_reads_trace_not_session_log(self):
+        """session --report doit lire trace.log et JAMAIS session-analysis-log.md."""
+        report_script = Path("_gsane/tools/session_report.py")
+        if not report_script.exists():
+            pytest.skip("session_report.py absent")
+        content = report_script.read_text(encoding="utf-8")
+        assert "trace.log" in content, (
+            "session_report.py ne lit pas trace.log"
+        )
+        assert "session-analysis-log" not in content, (
+            "RISQUE ORANGE : session_report.py lit session-analysis-log.md — "
+            "remplacer par trace.log"
+        )
+
+    def test_post_session_triggers_report(self):
+        """post-session-analysis doit appeler --report."""
+        workflow = Path("_gsane/workflows/post-session-analysis/workflow.md")
+        if not workflow.exists():
+            pytest.skip("workflow absent")
+        content = workflow.read_text(encoding="utf-8")
+        assert "session --report" in content or "--report" in content, (
+            "post-session-analysis ne déclenche pas le rapport final"
+        )

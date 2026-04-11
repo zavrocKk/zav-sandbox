@@ -538,8 +538,13 @@ else:
     print('Aucune session interrompue. Prêt pour une nouvelle session.')
 "
                 ;;
+            --report)
+                echo "📋 GSANE Session Report"
+                echo "---"
+                run_python _gsane/tools/session_report.py
+                ;;
             *)
-                echo "Usage: bash gsane.sh session --resume"
+                echo "Usage: bash gsane.sh session --resume|--report"
                 exit 1
                 ;;
         esac
