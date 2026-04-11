@@ -13,6 +13,10 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **behavioral-tests**: Suite de tests agentiques — routing behavior (18 tests), agent decisions (6 tests), session scenarios (8 tests), circuit breakers (6 tests)
+- **conftest**: 8 fixtures session-scoped pour les tests agentiques (trace_events, routing_oracle, gsane_config, etc.)
+
 ### Fixed
 - **skills-jit**: Remplacement applyTo: "**" par patterns ciblés sur 9 skills — économie ~4500 tokens/requête
 - **H-04**: SHA-pin all GitHub Actions across 5 workflows (ci, validate-pr, release-please, pr-autofill, cleanup-branches)
