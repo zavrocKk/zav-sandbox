@@ -4,6 +4,19 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.4.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.3.0...v2.4.0) (2026-04-11)
+
+
+### Features
+
+* **prompts:** add 7 gsane-* prompts + PRBodyCheck hook ([#73](https://github.com/zavrocKk/zav-sandbox/issues/73)) ([b20a876](https://github.com/zavrocKk/zav-sandbox/commit/b20a87627f38d6768800b5babe7b92e4c9ca5e58))
+* **tests:** add agentic test suite (DC-BEHAVIORAL-TESTS-001) ([#75](https://github.com/zavrocKk/zav-sandbox/issues/75)) ([e685ccf](https://github.com/zavrocKk/zav-sandbox/commit/e685ccf9a1e111930d046c132a58c311419a0c28))
+
+
+### Bug Fixes
+
+* **governance:** add HUMAN-IN-THE-LOOP guardrail (FM-007) ([#76](https://github.com/zavrocKk/zav-sandbox/issues/76)) ([60c2639](https://github.com/zavrocKk/zav-sandbox/commit/60c2639c96723f66261168cd11c3175afb64d86f))
+
 ## [2.3.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.2.0...v2.3.0) (2026-04-11)
 
 
