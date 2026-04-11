@@ -741,6 +741,29 @@ def check_all_manifests():
     return errors
 
 
+def test_master_never_do_delegation_rules():
+    """Vérifie que master.md Never Do contient les 6 agents de délégation et les interdictions clés."""
+    master_path = REPO_ROOT / "_gsane" / "agents" / "master.md"
+    content = master_path.read_text(encoding="utf-8")
+
+    required_agents = ["Amelia", "Quinn", "Winston", "Bond", "Vera", "Sage"]
+    missing = [agent for agent in required_agents if agent not in content]
+    assert not missing, f"master.md Never Do manque les agents : {missing}"
+
+    assert "delegation-matrix" in content, "master.md doit mentionner la vérification delegation-matrix"
+    assert "spécialiste" in content, "master.md doit interdire de produire un output de spécialiste"
+
+
+def test_delegation_workflow_no_solo():
+    """Vérifie que delegation/workflow.md contient la règle orchestrateur pur."""
+    workflow_path = REPO_ROOT / "_gsane" / "workflows" / "delegation" / "workflow.md"
+    content = workflow_path.read_text(encoding="utf-8")
+
+    assert "orchestrateur pur" in content, "delegation/workflow.md doit contenir 'orchestrateur pur'"
+    assert "Delivery Contracts" in content, "delegation/workflow.md doit mentionner les Delivery Contracts comme artefact Langis"
+    assert "Exceptions autorisées" in content, "delegation/workflow.md doit lister les exceptions autorisées"
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print('Usage: python qa-linter.py <file-to-test>')
