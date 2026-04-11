@@ -4,6 +4,13 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.1.1](https://github.com/zavrocKk/zav-sandbox/compare/v2.1.0...v2.1.1) (2026-04-11)
+
+
+### Bug Fixes
+
+* **governance:** RIGOR Sprint 0-2 — 15 findings closed (3C, 3H, 6M, 3L) ([#64](https://github.com/zavrocKk/zav-sandbox/issues/64)) ([93a32e7](https://github.com/zavrocKk/zav-sandbox/commit/93a32e748f14c295ad2d6db3807728f4c4647e4a))
+
 ## [2.1.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.0.0...v2.1.0) (2026-04-11)
 
 
