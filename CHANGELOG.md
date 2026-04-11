@@ -30,6 +30,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **behavioral-tests**: Suite de tests agentiques — routing behavior (18 tests), agent decisions (6 tests), session scenarios (8 tests), circuit breakers (6 tests)
 - **conftest**: 8 fixtures session-scoped pour les tests agentiques (trace_events, routing_oracle, gsane_config, etc.)
 - **human-in-the-loop**: Règle HUMAN-IN-THE-LOOP ajoutée dans git-workflow (Step 5b), master.md, standard-agent-behavior.md, copilot-instructions.md, AGENTS.md, CLAUDE.md — merge/push-force/delete-branch interdit sans approbation explicite (FM-007)
+- **agent-signatures**: Système de signature d'agent (## Signature) dans 5 agents + `bash gsane.sh session --report` + post-session-analysis hook (DC-AGENT-SIGNATURE-001, audit-validated)
 
 ### Fixed
 - **skills-jit**: Remplacement applyTo: "**" par patterns ciblés sur 9 skills — économie ~4500 tokens/requête

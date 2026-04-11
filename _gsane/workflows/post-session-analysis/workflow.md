@@ -98,6 +98,10 @@ Output exactly one line:
 
 If flywheel triggered: append `| 🔄 Flywheel triggered`
 
+## STEP 6 — Afficher le rapport
+
+Afficher le rapport : `bash gsane.sh session --report`
+
 ---
 
 **Output:** Single status line (never verbose unless flywheel fires).
