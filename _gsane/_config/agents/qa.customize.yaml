@@ -1,16 +1,10 @@
-# Agent Customization — qa (Quinn 🧪)
-# Customize any section below - all are optional
-
-agent:
-  metadata:
-    name: ""
-
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
-
-critical_actions: []
-memories: []
-menu: []
+agent: qa
+status: active
+scope:
+  - quality-gate
+  - code-review
+constraints:
+  party_mode: true
+  delivery_contract_required: false
+  read_only: false
+  max_files_per_commit: 20

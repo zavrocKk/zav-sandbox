@@ -13,6 +13,7 @@ Extract from current session context:
 - `{agent_active}` — which agent was active this session
 - `{workflow_run}` — which workflow(s) were executed (comma-separated)
 - `{tasks_completed}` — list of tasks marked done
+- `{budget_consumed_end}` — budget consommé en fin de session (pourcentage ou ratio observé)
 - `{tokens_observed}` — any token/context patterns worth noting (optional)
 - `{issues_encountered}` — any errors, dead paths, or blockers (optional)
 
@@ -36,9 +37,11 @@ Append the following block to `_gsane/_memory/sessions/session-analysis-log.md`:
 ## Session: {session_date} — Agent: {agent_active}
 - workflows_run: [{workflow_run}]
 - tasks_completed: [{tasks_completed}]
+- budget_consumed_end: {budget_consumed_end}
 - circuit_breaker_triggered: false
 - hup_rouge_count: 0
 - trust_score_avg: null
+- sage_recommended: false
 - compliance: PASS | FAIL
 - corrections_applied: []
 - open_items: []
@@ -46,6 +49,14 @@ Append the following block to `_gsane/_memory/sessions/session-analysis-log.md`:
 ```
 
 Important: `session-analysis-log.md` is an audit trail for PSA and flywheel. It is not a source of truth for the present state of the project.
+
+## STEP 3b — Recommandation Sage sur tendance budget
+
+1. Lire les 3 dernières sessions disponibles dans `_gsane/_memory/sessions/session-analysis-log.md`
+2. Calculer la moyenne de `budget_consumed_end`
+3. Comparer cette moyenne au seuil warning du budget (`context_budget.warning_threshold`, soit 75% par défaut)
+4. Si la moyenne des 3 dernières sessions est > 75% du budget, écrire `sage_recommended: true` dans la nouvelle entrée
+5. Sinon, conserver `sage_recommended: false`
 
 ## STEP 4 — Check flywheel trigger
 
@@ -61,7 +72,7 @@ Output exactly one line:
 [PSA] ✅ Session logged — {session_date} | Agent: {agent_active} | Next: {next_step}
 ```
 
-If flywheel triggered: append ` | 🔄 Flywheel triggered`
+If flywheel triggered: append `| 🔄 Flywheel triggered`
 
 ---
 

@@ -28,7 +28,7 @@ mode: agent
 
       PATTERN → BRAINSTORMING [BSP]:
         Keywords: idee, explorer, options, cadrer, strategie, brainstorming
-        Action: Recommend Brainstorming with Gsane Master as orchestrator via the party-mode workflow in exploration mode.
+        Action: Recommend brainstorming with Langis (Master) as orchestrator; use the party-mode workflow only for real multi-agent exploration.
 
       PATTERN → SESSION SOLO [SS]:
         Keywords: implementer, corriger, tester, concevoir, builder, documenter, tache precise, un seul domaine
