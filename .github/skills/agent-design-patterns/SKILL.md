@@ -52,7 +52,7 @@ description: 'Persona — Title: capabilities'
 
 ## Party Mode Agent Protocol
 
-In party mode, gsane Master is the sole orchestrator:
+In party mode, Langis (Master) is the sole orchestrator:
 1. Init: load only the active manifest or delegation summary needed to score the 5 core agents
 2. Per turn: score agents against keywords, select 2-3 max
 3. Load only the selected agent files if deeper instructions are actually needed

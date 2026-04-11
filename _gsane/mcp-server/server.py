@@ -55,7 +55,7 @@ def gsane_route(query: str) -> str:
                 f"Description de l'autorité : {best_match['description']}"
             )
 
-        return "⚠️ Aucun routage spécifique trouvé. Adressez-vous à gsane-master."
+        return "⚠️ Aucun routage spécifique trouvé. Adressez-vous à Langis (Master)."
 
     except Exception as e:
         return f"❌ ERROR lors de la lecture de la matrice : {str(e)}"
@@ -68,7 +68,7 @@ def gsane_memory_fetch(agent_name: str, topic: str = "") -> str:
     sans charger l'intégralité du fichier (prévention du memory bloat).
 
     Args:
-        agent_name: Le nom de l'agent (ex: 'pm', 'architect', 'tea').
+        agent_name: Le nom de l'agent (ex: 'master', 'architect', 'qa').
         topic: Le sujet recherché (mot-clé) pour filtrer les résultats. Vide = extrait général.
     """
     target_memory = MEMORY_DIR / f"{agent_name}-sidecar" / "learned-lessons.md"

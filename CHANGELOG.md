@@ -7,6 +7,9 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 
+- **fix(agents)**: BACKLOG-002 — `master.md` compressé sous le budget interne avec sections obligatoires préservées, orchestration condensée et doublons de fin supprimés
+- **fix(legacy)**: BACKLOG-003 — surfaces actives normalisées vers `Langis (Master)` et lexique legacy limité aux contextes historiques/tests autorisés
+
 - **docs**: P6-H — README et CONTRIBUTING alignés sur 7 agents (5 core + 2 subagents), nouvelles commandes `gsane.sh` et règles customize/sections obligatoires
 - **fix(config)**: P6-H — les 7 fichiers `_gsane/_config/agents/*.customize.yaml` sont désormais non vides avec `agent`, `status`, `scope` et `constraints` cohérents avec le manifest
 - **fix(agents)**: P6-H — sections `## Activation` ajoutées aux 5 agents core, linter durci pour exiger littéralement les 8 sections sur tous les agents du manifest, et versions manifest bumpées pour les agents modifiés
