@@ -6,7 +6,7 @@ applyTo: "**"
 
 # GSANE Framework Knowledge
 
-GSANE (Governance System for AI-Native Execution) is a flat-design multi-agent system running on GitHub Copilot Chat. The active runtime is the 5-agent Strike Team orchestrated by Gsane Master.
+GSANE (Governance System for AI-Native Execution) is a flat-design multi-agent system running on GitHub Copilot Chat. The active runtime is the 5-agent Strike Team orchestrated by Langis (Master).
 
 ## Setup Requirements (one-time per machine)
 
