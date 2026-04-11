@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zav-sandbox"
-version = "2.1.0"
+version = "2.1.1"
 description = "GSANE Framework Enhancement Project"
 requires-python = ">=3.11"
 dependencies = [
@@ -30,7 +30,7 @@ mcp = []
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+pythonpath = [".", "_gsane/tools", "_gsane/mcp-server"]
 markers = [
     "behavioral: Tests comportementaux (shell execution)",
     "mcp: Tests d'intégration MCP (smoke tests)",
