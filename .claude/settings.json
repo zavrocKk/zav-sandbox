@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "bash gsane.sh *",
+      "pytest *",
+      "python -m pytest *",
+      "git status",
+      "git log *",
+      "git diff *",
+      "git branch *",
+      "ruff check *",
+      "ruff format *",
+      "bandit *",
+      "pip install *",
+      "pip audit *",
+      "python _gsane/tools/security_gate.py *",
+      "cat *",
+      "head *",
+      "tail *",
+      "find *",
+      "grep *",
+      "wc *"
+    ],
+    "deny": [
+      "git push *",
+      "git commit *",
+      "git reset --hard *",
+      "git push --force *",
+      "rm -rf *",
+      "sudo *"
+    ]
+  }
+}

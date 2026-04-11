@@ -16,6 +16,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **manifest**: Register missing `session-resume` workflow in workflow-manifest.yaml
 
 ### Added
+- **claude-code**: Structure `.claude/` pour intégration Claude Code — CLAUDE.md, settings.json, 7 commandes, 4 agents, 6 skills migrées
 - **test-pyramid**: Restructuration tests/ en 5 niveaux (unit, integration, compliance, performance, e2e) avec markers pytest strict
 - **benchmarks**: 4 benchmarks MCP (gsane_route, yaml_parse, fetch_memory, checkpoint_read) + commande `bash gsane.sh benchmark`
 - **mutation**: Support mutmut pour mutation testing + commande `bash gsane.sh mutation`

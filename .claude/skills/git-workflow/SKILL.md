@@ -1,7 +1,6 @@
 ---
 name: git-workflow
 description: "Cheat-sheet du workflow Git GSANE — branches, commits, PRs."
-applyTo: "**"
 ---
 
 # Git Workflow — Cheat Sheet

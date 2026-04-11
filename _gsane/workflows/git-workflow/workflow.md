@@ -11,7 +11,9 @@
 Run: `git branch --show-current`
 
 - If on `main` → continue to Step 2 (create branch)
-- If already on `feature/*` or `fix/*` → skip to Step 3
+- If already on `feature/*` or `fix/*` → run: `gh pr list --head $(git branch --show-current) --state open`
+  - If an **open** PR exists → skip to Step 3
+  - If **no open PR** (merged or none) → continue to Step 2 (create a NEW branch from `origin/main`). Never reuse a branch whose PR was already merged.
 
 ## STEP 2 — Create branch
 
