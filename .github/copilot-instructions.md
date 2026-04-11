@@ -151,6 +151,7 @@ I need to commit changes following the Git Workflow
 - **PR DESCRIPTION**: Every PR MUST have a filled description body. Open the GitHub compare URL, fill the title and paste the body template — NEVER submit with an empty description.
 - **VIOLATIONS**: Any deviation from these rules is logged and auto-escalated to master.
 - **SESSION END HOOK (UNIVERSAL)**: At the end of EVERY session with ANY GSANE agent — regardless of which agent is active, what the user asked, or whether a DA command was issued — ALWAYS execute `_gsane/workflows/post-session-analysis/workflow.md` before finalizing the response. This is non-negotiable and applies to ALL tous les agents. No exceptions.
+- **VISIBLE CLOSURE IDEMPOTENCE**: The user-facing final response must appear only once per task. If a complete final response has already been sent, post-session-analysis, hooks, and `task_complete` preparation must remain silent and MUST NOT emit a second brief summary, status line, or mini-closeout.
 
 ## Universal Session End Hook — MANDATORY FOR ALL AGENTS
 
@@ -163,6 +164,7 @@ Before ending ANY session with ANY GSANE agent:
 2. **EVEN IF** the user did not issue a `[DA]` dismiss command
 3. **EVEN IF** the session was short or incomplete
 4. **EVEN IF** no agent was formally activated — the flywheel must receive data
+5. **NEVER** let this hook create a second user-visible closeout if the final answer has already been emitted
 
 ### Why This Matters
 

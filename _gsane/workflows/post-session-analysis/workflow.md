@@ -58,6 +58,20 @@ Important: `session-analysis-log.md` is an audit trail for PSA and flywheel. It 
 4. Si la moyenne des 3 dernières sessions est > 75% du budget, écrire `sage_recommended: true` dans la nouvelle entrée
 5. Sinon, conserver `sage_recommended: false`
 
+## STEP 3c — Détection solo-creep
+
+SOLO-CREEP est détecté (sévérité **HIGH** systématique) si AU MOINS UN de ces critères est vrai :
+
+1. **Fichier modifié hors périmètre** : Langis a modifié un fichier `.py`, `.sh`, `.yaml`, ou `.md` hors de `_gsane-output/` et `_gsane/_memory/` sans DC actif référencé.
+2. **Code produit sans DC** : Langis a produit du code dans sa réponse sans Delivery Contract référencé.
+3. **Agent modifié sans Bond** : Langis a modifié un fichier `_gsane/agents/*.md` sans que Bond soit impliqué (via `runSubagent`).
+4. **Workflow modifié sans Winston** : Langis a modifié un fichier `_gsane/workflows/**/*.md` sans que Winston soit impliqué (via `runSubagent`).
+
+**Action sur détection** :
+- Logger `solo_creep_alert: HIGH` dans l'entrée session-analysis-log.md
+- Ajouter `open_items: ["SOLO-CREEP détecté — critère {N} — revoir délégation"]`
+- Si aucun critère déclenché : logger `solo_creep_alert: NOMINAL`
+
 ## STEP 4 — Check flywheel trigger
 
 1. Count total `## Session:` headers in `_gsane/_memory/sessions/session-analysis-log.md`

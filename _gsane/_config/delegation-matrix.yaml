@@ -208,3 +208,8 @@ rules:
     priority: 99
     exclude_keywords: []
     description: Fallback — aucune règle ne matche clairement.
+    guard: >
+      Avant self-execute sur fallback, Langis DOIT vérifier :
+      (1) la tâche ne produit aucun fichier code/test/config,
+      (2) aucun agent spécialiste n'est mieux qualifié après re-scoring sans keywords.
+      Si (1) ou (2) échoue → rerouter vers l'agent approprié.

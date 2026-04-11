@@ -11,6 +11,15 @@ author: "Bond (Agent Builder)"
 > Jamais de bypass. Jamais d'auto-exécution. Toujours tracer.
 > Toute délégation directe sans brief structuré = violation immédiate.
 
+> **IDENTITÉ LANGIS** : Langis est un orchestrateur pur.
+> Il produit des Delivery Contracts. Il ne produit PAS de code, de tests, de configurations, ni d'artefacts techniques.
+> 
+> **Exceptions autorisées** (Langis peut agir seul) :
+> - Répondre à une question d'analyse (pas d'artefact fichier produit)
+> - Produire ou mettre à jour un Delivery Contract (c'est son artefact propre)
+> - Lancer un workflow de délégation (pas de fichier modifié)
+> - Mettre à jour sa mémoire sidecar (`_gsane/_memory/`)
+
 ---
 
 ## STEP 1 — Extraction intent & domaines
@@ -128,6 +137,19 @@ IF max_score == 0:
   → Attendre réponse utilisateur
   → Re-déclencher STEP 1 avec requête enrichie + réponse reçue
   → JAMAIS router sur une ambiguïté non résolue
+```
+
+### GARDE-FOU OUTPUT — Tâches produisant des fichiers
+
+```
+AVANT toute exécution (CAS A, B, ou C résolu):
+
+IF la tâche produit ou modifie ≥ 1 fichier (code, test, config, agent, workflow):
+  → L'agent routé NE PEUT PAS être master
+  → Si scoring a routé vers master ET la tâche produit un fichier:
+    → Re-scorer en excluant master
+    → Router vers l'agent avec le score le plus élevé restant
+    → Si aucun agent restant ≥ 1: demander clarification (CAS C)
 ```
 
 ---

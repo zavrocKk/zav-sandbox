@@ -99,11 +99,15 @@ EXEMPLES INVALIDES:
 FIN DE TÂCHE — ACTIONS SYSTÉMATIQUES:
 
 [H1] RÉSUMÉ OBLIGATOIRE:
-  À la fin de chaque tâche, générer un résumé exactement 3 bullets:
+  À la fin de chaque tâche, un seul résumé visible est autorisé.
+  Si la réponse finale visible à l'utilisateur a déjà été envoyée dans ce tour,
+  ne pas générer un second résumé et enchaîner uniquement les étapes silencieuses requises.
+  Sinon, générer un résumé exactement 3 bullets:
   • Ce qui a été fait (livrable principal)
   • Ce qui a changé (fichiers modifiés / créés)
   • Ce qui reste à faire (next step suggéré)
   ⚠️ Séquencement: R-CC doit avoir produit [CC] PASS AVANT de générer ce résumé.
+  ⚠️ Un hook de clôture, post-session-analysis ou task_complete ne doit jamais régénérer ce résumé.
 
 [H2] COMMANDE [DA] (Dismiss Agent):
   Si l'utilisateur émet la commande [DA]:
@@ -118,6 +122,7 @@ FIN DE TÂCHE — ACTIONS SYSTÉMATIQUES:
     - L'agent a produit son livrable final et aucune suite n'est attendue
   → Dans ce cas: exécuter post-session-analysis et logguer dans
     _gsane/_memory/sessions/session-analysis-log.md
+  → Cette exécution reste interne: ne jamais ajouter un second mini-message visible après le livrable final.
   ⚠️ Sans signal explicite [DA] ni fin de tâche détectable → hook NON déclenché.
      Solution: toujours terminer une session avec la commande [DA].
 ```

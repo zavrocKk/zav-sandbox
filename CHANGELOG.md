@@ -4,6 +4,25 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+* **governance:** section Délégation Obligatoire dans master.md — filtre 3 questions avant toute action Langis (DELEG-ENFORCE-001)
+* **governance:** règle orchestrateur pur dans delegation/workflow.md avec 4 exceptions autorisées (DELEG-ENFORCE-001)
+* **tests:** 2 tests qa-linter — test_master_never_do_delegation_rules + test_delegation_workflow_no_solo (DELEG-ENFORCE-001)
+
+### Fixed
+
+* **governance:** renforce 5 garde-fous délégation Langis — Never Do explicite (code/tests interdits), seuil DC objectif (≥1 fichier), fallback guard dans delegation-matrix, solo-creep detector dans post-session-analysis, output-nature guard dans delegation workflow (RIGOR-G1G5)
+
+### Changed
+
+* **governance:** Never Do master.md renforcé — mapping 6 agents (Amelia, Quinn, Winston, Bond, Vera, Sage) + interdictions spécialiste (DELEG-ENFORCE-001)
+* **governance:** solo-creep detector renforcé — 4 critères objectifs, sévérité HIGH systématique (DELEG-ENFORCE-001)
+
+---
+
 ## [2.1.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.0.0...v2.1.0) (2026-04-11)
 
 
