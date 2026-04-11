@@ -125,6 +125,32 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 2. **1 session = 1 agent** — session dédiée par agent
 3. **Skills JIT** — ne pas demander de pré-charger toutes les skills en début de session
 
+## Sessions séparées — Anti solo-creep narratif
+
+> **Problème** : le solo-creep narratif survient quand un agent (typiquement Langis) simule les réponses d'autres agents dans la même session au lieu de déléguer réellement.
+
+### Signal d'alerte
+
+Si vous voyez dans une réponse :
+- "Excellent — Winston a livré..."
+- "Je route vers Amelia qui va..."
+- "Voici ce que Quinn devrait vérifier..."
+
+→ L'agent parle pour les autres. Ouvrir une session séparée pour l'agent concerné.
+
+### Règle pratique : combien de sessions ?
+
+| Complexité | Sessions | Exemple |
+|---|---|---|
+| Question simple | 1 session | "Quel est le token budget ?" |
+| Fix trivial (1 fichier) | 1 session | Langis analyse + délègue en session |
+| DC standard (2-5 fichiers) | 2 sessions | Session 1 : Langis (DC) → Session 2 : Amelia (impl) |
+| DC complexe (6+ fichiers) | 4 sessions | Session 1 : Langis (DC) → Session 2 : Winston (design) → Session 3 : Amelia (impl) → Session 4 : Quinn (validation) |
+
+### Pourquoi ?
+
+Chaque agent a sa propre personnalité, ses propres règles, et son propre mode de pensée. Quand Langis "simule" Amelia dans la même session, il n'applique pas les règles d'Amelia — il applique les siennes avec le vocabulaire d'Amelia. C'est du théâtre, pas de la délégation.
+
 ## Slash Commands (GitHub Copilot Chat)
 
 Type /gsane- in Copilot Chat to see all available commands. Key ones:

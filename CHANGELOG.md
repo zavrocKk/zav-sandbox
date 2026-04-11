@@ -11,6 +11,10 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **hooks**: document NotifyUser as covered by CHALLENGE + HUP protocol
 - **governance**: renforce Solo Trip Wire + HANDS-OFF pour interdire tout file-write par Master (FM-008)
 
+### Bug Fixes
+
+- **governance**: add STOP rule to prevent narrative solo-creep + document session isolation in AGENTS.md (FM-008)
+
 ## [2.4.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.3.0...v2.4.0) (2026-04-11)
 
 
