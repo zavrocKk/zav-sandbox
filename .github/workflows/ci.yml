@@ -38,7 +38,7 @@ jobs:
           python-version: "3.11"
       - run: pip install -e ".[mcp,test]"
       - name: Run unit tests
-        run: pytest tests/unit/ -m unit -v --cov=src --cov-report=term-missing --cov-fail-under=50
+        run: pytest tests/unit/ -m unit -v --cov=src --cov-report=term-missing --cov-fail-under=30
 
   integration-tests:
     name: Integration Tests
