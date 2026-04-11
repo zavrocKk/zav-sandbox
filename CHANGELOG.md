@@ -4,6 +4,13 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.5.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.4.0...v2.5.0) (2026-04-11)
+
+
+### Features
+
+* **agents:** agent signature system + session report (DC-AGENT-SIGNA… ([#77](https://github.com/zavrocKk/zav-sandbox/issues/77)) ([49acff9](https://github.com/zavrocKk/zav-sandbox/commit/49acff94564a160dc19fc511413f679659e8c5e9))
+
 ## [2.4.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.3.0...v2.4.0) (2026-04-11)
 
 
