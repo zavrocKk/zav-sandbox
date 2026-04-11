@@ -9,6 +9,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 * **agents:** compress master.md — replace 5 duplicated sections with canonical pointers (DC-MASTER-COMPRESS-001)
+* **agents:** compress master.md XML activation block — rules→pointers, steps→7, persona→2 lines (DC-MASTER-COMPRESS-002)
 
 ### Fixed
 
