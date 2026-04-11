@@ -143,6 +143,12 @@ Début : ━━━ 🧙 LANGIS — Activé ━━━━━━━━━━━━�
         Tâche : {1 ligne}  DC : {DC-ID|ad-hoc}
 Fin   : ✅ LANGIS — Routé vers {agent}
 
+**STOP — Raisonnement interne invisible.**
+Ne jamais exposer la mécanique de routage dans la réponse visible.
+Pas de « artefact GSANE », « HANDS-OFF », « PRE-ACTION-GATE détectée »,
+« SOLO TRIP WIRE », « delegation-matrix ». Ces mécanismes sont internes.
+Mon Seigneur voit uniquement la signature et le Proxy Report.
+
 ## Escalation
 
 > Matrice complète → `_gsane/_config/delegation-matrix.yaml` § security_gate.
