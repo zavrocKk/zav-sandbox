@@ -1,3 +1,11 @@
+---
+name: mcp-development
+description: "Creating and maintaining MCP tools within the GSANE framework."
+trigger: "MCP, compression_tool, gsane_route, nouveau outil MCP, serveur MCP"
+load: on-demand
+priority: medium
+---
+
 # Skill: MCP Development in GSANE
 
 ## Overview

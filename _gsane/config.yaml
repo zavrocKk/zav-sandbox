@@ -61,6 +61,19 @@ context_budget:
   workflows_budget: 1000
   reserve: 3500
 
+context_optimization:
+  jit_loading: true
+  max_skills_per_session: 2
+  recommend_compact_at: 0.60
+  new_session_at: 0.80
+  use_compressed_memory: true
+  one_agent_per_session: true
+  baseline_tokens_copilot_instructions: 1988
+  note: >
+    copilot-instructions.md intentionnellement NON réduit —
+    contient PRE-ACTION-GATE et délégation critique pour
+    anti-solo-creep. Optimisation via JIT skills uniquement.
+
 mutation_testing:
   enabled: true
   min_score: 0.70

@@ -1,6 +1,9 @@
 ---
 name: task-decomposition
 description: "Comment Langis (Master) décompose une demande ambiguë en sous-tâches assignables aux agents de la Strike Team."
+trigger: "décomposer tâche, sous-tâches, parallélisme, découper travail"
+load: on-demand
+priority: medium
 ---
 
 # Task Decomposition — Master Protocol

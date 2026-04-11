@@ -2,6 +2,9 @@
 name: agent-customization
 description: "How to personalize GSANE agents via .customize.yaml files — override persona, inject memories, add menu items — without touching governed .md files."
 applyTo: "**"
+trigger: "personnaliser agent, modifier persona, adapter comportement agent existant"
+load: on-demand
+priority: low
 ---
 
 # Agent Customization System

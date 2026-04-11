@@ -119,6 +119,13 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 | **MCP** | Model Context Protocol — interface outillée pour les agents LLM |
 | **emit-p2p** | Balise XML d'encapsulation des messages inter-agents pour le routage Master |
 
+## Optimisation Premium Requests Copilot Pro+
+
+3 règles simples :
+1. **/compact** après chaque tâche terminée
+2. **1 session = 1 agent** — session dédiée par agent
+3. **Skills JIT** — ne pas demander de pré-charger toutes les skills en début de session
+
 ## Slash Commands (GitHub Copilot Chat)
 
 Type /gsane- in Copilot Chat to see all available commands. Key ones:

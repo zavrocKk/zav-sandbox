@@ -2,6 +2,9 @@
 name: delivery-contract
 description: "Template officiel et règles du Delivery Contract — le contrat formel entre Master et agent exécutant."
 applyTo: "**"
+trigger: "DC, delivery contract, critères acceptance, AC-1, créer DC"
+load: on-demand
+priority: high
 ---
 
 # Delivery Contract — Référence
