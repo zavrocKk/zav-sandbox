@@ -43,7 +43,9 @@
     },
     {
       "event": "NotifyUser",
-      "description": "Fired when high-severity finding detected in post-session-analysis or flywheel-apply. Surfaces single notification line to user. Never auto-applies high severity."
+      "description": "Fired when high-severity finding detected in post-session-analysis or flywheel-apply. Surfaces single notification line to user. Never auto-applies high severity.",
+      "status": "documented",
+      "note": "Couvert par CHALLENGE protocol et HUP escalade ROUGE. Implémenter si besoin de notification système externe."
     }
   ],
   "config": {
