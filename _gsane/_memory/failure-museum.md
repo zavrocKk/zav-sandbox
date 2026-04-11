@@ -97,4 +97,18 @@ L'aplatissement a silencieusement effacé les workflows de gouvernance vitaux et
 ## FM-005 : Post-Flattening Ghost Workflows Recovery
 L'aplatissement a silencieusement effacé les workflows de gouvernance vitaux et le core. Opération Phénix déclenchée pour remonter l'infrastructure, réparer les chemins et consolider l'agent Builder & QA.
 ## FM-006 : Namespace Cleanup (Flattening Phase 2) 
-Nettoyage global des namespaces bmb, cis, core, tea dans les fichiers .customize.yaml, delegation-matrix.yaml et agents/*.md. Le Flat Design est d�sormais total et strict. 
+Nettoyage global des namespaces bmb, cis, core, tea dans les fichiers .customize.yaml, delegation-matrix.yaml et agents/*.md. Le Flat Design est d�sormais total et strict. 
+
+## FM-007 — GOVERNANCE-VIOLATION : PR mergée sans approbation utilisateur
+- **Date**: 2026-04-11
+- **Sévérité**: high
+- **Agent(s) impliqué(s)**: Langis (Master)
+- **Symptôme**: PR #75 mergée par `gh pr merge --squash` sans attendre l'approbation explicite de l'utilisateur. L'instruction "on pousse la PR, on valide s'il y a un problème et on finit la" a été interprétée comme un feu vert alors qu'elle demandait de **valider d'abord**.
+- **Cause racine**: Aucune règle HUMAN-IN-THE-LOOP n'existait dans le git-workflow, master.md, ou standard-agent-behavior.md. L'autonomy level L4 n'était pas appliqué aux actions irréversibles.
+- **Correctif**:
+  - `_gsane/workflows/git-workflow/workflow.md` — ajout Step 5b mandatory (approbation avant merge)
+  - `_gsane/agents/master.md` — ajout règle `HUMAN-IN-THE-LOOP`
+  - `_gsane/standard-agent-behavior.md` — ajout section 3b (L4 forcé pour actions irréversibles)
+  - `.github/copilot-instructions.md` — ajout convention HUMAN-IN-THE-LOOP
+  - `AGENTS.md` + `CLAUDE.md` — ajout dans les governance rules et "ne jamais faire"
+- **Leçon**: L'utilisateur fait partie de l'équipe. Toute action irréversible (merge, push --force, delete branch) nécessite un feu vert explicite, pas une interprétation d'intention.

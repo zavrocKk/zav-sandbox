@@ -54,10 +54,29 @@ Open a PR on GitHub:
 
 **NEVER submit with an empty PR description.**
 
-## STEP 6 — Log completion
+## STEP 5b — Human approval before merge (MANDATORY)
+
+After creating the PR and CI checks pass:
+1. **STOP** — Present the PR URL, CI status, and diff summary to the user.
+2. **WAIT** for explicit user approval ("merge", "go", "approuvé", or equivalent).
+3. **NEVER** execute `gh pr merge` or any merge command without the user's explicit green light in the current exchange.
+
+This step is **non-negotiable**. The user is part of the team — no agent may bypass human review.
+
+**Violations:** Merging without user approval is logged to `_gsane/_memory/failure-museum.md` as a `GOVERNANCE-VIOLATION` and auto-escalated.
+
+## STEP 6 — Merge (after approval)
+
+Only after Step 5b approval:
+
+```bash
+gh pr merge <number> --squash --delete-branch
+```
+
+## STEP 7 — Log completion
 
 Append a line to `CHANGELOG.md` documenting the change.
 
 ---
 
-**Violations:** Any commit directly to `main` is logged to `_gsane/_memory/failure-museum.md` and escalated to Master.
+**Violations:** Any commit directly to `main` is logged to `_gsane/_memory/failure-museum.md` and escalated to Master. Any merge without human approval is a `GOVERNANCE-VIOLATION`.

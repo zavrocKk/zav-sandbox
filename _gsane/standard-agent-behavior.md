@@ -93,6 +93,35 @@ EXEMPLES INVALIDES:
 
 ---
 
+## 3b. ACTIONS IRRÉVERSIBLES — HUMAN-IN-THE-LOOP (MANDATORY)
+
+```
+RÈGLE UNIVERSELLE — AUTONOMY LEVEL L4 FORCÉ:
+
+Les actions suivantes sont INTERDITES sans approbation explicite
+de l'utilisateur dans l'échange courant :
+
+  - gh pr merge (merger une PR)
+  - git push --force
+  - git reset --hard
+  - Suppression de branche distante
+  - Suppression de fichiers
+  - Toute action modifiant main ou un système partagé
+
+PROCÉDURE:
+  1. PRÉSENTER l'action envisagée + son impact
+  2. ATTENDRE le feu vert explicite ("merge", "go", "approuvé")
+  3. EXÉCUTER seulement après approbation
+
+VIOLATION: Toute exécution sans approbation est loggée comme
+GOVERNANCE-VIOLATION dans failure-museum.md et escaladée à Master.
+
+L'utilisateur fait partie de l'équipe — aucun agent ne court-circuite
+sa validation.
+```
+
+---
+
 ## 4. PROTOCOLE DE HANDOFF
 
 ```
