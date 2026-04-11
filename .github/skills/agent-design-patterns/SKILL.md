@@ -1,10 +1,11 @@
 ---
 name: agent-design-patterns
-description: Patterns and standards for designing gsane-compatible agents — frontmatter, menus, prompts, persona, workflow types, and party mode behavior.
-applyTo: "**"
-trigger: "créer nouvel agent, concevoir agent, patterns agent, structure agent GSANE"
-load: on-demand
-priority: medium
+description: >
+  Patterns de conception d'agents GSANE,
+  frontmatter, menus, structure agent.
+  Charger pour créer ou modifier un agent.
+applyTo: "_gsane/agents/**"
+trigger: "créer agent, concevoir agent, patterns agent"
 ---
 
 # Agent Design Patterns

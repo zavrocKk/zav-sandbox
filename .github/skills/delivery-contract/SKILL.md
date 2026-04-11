@@ -1,10 +1,9 @@
 ---
 name: delivery-contract
-description: "Template officiel et règles du Delivery Contract — le contrat formel entre Master et agent exécutant."
-applyTo: "**"
-trigger: "DC, delivery contract, critères acceptance, AC-1, créer DC"
-load: on-demand
-priority: high
+description: >
+  Template et règles du Delivery Contract GSANE.
+  Charger pour créer un DC ou valider sa structure.
+trigger: "DC, delivery contract, critères acceptance"
 ---
 
 # Delivery Contract — Référence

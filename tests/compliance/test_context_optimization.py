@@ -32,6 +32,73 @@ def test_all_skills_have_trigger_frontmatter():
 
 
 @pytest.mark.compliance
+def test_skills_not_using_wildcard_applyto():
+    """Aucune skill ne doit avoir applyTo: "**".
+
+    C'est le pattern qui charge tout à chaque requête.
+    Coût mesuré : ~3500 tokens gaspillés/requête.
+    """
+    skills_dir = Path(".github/skills")
+    violations = []
+    for skill_dir in sorted(skills_dir.iterdir()):
+        if not skill_dir.is_dir():
+            continue
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.exists():
+            continue
+        content = skill_file.read_text(encoding="utf-8")
+        if 'applyTo: "**"' in content or "applyTo: '**'" in content:
+            violations.append(skill_dir.name)
+    assert not violations, (
+        "Skills avec applyTo: '**' détectées:\n"
+        + "\n".join(f"  - {v}" for v in violations)
+        + "\nChanger vers un pattern précis ou "
+        "supprimer applyTo pour du vrai JIT."
+    )
+
+
+@pytest.mark.compliance
+def test_skills_with_applyto_have_targeted_pattern():
+    """Les skills avec applyTo doivent avoir un pattern ciblé (pas **)."""
+    skills_dir = Path(".github/skills")
+    allowed_patterns = [
+        "_gsane/**",
+        "_gsane/agents/**",
+        "_gsane/mcp-server/**",
+        "_gsane/_memory/**",
+        ".github/**",
+        "gsane.sh",
+    ]
+    violations = []
+    for skill_dir in sorted(skills_dir.iterdir()):
+        if not skill_dir.is_dir():
+            continue
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.exists():
+            continue
+        content = skill_file.read_text(encoding="utf-8")
+        if not content.startswith("---"):
+            continue
+        parts = content.split("---", 2)
+        if len(parts) < 3:
+            continue
+        try:
+            fm = yaml.safe_load(parts[1])
+        except Exception:
+            continue
+        if fm and "applyTo" in fm:
+            pattern = fm["applyTo"]
+            if pattern not in allowed_patterns:
+                violations.append(
+                    f"{skill_dir.name}: applyTo '{pattern}' non autorisé"
+                )
+    assert not violations, (
+        "Patterns applyTo non autorisés:\n"
+        + "\n".join(f"  - {v}" for v in violations)
+    )
+
+
+@pytest.mark.compliance
 def test_config_has_context_optimization():
     """config.yaml doit avoir context_optimization."""
     config = yaml.safe_load(
