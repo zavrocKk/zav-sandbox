@@ -7,6 +7,8 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 
+- **docs**: README racine poli pour publication, ouverture réécrite, Party Mode clarifié comme workflow, runtime MCP corrigé à 12 outils et note licence explicitée
+
 - **fix(agents)**: BACKLOG-002 — `master.md` compressé sous le budget interne avec sections obligatoires préservées, orchestration condensée et doublons de fin supprimés
 - **fix(legacy)**: BACKLOG-003 — surfaces actives normalisées vers `Langis (Master)` et lexique legacy limité aux contextes historiques/tests autorisés
 
