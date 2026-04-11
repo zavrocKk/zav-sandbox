@@ -6,6 +6,11 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Refactor
+
+- **agents**: compress dev/qa/architect/bond — same pattern as master (DC-AGENTS-COMPRESS-003)
+- **tests**: update TestPrePostFlight to reflect centralized rules in standard-agent-behavior.md
+
 ### Documentation
 
 - **hooks**: document NotifyUser as covered by CHALLENGE + HUP protocol
