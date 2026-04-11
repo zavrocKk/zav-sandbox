@@ -1,24 +1,24 @@
-# Security Policy  zav-sandbox
+# Security Policy — zav-sandbox
 
-## Versions supportes
+## Versions supportées
 
-| Version | Supporte |
+| Version | Supportée |
 |---------|-----------|
-| 2.x     |         |
-| < 2.0   |         |
+| 2.x     | ✅        |
+| < 2.0   | ❌        |
 
-## Signaler une vulnrabilit
+## Signaler une vulnérabilité
 
-Si vous dcouvrez une vulnrabilit de scurit dans ce projet :
+Si vous découvrez une vulnérabilité de sécurité dans ce projet :
 
 1. **NE PAS** ouvrir une issue publique
-2. Contacter le mainteneur via les canaux privs GitHub (Security Advisories)
-3. Inclure : description du problme, tapes de reproduction, impact potentiel
+2. Contacter le mainteneur via les canaux privés GitHub (Security Advisories)
+3. Inclure : description du problème, étapes de reproduction, impact potentiel
 
-## Pratiques de scurit
+## Pratiques de sécurité
 
-- Aucun secret, token ou credential n'est hardcod dans le code source
-- Les dpndances sont audites via `pip-audit` et Dependabot
-- Le scan de scurit (`bandit`) est excut dans la CI sur chaque PR
-- Les inputs utilisateur sont valids aux frontires CLI et MCP
+- Aucun secret, token ou credential n'est hardcodé dans le code source
+- Les dépendances sont auditées via `pip-audit` et Dependabot
+- Le scan de sécurité (`bandit`) est exécuté dans la CI sur chaque PR
+- Les inputs utilisateur sont validés aux frontières CLI et MCP
 - Le framework suit les principes OWASP Top 10

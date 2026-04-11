@@ -33,6 +33,24 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- **fix(governance)**: C-01 — `SECURITY.md` réécrit en UTF-8 propre avec LF, accents restaurés (mojibake corrigé)
+- **fix(governance)**: C-02 — versions agents alignées à 2.1.1 dans `AGENTS.md`, `release-please.yml` sync désormais `pyproject.toml`
+- **fix(governance)**: C-03 — `config.yaml` unicode échappé remplacé par caractères natifs (—, ç)
+- **fix(docs)**: H-08/H-09 — `TROUBLESHOOTING.md` seuil coverage corrigé (70% → 50%), référence v2.3+ supprimée
+- **fix(ci)**: M-06 — GitHub Actions alignées (`checkout@v6`, `github-script@v9` partout)
+- **fix(config)**: M-01 — `pytest.ini` supprimé, config consolidée dans `pyproject.toml` avec `pythonpath` et marker `token_budget`
+
+### Removed
+- **chore(cleanup)**: H-06 — `cleansing.py` (racine + `src/`) supprimés — dead migration code sans référence
+- **chore(cleanup)**: L-07 — entrée legacy `_bmb/` retirée de `.gitignore`
+
+### Added
+- **feat(build)**: M-05 — `.editorconfig` ajouté (UTF-8, LF, indent standards)
+- **feat(typing)**: M-13 — `py.typed` marker ajouté dans `src/`
+- **feat(arch)**: M-10 — `src/__init__.py` avec `__all__` exports
+- **feat(quality)**: M-11 — scope mypy étendu à `src/`, `_gsane/tools/`
+- **chore(docs)**: L-03 — `notes_service_README.md` déplacé de `src/` vers `docs/`
 
 - **docs**: README racine poli pour publication, ouverture réécrite, Party Mode clarifié comme workflow, runtime MCP corrigé à 12 outils et note licence explicitée
 

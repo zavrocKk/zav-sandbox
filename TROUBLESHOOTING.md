@@ -27,7 +27,8 @@ python server.py
 **Cause** : La demande n'a pas été routée via Master. Un agent dev ne génère jamais de contract seul.
 **Fix** : Toujours commencer par Master (`@Langis` ou mode Master).
 
-### Coverage en dessous de 70%
+### Coverage en dessous du seuil (50%)
+**Cause** : Le seuil CI est `--cov-fail-under=50` (configuré dans `.github/workflows/ci.yml`).
 **Fix** :
 ```bash
 pytest tests/ --cov=src --cov-report=term-missing
@@ -36,7 +37,7 @@ Identifier les modules non couverts et ajouter les tests manquants.
 
 ### trace.log corrompu (YAML invalide)
 **Cause** : Ancien format YAML avec append séquentiel.
-**Fix** : Migrer vers le format JSONL (v2.3+). Chaque entrée = 1 ligne JSON indépendante.
+**Fix** : Migrer vers le format JSONL. Chaque entrée = 1 ligne JSON indépendante.
 
 ### Agent en boucle sur [CC] FAIL
 **Cause** : Pas de circuit-breaker configuré.
