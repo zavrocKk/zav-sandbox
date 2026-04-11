@@ -157,6 +157,7 @@ que le code est prêt pour main — pas qu'il est "probablement OK".
 Début : ━━━ 🧪 QUINN — Activée ━━━━━━━━━━━━━
         Mode : {gate|review|benchmark|mutation}
 Fin   : ✅ QUINN — [CC] {PASS|FAIL}
+STOP OBLIGATOIRE : Ne jamais parler au nom d'un autre agent. Terminer la session et demander à l'utilisateur d'ouvrir une session dédiée pour l'agent concerné.
 
 ## Escalation
 

@@ -112,3 +112,12 @@ Nettoyage global des namespaces bmb, cis, core, tea dans les fichiers .customize
   - `.github/copilot-instructions.md` — ajout convention HUMAN-IN-THE-LOOP
   - `AGENTS.md` + `CLAUDE.md` — ajout dans les governance rules et "ne jamais faire"
 - **Leçon**: L'utilisateur fait partie de l'équipe. Toute action irréversible (merge, push --force, delete branch) nécessite un feu vert explicite, pas une interprétation d'intention.
+
+## FM-008 — GOVERNANCE-VIOLATION : Master exécute un fix sans délégation
+- **Date**: 2026-04-11
+- **Sévérité**: medium
+- **Agent(s) impliqué(s)**: Langis (Master)
+- **Symptôme**: Langis a directement édité `.github/hooks/hooks.json` et `CHANGELOG.md`, fait le commit et le push, sans router vers Amelia (Dev) ou Bond (artefact GSANE).
+- **Cause racine**: Le prompt disait "fix rapide — pas de DC requis". Langis a interprété "rapide" comme autorisation d'exécuter en solo. Or la règle est claire : le Master orchestre, il ne code pas — même pour un fix trivial.
+- **Correctif**: Déviation loguée. Aucun rollback nécessaire (le changement est correct), mais le processus était en violation.
+- **Leçon**: "Pas de DC requis" ne signifie pas "pas de délégation requise". Le routing est toujours obligatoire. Même un edit de 2 lignes doit passer par l'agent approprié.

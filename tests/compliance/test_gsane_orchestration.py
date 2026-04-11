@@ -509,7 +509,7 @@ class TestAgentSignature:
         )
 
     def test_signature_is_minimal(self):
-        """## Signature doit être concise — max 6 lignes."""
+        """## Signature doit être concise — max 14 lignes (proxy signing inclus)."""
         agents_dir = Path("_gsane/agents")
         violations = []
         for md in agents_dir.glob("*.md"):
@@ -521,8 +521,8 @@ class TestAgentSignature:
             next_section = rest.find("\n## ")
             sig_content = rest[:next_section] if next_section > 0 else rest
             lines = [ln for ln in sig_content.splitlines() if ln.strip()]
-            if len(lines) > 6:
-                violations.append(f"{md.name}: {len(lines)} lignes (max 6)")
+            if len(lines) > 14:
+                violations.append(f"{md.name}: {len(lines)} lignes (max 14)")
         assert not violations, (
             "Signatures trop longues:\n" + "\n".join(f"  - {v}" for v in violations)
         )
@@ -554,4 +554,38 @@ class TestAgentSignature:
         content = workflow.read_text(encoding="utf-8")
         assert "session --report" in content or "--report" in content, (
             "post-session-analysis ne déclenche pas le rapport final"
+        )
+
+    def test_agents_have_stop_rule(self):
+        """Chaque agent .md doit avoir la règle STOP dans sa section ## Signature."""
+        agents_dir = Path("_gsane/agents")
+        required = ["master.md", "dev.md", "qa.md", "architect.md", "bond.md"]
+        missing = []
+        for name in required:
+            md = agents_dir / name
+            if not md.exists():
+                missing.append(f"{name}: absent")
+                continue
+            content = md.read_text(encoding="utf-8")
+            if "STOP OBLIGATOIRE" not in content:
+                missing.append(f"{name}: règle STOP absente")
+        assert not missing, (
+            "Agents sans règle STOP:\n"
+            + "\n".join(f"  - {m}" for m in missing)
+            + "\nSans STOP → Langis parle pour tout le monde."
+        )
+
+    def test_agents_md_has_isolation_section(self):
+        """AGENTS.md doit documenter les sessions séparées."""
+        content = Path("AGENTS.md").read_text(encoding="utf-8")
+        required_terms = [
+            "Sessions séparées",
+            "solo-creep narratif",
+            "Session 1",
+            "Session 2",
+        ]
+        missing = [t for t in required_terms if t not in content]
+        assert not missing, (
+            "AGENTS.md manque la section isolation:\n"
+            + "\n".join(f"  - '{t}'" for t in missing)
         )

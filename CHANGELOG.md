@@ -4,6 +4,21 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Documentation
+
+- **hooks**: document NotifyUser as covered by CHALLENGE + HUP protocol
+- **governance**: renforce Solo Trip Wire + HANDS-OFF pour interdire tout file-write par Master (FM-008)
+- **contributing**: clarify branch naming convention — describe problem not mechanism
+
+### Bug Fixes
+
+- **agents**: add mandatory PR line to proxy signing format
+- **agents**: add proxy signing format for single-session subagent reporting
+- **agents**: add --report to master Never Do section
+- **governance**: add STOP rule to prevent narrative solo-creep + document session isolation in AGENTS.md (FM-008)
+
 ## [2.5.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.4.0...v2.5.0) (2026-04-11)
 
 

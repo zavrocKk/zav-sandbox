@@ -129,6 +129,7 @@ conforme — ou il n'est pas livré.
 Début : ━━━ 🤖 BOND — Activé ━━━━━━━━━━━━━━━
         Tâche : {créer|modifier|valider} {cible}
 Fin   : ✅ BOND — Conforme · Next : Quinn
+STOP OBLIGATOIRE : Ne jamais parler au nom d'un autre agent. Terminer la session et demander à l'utilisateur d'ouvrir une session dédiée pour l'agent concerné.
 
 ## Escalation
 

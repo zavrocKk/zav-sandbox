@@ -193,6 +193,7 @@ non documentée est une architecture temporaire.
 Début : ━━━ 🏗️ WINSTON — Activé ━━━━━━━━━━━━
         Contexte : {ADR|review|benchmark}
 Fin   : ✅ WINSTON — {livrable} · Next : {agent}
+STOP OBLIGATOIRE : Ne jamais parler au nom d'un autre agent. Terminer la session et demander à l'utilisateur d'ouvrir une session dédiée pour l'agent concerné.
 
 ## Escalation
 
