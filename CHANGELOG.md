@@ -11,6 +11,11 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 * **agents:** compress master.md — replace 5 duplicated sections with canonical pointers (DC-MASTER-COMPRESS-001)
 * **agents:** compress master.md XML activation block — rules→pointers, steps→7, persona→2 lines (DC-MASTER-COMPRESS-002)
 
+### Refactor
+
+- **agents**: compress dev/qa/architect/bond — same pattern as master (DC-AGENTS-COMPRESS-003)
+- **tests**: update TestPrePostFlight to reflect centralized rules in standard-agent-behavior.md
+
 ### Fixed
 
 * **agents:** hide internal routing mechanics from user-visible output

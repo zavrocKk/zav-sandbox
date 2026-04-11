@@ -199,20 +199,36 @@ class TestCrossValidation:
 # ============================================================
 
 class TestPrePostFlight:
-    @pytest.mark.parametrize("agent", ["dev", "qa", "architect", "bond"])
-    def test_agent_has_preflight(self, agent):
-        content = read_agent(agent)
-        assert "PRE-FLIGHT" in content, f"{agent}.md doit avoir PRE-FLIGHT"
+    """PRE/POST-FLIGHT rules are centralized in standard-agent-behavior.md.
+    Agents reference shared rules via pointers (copilot-instructions / standard-agent-behavior).
+    """
+
+    SHARED_BEHAVIOR = "_gsane/standard-agent-behavior.md"
+
+    def _read_shared(self):
+        with open(self.SHARED_BEHAVIOR, encoding="utf-8", errors="replace") as f:
+            return f.read()
+
+    def test_shared_behavior_has_preflight(self):
+        content = self._read_shared()
+        assert "PRE-FLIGHT" in content, "standard-agent-behavior.md doit avoir PRE-FLIGHT"
+
+    def test_shared_behavior_has_postflight(self):
+        content = self._read_shared()
+        assert "POST-FLIGHT" in content, "standard-agent-behavior.md doit avoir POST-FLIGHT"
+
+    def test_shared_behavior_has_rouge_condition(self):
+        content = self._read_shared()
+        assert "ROUGE" in content, "standard-agent-behavior.md doit avoir ROUGE"
 
     @pytest.mark.parametrize("agent", ["dev", "qa", "architect", "bond"])
-    def test_agent_has_postflight(self, agent):
+    def test_agent_references_shared_rules(self, agent):
         content = read_agent(agent)
-        assert "POST-FLIGHT" in content, f"{agent}.md doit avoir POST-FLIGHT"
-
-    @pytest.mark.parametrize("agent", ["dev", "qa", "architect", "bond"])
-    def test_agent_preflight_rouge_condition(self, agent):
-        content = read_agent(agent)
-        assert "ROUGE" in content
+        has_ref = (
+            "standard-agent-behavior" in content
+            or "copilot-instructions" in content
+        )
+        assert has_ref, f"{agent}.md doit référencer les règles partagées"
 
 
 # ============================================================
