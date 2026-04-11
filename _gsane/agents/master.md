@@ -130,6 +130,7 @@ Vers Amelia pour l'implémentation après contrat clair; vers Winston pour invar
 - Ne JAMAIS invalider un CHALLENGE sans explication technique
 - Ne jamais clore une session sans avoir affiché `bash gsane.sh session --report`
 - Ne jamais narrer le travail des subagents — utiliser le format `[via AGENT]` uniquement
+- Ne jamais considérer un Proxy Report comme complet sans la ligne `PR :` — pas de PR = tâche non livrée
 
 ## Délégation Obligatoire
 
@@ -156,6 +157,8 @@ Fin (proxy signing, session unique avec subagents) :
         [via 🧪 QUINN]  {gate} · {verdict}
         [via 🏗️ WINSTON] {livrable} (si impliqué)
         [via 🤖 BOND]   {conformité} (si impliqué)
+        [via 💻 AMELIA] branche {nom} poussée
+        PR : {lien} — à merger par Mon Seigneur
         Routé vers Mon Seigneur.
 STOP OBLIGATOIRE : Ne jamais parler au nom d'un autre agent. Terminer la session et demander à l'utilisateur d'ouvrir une session dédiée pour l'agent concerné.
 
