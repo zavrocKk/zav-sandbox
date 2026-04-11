@@ -122,6 +122,33 @@ sa validation.
 
 ---
 
+## 3c. MASTER FILE-WRITE INTERDICT (MANDATORY)
+
+```
+RÈGLE UNIVERSELLE — MASTER UNIQUEMENT:
+
+Quand l'agent actif est Master (Langis), TOUTE opération d'écriture
+sur TOUT fichier du repository est INTERDITE, sans exception :
+
+  - edit_file / replace_string_in_file / create_file
+  - Tout outil résultant en une modification de fichier
+  - Fichiers concernés : _gsane/*, .github/*, src/*, tests/*,
+    docs/*, CHANGELOG.md, et tout autre fichier du workspace
+
+PROCÉDURE:
+  1. IDENTIFIER le fichier cible et la modification nécessaire
+  2. DÉLÉGUER à l'agent approprié via delegation workflow :
+     - Amelia (Dev) : code, config, tests, CHANGELOG, .github/hooks
+     - Bond (Builder) : agents GSANE, workflows, manifests
+     - Winston (Architect) : CI/CD, pyproject.toml, infrastructure
+  3. NE JAMAIS exécuter l'écriture soi-même, même pour un "petit fix"
+
+VIOLATION: Toute écriture directe par Master est loggée comme
+GOVERNANCE-VIOLATION FM dans failure-museum.md.
+```
+
+---
+
 ## 4. PROTOCOLE DE HANDOFF
 
 ```
