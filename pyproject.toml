@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zav-sandbox"
-version = "2.4.0"
+version = "2.5.0"
 description = "GSANE Framework Enhancement Project"
 requires-python = ">=3.11"
 dependencies = [
