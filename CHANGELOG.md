@@ -14,6 +14,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Bug Fixes
 
+- **agents**: add proxy signing format for single-session subagent reporting
 - **agents**: add --report to master Never Do section
 - **governance**: add STOP rule to prevent narrative solo-creep + document session isolation in AGENTS.md (FM-008)
 
