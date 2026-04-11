@@ -4,6 +4,13 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.3.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.2.0...v2.3.0) (2026-04-11)
+
+
+### Features
+
+* **context:** JIT triggers on 14 skills + /compact recommendations ([#70](https://github.com/zavrocKk/zav-sandbox/issues/70)) ([e259f45](https://github.com/zavrocKk/zav-sandbox/commit/e259f45b31ff271c496fb692aaff1ba970e0d41e))
+
 ## [Unreleased]
 
 ### Fixed
