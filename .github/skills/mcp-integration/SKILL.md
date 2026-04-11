@@ -2,6 +2,9 @@
 name: mcp-integration
 description: "Guide d'utilisation des outils MCP GSANE depuis un agent — appels, retry, anti-patterns."
 applyTo: "**"
+trigger: "utiliser MCP en session, appeler gsane_route, checkpoints MCP"
+load: on-demand
+priority: medium
 ---
 
 # MCP Integration — Guide Agent

@@ -2,6 +2,9 @@
 name: gsane-framework
 description: Core knowledge of the GSANE multi-agent framework — architecture, modules, conventions, JIT loading, delegation system, and git workflow.
 applyTo: "**"
+trigger: "architecture GSANE, framework, Strike Team, expliquer GSANE"
+load: on-demand
+priority: medium
 ---
 
 # GSANE Framework Knowledge

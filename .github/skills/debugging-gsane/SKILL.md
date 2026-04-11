@@ -2,6 +2,9 @@
 name: debugging-gsane
 description: "Diagnostiquer les problèmes courants du framework GSANE : boucles, TTL, hallucinations, MCP, sidecars."
 applyTo: "**"
+trigger: "debug, erreur, test rouge, MCP failure, gsane.sh échoue, validate fail"
+load: on-demand
+priority: high
 ---
 
 # Debugging GSANE — Arbre de diagnostic

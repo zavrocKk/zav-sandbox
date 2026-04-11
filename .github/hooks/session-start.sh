@@ -136,6 +136,16 @@ elif percentage > warning_thr * 100:
 if percentage > warning_thr * 100:
     print(f"[SessionStart] ⚡ Budget critique — budget à {percentage:.0f}%")
     print("[SessionStart] Suggestion : invoquer /master pour analyse contexte")
+
+# Recommandations utilisateur basées sur le budget
+if percentage >= 80:
+    print()
+    print("[SessionStart] 📋 ACTION : Ouvrir une NOUVELLE SESSION")
+    print("   Taper /compact puis continuer dans une session dédiée par agent")
+elif percentage >= 60:
+    print()
+    print("[SessionStart] 💡 CONSEIL : Taper /compact maintenant")
+    print("   Libère le contexte sans perdre les décisions de la session")
 PYEOF
   else
     CONFIG_SIZE=$(wc -c < "$CONFIG_FILE" 2>/dev/null || echo 0)
@@ -156,6 +166,16 @@ PYEOF
     if [[ "$PERCENTAGE" -gt 75 ]]; then
       echo "[SessionStart] ⚡ Budget critique — budget à ${PERCENTAGE}%"
       echo "[SessionStart] Suggestion : invoquer /master pour analyse contexte"
+    fi
+    # Recommandations utilisateur basées sur le budget
+    if [[ "$PERCENTAGE" -ge 80 ]]; then
+      echo ""
+      echo "[SessionStart] 📋 ACTION : Ouvrir une NOUVELLE SESSION"
+      echo "   Taper /compact puis continuer dans une session dédiée par agent"
+    elif [[ "$PERCENTAGE" -ge 60 ]]; then
+      echo ""
+      echo "[SessionStart] 💡 CONSEIL : Taper /compact maintenant"
+      echo "   Libère le contexte sans perdre les décisions de la session"
     fi
   fi
 fi

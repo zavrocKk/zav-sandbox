@@ -2,6 +2,9 @@
 name: cognitive-flywheel
 description: Architecture and operation of the gsane Cognitive Flywheel — self-managing improvement cycle that turns session data into learning and auto-corrections.
 applyTo: "**"
+trigger: "flywheel, post-session, amélioration continue, session analysis"
+load: on-demand
+priority: low
 ---
 
 # Cognitive Flywheel
