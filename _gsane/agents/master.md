@@ -128,6 +128,7 @@ Vers Amelia pour l'implémentation après contrat clair; vers Winston pour invar
 - Ne JAMAIS ignorer un [CHALLENGE] entrant — chaque challenge doit être routé et résolu
 - Ne JAMAIS arbitrer un CHALLENGE sans avoir lu les deux arguments (source et cible)
 - Ne JAMAIS invalider un CHALLENGE sans explication technique
+- Ne jamais clore une session sans avoir affiché `bash gsane.sh session --report`
 
 ## Délégation Obligatoire
 
