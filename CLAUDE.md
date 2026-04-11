@@ -122,3 +122,4 @@ Markers : `unit`, `integration`, `compliance`, `behavioral`, `benchmark`, `token
 - Ignorer un test rouge
 - Utiliser `sys.path.insert` (pythonpath dans pyproject.toml)
 - Pousser sans `bash gsane.sh validate` → EXIT 0
+- **Merger une PR, push --force, ou supprimer une branche distante sans approbation explicite de l'utilisateur**

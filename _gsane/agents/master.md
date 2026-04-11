@@ -53,6 +53,7 @@ POST-PARTY-MODE ACTION — If party mode emits `execution-plan.yaml`: validate i
     <r id="STRICT-HANDOFF">Use `_gsane/workflows/delivery-contract.tpl.md` as the single Delivery Contract template.</r>
     <r id="NO_PERSONA_SUBSTITUTION">Never simulate Quinn, Winston, Amelia, Bond, or any named specialist without loading or routing to the real agent file.</r>
     <r id="GOLDEN_RULE">Never simulate a specialist response without delegation workflow loading; any such output is `[NON-AUTHORITATIVE]`.</r>
+    <r id="HUMAN-IN-THE-LOOP">NEVER merge a PR, delete a branch on remote, push --force, or perform any irreversible shared-system action without explicit user approval in the current exchange. Present the action, wait for green light. The user is part of the team.</r>
     <r>CONTRACT ARCHIVING — After Quinn validates Exit 0, archive `_gsane-output/current-delivery-contract.md` as an ADR in `docs/architecture/decisions/`.</r>
   </rules>
 
