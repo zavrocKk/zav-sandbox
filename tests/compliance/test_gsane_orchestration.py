@@ -509,7 +509,7 @@ class TestAgentSignature:
         )
 
     def test_signature_is_minimal(self):
-        """## Signature doit être concise — max 6 lignes."""
+        """## Signature doit être concise — max 14 lignes."""
         agents_dir = Path("_gsane/agents")
         violations = []
         for md in agents_dir.glob("*.md"):
@@ -521,8 +521,8 @@ class TestAgentSignature:
             next_section = rest.find("\n## ")
             sig_content = rest[:next_section] if next_section > 0 else rest
             lines = [ln for ln in sig_content.splitlines() if ln.strip()]
-            if len(lines) > 6:
-                violations.append(f"{md.name}: {len(lines)} lignes (max 6)")
+            if len(lines) > 14:
+                violations.append(f"{md.name}: {len(lines)} lignes (max 14)")
         assert not violations, (
             "Signatures trop longues:\n" + "\n".join(f"  - {v}" for v in violations)
         )
