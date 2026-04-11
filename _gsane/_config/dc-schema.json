@@ -38,6 +38,23 @@
     "validation_agent": {
       "type": "string",
       "description": "Agent qui valide"
+    },
+    "hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ac_id": {"type": "string"},
+          "level": {"type": "string", "enum": ["unit", "integration", "e2e"]},
+          "condition": {"type": "string"},
+          "expected": {"type": "string"},
+          "counter_example": {"type": "string"},
+          "test_name": {"type": "string"},
+          "risk_if_false": {"type": "string"}
+        },
+        "required": ["ac_id", "level", "condition", "expected"]
+      },
+      "description": "Hypothèses testables par AC (optionnel)"
     }
   }
 }

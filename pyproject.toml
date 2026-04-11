@@ -18,24 +18,36 @@ dev = [
     "pytest-cov>=5.0",
     "ruff>=0.4",
     "mypy>=1.10",
-    "bandit>=1.7",
     "pip-audit>=2.7",
+    "types-PyYAML>=6.0",
 ]
 test = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
     "pyyaml>=6.0.1",
+    "bandit>=1.7",
+    "mutmut>=2.4",
 ]
 mcp = []
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = [".", "_gsane/tools", "_gsane/mcp-server"]
+addopts = "--strict-markers"
 markers = [
-    "behavioral: Tests comportementaux (shell execution)",
-    "mcp: Tests d'intégration MCP (smoke tests)",
+    "unit: Test isolé sans dépendance externe (< 10ms, mocké si I/O)",
+    "integration: Test avec vrais composants (MCP, fichiers, YAML, < 500ms)",
+    "e2e: Test workflow complet de bout en bout (peut lancer bash, > 1s)",
+    "compliance: Vérifie la structure des fichiers .md/.yaml GSANE",
+    "behavioral: Tests comportementaux nécessitant bash/WSL",
+    "benchmark: Mesure de performance vs baseline",
     "token_budget: Tests de régression sur le budget tokens des fichiers GSANE",
 ]
+
+[tool.mutmut]
+paths_to_mutate = "src/"
+tests_dir = "tests/unit/"
+runner = "python -m pytest tests/unit/ -x -q"
 
 [tool.ruff]
 target-version = "py311"

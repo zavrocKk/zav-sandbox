@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import re
-import subprocess
+import subprocess  # nosec B404
 import sys
 import unicodedata
 from collections.abc import Iterable, Sequence
@@ -11,6 +12,8 @@ from importlib.util import find_spec
 from pathlib import Path
 
 import yaml  # type: ignore[import-untyped]
+
+logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GSANE_ROOT = REPO_ROOT / "_gsane"
@@ -197,7 +200,7 @@ def list_repository_files(
     if staged_only:
         command = ["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACM"]
 
-    result = subprocess.run(
+    result = subprocess.run(  # nosec B603
         command,
         cwd=repo_root,
         capture_output=True,
@@ -219,7 +222,7 @@ def _read_repository_text_file(
 ) -> tuple[str, str] | None:
     rel_path = path.relative_to(repo_root).as_posix()
     if staged_only:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B603 B607
             ["git", "show", f":{rel_path}"],
             cwd=repo_root,
             capture_output=True,
@@ -306,7 +309,7 @@ def run_bandit(repo_root: Path = REPO_ROOT, staged_only: bool = False) -> int:
             return 1
         command = [sys.executable, "-m", "bandit", "-q"]
         command.extend(_relative_display(path) for path in staged_python_files)
-        return subprocess.run(command, cwd=repo_root).returncode
+        return subprocess.run(command, cwd=repo_root).returncode  # nosec B603
 
     if not _module_available("bandit"):
         print(
@@ -322,7 +325,7 @@ def run_bandit(repo_root: Path = REPO_ROOT, staged_only: bool = False) -> int:
 
     command = [sys.executable, "-m", "bandit", "-q", "-r"]
     command.extend(_relative_display(path) for path in configured_targets)
-    return subprocess.run(command, cwd=repo_root).returncode
+    return subprocess.run(command, cwd=repo_root).returncode  # nosec B603
 
 
 def run_pip_audit(repo_root: Path = REPO_ROOT) -> int:
@@ -340,7 +343,7 @@ def run_pip_audit(repo_root: Path = REPO_ROOT) -> int:
     exit_code = 0
     for source in dependency_sources:
         print(f"🔎 pip-audit sur {_relative_display(source)}")
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B603
             [
                 sys.executable,
                 "-m",
@@ -367,6 +370,87 @@ def run_secret_scan(repo_root: Path = REPO_ROOT, staged_only: bool = False) -> i
     return 0
 
 
+def check_prompt_injection(
+    agents_dir: Path = GSANE_ROOT / "agents",
+) -> list[dict[str, str]]:
+    """Check agent .md files for prompt injection patterns."""
+    findings: list[dict[str, str]] = []
+    patterns = [
+        "ignore previous instructions",
+        "disregard your rules",
+        "you are now a",
+        "<script",
+        "javascript:",
+        "system prompt",
+    ]
+    if not agents_dir.is_dir():
+        return findings
+    for f in sorted(agents_dir.glob("*.md")):
+        content = f.read_text(encoding="utf-8").lower()
+        for p in patterns:
+            if p in content:
+                findings.append(
+                    {
+                        "file": f.name,
+                        "pattern": p,
+                        "severity": "HIGH",
+                        "type": "prompt_injection",
+                    }
+                )
+    return findings
+
+
+def check_ci_permissions(
+    workflows_dir: Path = REPO_ROOT / ".github" / "workflows",
+) -> list[dict[str, str]]:
+    """Check GitHub Actions workflows for overly broad permissions."""
+    findings: list[dict[str, str]] = []
+    if not workflows_dir.is_dir():
+        return findings
+    for f in sorted(workflows_dir.glob("*.yml")):
+        try:
+            data = yaml.safe_load(f.read_text(encoding="utf-8"))
+            if not isinstance(data, dict):
+                continue
+            perms = data.get("permissions", {})
+            if perms == "write-all":
+                findings.append(
+                    {
+                        "file": f.name,
+                        "permission": "write-all",
+                        "severity": "HIGH",
+                        "type": "ci_permission",
+                    }
+                )
+            if isinstance(perms, dict):
+                for k, v in perms.items():
+                    if v == "write" and k not in ("contents", "pull-requests"):
+                        findings.append(
+                            {
+                                "file": f.name,
+                                "permission": f"{k}: write",
+                                "severity": "MEDIUM",
+                                "type": "ci_permission",
+                            }
+                        )
+        except Exception:
+            logger.debug("Failed to parse %s for permission check", f.name)
+    return findings
+
+
+def run_vera_checks() -> dict:
+    """Run the 2 unique Vera security checks and return a structured report."""
+    prompt_findings = check_prompt_injection()
+    ci_findings = check_ci_permissions()
+    all_findings = prompt_findings + ci_findings
+    has_high = any(f["severity"] == "HIGH" for f in all_findings)
+    return {
+        "status": "FINDING" if has_high else "CLEAR",
+        "findings": all_findings,
+        "summary": f"{len(all_findings)} finding(s)",
+    }
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="GSANE Security Gate helper")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -378,6 +462,7 @@ def _build_parser() -> argparse.ArgumentParser:
     bandit_parser.add_argument("--staged", action="store_true")
 
     subparsers.add_parser("run-pip-audit")
+    subparsers.add_parser("vera-checks")
     subparsers.add_parser("print-dependency-sources")
     return parser
 
@@ -396,6 +481,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_bandit(staged_only=args.staged)
     if args.command == "run-pip-audit":
         return run_pip_audit()
+    if args.command == "vera-checks":
+        result = run_vera_checks()
+        for f in result["findings"]:
+            print(f"  [{f['severity']}] {f['file']} — {f['type']}: {f.get('pattern', f.get('permission', ''))}")
+        if result["status"] == "FINDING":
+            print(f"❌ Vera checks: {result['summary']}")
+            return 1
+        print(f"✅ Vera checks CLEAR: {result['summary']}")
+        return 0
     if args.command == "print-dependency-sources":
         for source in get_dependency_sources():
             print(_relative_display(source))

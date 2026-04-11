@@ -5,6 +5,8 @@ import pytest
 
 from src import notes_service as ns
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.fixture(autouse=True)
 def isolated_storage(tmp_path, monkeypatch):

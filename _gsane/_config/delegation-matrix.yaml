@@ -107,6 +107,7 @@ security_gate:
       targets:
         - src
         - _gsane/mcp-server
+        - _gsane/tools
     dependency_audit:
       tool: pip-audit
   reevaluation_thresholds:
@@ -201,6 +202,7 @@ rules:
     priority: 6
     exclude_keywords: []
     description: Create Delivery Contracts, coordinate strike team, manage workflow.
+
   - trigger:
       - "*"
     agent: master

@@ -5,11 +5,14 @@ Périmètre MVP: create / read-one / list-all / update / delete. Hors scope: aut
 """
 
 import json
+import logging
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-STORAGE_FILE = Path("notes.json")
+logger = logging.getLogger(__name__)
+
+STORAGE_FILE = Path(__file__).resolve().parent / "notes.json"
 
 
 # ── I/O ───────────────────────────────────────────────────────────────────────
@@ -50,6 +53,7 @@ def create_note(title: str, content: str) -> dict:
     }
     notes[note_id] = note
     _save(notes)
+    logger.debug("create_note: id=%s title='%s'", note_id, title.strip())
     return note
 
 
@@ -76,6 +80,7 @@ def update_note(note_id: str, title: str | None = None, content: str | None = No
         notes[note_id]["content"] = content
     notes[note_id]["updated_at"] = _now()
     _save(notes)
+    logger.debug("update_note: id=%s", note_id)
     result: dict = notes[note_id]
     return result
 
@@ -87,4 +92,5 @@ def delete_note(note_id: str) -> bool:
         return False
     del notes[note_id]
     _save(notes)
+    logger.debug("delete_note: id=%s", note_id)
     return True

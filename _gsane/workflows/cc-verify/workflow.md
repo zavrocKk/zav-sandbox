@@ -118,13 +118,23 @@ CONDITIONS POUR [CC] FAIL :
 
 ---
 
-## Format de sortie standard
+## ÉTAPE 5 — Vérification des hypothèses documentées
 
 ```
-[CC] {PASS|FAIL|INCOMPLETE} — {task_id} — {date}
-━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ Critères satisfaits : N
-❌ Critères échoués   : N  ← si FAIL
+POUR CHAQUE AC dans le delivery_contract :
+  SI l'AC est complexe (implémentation > 5 lignes de code estimées) :
+    CHECK_HYP : L'AC a-t-elle une hypothèse documentée
+                (dans le DC.hypotheses[] OU en docstring du test) ?
+    
+    SI CHECK_HYP = non → marquer comme HYP_INCOMPLETE (warning, non bloquant)
+    SI CHECK_HYP = oui → HYP_PASSED
+
+Note : Les hypothèses sont encouragées mais non bloquantes pour les premières sessions.
+Un CC peut passer avec des warnings HYP_INCOMPLETE — ils sont loggés dans le rapport.
+```
+
+---
+
 ⚠️  Non testables      : N  ← si INCOMPLETE
 ─
 Quality Gate       : {PASS|FAIL}
@@ -151,30 +161,30 @@ SI [CC] FAIL et GATE_AUTO = FAIL :
 
 ---
 
-## ÉTAPE 5 — Security Gate Vera
+## ÉTAPE 6 — Security Gate automatisée
 
-> Déclenché sur les fichiers modifiés du Delivery Contract après les vérifications CC existantes et avant le PASS final.
+> Exécute les checks de sécurité Vera (prompt injection + CI permissions) via `security_gate.py`, après les vérifications CC existantes et avant le PASS final.
 
 ```
 APRÈS les checks CC existants ET AVANT de prononcer le verdict final :
-  IDENTIFIER les fichiers modifiés couverts par le DC en cours
-  INVOQUER Vera sur ce changeset ciblé
+  EXÉCUTER : bash gsane.sh vera
 
 RÈGLES DE DÉCISION :
-  [VERA] CLEAR
+  EXIT 0 (CLEAR)
     → CC PASS autorisé
 
-  [VERA] FINDING critique
+  EXIT 1 (FINDING HIGH)
     → CC FAIL obligatoire
+    → Quinn émet P2P CHALLENGE → Amelia avec le finding
 
-  [VERA] FINDING mineur
+  FINDING MEDIUM uniquement
     → warning dans le rapport CC
-    → CC PASS conditionnel autorisé si aucun autre blocage n'est présent
+    → CC PASS conditionnel autorisé
 ```
 
 ---
 
-## ÉTAPE 6 — Post-feature documentation
+## ÉTAPE 7 — Post-feature documentation
 
 > Déclenché automatiquement après [CC] PASS. Non bloquant — avertissement uniquement.
 

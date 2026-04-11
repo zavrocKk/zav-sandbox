@@ -66,7 +66,7 @@ if [[ -f "$SESSION_LOG" ]]; then
       fi
     fi
     if echo "$LAST_SESSION_BLOCK" | grep -q 'sage_recommended: true'; then
-      echo "[SessionStart] 💡 Sage recommandé — sessions récentes > 75% budget moyen."
+      echo "[SessionStart] 💡 Budget critique — invoquer /master pour analyse contexte."
     fi
   fi
 fi
@@ -134,8 +134,8 @@ elif percentage > warning_thr * 100:
     print(f"[SessionStart] ⚠️ WARNING: Context budget approaching limit ({percentage:.0f}%)")
 
 if percentage > warning_thr * 100:
-    print(f"[SessionStart] ⚡ Sage activé — budget à {percentage:.0f}%")
-    print("[SessionStart] Suggestion : décharger les agents inactifs")
+    print(f"[SessionStart] ⚡ Budget critique — budget à {percentage:.0f}%")
+    print("[SessionStart] Suggestion : invoquer /master pour analyse contexte")
 PYEOF
   else
     CONFIG_SIZE=$(wc -c < "$CONFIG_FILE" 2>/dev/null || echo 0)
@@ -154,8 +154,8 @@ PYEOF
       echo "[SessionStart] ⚠️ WARNING: Context budget approaching limit (${PERCENTAGE}%)"
     fi
     if [[ "$PERCENTAGE" -gt 75 ]]; then
-      echo "[SessionStart] ⚡ Sage activé — budget à ${PERCENTAGE}%"
-      echo "[SessionStart] Suggestion : décharger les agents inactifs"
+      echo "[SessionStart] ⚡ Budget critique — budget à ${PERCENTAGE}%"
+      echo "[SessionStart] Suggestion : invoquer /master pour analyse contexte"
     fi
   fi
 fi

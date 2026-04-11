@@ -1,12 +1,12 @@
-import sys
 from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / "_gsane" / "tools"))
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
-from security_gate import (  # type: ignore[import-not-found]  # noqa: E402
+pytestmark = pytest.mark.compliance
+
+from security_gate import (  # noqa: E402
     classify_security_request,
     ensure_path_within_roots,
     get_allowed_mcp_roots,

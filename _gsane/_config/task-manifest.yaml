@@ -1,6 +1,6 @@
 # task-manifest.yaml — Tâches réutilisables de la Strike Team
 # Ce fichier liste les tâches appelables comme sous-routines par les agents.
-# DISTINCT de gsane-help.yaml qui liste les workflows UX accessibles à l'utilisateur.
+# DISTINCT du fichier de workflows UX accessibles à l'utilisateur.
 # Les tâches ici ont un fichier .md dans _gsane/tasks/ ou .github/prompts/
 
 # Tasks and tools are now exposed as prompts in .github/prompts/.

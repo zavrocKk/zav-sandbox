@@ -43,22 +43,12 @@
   agent: master
   agent_display: Gsane Master
 
-- name: flywheel-aggregate
-  description: Cognitive Flywheel — Aggregation cycle. Reads the audit log
-    session-analysis-log.md, extracts recurring patterns (>=3 occurrences = confirmed),
-    calculates flywheel-score and trend, writes flywheel-report.md. Triggered
-    automatically by post-session-analysis every N sessions. Silent.
-  path: _gsane/workflows/flywheel/workflow-aggregate.md
-  agent: master
-  co_agent: qa
-  agent_display: Gsane Master + Quinn
-
-- name: flywheel-apply
-  description: Cognitive Flywheel — Application cycle. Reads flywheel-report.md, auto-applies
-    low/medium corrections (max 5 per cycle), escalates high findings to user. Creates
-    fix/flywheel-{date} branch, commits, pushes PR, appends to flywheel-history.md.
-    Called by workflow-aggregate.
-  path: _gsane/workflows/flywheel/workflow-apply.md
+- name: flywheel
+  description: 'Cognitive Flywheel — Boucle d''amélioration continue. Phase 1 agrège
+    les patterns récurrents des sessions (>= 3 = confirmé), calcule flywheel-score. Phase 2
+    auto-applique les corrections low/medium (max 5), escalade les HIGH. Déclenché par
+    post-session-analysis tous les N sessions ou manuellement.'
+  path: _gsane/workflows/flywheel/workflow.md
   agent: master
   co_agent: qa
   agent_display: Gsane Master + Quinn
@@ -86,3 +76,11 @@
   agent: architect
   co_agent: qa
   agent_display: Winston + Quinn
+
+- name: session-resume
+  description: 'Reprise de session interrompue via MCP checkpoint. Détecte si le
+    dernier checkpoint est marqué interrupted: true et propose le contexte de reprise.
+    Activé via bash gsane.sh session --resume.'
+  path: _gsane/workflows/session-resume/workflow.md
+  agent: master
+  agent_display: Gsane Master

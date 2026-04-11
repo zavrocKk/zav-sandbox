@@ -1,6 +1,6 @@
 # zav-sandbox — GSANE Framework
 
-[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-pytest%20%2B%20QA%20gate-brightgreen)](tests/) [![MCP](https://img.shields.io/badge/MCP-12%20outils-purple)](_gsane/mcp-server/README.md) [![Runtime](https://img.shields.io/badge/Runtime-5%20agents%20core%20%2B%202%20subagents-informational)](_gsane/_config/agent-manifest.yaml) [![Licence](https://img.shields.io/badge/Licence-aucune%20licence%20open%20source%20publi%C3%A9e-lightgrey)](#licence-et-usage)
+[![CI](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zavrocKk/zav-sandbox/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/) [![Tests](https://img.shields.io/badge/Tests-pytest%20%2B%20QA%20gate-brightgreen)](tests/) [![MCP](https://img.shields.io/badge/MCP-12%20outils-purple)](_gsane/mcp-server/README.md) [![Runtime](https://img.shields.io/badge/Runtime-5%20agents%20core-informational)](_gsane/_config/agent-manifest.yaml) [![Licence](https://img.shields.io/badge/Licence-aucune%20licence%20open%20source%20publi%C3%A9e-lightgrey)](#licence-et-usage)
 
 `ci.yml` couvre la validation continue de branche. Les contrôles de gouvernance et la quality gate complète restent portés par les workflows et scripts GSANE du dépôt.
 
@@ -42,8 +42,6 @@ graph TD
 | **Quinn (QA)** | `active` | 2.1.1 | Quality gate, validation `gsane.sh validate` |
 | **Winston (Architect)** | `active` | 2.1.1 | Design système, ADR, outillage |
 | **Bond** | `active` | 2.1.1 | Création et validation des agents GSANE |
-| **Vera (Security)** | `subagent` | 1.0.1 | Revue sécurité en lecture seule |
-| **Sage (Context Guardian)** | `subagent` | 1.0.1 | Surveillance du budget contexte |
 
 ## Party Mode : un workflow, pas un agent
 

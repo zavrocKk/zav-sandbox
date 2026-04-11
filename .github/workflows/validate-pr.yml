@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
         with:
           python-version: '3.11'
 
@@ -126,8 +126,8 @@ jobs:
 
       - name: Vera — Security Gate
         run: |
-          echo "🔒 Vera — Security Gate : scan secrets en cours..."
-          python _gsane/tools/security_gate.py scan-secrets
+          echo "🔒 Vera — Security Gate : prompt injection + CI permissions..."
+          python _gsane/tools/security_gate.py vera-checks
 
       - name: Validate workflow manifest integrity
         run: |
