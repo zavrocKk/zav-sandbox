@@ -4,6 +4,12 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+* **agents:** compress master.md — replace 5 duplicated sections with canonical pointers (DC-MASTER-COMPRESS-001)
+
 ## [2.5.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.4.0...v2.5.0) (2026-04-11)
 
 
