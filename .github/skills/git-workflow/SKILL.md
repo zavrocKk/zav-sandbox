@@ -10,6 +10,10 @@ applyTo: "**"
 
 Jamais de commit direct sur `main`. Toujours : branche → commit → push → PR → merge.
 
+**Branche morte** : après le merge d'une PR, la branche est morte. Ne jamais réutiliser une branche dont la PR est mergée. Toujours créer une nouvelle branche depuis `origin/main`.
+
+Vérification avant push : `gh pr list --head $(git branch --show-current) --state open` — si aucune PR ouverte, créer une nouvelle branche.
+
 ## Nommage des branches
 
 | Type | Format | Exemple |
