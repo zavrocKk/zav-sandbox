@@ -1,8 +1,8 @@
-project_name: "zav-sandbox \xE2\u20AC\u201D GSANE Framework Enhancement Project"
+project_name: "zav-sandbox — GSANE Framework Enhancement Project"
 version: "2.1.0"
 user_name: Mon Seigneur
-communication_language: "Fran\xC3\xA7ais"
-document_output_language: "Fran\xC3\xA7ais"
+communication_language: "Français"
+document_output_language: "Français"
 user_skill_level: expert
 user_customizations_path: '{project-root}/_gsane/_config/agents'
 output_folder: '{project-root}/_gsane-output'
@@ -28,7 +28,7 @@ automation:
     low:
       description: Missing CHANGELOG entry, manifest row out of sync, outdated comment
         or description
-      action: "auto-apply silently \xE2\u20AC\u201D no user prompt required"
+      action: "auto-apply silently — no user prompt required"
     medium:
       description: Deprecated path in workflow, agent description mismatch, stale
         memory file, minor rule drift
@@ -36,7 +36,7 @@ automation:
     high:
       description: Rule violation (commit to main, delegation bypass), breaking schema
         change, data loss risk
-      action: "notify user only \xE2\u20AC\u201D do NOT auto-apply under any circumstances"
+      action: "notify user only — do NOT auto-apply under any circumstances"
 flywheel:
   enabled: true
   trigger_every_n_sessions: 5

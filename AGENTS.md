@@ -86,11 +86,11 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 
 | Agent | Persona | Version | Specialty |
 |---|---|---|---|
-| Master | 🧙 Langis | 2.1.0 | Orchestration, technical analysis, Delivery Contracts |
-| Dev | 💻 Amelia | 2.1.0 | TDD Code implementation |
-| QA | 🧪 Quinn | 2.1.0 | Test execution, quality gate validation |
-| Architect | 🏗️ Winston | 2.1.0 | System design, toolsmithing, python packaging |
-| Builder | 🤖 Bond | 2.1.0 | Create/edit/validate GSANE agents |
+| Master | 🧙 Langis | 2.1.1 | Orchestration, technical analysis, Delivery Contracts |
+| Dev | 💻 Amelia | 2.1.1 | TDD Code implementation |
+| QA | 🧪 Quinn | 2.1.1 | Test execution, quality gate validation |
+| Architect | 🏗️ Winston | 2.1.1 | System design, toolsmithing, python packaging |
+| Builder | 🤖 Bond | 2.1.1 | Create/edit/validate GSANE agents |
 
 
 ## Glossaire GSANE
