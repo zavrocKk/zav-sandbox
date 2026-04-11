@@ -4,6 +4,13 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.2.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.1.1...v2.2.0) (2026-04-11)
+
+
+### Features
+
+* **governance:** enforce delegation rules and anti-solo-creep guards for Langis ([#66](https://github.com/zavrocKk/zav-sandbox/issues/66)) ([06224eb](https://github.com/zavrocKk/zav-sandbox/commit/06224eb72ea8a0e67e035f8c4468c02cb713e937))
+
 ## [2.1.1](https://github.com/zavrocKk/zav-sandbox/compare/v2.1.0...v2.1.1) (2026-04-11)
 
 
