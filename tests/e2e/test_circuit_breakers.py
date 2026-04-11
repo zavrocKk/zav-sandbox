@@ -63,7 +63,7 @@ class TestHUPProtocol:
 
     @pytest.mark.behavioral
     def test_hup_rouge_in_agent_files(self):
-        """HUP doit être référencé dans au moins 1 agent (master minimum)."""
+        """HUP doit être référencé dans au moins 1 agent OU dans standard-agent-behavior.md."""
         hup_count = 0
         agents_dir = Path("_gsane/agents")
         for md in agents_dir.glob("*.md"):
@@ -71,8 +71,15 @@ class TestHUPProtocol:
             if "HUP" in content or "hup_rouge" in content or "Honest Uncertainty" in content:
                 hup_count += 1
 
+        # HUP peut être centralisé dans standard-agent-behavior.md
+        shared = Path("_gsane/standard-agent-behavior.md")
+        if shared.exists():
+            shared_content = shared.read_text(encoding="utf-8", errors="replace")
+            if "HUP" in shared_content or "Honest Uncertainty" in shared_content:
+                hup_count += 1
+
         assert hup_count >= 1, (
-            f"HUP référencé dans seulement {hup_count}/5 agents (minimum 1)"
+            f"HUP référencé dans seulement {hup_count} fichier(s) (minimum 1)"
         )
 
 
