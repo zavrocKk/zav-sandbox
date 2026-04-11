@@ -22,6 +22,7 @@
     },
     {
       "event": "PRBodyCheck",
+      "script": ".github/hooks/pr-body-check.sh",
       "description": "Enforced by validate-pr.yml CI workflow. Verifies that every PR submitted via the GitHub compare URL has a non-empty description body. PRs with empty description are blocked from merge."
     },
     {

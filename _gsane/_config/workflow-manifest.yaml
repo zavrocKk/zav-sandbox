@@ -84,3 +84,45 @@
   path: _gsane/workflows/session-resume/workflow.md
   agent: master
   agent_display: Gsane Master
+
+- name: gsane-challenge
+  description: Émettre un CHALLENGE formel contre un artefact ou décision
+  path: .github/prompts/gsane-challenge.prompt.md
+  agent: master
+  agent_display: Gsane Master
+
+- name: gsane-party-mode
+  description: Lancer le vote collectif party-mode sur une décision
+  path: .github/prompts/gsane-party-mode.prompt.md
+  agent: master
+  agent_display: Gsane Master
+
+- name: gsane-session-resume
+  description: Reprendre une session interrompue depuis le dernier checkpoint MCP
+  path: .github/prompts/gsane-session-resume.prompt.md
+  agent: master
+  agent_display: Gsane Master
+
+- name: gsane-hypothesis
+  description: Formuler une hypothèse testable avant d'implémenter un AC
+  path: .github/prompts/gsane-hypothesis.prompt.md
+  agent: dev
+  agent_display: Amelia
+
+- name: gsane-mutation
+  description: Lancer le mutation testing pour valider la solidité des tests
+  path: .github/prompts/gsane-mutation.prompt.md
+  agent: qa
+  agent_display: Quinn
+
+- name: gsane-benchmark
+  description: Mesurer les performances et détecter les régressions
+  path: .github/prompts/gsane-benchmark.prompt.md
+  agent: qa
+  agent_display: Quinn
+
+- name: gsane-delegation-audit
+  description: Auditer l'historique de routing et détecter le solo-creep
+  path: .github/prompts/gsane-delegation-audit.prompt.md
+  agent: master
+  agent_display: Gsane Master

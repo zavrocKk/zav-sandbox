@@ -16,6 +16,8 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **manifest**: Register missing `session-resume` workflow in workflow-manifest.yaml
 
 ### Added
+- **prompts**: 7 nouveaux prompts `/gsane-*` pour mécanismes actifs (challenge, party-mode, session-resume, hypothesis, mutation, benchmark, delegation-audit)
+- **hooks**: Script `pr-body-check.sh` pour PRBodyCheck — vérifie body non-vide, non-template, ≥20 mots
 - **context-optimization**: Triggers JIT sur 14 skills, recommandations /compact dans session-start.sh, section context_optimization dans config.yaml, 4 tests compliance
 - **claude-code**: Structure `.claude/` pour intégration Claude Code — CLAUDE.md, settings.json, 7 commandes, 4 agents, 6 skills migrées
 - **test-pyramid**: Restructuration tests/ en 5 niveaux (unit, integration, compliance, performance, e2e) avec markers pytest strict
