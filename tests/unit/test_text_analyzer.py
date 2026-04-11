@@ -2,6 +2,8 @@ import pytest
 
 from src.text_analyzer import analyze_text
 
+pytestmark = pytest.mark.unit
+
 
 def test_analyze_text_normal():
     # 3 sentences, 8 words

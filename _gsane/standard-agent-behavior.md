@@ -316,6 +316,49 @@ RÈGLES COMMUNES:
 
 ---
 
+## 10. CYCLE ENRICHI GSANE
+
+```
+PHASES DU CYCLE :
+
+THINK     → Analyser la demande, identifier les risques
+PLAN      → Produire le Delivery Contract
+HYPOTHÈSE → Formuler les hypothèses par AC et niveau (unit / integration / e2e)
+ACT       → Écrire le test FIRST (TDD) puis l'implémentation
+VALIDATE  → Unit tests PASS → Integration tests PASS → E2E tests PASS (si applicable)
+BENCHMARK → Mesurer avant/après si changement architecturel
+MUTE-MUTE → Valider que les unit tests détectent les mutations
+CHALLENGE → Automatique si benchmark régresse > 20%, mutation score < 70%, ou hypothèse invalidée sans explication
+
+DÉCLENCHEURS OBLIGATOIRES :
+  - HYPOTHÈSE  : AC complexe (> 5 lignes de code)
+  - BENCHMARK  : avant/après tout changement archi
+  - MUTE-MUTE  : hebdomadaire OU après refactor majeur
+  - CHALLENGE  : automatique sur seuils dépassés
+```
+
+---
+
+## 11. RÈGLE DU BON NIVEAU DE TEST (FIRST)
+
+```
+PRINCIPE FIRST :
+  Fast      → unit si possible (< 10ms)
+  Isolated  → unit si pas de dépendance externe
+  Repeatable → tous niveaux
+  Self-checking → tous niveaux
+  Timely    → écrire avant le code (TDD)
+
+DÉCISION DU NIVEAU :
+  → Fonction pure, pas d'I/O          = @pytest.mark.unit
+  → Lit/écrit fichiers, appelle MCP   = @pytest.mark.integration
+  → Lance bash, session complète      = @pytest.mark.e2e
+  → Vérifie structure .md/.yaml       = @pytest.mark.compliance
+  → Mesure performance                = @pytest.mark.benchmark
+```
+
+---
+
 ## Référence rapide (cheat sheet)
 
 | Règle | Résumé |

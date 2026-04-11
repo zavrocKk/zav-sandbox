@@ -6,7 +6,9 @@ import warnings
 
 import pytest
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+pytestmark = pytest.mark.benchmark
 
 
 def estimate_tokens(text: str) -> int:

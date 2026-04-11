@@ -190,6 +190,25 @@ brief:
 
 ---
 
+## STEP 4b — CHALLENGE ROUTING
+
+**Objectif** : Router les challenges P2P en priorité, hors du flux normal de délégation.
+
+Quand un agent émet `[CHALLENGE]` :
+
+1. Le challenge **bypass le routing normal** (STEP 1-3 ne s'appliquent pas)
+2. Langis le reçoit **en priorité** sur toute tâche en cours
+3. **Validation de forme** : vérifier que source, cible et argument technique sont présents
+   - Si argument vague ou manquant → rejeter : "CHALLENGE invalide — argument insuffisant"
+4. **Notification** : transmettre le challenge complet à l'agent cible
+5. **Délai de réponse** : 1 échange (pas de silence autorisé — l'agent cible DOIT répondre)
+6. **Résolution** :
+   - Consensus → logger et continuer
+   - Pas de consensus → Langis arbitre (décision FINALE)
+7. **Logging obligatoire** : `gsane_emit_event('challenge_resolved', ...)` dans trace.log
+
+---
+
 ## STEP 5 — Exécution & Audit
 
 **Objectif** : Lancer le subagent, récupérer l'output, calculer le trust_score, tracer tout.

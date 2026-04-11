@@ -10,7 +10,9 @@ from pathlib import Path
 import pytest
 import yaml
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+pytestmark = pytest.mark.compliance
 
 
 # ============================================================
@@ -341,10 +343,46 @@ class TestP2PCommunication:
             content = f.read()
         assert "offer" in content.lower()
 
-    def test_p2p_has_challenge_type(self):
+    def test_challenge_format_valid(self):
+        """standard-agent-behavior.md defines challenge with source, target, evidence, rule fields."""
         with open("_gsane/standard-agent-behavior.md", encoding="utf-8") as f:
             content = f.read()
-        assert "challenge" in content.lower()
+        for field in ("from", "to", "evidence_file", "rule_cited", "contradiction"):
+            assert field in content, f"challenge format missing field: {field}"
+
+    def test_master_routes_challenges(self):
+        """master.md contains CHALLENGE ROUTING protocol."""
+        content = read_agent("master")
+        assert "CHALLENGE ROUTING" in content
+
+    def test_amelia_can_challenge_winston(self):
+        """dev.md contains CHALLENGE + Winston."""
+        content = read_agent("dev")
+        assert "CHALLENGE" in content and "Winston" in content
+
+    def test_winston_can_challenge_langis(self):
+        """architect.md contains CHALLENGE + Langis."""
+        content = read_agent("architect")
+        assert "CHALLENGE" in content and "Langis" in content
+
+    def test_cc_verify_security_gate_automated(self):
+        """cc-verify uses gsane.sh vera (automated security gate)."""
+        with open("_gsane/workflows/cc-verify/workflow.md", encoding="utf-8") as f:
+            content = f.read()
+        assert "gsane.sh vera" in content
+
+    def test_partymode_has_challenge_vote(self):
+        """party-mode/workflow.md contains APPROVE | BLOCK | CHALLENGE | ABSTAIN."""
+        with open("_gsane/workflows/party-mode/workflow.md", encoding="utf-8") as f:
+            content = f.read()
+        assert "APPROVE | BLOCK | CHALLENGE | ABSTAIN" in content
+
+    def test_challenge_events_in_emit(self):
+        """compression_tool.py STANDARD_EVENT_TYPES contains challenge events."""
+        with open("_gsane/mcp-server/compression_tool.py", encoding="utf-8") as f:
+            content = f.read()
+        for event in ("challenge_issued", "challenge_resolved", "challenge_overruled", "challenge_accepted"):
+            assert event in content, f"Missing event type: {event}"
 
     def test_p2p_has_delegate_type(self):
         with open("_gsane/standard-agent-behavior.md", encoding="utf-8") as f:

@@ -13,7 +13,7 @@
     {
       "event": "FlywheelTrigger",
       "script": ".github/hooks/flywheel-trigger.sh",
-      "description": "Fired by post-session-analysis Step 6 when session_count % flywheel.trigger_every_n_sessions == 0. Executes workflow-aggregate.md then workflow-apply.md."
+      "description": "Fired by post-session-analysis Step 4 when session_count % flywheel.trigger_every_n_sessions == 0. Executes flywheel workflow.md (unified Phase 1 + Phase 2)."
     },
     {
       "event": "PreCommit",
@@ -50,8 +50,7 @@
     "sessionCountFile": "_gsane/_memory/.session_count",
     "logLevel": "info",
     "postSessionAnalysis": "_gsane/workflows/post-session-analysis/workflow.md",
-    "flywheelAggregate": "_gsane/workflows/flywheel/workflow-aggregate.md",
-    "flywheelApply": "_gsane/workflows/flywheel/workflow-apply.md",
+    "flywheel": "_gsane/workflows/flywheel/workflow.md",
     "scoreboard": "_gsane/_memory/scoreboard.md",
     "deprecatedPaths": [
       "_gsane/core/",

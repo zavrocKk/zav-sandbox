@@ -5,20 +5,19 @@ un serveur MCP (smoke tests fonctionnels).
 """
 # pyright: reportMissingImports=false, reportUnusedImport=false
 
-import sys
 from pathlib import Path
 
 import pytest
 import yaml  # type: ignore[import-untyped]
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "_gsane" / "mcp-server"))
+pytestmark = pytest.mark.integration
 
 
 class TestMcpImports:
     """Vérifie que le module MCP s'importe correctement avec ses vues canoniques et outils."""
 
     def test_module_importable(self):
-        import compression_tool  # type: ignore[import-not-found]  # noqa: F401
+        import compression_tool  # noqa: F401
 
     def test_all_tools_present(self):
         from compression_tool import (
@@ -307,7 +306,7 @@ class TestGsaneMemoryFetch:
         result = gsane_memory_fetch("..\\master", "")
         assert "Accès refusé" in result or "invalide" in result
         trace_content = (
-            Path(__file__).parent.parent / "_gsane" / "_memory" / "trace.log"
+            Path(__file__).parent.parent.parent / "_gsane" / "_memory" / "trace.log"
         ).read_text(encoding="utf-8")
         yaml.safe_load(trace_content)
 
@@ -384,7 +383,7 @@ class TestGsaneEmitEvent:
         from compression_tool import gsane_emit_event
 
         gsane_emit_event("session_milestone", "Langis", {"milestone": "P5-test"}, "P5-C-test")
-        trace_path = Path(__file__).parent.parent / "_gsane" / "_memory" / "trace.log"
+        trace_path = Path(__file__).parent.parent.parent / "_gsane" / "_memory" / "trace.log"
         content = trace_path.read_text(encoding="utf-8")
         assert "session_milestone" in content
         # Verify trace.log is still valid YAML
@@ -416,7 +415,7 @@ class TestCompressionToolHygiene:
 
     def test_compression_tool_has_single_main_block_and_unique_core_functions(self):
         source = (
-            Path(__file__).parent.parent / "_gsane" / "mcp-server" / "compression_tool.py"
+            Path(__file__).parent.parent.parent / "_gsane" / "mcp-server" / "compression_tool.py"
         ).read_text(encoding="utf-8")
         assert source.count('if __name__ == "__main__":') == 1
         assert source.count("def gsane_write_session_checkpoint(") == 1
@@ -432,7 +431,7 @@ class TestMcpConfigAlignment:
     def test_mcp_config_points_to_compression_tool(self):
         import json
 
-        repo_root = Path(__file__).resolve().parents[1]
+        repo_root = Path(__file__).resolve().parents[2]
         config_candidates = [
             repo_root / "github-copilot.mcp.json",
             repo_root / ".vscode" / "mcp.json",
@@ -459,7 +458,7 @@ class TestMcpConfigAlignment:
             )
 
     def test_delegation_matrix_has_correct_schema(self):
-        matrix_path = Path(__file__).parent.parent / "_gsane" / "_config" / "delegation-matrix.yaml"
+        matrix_path = Path(__file__).parent.parent.parent / "_gsane" / "_config" / "delegation-matrix.yaml"
         with open(matrix_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
 

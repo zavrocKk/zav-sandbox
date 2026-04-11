@@ -59,7 +59,7 @@ RETENIR : agents avec total >= 3, max 3 participants
 2. Appeler runSubagent(agent, HUDDLE_BRIEF) pour chaque agent sélectionné — EN PARALLÈLE
 
 3. Chaque agent retourne :
-   position:   APPROVE | BLOCK | ABSTAIN
+   position:   APPROVE | BLOCK | CHALLENGE | ABSTAIN
    rationale:  justification en 1-3 phrases
    suggestion: correction recommandée (si BLOCK)
 ```
@@ -85,6 +85,14 @@ CAS SPÉCIAL — 1 seul voter actif :
   Le voter unique ne peut pas former de majorité à lui seul.
   -> escalation automatique vers l'orchestrateur qui statue directement
   -> l'orchestrateur documente sa décision dans le party-mode-audit.md
+
+CHALLENGE VOTE — protocole :
+  → Un CHALLENGE n'est pas un BLOCK — il ne stoppe pas le vote
+  → L'agent challengeur demande une justification à l'agent proposant
+  → L'agent proposant a 1 round de justification
+  → Si la justification convainc → CHALLENGE voters deviennent APPROVE
+  → Si la justification ne convainc pas → CHALLENGE voters deviennent BLOCK
+  → Format : [CHALLENGE] {agent} — {argument en 1 phrase}
 ```
 
 ---
@@ -121,6 +129,16 @@ Quel que soit le résultat, **appender** dans `_gsane-output/party-mode-audit.md
 ```
 
 > Si CONFLIT : escalader à Master avec ce même bloc + "Décision requise de l'utilisateur."
+
+### 1.7 Artefacts exclus du vote Party Mode
+
+Les éléments suivants ne sont PAS des artefacts GSANE et ne déclenchent PAS de vote party-mode :
+
+- **Hypothèses DC** : propriété d'Amelia, artefact du Delivery Contract. Formulées librement sans consensus collectif.
+- **Résultats benchmark** : métriques de performance, propriété de Quinn. Informent les agents mais ne requièrent pas de vote.
+- **Scores mutation** : métriques de qualité de tests, propriété de Quinn. Pas des décisions architecturales.
+
+Ces éléments informent les agents mais restent dans le périmètre de leur propriétaire. Un agent peut émettre un [CHALLENGE] individuel sur ces éléments sans déclencher un huddle complet.
 
 ---
 

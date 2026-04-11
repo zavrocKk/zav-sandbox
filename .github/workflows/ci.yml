@@ -7,43 +7,82 @@ on:
     branches: [main]
 
 jobs:
-  gsane-quality-gate:
+  lint:
+    name: Lint & Type Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
         with:
           python-version: "3.11"
-
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install -e ".[mcp,test]"
           pip install ruff mypy
-
       - name: Ruff lint
         run: ruff check .
-
       - name: Mypy type check
         run: mypy _gsane/mcp-server/
+      - name: Bandit SAST scan
+        run: bandit -r src/ _gsane/mcp-server/ _gsane/tools/ -ll
 
-      - name: Run tests with coverage
-        env:
-          PYTHONPATH: "."
-        run: |
-          pytest tests/ -m "not behavioral" \
-            --cov=src \
-            --cov-report=xml \
-            --cov-report=term-missing \
-            --cov-fail-under=50
+  unit-tests:
+    name: Unit Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[mcp,test]"
+      - name: Run unit tests
+        run: pytest tests/unit/ -m unit -v --cov=src --cov-report=term-missing --cov-fail-under=50
 
+  integration-tests:
+    name: Integration Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[mcp,test]"
+      - name: Run integration tests
+        run: pytest tests/integration/ -m integration -v
       - name: MCP health check
         run: bash gsane.sh mcp --health
 
+  compliance-tests:
+    name: Compliance Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[mcp,test]"
+      - name: Run compliance tests
+        run: pytest tests/compliance/ -m "compliance or behavioral" -v
       - name: Upload coverage
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: coverage-report
           path: coverage.xml
+
+  performance-tests:
+    name: Performance Tests
+    needs: [unit-tests, integration-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[mcp,test]"
+      - name: Run performance tests
+        run: pytest tests/performance/ -m "benchmark or token_budget" -v

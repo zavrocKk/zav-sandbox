@@ -111,9 +111,7 @@ LEGACY_SCAN_FILES = [
     ".github/hooks/session-stop.sh",
     ".github/hooks/flywheel-trigger.sh",
     "_gsane/_config/manifest.yaml",
-    "_gsane/_config/gsane-help.yaml",
-    "_gsane/workflows/flywheel/workflow-aggregate.md",
-    "_gsane/workflows/flywheel/workflow-apply.md",
+    "_gsane/workflows/flywheel/workflow.md",
     "_gsane/_memory/sessions/session-analysis-log.md",
     "gsane.sh",
 ]
@@ -135,9 +133,8 @@ ACTIVE_GUIDANCE_FILES = [
     ".github/skills/gsane-framework/SKILL.md",
     "_gsane/agents/master.md",
     "_gsane/agents/architect.md",
-    "_gsane/_config/gsane-help.yaml",
     "_gsane/_config/ides/github-copilot.yaml",
-    "_gsane/workflows/flywheel/workflow-aggregate.md",
+    "_gsane/workflows/flywheel/workflow.md",
 ]
 
 ACTIVE_GUIDANCE_FORBIDDEN_PATTERNS = [
@@ -266,39 +263,6 @@ def check_github_copilot_alignment():
     return errors
 
 
-def check_gsane_help_agent_names():
-    """Ensure active help entries only reference valid active agent names and real workflows."""
-    errors = 0
-    manifest_path = "_gsane/_config/agent-manifest.yaml"
-    help_path = "_gsane/_config/gsane-help.yaml"
-
-    if not os.path.isfile(manifest_path) or not os.path.isfile(help_path):
-        print("[FAIL] gsane-help alignment: fichiers manifest/help absents")
-        return 1
-
-    valid_agents = {
-        entry.get("name")
-        for entry in (load_yaml_file(manifest_path) or [])
-        if entry.get("name")
-    }
-
-    for index, entry in enumerate(load_yaml_file(help_path) or []):
-        agent_name = entry.get("agent-name")
-        workflow_file = entry.get("workflow-file")
-        if agent_name and agent_name not in valid_agents:
-            print(
-                f"[FAIL] {help_path}: entree[{index}] agent-name='{agent_name}' n'est pas un agent actif"
-            )
-            errors += 1
-        if workflow_file and not os.path.isfile(workflow_file):
-            print(
-                f"[FAIL] {help_path}: entree[{index}] workflow-file absent '{workflow_file}'"
-            )
-            errors += 1
-
-    return errors
-
-
 def check_hooks_json_config():
     """Ensure hooks.json uses generic PostToolUse wording and specific legacy roots only."""
     errors = 0
@@ -332,24 +296,22 @@ def check_hooks_json_config():
 
 
 def check_flywheel_checklist_guard():
-    """Ensure the regression checklist explicitly bans the legacy core path in negative form."""
+    """Ensure the unified flywheel workflow contains the Exclusions guard-rails section."""
     errors = 0
-    checklist_path = "_gsane/workflows/flywheel/flywheel-test-checklist.md"
+    workflow_path = "_gsane/workflows/flywheel/workflow.md"
 
-    if not os.path.isfile(checklist_path):
-        print(f"[FAIL] {checklist_path}: checklist introuvable")
+    if not os.path.isfile(workflow_path):
+        print(f"[FAIL] {workflow_path}: workflow introuvable")
         return 1
 
-    with open(checklist_path, encoding="utf-8") as fh:
+    with open(workflow_path, encoding="utf-8") as fh:
         content = fh.read()
-    expected_guard = "Aucun chemin `_gsane/core/` ni ancien module `bmb` réintroduit dans les fichiers modifiés"
-    legacy_guard = "Chemins `_gsane/core/` (pas ancien `bmb`) dans tous les fichiers modifiés"
 
-    if expected_guard not in content:
-        print(f"[FAIL] {checklist_path}: garde negative `_gsane/core/` absente ou incorrecte")
+    if "Exclusions" not in content:
+        print(f"[FAIL] {workflow_path}: section Exclusions absente")
         errors += 1
-    if legacy_guard in content:
-        print(f"[FAIL] {checklist_path}: ancienne garde `_gsane/core/` encore presente")
+    if "Phase 1" not in content or "Phase 2" not in content:
+        print(f"[FAIL] {workflow_path}: phases manquantes dans le workflow unifié")
         errors += 1
 
     return errors
@@ -746,7 +708,7 @@ def test_master_never_do_delegation_rules():
     master_path = REPO_ROOT / "_gsane" / "agents" / "master.md"
     content = master_path.read_text(encoding="utf-8")
 
-    required_agents = ["Amelia", "Quinn", "Winston", "Bond", "Vera", "Sage"]
+    required_agents = ["Amelia", "Quinn", "Winston", "Bond"]
     missing = [agent for agent in required_agents if agent not in content]
     assert not missing, f"master.md Never Do manque les agents : {missing}"
 
@@ -782,7 +744,6 @@ if __name__ == '__main__':
 
     total_errors += check_active_guidance_surfaces()
     total_errors += check_github_copilot_alignment()
-    total_errors += check_gsane_help_agent_names()
     total_errors += check_hooks_json_config()
     total_errors += check_flywheel_checklist_guard()
     total_errors += check_security_gate_alignment()

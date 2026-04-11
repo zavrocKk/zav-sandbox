@@ -12,12 +12,12 @@
 ## Agent Contributions
 
 ### {agent_1} ({icon})
-- Position: {APPROVE|BLOCK|ABSTAIN}
+- Position: {APPROVE|BLOCK|CHALLENGE|ABSTAIN}
 - Score: {score}/100
 - Key argument: {argument}
 
 ### {agent_2} ({icon})
-- Position: {APPROVE|BLOCK|ABSTAIN}
+- Position: {APPROVE|BLOCK|CHALLENGE|ABSTAIN}
 - Score: {score}/100
 - Key argument: {argument}
 
@@ -27,5 +27,5 @@
 - **Impact assessment:** {LOW|MEDIUM|HIGH}
 
 ## Raw Consensus
-- APPROVE: {n} | BLOCK: {n} | ABSTAIN: {n}
+- APPROVE: {n} | BLOCK: {n} | CHALLENGE: {n} | ABSTAIN: {n}
 - Consensus rate: {%}

@@ -124,7 +124,6 @@ unSubagent to coordinate. "Don't ask to deliberate, coordinate the deliberation 
 Type /gsane- in Copilot Chat to see all available commands. Key ones:
 
 - /master — Activate Langis orchestrator
-- /gsane-help — Get advice on what to do next
 - /gsane-git-workflow — Follow mandatory git workflow
 - /gsane-cc-verify — Run Completion Contract before closing a task
 - /gsane-smart-router — Intelligent routing to the right workflow

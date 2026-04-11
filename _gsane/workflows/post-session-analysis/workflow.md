@@ -50,13 +50,23 @@ Append the following block to `_gsane/_memory/sessions/session-analysis-log.md`:
 
 Important: `session-analysis-log.md` is an audit trail for PSA and flywheel. It is not a source of truth for the present state of the project.
 
-## STEP 3b — Recommandation Sage sur tendance budget
+## STEP 3b — Recommandation budget sur tendance
 
 1. Lire les 3 dernières sessions disponibles dans `_gsane/_memory/sessions/session-analysis-log.md`
 2. Calculer la moyenne de `budget_consumed_end`
 3. Comparer cette moyenne au seuil warning du budget (`context_budget.warning_threshold`, soit 75% par défaut)
 4. Si la moyenne des 3 dernières sessions est > 75% du budget, écrire `sage_recommended: true` dans la nouvelle entrée
 5. Sinon, conserver `sage_recommended: false`
+
+## STEP 3b-bis — Filtres d'événements exclus
+
+Les event_types suivants ne sont PAS analysés comme patterns d'optimisation token et sont exclus de toute recommandation d'auto-correction :
+- `benchmark_result`
+- `benchmark_regression`
+- `mutation_score`
+- `mutation_survivor`
+
+Ces events sont des métriques de qualité (propriété Quinn). Ils ne signalent pas de gaspillage token ni d'inefficience à optimiser. Le flywheel et le post-session NE DOIVENT PAS recommander de les réduire ou de les éliminer.
 
 ## STEP 3c — Détection solo-creep
 
@@ -76,7 +86,7 @@ SOLO-CREEP est détecté (sévérité **HIGH** systématique) si AU MOINS UN de 
 
 1. Count total `## Session:` headers in `_gsane/_memory/sessions/session-analysis-log.md`
 2. Read `flywheel.trigger_every_n_sessions` from `_gsane/config.yaml` (default: 5)
-3. If `session_count % trigger_every_n_sessions == 0` → trigger flywheel aggregate workflow (`_gsane/workflows/flywheel/workflow-aggregate.md`)
+3. If `session_count % trigger_every_n_sessions == 0` → trigger flywheel workflow (`_gsane/workflows/flywheel/workflow.md`)
 4. Otherwise → skip flywheel
 
 ## STEP 5 — Output status line

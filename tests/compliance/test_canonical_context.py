@@ -1,8 +1,11 @@
 from pathlib import Path
 
+import pytest
 import yaml  # type: ignore[import-untyped]
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+pytestmark = pytest.mark.compliance
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def read_text(rel_path: str) -> str:

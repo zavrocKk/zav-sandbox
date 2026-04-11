@@ -1,4 +1,7 @@
+import logging
 import re
+
+logger = logging.getLogger(__name__)
 
 
 def analyze_text(text: str) -> dict:
@@ -18,4 +21,6 @@ def analyze_text(text: str) -> dict:
 
     readability_ratio = word_count / sentence_count if sentence_count > 0 else 0.0
 
-    return {"word_count": word_count, "sentence_count": sentence_count, "readability_ratio": readability_ratio}
+    result = {"word_count": word_count, "sentence_count": sentence_count, "readability_ratio": readability_ratio}
+    logger.debug("analyze_text: %s", result)
+    return result

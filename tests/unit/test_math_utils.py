@@ -3,6 +3,8 @@ import pytest
 
 from src.math_utils import add, safe_divide
 
+pytestmark = pytest.mark.unit
+
 
 class TestAdd:
     def test_integers(self):

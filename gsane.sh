@@ -96,6 +96,9 @@ if [ -z "$ACTION" ]; then
     echo "  mcp --health     : Vérifie les prérequis MCP (dépendances, imports, schéma)"
     echo "  mcp --smoke-test : Vérifie que tous les outils MCP fonctionnent end-to-end"
     echo "  session --resume : Reprend une session interrompue via le dernier checkpoint"
+    echo "  mutation         : Lance le mutation testing (mutmut) sur src/ avec tests/unit/"
+    echo "  benchmark        : Lance les benchmarks de performance MCP + YAML"
+    echo "  vera         : Security checks Vera (prompt injection + CI permissions)"
     exit 1
 fi
 
@@ -105,7 +108,7 @@ case $ACTION in
         echo "----------------------------------------"
 
         # Détection Windows sans WSL natif
-        if [ "$(uname -s 2>/dev/null)" = "MINGW64_NT"* ] || [ "$(uname -s 2>/dev/null)" = "MSYS_NT"* ] || [ -n "${MSYSTEM:-}" ]; then
+        if [[ "$(uname -s 2>/dev/null)" == MINGW64_NT* ]] || [[ "$(uname -s 2>/dev/null)" == MSYS_NT* ]] || [ -n "${MSYSTEM:-}" ]; then
             echo "⚠️  Environnement Windows détecté (Git Bash / MSYS2)."
             echo "   gsane.sh fonctionne partiellement sous Git Bash."
             echo "   Pour un environnement aligné avec le CI : wsl --install -d Ubuntu"
@@ -162,7 +165,7 @@ case $ACTION in
                 echo "❌ Bandit Failed : vulnérabilités ou configuration outillage à corriger."
                 exit 1
             else
-                echo "⚠️  Bandit non installé — skip local. CI Ubuntu valide cette gate."
+                echo "⚠️  Bandit non installé — pip install -e '.[test]' pour validation locale."
             fi
         fi
 
@@ -172,7 +175,7 @@ case $ACTION in
                 echo "❌ pip-audit Failed : dépendances vulnérables ou audit non exécutable."
                 exit 1
             else
-                echo "⚠️  pip-audit non installé — skip local. CI Ubuntu valide cette gate."
+                echo "⚠️  pip-audit non installé — pip install -e '.[test]' pour validation locale."
             fi
         fi
 
@@ -540,6 +543,47 @@ else:
                 exit 1
                 ;;
         esac
+        ;;
+    mutation|mute-mute)
+        echo "🧬 GSANE Mutation Testing (Mute-Mute)"
+        echo "Scope : src/"
+        echo "Tests : tests/unit/ uniquement"
+        echo "---"
+        if ! run_python -c "import mutmut" 2>/dev/null; then
+            echo "⚠️  mutmut non installé — pip install -e '.[test]'"
+            exit 0
+        fi
+        run_python -m mutmut run 2>&1 | tee _gsane-output/mutation-run.log
+        echo "---"
+        run_python -m mutmut results
+        echo "✅ Mutation testing complet — voir _gsane-output/mutation-run.log"
+        ;;
+    benchmark)
+        echo "⚡ GSANE Benchmark Suite"
+        echo "Scope : MCP tools + YAML manifests"
+        echo "---"
+        run_python -m pytest tests/performance/ -m benchmark -v --tb=short 2>&1 | tee _gsane-output/benchmark-report.txt
+        EXIT=$?
+        echo "---"
+        if [ $EXIT -ne 0 ]; then
+            echo "❌ Régression de performance détectée"
+            exit 1
+        fi
+        echo "✅ Benchmarks PASS — baseline respectée"
+        ;;
+    vera)
+        echo "🔒 GSANE Vera Security Checks"
+        echo "Scope : agents .md (prompt injection) + workflows .yml (CI permissions)"
+        echo "---"
+        if run_python _gsane/tools/security_gate.py vera-checks; then
+            echo "---"
+            echo "✅ Vera Security Checks PASS"
+        else
+            EXIT_CODE=$?
+            echo "---"
+            echo "❌ Vera Security Finding — voir rapport ci-dessus"
+            exit $EXIT_CODE
+        fi
         ;;
     *)
         echo "❌ Commande '$ACTION' non reconnue."

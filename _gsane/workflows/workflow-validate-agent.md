@@ -15,7 +15,6 @@ version: 1.0
 - `_gsane/agents/*.md`
 - `_gsane/_config/agent-manifest.yaml`
 - `_gsane/_config/ides/*.yaml` si l'exposition IDE change
-- `_gsane/_config/gsane-help.yaml` si un routage/help agent change
 
 ---
 

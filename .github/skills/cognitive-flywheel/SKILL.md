@@ -17,12 +17,12 @@ flowchart TD
     LOG --> CNT{session_count % N == 0?}
     CNT -->|NO| SKIP[Skip flywheel\nnote next trigger]
     SKIP --> END([Done])
-    CNT -->|YES| AGG[workflow-aggregate.md]
+    CNT -->|YES| AGG[Phase 1 — Agrégation]
     AGG --> PAT{Pattern count?}
     PAT -->|≥3| CONF[CONFIRMED → correction]
     PAT -->|2| WATCH[WATCH → next cycle]
     PAT -->|1| NOISE[NOISE → log only]
-    CONF --> APP[workflow-apply.md]
+    CONF --> APP[Phase 2 — Application]
     APP --> SEV{Severity?}
     SEV -->|low| AUTO1[auto-apply silently]
     SEV -->|medium| AUTO2[auto-apply + log]
@@ -70,8 +70,7 @@ flywheel:
 | File | Purpose |
 |---|---|
 | `_gsane/workflows/post-session-analysis/workflow.md` | Session hook — runs after every session |
-| `_gsane/workflows/flywheel/workflow-aggregate.md` | Aggregation — extracts patterns, calculates score |
-| `_gsane/workflows/flywheel/workflow-apply.md` | Application — applies corrections, creates branch + PR |
+| `_gsane/workflows/flywheel/workflow.md` | Unified flywheel — Phase 0 trigger, Phase 1 aggregation, Phase 2 application, Exclusions guard-rails |
 
 ## Universal Activation
 

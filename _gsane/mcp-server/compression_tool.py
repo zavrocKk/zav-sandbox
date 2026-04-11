@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 from datetime import datetime
@@ -6,6 +7,8 @@ from typing import cast
 
 import yaml  # type: ignore[import-untyped]
 from mcp.server.fastmcp import FastMCP
+
+logger = logging.getLogger(__name__)
 
 _GSANE_DIR = Path(__file__).resolve().parents[1]
 MEMORY_DIR = _GSANE_DIR / "_memory"
@@ -697,6 +700,10 @@ STANDARD_EVENT_TYPES = (
     "qa_gate_failed",
     "handoff_initiated",
     "session_milestone",
+    "challenge_issued",
+    "challenge_resolved",
+    "challenge_overruled",
+    "challenge_accepted",
 )
 
 

@@ -48,6 +48,9 @@ flywheel:
   - prompts: .github/prompts/**
   - workflows: _gsane/**/workflows/**/workflow.md
   - manifests: _gsane/_config/*.yaml
+  excluded_patterns:
+    - "mutation_score"
+    - "benchmark_regression"
 
 context_budget:
   max_tokens_per_session: 8000
@@ -57,3 +60,24 @@ context_budget:
   agents_budget: 2000
   workflows_budget: 1000
   reserve: 3500
+
+mutation_testing:
+  enabled: true
+  min_score: 0.70
+  paths:
+    - "src/"
+  test_scope: "tests/unit/"
+  run_on: "manual"
+  last_score: null
+  last_run: null
+benchmarks:
+  enabled: true
+  owner: quinn
+  regression_threshold: 1.20
+  baselines:
+    gsane_route_ms: 100
+    gsane_fetch_memory_ms: 200
+    yaml_parse_ms: 50
+    checkpoint_read_ms: 100
+    validate_pipeline_s: 30
+  last_run: null

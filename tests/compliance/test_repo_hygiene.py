@@ -1,10 +1,11 @@
 """Garde-fous de sécurité/hygiène sur les fichiers textuels suivis par Git."""
 
-import sys
+import pytest
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / "_gsane" / "tools"))
+pytestmark = pytest.mark.compliance
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from security_gate import (  # noqa: E402  # type: ignore[import-not-found]
     scan_repo_for_local_paths,
