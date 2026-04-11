@@ -4,7 +4,6 @@ import textwrap
 from pathlib import Path
 
 import pytest
-
 from security_gate import check_ci_permissions, check_prompt_injection, run_vera_checks
 
 pytestmark = pytest.mark.unit

@@ -1,15 +1,14 @@
 """Benchmarks GSANE — mesure les performances des composants critiques."""
 
-import time
 import glob
+import time
 
 import pytest
 import yaml
-
 from compression_tool import (
-    gsane_route,
     gsane_fetch_compressed_memory,
     gsane_read_checkpoint,
+    gsane_route,
 )
 
 pytestmark = pytest.mark.benchmark

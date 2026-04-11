@@ -1,7 +1,8 @@
 """Garde-fous de sécurité/hygiène sur les fichiers textuels suivis par Git."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 pytestmark = pytest.mark.compliance
 
