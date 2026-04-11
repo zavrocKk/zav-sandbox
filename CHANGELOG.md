@@ -10,6 +10,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **hooks**: document NotifyUser as covered by CHALLENGE + HUP protocol
 - **governance**: renforce Solo Trip Wire + HANDS-OFF pour interdire tout file-write par Master (FM-008)
+- **contributing**: clarify branch naming convention — describe problem not mechanism
 
 ### Bug Fixes
 

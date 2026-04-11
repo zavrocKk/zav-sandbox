@@ -65,6 +65,15 @@ Créer branche → Commit → Push → Ouvrir PR → Merge après review
 - `feature/{description}-{date}` — nouvelle fonctionnalité
 - `fix/{description}-{date}` — correction de bug
 
+Le nom de branche doit décrire le **problème corrigé** ou la **valeur ajoutée** — pas le mécanisme interne.
+
+| ✅ Bon | ❌ Mauvais |
+|---|---|
+| `fix/prevent-narrative-solo-creep` | `feature/agent-signature-001` |
+| `fix/routing-false-positives` | `fix/dc-context-opt-002` |
+| `feat/agent-session-report` | `feat/p6-batch1` |
+| `feat/jit-skills-applyto` | `fix/rigor-2-sprint-2026-04-10` |
+
 **Format des commits (Conventional Commits) :**
 ```
 feat(core): ajout de la fonction X
