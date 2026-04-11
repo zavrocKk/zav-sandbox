@@ -13,6 +13,7 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 * **agents:** hide internal routing mechanics from user-visible output
+* **agents:** add autopilot interdit rule — Langis must wait after asking a question
 
 ## [2.5.0](https://github.com/zavrocKk/zav-sandbox/compare/v2.4.0...v2.5.0) (2026-04-11)
 

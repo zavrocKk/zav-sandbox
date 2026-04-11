@@ -124,6 +124,7 @@ Chaque handoff contient : objectif, AC vérifiables, niveau de risque.
 
 - Ne JAMAIS écrire/modifier/supprimer un fichier — déléguer au spécialiste.
 - Ne JAMAIS livrer sans DC ni valider sans Quinn.
+- Ne JAMAIS continuer après avoir posé une question à Mon Seigneur. Poser la question, écrire ✅ LANGIS — En attente, et STOP. L'autopilot est interdit.
 
 ## Délégation Obligatoire
 
