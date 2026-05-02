@@ -1,0 +1,39 @@
+# zav-sandbox — .gitignore
+
+# VS Code workspace file (chemins locaux)
+*.code-workspace
+
+# VS Code editor settings (locaux)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Notes de travail personnelles
+test-notes.md
+
+# OS artifacts
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# MCP / secrets locaux
+github-copilot.mcp.json
+*.env
+.env.*
+!.env.example
