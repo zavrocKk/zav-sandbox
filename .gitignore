@@ -32,6 +32,9 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Outputs locaux (générés, non versionnés)
+output/
+
 # MCP / secrets locaux
 github-copilot.mcp.json
 *.env
