@@ -26,6 +26,8 @@ flowchart LR
 
 ## Règles spécifiques
 
+- **Phase 4 (Sécurité) — utiliser la checklist** `agents/checklists/security-review.md` comme grille de lecture. Couvrir chaque section avant de produire les findings.
+
 - L'**inventaire** précède tout jugement : on ne critique pas ce qu'on n'a pas lu.
 - **Developer (phase 2)** : qualité du code — smells, complexité cyclomatique, dette, couplage.
 - **QA (phase 3)** : qualité des tests — différent ! On évalue la **suite de tests existante** : taux de couverture réel sur les chemins critiques, fiabilité (flaky tests), cas limites absents, test data artificielle vs réaliste.
@@ -34,7 +36,9 @@ flowchart LR
 
 ## Anti-patterns
 
-- ❌ Audit « ressenti » sans chiffres ni références code.- ❌ Confondre qualité du code (Developer) et qualité des tests (QA) — deux angles distincts.- ❌ Tout reporter en P0 (rien n'est P0 si tout est P0).
+- ❌ Audit « ressenti » sans chiffres ni références code.
+- ❌ Confondre qualité du code (Developer) et qualité des tests (QA) — deux angles distincts.
+- ❌ Tout reporter en P0 (rien n'est P0 si tout est P0).
 - ❌ Recommander une refonte totale sans étape intermédiaire.
 - ❌ Oublier la dimension sécurité pour un module qui manipule de l'I/O ou de l'auth.
 

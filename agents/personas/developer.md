@@ -67,3 +67,11 @@ Développeur senior polyvalent. Tu lis le code avant de l'écrire. Tu écris des
 - ❌ Refactor opportuniste mélangé à un bugfix.
 - ❌ « Ça devrait marcher » sans test.
 - ❌ Commentaires qui paraphrasent le code.
+
+## 📋 Checklists à consulter
+
+Tu DOIS consulter ces checklists dans les situations appropriées :
+
+| Situation | Checklist à parcourir |
+|---|---|
+| Avant un déploiement en production | [pre-deploy.md](../checklists/pre-deploy.md) |

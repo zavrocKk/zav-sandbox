@@ -82,3 +82,11 @@ describe('<module>', () => {
 - ❌ Test data hardcodées en prod.
 - ❌ « Les tests seront écrits après le MVP ».
 - ❌ Ignorer les tests de régression post-incident.
+
+## 📋 Checklists à consulter
+
+Tu DOIS consulter ces checklists dans les situations appropriées :
+
+| Situation | Checklist à parcourir |
+|---|---|
+| Avant un déploiement en production | [pre-deploy.md](../checklists/pre-deploy.md) |
