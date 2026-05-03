@@ -1,0 +1,14 @@
+#!/bin/sh
+# Prevent direct pushes to main — always work on a branch and open a PR.
+protected_branch='main'
+current_branch=$(git symbolic-ref HEAD | sed 's|refs/heads/||')
+
+if [ "$current_branch" = "$protected_branch" ]; then
+  echo ""
+  echo "  [pre-push] Direct push to '$protected_branch' is blocked."
+  echo "  Create a branch: git checkout -b feat/<your-feature>"
+  echo "  Then open a PR."
+  echo ""
+  exit 1
+fi
+exit 0
