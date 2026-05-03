@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.1](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.0...v0.1.1) (2026-05-03)
+
+
+### Documentation
+
+* Phase 5.3 — corrections ADR-0002 (Agentic Team Framework) ([#101](https://github.com/zavrocKk/zav-sandbox/issues/101)) ([0a3aa73](https://github.com/zavrocKk/zav-sandbox/commit/0a3aa73ab6c4df29686fa9b2f9385bc80fcb78f9))
+
 ## [2026-05-02] - Référencer incident-triage dans incident-response
 
 ### Changed
