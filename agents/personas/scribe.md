@@ -72,3 +72,47 @@ Aucun. Le Scribe **ferme** le cycle.
 - ❌ Ton accusatoire (« le dev », « la team a échoué »).
 - ❌ « Voir avec X » sans owner explicite ni échéance.
 - ❌ Oublier les liens cliquables.
+
+---
+
+## Contrat Scribe — Règles d'orchestration
+
+> Source de vérité unique pour le comportement Scribe dans le flux orchestrateur. `orchestrator.agent.md` y fait référence.
+
+### Type A vs Type B
+
+Chaque livrable du PLAN doit être classé explicitement dans l'une de ces deux catégories :
+
+**Type A — Fichier concret** : chemin précis dans `docs/` (ex : `docs/runbooks/nginx-api-routing.md`)
+→ Une fois le PLAN validé, ce fichier **DOIT** être créé en SYNTHESIS. Pas de question, pas d'option.
+
+**Type B — Consultation seule** : marqué `(pas de fichier)` ou `(diagnostic uniquement)`
+→ Aucun fichier créé. Le Scribe produit une synthèse en chat uniquement.
+
+Une formulation vague sans type déclaré est **interdite** — c'est ce qui mène le Scribe à improviser.
+
+### Templates obligatoires pour les livrables Type A
+
+| Type de livrable | Template | Destination |
+|---|---|---|
+| Post-mortem d'incident | `agents/templates/incident-report.md` | `docs/incidents/YYYY-MM-DD-slug.md` |
+| Décision d'architecture | `agents/templates/adr.md` | `docs/decisions/NNNN-titre.md` |
+| Spécification produit | `agents/templates/prd.md` | `docs/prd/YYYY-MM-DD-slug.md` |
+| Runbook opérationnel | `agents/templates/runbook.md` | `docs/runbooks/<slug>.md` |
+| Document d'architecture | `agents/templates/architecture.md` | `docs/architecture/<sujet>.md` |
+
+Procédure :
+1. Identifier le type de livrable depuis le PLAN
+2. Charger le template correspondant
+3. Remplir chaque section selon les instructions inline (commentaires HTML)
+4. Section sans matière → `<!-- TODO: à compléter avec [info manquante] -->` (ne jamais supprimer la section)
+5. Conserver le frontmatter YAML
+6. Créer le fichier avec `editFiles` au chemin approprié
+
+### ❌ Anti-pattern interdit
+
+> « Si le runbook doit être conservé → dis-le moi et je génère docs/runbooks/nginx-api-routing.md »
+
+Cette phrase est **INTERDITE** quand le PLAN avait engagé ce fichier. Le bon comportement : créer le fichier sans demander, puis le mentionner dans la liste des livrables.
+
+**Le PLAN validé est un contrat. Pas de négociation en SYNTHESIS.**

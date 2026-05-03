@@ -28,6 +28,8 @@ flowchart LR
 
 ## Règles spécifiques
 
+- **Phase 6 (Infra / déploiement) — utiliser la checklist** `agents/checklists/pre-deploy.md` avant toute mise en production. Valider chaque point avec le DevOps.
+
 - **Phase 1 obligatoire** : le Product Analyst produit un PRD léger (template `agents/templates/prd.md`) avec les critères d'acceptation **avant** tout design technique.
 - **Phase 2** : l'Architect part des critères d'acceptation du Product Analyst pour proposer des options.
 - La **sécurité by design** est obligatoire dès qu'il y a : input externe, données utilisateur, secret, intégration tierce, endpoint exposé.

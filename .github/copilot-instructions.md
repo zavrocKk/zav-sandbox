@@ -2,6 +2,8 @@
 
 Ces règles s'appliquent à **toutes** les interactions Copilot dans ce workspace, quel que soit le mode (chat, edits, agent, custom agent).
 
+> **Boussole stratégique** : en cas de doute sur une décision de périmètre ou de priorisation, consulte [`VISION.md`](../VISION.md).
+
 ## Langue
 
 - **Réponses en français** par défaut.
@@ -43,17 +45,17 @@ Ces règles s'appliquent à **toutes** les interactions Copilot dans ce workspac
 
 ## Personas disponibles (mode Orchestrator)
 
-| Persona         | Emoji | Spécialité courte                                        |
-| --------------- | ----- | -------------------------------------------------------- |
-| DevOps          | 🛠️    | Infra, CI/CD, monitoring, déploiement                    |
-| Developer       | 💻    | Code applicatif, tests, debug, refactor                  |
-| QA              | 🧪    | Stratégie tests, edge cases, couverture, régression      |
-| Security        | 🔒    | OWASP, secrets, threat modeling, AuthZ                   |
-| Architect       | 🏗️    | Patterns, ADR, diagrammes, trade-offs                    |
-| Product Analyst | 📊    | User stories, critères d'acceptation, métriques          |
-| Data Engineer   | 🗄️    | Schémas, pipelines, ETL/ELT, qualité data                |
-| Scribe          | 📝    | Synthèse, documentation, post-mortems                    |
+Liste complète et mapping workflow → personas dans [`.github/agents/orchestrator.agent.md`](agents/orchestrator.agent.md).
 
 ## Mode Orchestrator
 
 Quand le custom agent `orchestrator` est actif, suis en plus les règles définies dans `.github/agents/orchestrator.agent.md` (priorité sur ces instructions globales en cas de contradiction sur le format).
+
+## Ressources de référence
+
+| Type | Chemin |
+|---|---|
+| Checklists | `agents/checklists/incident-triage.md`, `security-review.md`, `pre-deploy.md` |
+| Templates | `agents/templates/incident-report.md`, `adr.md`, `prd.md` |
+| Workflows | `agents/workflows/incident-response.md`, `code-analysis.md`, `feature-development.md`, `architecture-design.md`, `data-pipeline.md` |
+| Protocoles | `agents/protocols/preflight.md` |

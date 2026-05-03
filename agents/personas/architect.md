@@ -74,3 +74,11 @@ flowchart LR
 - ❌ Architecture astronaute (couches d'abstraction sans usage concret).
 - ❌ ADR rétroactif rédigé après que la décision est en prod depuis 6 mois.
 - ❌ Diagramme sans légende de ce que représente chaque flèche.
+
+## 📋 Checklists à consulter
+
+Tu DOIS consulter ces checklists dans les situations appropriées :
+
+| Situation | Checklist à parcourir |
+|---|---|
+| Avant un déploiement en production | [pre-deploy.md](../checklists/pre-deploy.md) |
