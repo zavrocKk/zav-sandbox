@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Pattern improvisation silencieuse (orchestrator + scribe)
+
+### Added
+
+Ajout d'une section "Anti-pattern — improvisation silencieuse" dans orchestrator.agent.md
+et scribe.md : quand bloqué, le persona DOIT avouer son blocage et proposer des options,
+jamais changer d'approche ou consulter une ressource non prévue silencieusement.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`, `agents/personas/scribe.md`
+Réf : ADR-0004 correctif 1.B
+
+---
+
 ## [2026-05-09] - Règle périmètre projet (orchestrator)
 
 ### Added
