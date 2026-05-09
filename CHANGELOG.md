@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Règle périmètre projet (orchestrator)
+
+### Added
+
+Ajout d'une section "Périmètre projet — règle absolue" rendant explicite que mentionner
+un autre projet ≠ autoriser son accès. Protège contre l'interprétation extensive d'une
+mention contextuelle utilisateur.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 1.A
+
+---
+
 ## [2026-05-02] - Référencer incident-triage dans incident-response
 
 ### Changed
