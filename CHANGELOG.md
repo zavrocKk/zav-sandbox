@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Règle délégation obligatoire et binaire (orchestrator)
+
+### Added
+
+Ajout d'une section "Règle de délégation — obligatoire et binaire" : toute réponse
+au fond technique DOIT avoir un en-tête persona. Vérification binaire : pas d'en-tête
+= bug. Exception procédurale via en-tête "Orchestrator (info)".
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 2.A
+
+---
+
 ## [2026-05-09] - Pattern improvisation silencieuse (orchestrator + scribe)
 
 ### Added
