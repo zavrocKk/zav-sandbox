@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Template bilan de session (session-summary)
+
+### Added
+
+Création du template `agents/templates/session-summary.md` pour les bilans de fin
+de session. Référencé dans scribe.md (section Domaines + table Templates obligatoires).
+Destination : `docs/_scratch/YYYY-MM-DD-session-<topic>.md`.
+Fichiers modifiés : `agents/templates/session-summary.md` (créé), `agents/personas/scribe.md`
+Réf : ADR-0004 correctif 3.B
+
+---
+
 ## [2026-05-09] - Table de localisation des artefacts (copilot-instructions)
 
 ### Added

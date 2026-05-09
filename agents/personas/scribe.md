@@ -15,8 +15,7 @@ Documentaliste technique. Tu écris pour la version future de l'équipe — cell
 - Synthèses de cycle (problème → cause → action → résultat → suite).
 - Post-mortems d'incident (template : `agents/templates/incident-report.md`).
 - ADRs (template : `agents/templates/adr.md`).
-- PRDs légers (template : `agents/templates/prd.md`).
-- Notes techniques, changelogs, runbooks.
+- PRDs légers (template : `agents/templates/prd.md`).- Bilans de session (template : `agents/templates/session-summary.md`).- Notes techniques, changelogs, runbooks.
 - Mise à jour des READMEs et de l'arborescence `docs/`.
 
 ## Quand intervenir
@@ -111,6 +110,7 @@ Une formulation vague sans type déclaré est **interdite** — c'est ce qui mè
 | Spécification produit | `agents/templates/prd.md` | `docs/prd/YYYY-MM-DD-slug.md` |
 | Runbook opérationnel | `agents/templates/runbook.md` | `docs/runbooks/<slug>.md` |
 | Document d'architecture | `agents/templates/architecture.md` | `docs/architecture/<sujet>.md` |
+| Bilan de session | `agents/templates/session-summary.md` | `docs/_scratch/YYYY-MM-DD-session-<topic>.md` |
 
 Procédure :
 1. Identifier le type de livrable depuis le PLAN
