@@ -207,6 +207,162 @@ solution naturelle, pas un mode allégé séparé.
 
 **Statut** : 🟡 ouverte
 
+### 2026-05-XX — Workflow problem-resolution (5 Pourquoi / Ishikawa)
+**Idée** : Workflow pour problèmes complexes non-urgents et non-localisés 
+(différent de incident-response et de code-analysis).
+**Phase d'examen suggérée** : Phase 5.5 (après test MVP) ou Phase 8.
+**Statut** : 🟡 ouverte
+
+### 2026-05-XX — Brainstorming : phase ou workflow ?
+**Idée** : À arbitrer — soit workflow standalone, soit phase initiale 
+disponible dans plusieurs workflows existants.
+**Phase d'examen suggérée** : Phase 5.5 ou Phase 6 (lié au Party Mode).
+**Statut** : 🟡 ouverte
+
+### 2026-05-XX — Workflow pentest-correction (probablement → skill)
+**Idée** : Plutôt qu'un workflow dédié, créer une skill 
+"pentest-remediation" activable dans les workflows existants 
+(security-review + code-analysis + feature-development).
+**Phase d'examen suggérée** : Phase 8 (skills techniques).
+**Statut** : 🟡 ouverte
+
+### 2026-05-02 — Workflow problem-resolution (5 Pourquoi / Ishikawa)
+**Idée** : Workflow pour traiter des problèmes complexes qui ne sont ni un 
+incident urgent ni un audit de code localisé. Cas type : "notre process 
+de déploiement est lent et personne ne sait pourquoi".
+
+**Différenciation avec l'existant** :
+- vs `incident-response` : pas d'urgence, pas de prod down
+- vs `code-analysis` : pas de module spécifique, problème transverse
+- vs `architecture-design` : pas de choix techno, problème opérationnel
+
+**Questions sous-jacentes** :
+- Méthodologie de RCA : 5 Pourquoi (Toyota), Ishikawa/fishbone, ou les deux 
+  selon le type de problème ?
+- Personas mobilisés : Product Analyst (cadrage) + variable selon nature 
+  (DevOps / Architect / Dev) + Scribe ?
+- Risque de chevauchement avec les **skills méthodologiques** prévues en 
+  Phase 8 (5 Pourquoi, RCA, RACI). Faut-il faire le workflow OU les skills, 
+  pas les deux ?
+
+**Phase d'examen suggérée** : Phase 5.5 (après test MVP) ou Phase 8 — 
+décision : workflow ou skill ?
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-05-02 — Brainstorming : workflow standalone ou phase ?
+**Idée** : Permettre à l'orchestrator de mener une session de brainstorming 
+structurée. Mais à arbitrer : workflow standalone OU phase initiale 
+disponible dans plusieurs workflows existants ?
+
+**Tension à résoudre** :
+- Si workflow standalone → quel **livrable markdown** est produit ? 
+  (filtre 6 VISION : tout doit produire un livrable)
+- Si phase amont → l'attacher à `feature-development.md`, 
+  `architecture-design.md`, `problem-resolution.md` (si retenu) ?
+
+**Inspiration BMAD** : Carson (brainstorming-coach) au bureau est un agent 
+dédié dans le module CIS. Mais on a dit : pas de copie BMAD. À reconcevoir 
+proprement.
+
+**Questions sous-jacentes** :
+- Format livrable possible : `docs/brainstorming/YYYY-MM-DD-slug.md` avec 
+  sections "Question initiale / Idées générées / Clusters / Top 3 retenues / 
+  Next steps" ?
+- Quand l'utilisateur veut un brainstorming pur, c'est pas pour produire un 
+  livrable, c'est pour explorer. Conflit avec le filtre 6 ?
+- Pourrait-on en faire une **phase optionnelle** (drapeau `--with-brainstorm`) 
+  dans certains workflows ?
+
+**Phase d'examen suggérée** : Phase 5.5 ou Phase 6 (lié au Party Mode — 
+brainstorming est un cas idéal de multi-personas).
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-05-02 — Pentest-remediation : skill plutôt que workflow ?
+**Idée** : Workflow ou skill pour traiter les findings d'un pentest 
+externe et appliquer les corrections priorisées.
+
+**Pourquoi probablement skill plutôt que workflow** : un pentest-remediation 
+est une **séquence préfabriquée** des workflows existants :
+- `code-analysis` pour analyser les findings
+- `security-review.md` (checklist) pour valider la couverture OWASP
+- `feature-development` pour implémenter chaque correction
+- `architecture-design` si la correction est structurante
+- `incident-response` si une faille est exploitée en prod
+
+→ Faire un workflow dédié reviendrait à dupliquer ce qui existe.
+
+**Approche skill (préférée)** : créer une skill `pentest-remediation` 
+activable dans n'importe quel workflow, qui apporte :
+- Le format standard d'un pentest report (CVSS, CWE, exploitabilité)
+- La méthodologie de priorisation (impact × exploitabilité × effort)
+- Les patterns de correction par catégorie OWASP
+- Les checks de non-régression à ajouter en CI
+
+**Questions sous-jacentes** :
+- Skill ou workflow ? **Décision préliminaire : skill.**
+- Quel template de remediation report (`docs/security/pentest-NNN-remediation.md`) ?
+- Comment relier au persona Security existant ?
+
+**Phase d'examen suggérée** : Phase 8 (skills techniques) — c'est exactement 
+le pattern d'usage prévu pour les skills.
+
+**Statut** : 🟡 ouverte
+
+### 2026-05-03 — Format de questionnement structuré (template ou tool)
+**Idée** : Améliorer le format des questions PRE-FLIGHT pour réduire le risque 
+de re-prompts incomplets. Deux pistes à investiguer :
+
+**Piste A — Template markdown contraint** : tableau pré-formaté que l'utilisateur 
+remplit ligne par ligne, validé par l'orchestrator avant de continuer.
+
+**Piste B — Tool natif Copilot/VSCode** : vérifier si GitHub Copilot Chat 
+expose un mécanisme structuré pour questions multi-choix ou formulaire 
+(équivalent du tool `ask_user_input_v0` de Claude.ai). À ce jour, **non vérifié 
+si ce tool existe** côté Copilot.
+
+**Phase d'examen suggérée** : Phase 6 (Party Mode) ou Phase 8 (skills techniques) 
+selon la piste retenue. Pas avant.
+
+**Risque de drift** : moyen — l'idée vient d'une comparaison avec claude.ai, 
+pas d'une friction réelle observée pendant le test 5.4-bis. Le format actuel 
+(questions numérotées + format de réponse explicite) marche déjà.
+
+**Statut** : 🟡 ouverte
+
+### 2026-05-03 — Restructurer inputs vs outputs (séparation cycles de vie)
+**Idée** : Distinguer 3 zones dans le repo selon le cycle de vie :
+- `agents/` + `.github/` = code framework (versionné, stable)
+- `inputs/` = matière fournie au framework par l'utilisateur (éphémère, 
+  potentiellement gitignored)
+- `outputs/` = livrables produits par le framework (à conserver, 
+  potentiellement partageables)
+
+**Bénéfices** :
+- Clarté mentale : on sait toujours où chercher quoi
+- Confidentialité : possibilité de gitignore les inputs sensibles
+- Préparation pour Phases 7-8 : la mémoire persistante et les skills 
+  consomment/produisent dans des dossiers identifiés
+
+**Coût de migration** :
+- Renommage de tous les chemins dans personas, workflows, orchestrator, 
+  copilot-instructions
+- Mise à jour des fichiers existants dans le repo
+
+**Phase d'examen suggérée** : Phase 7 (mémoire persistante) — la migration 
+sera structurellement nécessaire à ce moment, on la fait à ce moment-là 
+avec une vraie raison technique.
+
+**Origine** : question utilisateur du 2026-05-03 — instinct juste mais 
+pas urgent.
+
+**Statut** : 🟡 ouverte
+
 ## Format pour ajouter une nouvelle idée
 
 ```markdown
