@@ -11,8 +11,9 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 3 — Checklists
 ✅ Phase 4 — Test d'intégration
 ✅ Phase 4.5 — Clarification stratégique (vision, cible, différenciation)
-🟡 Phase 5 — MVP basé sur la vision (À DÉFINIR ENSEMBLE)
-⬜ Phase 6 — Party Mode (exécution parallèle)
+✅ Phase 5 — MVP basé sur la vision (MVP validé 8/8 — clôturé Phase 5.5)
+🟡 Phase 5.7 — Hardening usage réel (en cours)
+⬜ Phase 6 — Party Mode (exécution parallèle) ← reportée après Phase 5.7
 ⬜ Phase 7 — Mémoire persistante (artefacts de contexte)
 ⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.)
 ⬜ Phase 9 — Brainstoming et comparer avec ce qui a au marché.
@@ -91,18 +92,65 @@ Dans `agents/workflows/` :
 
 ## Détail des phases à venir
 
-### 🟡 Phase 5 — MVP basé sur la vision
+### ✅ Phase 5 — MVP basé sur la vision
 
-**À définir ensemble lors de la prochaine session.**
+**Clôturée en Phase 5.5 — MVP validé 8/8 critères.**
 
-Questions à trancher :
+Sous-phases réalisées :
 
-- Que garde-t-on tel quel de ce qui a été construit en Phase 0-3 ?
-- Que faut-il adapter pour mieux servir la cible (analystes + DevOps) ?
-- Quel est le "premier vrai usage" qui validera la vision ?
-- Dans quel ordre on attaque les phases 6-9 ?
+- **Phase 5.1** — Audit de l'existant et alignement vision (`docs/decisions/0002-audit-existant.md`)
+- **Phase 5.3** — Correctifs structurels (templates `runbook.md`, `architecture.md`, table de localisation)
+- **Phase 5.4** — Test MVP : incident notification-api 5xx — validé 8/8
+- **Phase 5.5** — Clôture chapitre 5 : création Field Report template, mesure MVP cible
 
-### ⬜ Phase 6 — Party Mode (exécution parallèle)
+Référence : `docs/decisions/0003-test-mvp-frictions.md`
+
+---
+
+### 🟡 Phase 5.7 — Hardening usage réel
+
+**Ouverte le 2026-05-09** suite au Field Report 2026-05-04→08 (Score : 3/5).
+
+**Objectif** : renforcer les contrats du framework pour éliminer les zones grises
+où l'orchestrator improvise, sans alourdir les cas qui fonctionnent déjà bien.
+
+#### Phase 5.7.A — Discipline & contrats (priorité HAUTE)
+
+7 correctifs traitant les fondations structurelles :
+
+| # | Correctif | Friction couverte |
+|---|---|---|
+| 1 | 1.A — Règle Périmètre projet | F1 |
+| 2 | 1.B — Pattern Avouer l'échec | F1 |
+| 3 | 2.A — Règle délégation obligatoire | F2 |
+| 4 | 2.B — Contrat PLAN→EXECUTION | F2 |
+| 5 | 3.A — Table de localisation centralisée | F3-A |
+| 6 | 3.B — Création template session-summary.md | F3-B |
+| 7 | 3.C — PRE-FLIGHT default-to-clarification | F3-C |
+
+**Branche** : `feat/phase-5-7-A-hardening-discipline`
+
+#### Phase 5.7.B — Affinages & vigilance (priorité MOYENNE, conditionnel)
+
+4 correctifs d'affinage, activés **seulement si** le Field Report intermédiaire
+post-5.7.A montre des frictions persistantes. Sinon archivée.
+
+| # | Correctif | Friction couverte |
+|---|---|---|
+| 8 | 1.C — PRE-FLIGHT Q5 ressources externes | F1 |
+| 9 | 2.C — Auto-check saturation | F2 |
+| 10 | 2.D — Anti-bavardage Orchestrator | F2 |
+| 11 | 3.D — Auto-check Scribe avant création | F3-A |
+
+**Critères de succès** : Field Report post-5.7.A ≥ 4/5, zéro drift hors-projet,
+délégation systématique, discipline de production stable.
+
+Référence : `docs/decisions/0004-field-report-analysis-phase-5-7.md`
+
+### ⬜ Phase 6 — Party Mode (exécution parallèle) ← reportée après Phase 5.7
+
+**Reportée le 2026-05-09** — Phase 5.7 (Hardening usage réel) a priorité.
+Sera réévaluée après le Field Report intermédiaire post-5.7.A.
 
 **Concept** : permettre à plusieurs personas de travailler en parallèle sur
 une même demande, plutôt que séquentiellement.
