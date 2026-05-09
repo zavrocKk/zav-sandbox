@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Contrat PLAN vers EXECUTION (orchestrator)
+
+### Added
+
+Ajout de la section "Contrat PLAN → EXECUTION" : le PLAN validé est un contrat
+contraignant. Pas de persona sauté, pas d'ajout silencieux, vérification binaire
+nombre de personas exécutés vs PLAN.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 2.B
+
+---
+
 ## [2026-05-09] - Règle délégation obligatoire et binaire (orchestrator)
 
 ### Added
