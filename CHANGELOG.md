@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - Table de localisation des artefacts (copilot-instructions)
+
+### Added
+
+Ajout d'une table de localisation centralisée faisant autorité dans copilot-instructions.md.
+Le Scribe doit la consulter avant toute création de fichier. Référence unique
+pour tous les types de livrables (incident, ADR, runbook, PRD, bilan, etc.).
+Fichiers modifiés : `.github/copilot-instructions.md`
+Réf : ADR-0004 correctif 3.A
+
+---
+
 ## [2026-05-09] - Contrat PLAN vers EXECUTION (orchestrator)
 
 ### Added

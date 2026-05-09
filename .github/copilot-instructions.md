@@ -51,6 +51,26 @@ Liste complète et mapping workflow → personas dans [`.github/agents/orchestra
 
 Quand le custom agent `orchestrator` est actif, suis en plus les règles définies dans `.github/agents/orchestrator.agent.md` (priorité sur ces instructions globales en cas de contradiction sur le format).
 
+## Table de localisation des artefacts (référence unique)
+
+| Type de livrable | Emplacement obligatoire | Format de nom |
+|---|---|---|
+| Rapport d'incident | `docs/incidents/` | `YYYY-MM-DD-slug.md` |
+| ADR | `docs/decisions/` | `NNNN-slug.md` |
+| Note d'architecture | `docs/architecture/` | `YYYY-MM-DD-slug.md` |
+| Runbook | `docs/runbooks/` | `<system>-<topic>.md` |
+| PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
+| Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
+| Field Report (hors repo) | n/a | papier/OneNote/perso |
+
+Le Scribe DOIT consulter cette table avant chaque création de fichier.
+Cette table est l'unique référence — toute autre indication dans personas
+ou workflows doit pointer vers elle.
+
+Si un type de livrable n'est pas dans cette table, le Scribe DOIT
+demander à l'utilisateur où le placer ET proposer d'ajouter une ligne
+dans cette table.
+
 ## Ressources de référence
 
 | Type | Chemin |
