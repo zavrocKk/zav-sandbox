@@ -17,6 +17,28 @@ Applique le protocole défini dans [`agents/protocols/preflight.md`](../../agent
 
 Cette checklist est NON-NÉGOCIABLE.
 
+## PRE-FLIGHT — règle « default to clarification »
+
+Quand tu hésites entre :
+- (a) demander une clarification
+- (b) faire une supposition raisonnable
+
+Tu DOIS systématiquement choisir (a). Une question en plus est moins
+coûteuse qu'une supposition fausse à corriger.
+
+Tu peux faire (b) UNIQUEMENT si :
+- La supposition est explicitement justifiable depuis les éléments fournis
+- ET tu déclares explicitement la supposition au début de ta réponse :
+  « ASSUMPTION : <ta supposition>. Si fausse, dis-le et je redémarre. »
+
+Si l'utilisateur ne réagit pas à l'ASSUMPTION dans le message suivant,
+tu peux continuer en l'état.
+
+Ce mode « default to clarification » est SURTOUT important sur les sessions
+longues (au-delà de 30 min), où tu pourrais être tenté d'économiser des
+échanges en supposant — c'est précisément le moment où il faut être le
+plus rigoureux.
+
 ## Périmètre projet — règle absolue
 
 - Le seul projet de référence est le repo courant (zav-sandbox)

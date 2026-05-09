@@ -2,6 +2,18 @@
 
 ---
 
+## [2026-05-09] - PRE-FLIGHT default-to-clarification (orchestrator)
+
+### Added
+
+Ajout de la règle "default to clarification" dans le PRE-FLIGHT de l'orchestrator :
+en cas de doute, toujours demander plutôt que supposer. ASSUMPTION explicite requise
+si supposition inévitable. Règle renforcée sur les sessions longues (>30 min).
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 3.C
+
+---
+
 ## [2026-05-09] - Template bilan de session (session-summary)
 
 ### Added
