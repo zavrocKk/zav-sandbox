@@ -440,3 +440,40 @@ Format pour ajouter une nouvelle idée :
 **Date de traitement** : 2026-05-02
 
 **Statut** : 🟢 traitée
+
+### 2026-05-09 — Orchestrator.agent.md trop lourd (202+ lignes)
+
+**Idée** : Le fichier orchestrator.agent.md fait actuellement 202+ lignes 
+après Phase 5.7.A. Hypothèse utilisateur : ce volume excessif pourrait 
+être une cause directe de Friction 2 (l'orchestrator ne délègue pas) et 
+Friction 4 (mémoire/contexte fragiles sur sessions longues). À chaque 
+interaction, l'orchestrator doit charger 200+ lignes de règles, ce qui 
+sature son contexte plus vite et dégrade sa discipline d'application.
+
+**Comparaison** :
+- Personas individuels : 50-100 lignes
+- Workflows : 40-60 lignes
+- Templates : 30-90 lignes
+- Orchestrator.agent.md : 202+ lignes ← anomalie
+
+**Cible Phase 5.3 (non atteinte)** : ~80 lignes (frontmatter + flux + 
+mapping + références aux protocoles externes).
+
+**Pistes de correctif** :
+- Externaliser les 5 nouvelles sections de Phase 5.7.A vers 
+  agents/protocols/*.md (Périmètre projet, Délégation, PLAN→EXECUTION, 
+  PRE-FLIGHT renforcé, Avouer l'échec)
+- L'orchestrator devient une table d'orchestration + références
+- Charge contextuelle réduite à chaque interaction
+
+**Mesure proposée** : compter la dégradation de discipline observée 
+sur sessions longues avant/après allègement.
+
+**Phase d'examen suggérée** : Phase 5.7.B (si activée) ou Phase 5.7.C 
+dédiée à l'allègement structurel. **À traiter AVANT Phase 6 (Party Mode)** 
+car le Party Mode va probablement encore alourdir si on ne fait rien.
+
+**Origine** : observation utilisateur fin de session 5.7.A (2026-05-09) 
+— intuition forte sur la corrélation lourdeur ↔ frictions.
+
+**Statut** : 🟡 ouverte (priorité haute pour Phase 5.7.B)
