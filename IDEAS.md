@@ -585,3 +585,78 @@ diagnostics, 2026-05-09.
 **Référence** : ADR-0004 (Frictions F2 et F4).
 
 **Statut** : 🟡 ouverte (priorité haute, à traiter avant Phase 6 si confirmé en test usage réel)
+
+### 2026-05-09 — Mode /light officiel — 3 niveaux de workflow
+
+**Idée** : Le framework actuel a un mode unique qui s'applique à toutes les 
+demandes, peu importe leur complexité. Conséquence : les demandes simples 
+("résume ce fichier", "vérification git", "petite question") sont traitées 
+avec le même protocole complet (ANALYSE → PLAN → CONFIRM → EXECUTE → 
+SYNTHESIS → CLOSE) que les incidents complexes.
+
+**Source** : analyse Copilot "simulation 5 sessions" du 2026-05-09 — 
+session 1 (demande simple) identifie un surcoût massif :
+- Input de base : ~4 800 à 6 500 tokens
+- Réponse utile réelle : ~300 à 600 tokens
+- **Surcoût process : ~800 à 1 500 tokens pour respecter le rituel**
+
+→ Pour une question simple, le framework consomme parfois plus de tokens 
+à respecter son rituel qu'à répondre au besoin.
+
+**Risque observé/anticipé** :
+- L'utilisateur contourne l'Orchestrator et revient à l'Agent par défaut 
+  pour les petites tâches
+- Le framework devient perçu comme "bureaucratique"
+- Perte d'adoption progressive sur les usages quotidiens légers
+
+**Limite du mode `/quick` actuel** : 
+- `/quick` saute uniquement la phase CONFIRM
+- Ne définit pas clairement quand éviter le Scribe
+- Ne définit pas quand utiliser un persona unique
+- Ne définit pas quand ne produire AUCUN livrable
+- C'est un raccourci, pas un vrai mode léger
+
+**Proposition — 3 niveaux officiels de workflow** :
+
+| Mode | Cas d'usage | Règles |
+|---|---|---|
+| `/light` | Question simple, vérification, conseil rapide | Persona unique, pas de Scribe sauf livrable Type A explicite, pas de PLAN détaillé, réponse courte, pas de création de fichier par défaut |
+| `standard` (défaut) | Tâche normale (analyse, doc, refacto léger) | PLAN court, personas ciblés, Scribe si livrable durable utile |
+| `/deep` | Incident, ADR, architecture, doc durable | Full workflow (Phase 5.7.A complet) |
+
+**Critères de déclenchement à concevoir** :
+- Auto-détection par l'orchestrator selon longueur/nature du prompt ?
+- Activation explicite par drapeau `/light` `/deep` ?
+- Heuristique mixte (auto par défaut + override possible) ?
+
+**Impact estimé (selon analyse Copilot)** :
+- Réduction de 30-50% du coût sur petites demandes
+- Amélioration UX immédiate sur les questions courantes
+- Moins de tentation d'abandonner l'Orchestrator pour l'Agent par défaut
+
+**Distinction avec d'autres entrées IDEAS.md** :
+- *Différent* de "Pas de fast-track / mode allégé" (2026-05-02) — cette 
+  entrée précise comment, pas juste si
+- *Différent* de "Orchestrator trop lourd" (2026-05-09) — celle-ci traite 
+  la STRUCTURE du fichier, le mode /light traite la GRADUATION du protocole
+- *Complémentaire* avec les correctifs Phase 5.7.A (2.A délégation, 2.B 
+  PLAN→EXECUTION) — le mode /light n'annule pas ces règles, il les 
+  contextualise selon la complexité
+
+**Phase d'examen suggérée** : Phase 6 (Party Mode) — le mode /light est 
+naturellement lié à la sélection contextuelle de personas que prévoit 
+Phase 6. Mais à reconsidérer en Phase 5.7.B si l'usage réel post-5.7.A 
+confirme que la lourdeur est le frein principal.
+
+**Risque à surveiller** : si on introduit /light avant Party Mode, on crée 
+peut-être 2 sélections contextuelles différentes (graduation par complexité 
++ sélection de personas). Risque de friction conceptuelle.
+
+**Origine** : analyse Copilot simulation 5 sessions, session 1 (demande 
+simple) — surcoût ~800-1 500 tokens identifié comme problème structurel 
+non couvert par /quick actuel.
+
+**Référence** : ADR-0004, Friction F2 (orchestrator ne délègue pas vs 
+demande simple où c'est légitime), Friction F6 (coût tokens élevé).
+
+**Statut** : 🟡 ouverte (priorité haute pour Phase 6, possible préemption en 5.7.B)
