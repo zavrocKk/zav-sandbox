@@ -477,3 +477,111 @@ car le Party Mode va probablement encore alourdir si on ne fait rien.
 — intuition forte sur la corrélation lourdeur ↔ frictions.
 
 **Statut** : 🟡 ouverte (priorité haute pour Phase 5.7.B)
+
+### 2026-05-09 — Orchestrator.agent.md trop lourd — cause structurelle de F2/F4
+
+**Intuition utilisateur initiale** : `orchestrator.agent.md` à 202+ lignes 
+après Phase 5.7.A pourrait être la cause directe des Frictions F2 
+(orchestrator ne délègue pas) et F4 (mémoire/contexte fragiles sur 
+sessions longues).
+
+**Validation par analyse technique Copilot (2026-05-09)** :
+
+#### Mesures de tokens
+
+| Élément | Taille | Tokens estimés |
+|---|---|---|
+| `orchestrator.agent.md` | ~13 KB | ~3 700 tk |
+| `copilot-instructions.md` | ~4 KB | ~1 100 tk |
+| Sous-total system prompt | | ~4 800 tk |
+| Personas (chargés à la demande) | ~1-2 KB | ~300-600 tk/persona |
+| Historique session 30 min | variable | ~3 000-8 000 tk |
+| **Total session typique** | | ~8 000-14 000 tk |
+| **Session longue (60+ min)** | | ~18 000-30 000 tk |
+
+#### Le vrai problème n'est pas le contexte absolu
+
+Claude Sonnet 4.6 dispose de 200K de contexte — le plafond n'est PAS 
+atteint. **Le vrai problème est la dilution d'attention** :
+- Effet "lost in the middle" documenté pour les LLMs (le modèle prête 
+  moins d'attention aux règles situées au milieu d'un long contexte)
+- À chaque échange, tout le contexte est retokenisé → coût linéaire 
+  croissant
+- Sur sessions longues, les règles critiques sont "noyées" dans les 
+  échanges récents
+
+#### Problèmes structurels identifiés dans le fichier
+
+**1. Redondance des anti-patterns (~400 tk dupliqués)** :
+- `## ❌ Anti-pattern à NE JAMAIS faire` (liste générique)
+- `## Anti-pattern — improvisation silencieuse` (commit 0ec984b)
+- `## Pattern « Avouer l'échec »` (commit cda0500)
+
+Les 3 sections traitent du même domaine sémantique (gestion de l'échec/
+blocage) mais avec des angles différents. Redondance ≈ 15-20% du fichier.
+
+**2. Hiérarchie d'attention défavorable** :
+- `## Démarrage` est en ligne 149 (fin de fichier) → faible poids 
+  d'attention (biais de récence inverse)
+- `PRE-FLIGHT` en tête → bon
+- Règles de délégation et de périmètre **au milieu** → zone d'attention 
+  faible (effet lost in the middle)
+
+**3. Formatage qui peut affecter le tokenizer** :
+- Lignes vides manquantes avant certains `##` (déjà identifié et corrigé 
+  partiellement dans cda0500 amendé)
+
+#### Conflits observés ↔ causes identifiées
+
+| Conflit observé en Field Report | Cause structurelle probable |
+|---|---|
+| Perte de règle en session longue (F4) | PRE-FLIGHT "loin" dans le contexte, éclipsé par les échanges récents |
+| Supposition silencieuse (F3-C) | La règle default-to-clarification est "oubliée" après 30 min |
+| Anti-patterns ignorés | Anti-patterns en fin de fichier, faible poids d'attention |
+| Personas non incarnés (F2) | Règle de délégation au milieu du fichier, pas répétée |
+
+#### Pistes de correctif Phase 5.7.B (réduction estimée ~25%, ~1 200 tk)
+
+1. **Fusionner les 3 sections anti-pattern** en une seule (gain ~300-400 tk + cohérence)
+2. **Remonter `## Démarrage` en début de fichier** après le frontmatter (règle de récence)
+3. **Extraire le mapping workflow** dans un fichier séparé chargé à la demande (gain ~600 tk systématiques)
+4. **Ajouter un "résumé des règles critiques"** de 5 lignes max en tête (ancre d'attention pour sessions longues)
+
+**Risque à surveiller** : externaliser sans précaution pourrait créer un 
+problème de chargement (l'orchestrator doit charger les fichiers externes 
+au bon moment). À tester.
+
+#### Mesure proposée pour valider
+
+**Avant correctif (état actuel)** : compter sur 5 sessions longues 
+(>30 min) post-5.7.A le nombre d'occurrences de :
+- Réponses sans en-tête persona
+- Suppositions silencieuses (réponse sans clarification sur prompt ambigu)
+- Anti-patterns violés (création silencieuse de fichier, etc.)
+
+**Après correctif** : même mesure. Si réduction significative → 
+hypothèses validées.
+
+#### Conseil stratégique
+
+À traiter **AVANT Phase 6 (Party Mode)** parce que Party Mode = plusieurs 
+personas en parallèle = encore plus de charge contexte cumulée. Si la 
+lourdeur orchestrator n'est pas traitée avant, Party Mode risque 
+d'amplifier les frictions au lieu de les résoudre.
+
+#### Décision actuelle (Chemin A acté)
+
+**Pas d'action immédiate.** L'utilisateur va d'abord tester Phase 5.7.A 
+en usage réel sur 3-5 sessions, observer les frictions résiduelles, et 
+décider de l'urgence de l'allègement en Phase 5.7.B sur données réelles.
+
+**Phase d'examen suggérée** : Phase 5.7.B (priorité haute si frictions 
+F2/F4 persistent).
+
+**Origine** : intuition utilisateur (lourdeur ressentie) + analyse 
+technique Copilot (mesures et biais d'attention) — convergence des deux 
+diagnostics, 2026-05-09.
+
+**Référence** : ADR-0004 (Frictions F2 et F4).
+
+**Statut** : 🟡 ouverte (priorité haute, à traiter avant Phase 6 si confirmé en test usage réel)
