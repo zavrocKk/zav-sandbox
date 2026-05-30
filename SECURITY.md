@@ -1,44 +1,48 @@
-# Security Policy
+# Politique de sécurité
 
-## Supported Versions
+## Versions supportées
 
-This project is currently in pre-release (v0.x). Security fixes are applied to the
-`main` branch only.
+Ce projet est actuellement en pré-release (v0.x). Les correctifs de sécurité
+sont appliqués uniquement sur la branche `main`.
 
-| Version | Supported |
+| Version | Supportée |
 |---|---|
 | 0.x (main) | ✅ |
-| older branches | ❌ |
+| branches anciennes | ❌ |
 
-## Reporting a Vulnerability
+## Signaler une vulnérabilité
 
-**Please do not report security vulnerabilities through public GitHub Issues.**
+**Ne pas signaler les vulnérabilités de sécurité via les Issues GitHub publiques.**
 
-To report a vulnerability:
+Pour signaler une vulnérabilité :
 
-1. Open a [GitHub Security Advisory](https://github.com/zavrocKk/zav-sandbox/security/advisories/new)
-   (private channel — GitHub account required).
-2. Describe the vulnerability: what it is, how to reproduce it, potential impact.
-3. You will receive a response within 5 business days.
+1. Ouvrir un [GitHub Security Advisory](https://github.com/zavrocKk/zav-sandbox/security/advisories/new)
+   (canal privé — compte GitHub requis).
+2. Décrire la vulnérabilité : nature, étapes de reproduction, impact potentiel.
+3. Une réponse sera apportée dans les 5 jours ouvrés.
 
-We follow responsible disclosure principles: we will acknowledge receipt, keep you
-informed of progress, and credit you in the fix unless you prefer to remain anonymous.
+Nous suivons les principes de divulgation responsable : accusé de réception,
+suivi de l'avancement, et crédit dans le correctif sauf si l'anonymat est souhaité.
 
-## Scope
+## Périmètre
 
-This project is a **100% Markdown framework** with no runtime server, no external
-dependencies, and no user data processing. The attack surface is limited to:
+Ce projet est un **framework 100 % Markdown** sans serveur, sans dépendances
+externes et sans traitement de données utilisateur. La surface d'attaque se
+limite à :
 
-- **Agent hooks** (`agents/hooks/`) — shell scripts that run with VS Code permissions.
-  They are **opt-in and disabled by default**. Enable only after reviewing the scripts.
-- **Prompt injection** — malicious content in files read by the AI agent during a
-  session could attempt to override framework instructions.
+- **Hooks d'agent** (`agents/hooks/`) — scripts shell qui s'exécutent avec les
+  permissions VS Code. Ils sont **opt-in et désactivés par défaut**. À activer
+  uniquement après révision des scripts.
+- **Injection de prompt** — du contenu malveillant dans des fichiers lus par
+  l'agent IA pourrait tenter de contourner les instructions du framework.
 
-## Security Design Principles
+## Principes de conception sécurisée
 
-- No secrets in plain text — `<REDACTED>` or vault references only.
-- Destructive commands require explicit user confirmation (enforced via the
-  `security-guard` hook when enabled).
-- All agent hooks are read-only inspectors — they never execute the commands they scan.
-- External skills/resources require explicit user authorization before access.
-- The framework itself contains no credentials, API keys, or production data.
+- Aucun secret en clair — uniquement `<REDACTED>` ou références à un coffre.
+- Les commandes destructives requièrent une confirmation explicite de l'utilisateur
+  (appliqué via le hook `security-guard` quand il est activé).
+- Tous les hooks d'agent sont des inspecteurs en lecture seule — ils n'exécutent
+  jamais les commandes qu'ils analysent.
+- Les skills/ressources externes nécessitent une autorisation explicite de
+  l'utilisateur avant tout accès.
+- Le framework lui-même ne contient aucun identifiant, clé API ou donnée de production.
