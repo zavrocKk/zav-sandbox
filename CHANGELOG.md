@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.2](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.1...v0.1.2) (2026-05-30)
+
+
+### Documentation
+
+* Phase 5.7-A hardening discipline — orchestrator, ADR-0005, roadmap ([#104](https://github.com/zavrocKk/zav-sandbox/issues/104)) ([6fc3443](https://github.com/zavrocKk/zav-sandbox/commit/6fc34435096bba5b21cc6996f35831d699a05fdd))
+
 ## [2026-05-09] - PRE-FLIGHT default-to-clarification (orchestrator)
 
 ### Added
