@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.7](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.6...v0.1.7) (2026-05-30)
+
+
+### Documentation
+
+* plan correctifs audit 2026-05-30 + mise à jour ROADMAP/IDEAS ([#115](https://github.com/zavrocKk/zav-sandbox/issues/115)) ([be3d194](https://github.com/zavrocKk/zav-sandbox/commit/be3d1949e49d127deacf5e2b26bf1a900dfab151))
+
 ## [0.1.6](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.5...v0.1.6) (2026-05-30)
 
 
