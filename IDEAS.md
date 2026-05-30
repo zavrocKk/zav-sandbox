@@ -628,4 +628,278 @@ demande simple où c'est légitime), Friction F6 (coût tokens élevé).
 
 **Statut** : 🟢 traitée
 
+### 2026-05-10 — Cas A — Boucle infinie de clarification (THÉORIQUE)
+
+**Idée** : Risque structurel projeté par analyse théorique (`field_report_2.md`,
+section 5) : la règle `default-to-clarification` (correctif 3.C de 5.7.A) sans
+seuil de sortie peut produire une boucle de clarifications successives où chaque
+nouvelle réponse utilisateur introduit de nouvelles ambiguïtés. Une demande réelle
+contient toujours des ambiguïtés résiduelles → un agent maximiseur de clarification
+ne peut pas sortir de la boucle seul.
+
+**Indicateur observable** : >2 cycles consécutifs ANALYSE→CONFIRM sans phase
+EXECUTE atteinte. ~600–900 tokens brûlés par cycle.
+
+**Origine** : 🔴 THÉORIQUE — projection mathématique, non confirmée empiriquement.
+
+**Correctif théorique disponible** : `max_clarification_turns = 2` +
+fallback `proceed-with-stated-assumptions`. Spécifié en ADR-0005 (Lot 1).
+
+**Phase d'examen suggérée** : Phase 5.7.B (si activée par Field Report empirique).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md` — Cas A.
+
+**Statut** : 🟡 ouverte — conditionnelle à validation empirique.
+
 ---
+
+### 2026-05-10 — Cas B — Amnésie graduelle du prompt système (THÉORIQUE)
+
+**Idée** : Mécanisme projeté combinant attention diluée (poids relatif du système
+prompt décroît mécaniquement de 100 % à ~25 % entre début et saturation contexte)
+et biais de récence RoPE (tokens récents favorisés indépendamment de leur importance
+sémantique). Conséquence projetée : non-respect progressif des règles binaires
+après ~5 interactions complexes avec thinking étendu actif.
+
+**Convergence avec l'observation empirique** : F2 ("Orchestrator ne délègue pas")
+de l'ADR-0004 a été observé *principalement en sessions longues, jamais sur la
+première interaction*. C'est la signature exacte de ce mécanisme.
+
+**Implication critique** : les correctifs textuels de 5.7.A retardent le phénomène
+sans le résoudre. Seuls des mécanismes structurels (re-grounding périodique,
+kill-switch SNR) peuvent y résister.
+
+**Origine** : 🔴 THÉORIQUE — explication mathématique d'une observation empirique
+existante. Plausible mais non démontrée.
+
+**Correctifs théoriques disponibles** : re-grounding périodique (Lot 2 ADR-0005)
+et session kill-switch (Lot 1 ADR-0005).
+
+**Phase d'examen suggérée** : Phase 5.7.B (si activée). Long terme : Phase 7
+(mémoire persistante avec checkpoints).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md` — Cas B.
+Lien direct avec entrée existante "F4 — Mémoire/contexte fragiles" (2026-05-09).
+
+**Statut** : 🟡 ouverte — conditionnelle à validation empirique post-5.7.A.
+
+---
+
+### 2026-05-10 — Cas C — Dégradation du rapport Signal/Bruit (THÉORIQUE)
+
+**Idée** : Accumulation projetée de patterns protocole (ANALYSE/PLAN/CONFIRM/EXECUTE/
+SYNTHESIS) en contexte qui biaise les prédictions vers la reproduction de patterns
+formels au détriment du contenu substantiel. Aboutit à une "verbosité compensatoire" :
+plus de tokens pour atteindre la même qualité perçue, accélérant la dégradation.
+
+**Indicateurs observables** :
+- Longueur des tables PLAN : 4–5 lignes (interaction 1) → 8–12 lignes redondantes (interaction 10)
+- Ratio contenu/formatage EXECUTE : 70/30 → 35/65
+- Densité recommandations actionables : ~4/page → ~1.5/page
+
+**Convergence empirique** : F6 ("Coût tokens élevé") de l'ADR-0004 est cohérent avec
+la verbosité compensatoire. La gravité observée du F6 sera un indicateur direct de
+ce cas.
+
+**Origine** : 🔴 THÉORIQUE — modélisation de l'in-context learning à rebours.
+
+**Correctifs théoriques disponibles** : budget tracking explicite (Lot 2 ADR-0005)
+et session kill-switch (Lot 1 ADR-0005).
+
+**Phase d'examen suggérée** : Phase 5.7.B (si activée). Lien avec entrée existante
+"F6 — Coût tokens élevé (à surveiller post-5.7.A)" (2026-05-09).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md` — Cas C.
+
+**Statut** : 🟡 ouverte — conditionnelle à validation empirique post-5.7.A.
+
+---
+
+### 2026-05-10 — Résilience 1 — max_clarification_turns (THÉORIQUE)
+
+**Idée** : Seuil numérique anti-boucle de clarification. Au-delà de 2 cycles
+ANALYSE→CONFIRM consécutifs, l'orchestrator passe automatiquement en mode
+`proceed-with-stated-assumptions` (énonce ses hypothèses et avance avec).
+
+**Spécification minimale** :
+- Compteur de cycles clarification dans le contexte de session
+- Seuil : `max_clarification_turns = 2` (configurable)
+- Fallback : pattern textuel "Hypothèses retenues : [...]. Procédons. Si erronées, recale-moi."
+
+**Origine** : 🔴 THÉORIQUE — issue de la note d'architecture, section 6.
+
+**Phase d'examen suggérée** : Phase 5.7.B Lot 1 (si activée).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md`.
+
+**Statut** : 🟡 ouverte — conditionnelle.
+
+---
+
+### 2026-05-10 — Résilience 2 — Re-grounding périodique (THÉORIQUE)
+
+**Idée** : Réinjection automatique des 5 règles binaires critiques (délégation
+obligatoire, périmètre projet, PRE-FLIGHT, Pattern avouer l'échec, contrat
+PLAN→EXECUTION) tous les 4–5 tours, pour contrer la dilution mécanique
+d'attention sur le système prompt.
+
+**Spécification minimale** :
+- Nouveau fichier `agents/protocols/re-grounding.md` listant les 5 règles
+- Trigger : compteur d'interactions modulo 4–5 OU détection seuil 70 % contexte
+- Format de réinjection : bloc compact <= 200 tokens, pas une copie verbatim du système prompt
+
+**Risque connexe** : si la réinjection est trop verbeuse, elle aggrave le SNR
+au lieu de le corriger. Calibrage critique.
+
+**Origine** : 🔴 THÉORIQUE — note d'architecture section 6.
+
+**Phase d'examen suggérée** : Phase 5.7.B Lot 2 (si activée).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md`.
+
+**Statut** : 🟡 ouverte — conditionnelle.
+
+---
+
+### 2026-05-10 — Résilience 3 — Session kill-switch (SNR < 30 %) (THÉORIQUE)
+
+**Idée** : Détection automatique d'effondrement qualitatif et proposition d'ouverture
+nouvelle session. Si l'orchestrator estime le SNR sous 30 % (heuristique sur
+verbosité compensatoire + ratio contenu/formatage), il propose explicitement à
+l'utilisateur de fermer la session avec un session-summary et de redémarrer.
+
+**Spécification minimale** :
+- Heuristique d'estimation SNR (à concevoir, probablement basée sur ratio
+  formatage/contenu sur les 3 dernières réponses)
+- Message de proposition standardisé
+- Chaînage automatique avec template `session-summary.md` (déjà créé en 5.7.A
+  correctif 3.B)
+
+**Bénéfice secondaire** : transforme la dégradation en signal explicite plutôt
+qu'en frustration silencieuse.
+
+**Origine** : 🔴 THÉORIQUE — note d'architecture section 6.
+
+**Phase d'examen suggérée** : Phase 5.7.B Lot 1 (si activée).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md`.
+
+**Statut** : 🟡 ouverte — conditionnelle.
+
+---
+
+### 2026-05-10 — Résilience 4 — Budget tracking explicite (THÉORIQUE)
+
+**Idée** : Affichage discret en début de chaque réponse Orchestrator du nombre
+d'interactions restantes avant seuil 70 % contexte (ex: `Budget: ~7 interactions`).
+Rend visible la dégradation projetée et invite à l'arbitrage utilisateur.
+
+**Spécification minimale** :
+- Estimation par interaction = ~9 375 tokens (avec thinking) ou ~2 500 tokens (sans)
+- Calcul tour par tour, affichage minimal type `Budget: ~N tours`
+- Seuil d'alerte visuelle à 3 tours restants
+
+**Risque connexe** : ajouter de la métrique en surface peut détourner l'attention
+de la tâche. À tester sur 2–3 sessions avant déploiement complet.
+
+**Origine** : 🔴 THÉORIQUE — note d'architecture section 6.
+
+**Phase d'examen suggérée** : Phase 5.7.B Lot 2 (si activée).
+
+**Référence** : `docs/decisions/0005-theoretical-analysis-phase-5-7-B.md`.
+
+### 2026-05-10 — Diagnostic performance sessions : overhead n'est PAS le levier (EMPIRIQUE)
+
+**Contexte** : investigation déclenchée par observation empirique d'une dégradation
+de performance (lenteur + baisse qualité) au-delà de ~30K tokens en session. Hypothèse
+initiale : l'overhead de chargement de l'orchestrator était trop lourd. **Hypothèse
+infirmée par la mesure.**
+
+**Mesures empiriques réalisées** :
+
+| Source | Tokens mesurés | % fenêtre 64K |
+|---|---|---|
+| `orchestrator.agent.md` | ~2 100–3 400 | ~4,5 % |
+| `copilot-instructions.md` | ~650–970 | ~1,3 % |
+| **Total overhead framework** | **~2 750–4 370** | **~6 %** |
+
+**Confirmation empirique du lazy-loading** : l'orchestrator interrogé directement
+liste seulement 3 fichiers chargés au démarrage (copilot-instructions, orchestrator,
+git-workflow en mémoire non-lu). Les 9 personas, workflows, checklists, templates
+ne sont PAS chargés — lus à la demande uniquement. **Le framework fait déjà du
+lazy-loading natif. Les personas ne sont pas un problème de tokens.**
+
+**Cause racine de la dégradation à 30K** : ce n'est pas l'overhead de démarrage
+(~6 %, négligeable). C'est l'**accumulation par interaction** :
+- Thinking étendu : ~9K tokens/tour (levier dominant)
+- Verbosité protocole (en-têtes, tables PLAN, cérémonial) : ~1,5–3K/tour
+- Historique cumulé : croissant
+
+À ~9–12K/tour, le seuil 30K est atteint en 3–4 interactions. L'overhead initial
+est une goutte d'eau à côté.
+
+**Leviers réels par ordre d'impact** :
+1. 🔴 **Désactiver thinking étendu pour tâches simples** — gratuit, immédiat, peut
+   tripler le nombre d'interactions avant saturation
+2. 🟠 Sessions courtes/fréquentes — déjà acté ADR-0004 F4
+3. 🟠 Mode `/light` (réduction verbosité protocole) — récurrent, voir entrée dédiée
+4. 🟡 Recyclage de contexte (compaction/checkpoint) — Phase 7, long terme
+5. ⚪ Refactor overhead orchestrator — gain marginal (~2 interactions), propreté seulement
+
+**Décision** : NE PAS refactorer l'orchestrator pour la performance (gain ~2
+interactions pour une session de travail = mauvais ROI). Prioriser le réglage
+thinking + explorer le mode `/light`.
+
+**Garde-fou méta** : ce diagnostic a évité un refactor inutile. L'hypothèse la
+plus visible (overhead) n'était pas la cause racine (accumulation par tour).
+
+**Statut** : ✅ diagnostic clos, empirique. Action thinking testable immédiatement.
+**Statut** : 🟡 ouverte — conditionnelle.
+---
+### 2026-05-10 — Diagnostic performance sessions : overhead n'est PAS le levier (EMPIRIQUE)
+
+**Contexte** : investigation déclenchée par observation empirique d'une dégradation
+de performance (lenteur + baisse qualité) au-delà de ~30K tokens en session. Hypothèse
+initiale : l'overhead de chargement de l'orchestrator était trop lourd. **Hypothèse
+infirmée par la mesure.**
+
+**Mesures empiriques réalisées** :
+
+| Source | Tokens mesurés | % fenêtre 64K |
+|---|---|---|
+| `orchestrator.agent.md` | ~2 100–3 400 | ~4,5 % |
+| `copilot-instructions.md` | ~650–970 | ~1,3 % |
+| **Total overhead framework** | **~2 750–4 370** | **~6 %** |
+
+**Confirmation empirique du lazy-loading** : l'orchestrator interrogé directement
+liste seulement 3 fichiers chargés au démarrage (copilot-instructions, orchestrator,
+git-workflow en mémoire non-lu). Les 9 personas, workflows, checklists, templates
+ne sont PAS chargés — lus à la demande uniquement. **Le framework fait déjà du
+lazy-loading natif. Les personas ne sont pas un problème de tokens.**
+
+**Cause racine de la dégradation à 30K** : ce n'est pas l'overhead de démarrage
+(~6 %, négligeable). C'est l'**accumulation par interaction** :
+- Thinking étendu : ~9K tokens/tour (levier dominant)
+- Verbosité protocole (en-têtes, tables PLAN, cérémonial) : ~1,5–3K/tour
+- Historique cumulé : croissant
+
+À ~9–12K/tour, le seuil 30K est atteint en 3–4 interactions. L'overhead initial
+est une goutte d'eau à côté.
+
+**Leviers réels par ordre d'impact** :
+1. 🔴 **Désactiver thinking étendu pour tâches simples** — gratuit, immédiat, peut
+   tripler le nombre d'interactions avant saturation
+2. 🟠 Sessions courtes/fréquentes — déjà acté ADR-0004 F4
+3. 🟠 Mode `/light` (réduction verbosité protocole) — récurrent, voir entrée dédiée
+4. 🟡 Recyclage de contexte (compaction/checkpoint) — Phase 7, long terme
+5. ⚪ Refactor overhead orchestrator — gain marginal (~2 interactions), propreté seulement
+
+**Décision** : NE PAS refactorer l'orchestrator pour la performance (gain ~2
+interactions pour une session de travail = mauvais ROI). Prioriser le réglage
+thinking + explorer le mode `/light`.
+
+**Garde-fou méta** : ce diagnostic a évité un refactor inutile. L'hypothèse la
+plus visible (overhead) n'était pas la cause racine (accumulation par tour).
+
+**Statut** : ✅ diagnostic clos, empirique. Action thinking testable immédiatement.~~~~
+
