@@ -38,6 +38,9 @@ flowchart LR
     persona concerné émet une carte d'angle (Position / Risque clé / Reco), une
     seule passe, puis le Scribe synthétise. Voir [`agents/protocols/light-panel.md`](../protocols/light-panel.md).
     Si les personas doivent se répondre entre eux → `/debate`.
+- **Phase 4 (Cause racine) — invoquer la skill** [`root-cause-analysis`](../skills/root-cause-analysis/SKILL.md)
+  pour structurer l'analyse (5 Pourquoi / Ishikawa) : remonter au défaut systémique,
+  étayer chaque cause par une preuve, définir une contre-mesure durable (≠ mitigation).
 - Si la cause racine est applicative → handoff explicite vers Developer.
 - Si la cause est sécurité (intrusion, exfiltration suspecte) → handoff vers Security et **escalade utilisateur immédiate**.
 

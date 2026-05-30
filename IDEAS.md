@@ -84,7 +84,7 @@ Format pour ajouter une nouvelle idée :
 
 **Phase d'examen suggérée** : Phase 8 (skills techniques) — c'est exactement la question qui se pose au moment de promouvoir un persona en skill.
 
-**Statut** : 🟡 ouverte
+**Statut** : ✅ tranchée (cadrage Phase 8, 2026-05-30) — **un persona reste un persona, pas de promotion en skill**. Frontière : persona = QUI parle ≠ skill = SAVOIR invocable. La découvrabilité observée est un effet de bord accepté, pas un besoin de skill. Voir [`docs/architecture/2026-05-30-phase-8-skills.md`](docs/architecture/2026-05-30-phase-8-skills.md) §1.
 
 ---
 
@@ -119,7 +119,7 @@ Format pour ajouter une nouvelle idée :
 
 **Phase d'examen suggérée** : Phase 6 ou Phase 8 — décision à trancher : workflow ou skill ?
 
-**Statut** : 🟡 ouverte
+**Statut** : ✅ tranchée (Phase 8.2, 2026-05-30) — **skill, pas workflow** : skill méthodologique [`agents/skills/root-cause-analysis/SKILL.md`](agents/skills/root-cause-analysis/SKILL.md) (5 Pourquoi / Ishikawa), invocable dans n'importe quel workflow.
 
 ---
 
@@ -149,7 +149,7 @@ Format pour ajouter une nouvelle idée :
 
 **Phase d'examen suggérée** : Phase 8 (skills techniques) — c'est exactement le pattern d'usage prévu pour les skills.
 
-**Statut** : 🟡 ouverte
+**Statut** : ✅ tranchée (cadrage Phase 8, 2026-05-30) — **= skill, pas workflow** (séquence préfabriquée des workflows existants + savoir CVSS/CWE/priorisation). Création **différée** (règle anti-bloat) ; restent à définir le format du remediation report et le rattachement au persona 🔒 Security. Voir [`docs/architecture/2026-05-30-phase-8-skills.md`](docs/architecture/2026-05-30-phase-8-skills.md) §1 et §6.
 
 ---
 

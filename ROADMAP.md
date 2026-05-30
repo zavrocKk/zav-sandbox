@@ -16,7 +16,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 5.8 — Hardening usage réel — performance & contexte (correctifs framework livrés ; levier thinking côté utilisateur)
 ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
 🟦 Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
-⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.) — incl. 8.1 garde-fous pré-PR
+🟦 Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
 
 #### Phase 5.7.B — Affinages & vigilance — CLÔTURÉE (recyclée vers 5.8)
@@ -269,10 +269,23 @@ lecture-au-démarrage/écriture, branchement de l'auto-check saturation) ; ligne
 - Restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03) — décision séparée
 - Validation à l'usage de la granularité « 1 fichier par fil »
 
-### ⬜ Phase 8 — Skills techniques
+### 🟦 Phase 8 — Skills techniques
 
 **Concept** : ajouter des skills spécialisées pour les technologies qu'utilisent
 les équipes cibles.
+
+> **Cadrage fait le 2026-05-30** — voir la note d'architecture
+> [`docs/architecture/2026-05-30-phase-8-skills.md`](docs/architecture/2026-05-30-phase-8-skills.md).
+> Décisions de cadrage : (1) **frontière** skill/workflow/persona = SAVOIR / ORDRE /
+> QUI (testée sur 3 cas IDEAS : persona reste persona · pentest-remediation = skill ·
+> 5 Pourquoi/Ishikawa = skill méthodo) ; (2) **format** = standard marché **Agent
+> Skills** (Anthropic), 1 dossier/skill `agents/skills/<slug>/SKILL.md`, front-matter
+> `name`+`description` ; (3) **invocation** = progressive disclosure 3 niveaux ↔
+> budgets tiny→deep, chargement scopé à la demande ; (4) **sécurité provenance** =
+> sources de confiance only, audit fichier par fichier, structure inspirée / contenu
+> réécrit, socle 100 % markdown statique sans réseau (anti-injection) ; (5) **F5
+> MCP/APIs** = hors socle, mentionnable en option jamais requis ; (6) **1ʳᵉ skill**
+> différée (règle anti-bloat), critère = outil réel × fréquence × cas de test × 6 filtres.
 
 **Candidates prioritaires** :
 
@@ -288,7 +301,14 @@ les équipes cibles.
 skill, **demander à l'utilisateur quel outil** est réellement utilisé dans son
 contexte, et ne créer que celles-là. Pas de skill « au cas où » (anti-bloat).
 
-#### 🟦 Phase 8.1 — Garde-fous pré-PR
+**⏳ Sous-phase 8.2 — 1ʳᵉ skill (à venir)** : confirmer l'outil réel avec
+l'utilisateur (règle anti-bloat), puis créer la 1ʳᵉ skill au format Agent Skills.
+Candidates les mieux placées (cas de test déjà présents dans le repo) :
+**Observabilité** (inputs `datadog-snapshot.md` / `splunk-extract.md`) ou
+**root-cause-analysis** (5 Pourquoi / Ishikawa). Câblage orchestrateur (section
+« Skills » + règle de chargement scopé) à livrer avec la 1ʳᵉ skill.
+
+#### ✅ Phase 8.1 — Garde-fous pré-PR
 
 **Objectif** : éviter les conflits causés par des commits sans PR, des branches
 qui traînent, ou des fichiers de pilotage non synchronisés.

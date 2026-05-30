@@ -62,6 +62,7 @@ Quand le custom agent `orchestrator` est actif, suis en plus les règles défini
 | PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
 | Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
 | Checkpoint de mémoire | `docs/_scratch/memory/` | `<thread-slug>.md` |
+| Skill technique | `agents/skills/<slug>/` | `SKILL.md` (+ `reference/*.md` optionnels) |
 | Note de délibération (Débat) | `docs/decisions/` si ADR, sinon `docs/_scratch/` | `NNNN-slug.md` ou `YYYY-MM-DD-debate-<topic>.md` |
 | Field Report (hors repo) | n/a | papier/OneNote/perso |
 

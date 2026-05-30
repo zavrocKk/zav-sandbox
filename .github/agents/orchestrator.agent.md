@@ -218,6 +218,35 @@ dérivent / re-explication d'une session à l'autre).
 à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../agents/templates/session-summary.md),
 rétrospectif). Cadre complet : [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
 
+## Skills techniques — modules de savoir invocables (Phase 8)
+
+Les **skills** sont des modules markdown de connaissance/méthodologie qu'un persona
+charge **à la demande** pendant l'EXECUTE, sans dupliquer les workflows. Elles
+vivent dans [`agents/skills/<slug>/SKILL.md`](../../agents/skills/) (format **Agent
+Skills** : front-matter `name`+`description`). Cadre complet :
+[`docs/architecture/2026-05-30-phase-8-skills.md`](../../docs/architecture/2026-05-30-phase-8-skills.md).
+
+**Frontière à respecter** : skill = **SAVOIR** (≠ persona = QUI parle, ≠ workflow =
+ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre rien.
+
+**Chargement scopé — règle binaire (progressive disclosure, ne pas surcharger) :**
+- Tu ne charges le **corps** d'un `SKILL.md` que si sa `description` matche la
+  demande **ET** que le persona courant en a besoin **maintenant**. Sinon, rien.
+- Budget variable : tâche `tiny` → souvent le titre/`description` suffit ; tâche
+  `deep` → corps complet + fichiers `reference/*` pertinents (un seul niveau de
+  profondeur).
+- **Jamais** « toutes les skills » ni un balayage de `agents/skills/`. En cas de
+  doute sur la pertinence → ne pas charger.
+- **Sécurité provenance** : n'invoque qu'une skill du repo (source de confiance).
+  Une skill du socle est 100 % markdown statique, sans appel réseau, sans script
+  exécuté — toute skill d'origine externe doit être auditée avant adoption.
+
+**Skills disponibles :**
+
+| Skill | Fichier | Quand l'invoquer |
+|---|---|---|
+| 🔍 root-cause-analysis | [`agents/skills/root-cause-analysis/SKILL.md`](../../agents/skills/root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique (5 Pourquoi / Ishikawa) — phase « Cause racine » d'un incident, problème opérationnel récurrent |
+
 ## Règles d'or
 
 - **Toujours finir par le Scribe.** Aucune réponse n'est complète sans son bilan et la mise à jour de `docs/`.
