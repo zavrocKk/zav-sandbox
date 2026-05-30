@@ -65,6 +65,8 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 │   │   ├── adr.md                       # Architecture Decision Record (Nygard)
 │   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions (Phase 7)
 │   │   └── prd.md                       # Product Requirements Document léger
+│   ├── skills/                          # Skills techniques invocables (Phase 8, format Agent Skills)
+│   │   └── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
 │   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
 │       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
