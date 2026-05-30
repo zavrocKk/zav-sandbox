@@ -284,7 +284,7 @@ La 1ʳᵉ skill créée sera celle qui maximise :
 
 **Position retenue :** une skill du **socle** ne dépend **jamais** d'un MCP ou d'un
 appel API pour fonctionner — sinon elle casse le filtre VISION 3 (« rien à
-installer ») et rouvre le vecteur d'injection (§4). 
+installer ») et rouvre le vecteur d'injection (§4).
 
 - Le **savoir** d'une skill (patterns, méthodes, formats) est **statique et
   autosuffisant**.

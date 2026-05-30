@@ -19,7 +19,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
 
-#### Phase 5.7.B — Affinages & vigilance — CLÔTURÉE (recyclée vers 5.8)
+### Phase 5.7.B — Affinages & vigilance — CLÔTURÉE (recyclée vers 5.8)
 
 **Statut au 2026-05-10** : ❌ non exécutée comme prévu, recyclée.
 
@@ -309,7 +309,7 @@ contexte, et ne créer que celles-là. Pas de skill « au cas où » (anti-bloat
   méthodologie RCA blameless (5 Pourquoi + Ishikawa, diagramme Mermaid fishbone),
   format standard Agent Skills (Anthropic), progressive disclosure 3 niveaux.
 - Câblage orchestrateur : section « Skills techniques » + règle de chargement scopé
-  + table des skills disponibles.
+  - table des skills disponibles.
 - Ancrage [`agents/workflows/incident-response.md`](agents/workflows/incident-response.md) :
   skill invocable à la phase 4 (Cause racine).
 - 3 entrées IDEAS tranchées (problem-resolution = skill ; personas restent personas ;

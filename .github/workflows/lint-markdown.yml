@@ -12,7 +12,18 @@ jobs:
       - name: Lint Markdown files
         uses: DavidAnson/markdownlint-cli2-action@v16
         with:
-          globs: '**/*.md'
+          globs: |
+            README.md
+            CONTRIBUTING.md
+            SECURITY.md
+            ROADMAP.md
+            VISION.md
+            IDEAS.md
+            docs/incidents/**/*.md
+            docs/architecture/**/*.md
+            docs/decisions/**/*.md
+            docs/runbooks/**/*.md
+            .github/ISSUE_TEMPLATE/**/*.md
           config: '.markdownlint.json'
 
   naming-conventions:

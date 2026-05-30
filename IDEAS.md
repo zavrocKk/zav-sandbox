@@ -1,4 +1,4 @@
-﻿# Parking lot — Idées et questions ouvertes
+# Parking lot — Idées et questions ouvertes
 
 Ce fichier collecte les idées et questions qui débordent du focus actuel. **Rien ici n'est urgent.** On y reviendra à la phase appropriée selon la feuille de route.
 
@@ -265,9 +265,9 @@ Format pour ajouter une nouvelle idée :
 
 ### 2026-05-09 — Orchestrator.agent.md trop lourd — cause structurelle de F2/F4
 
-**Intuition utilisateur initiale** : `orchestrator.agent.md` à 202+ lignes 
-après Phase 5.7.A pourrait être la cause directe des Frictions F2 
-(orchestrator ne délègue pas) et F4 (mémoire/contexte fragiles sur 
+**Intuition utilisateur initiale** : `orchestrator.agent.md` à 202+ lignes
+après Phase 5.7.A pourrait être la cause directe des Frictions F2
+(orchestrator ne délègue pas) et F4 (mémoire/contexte fragiles sur
 sessions longues).
 
 **Validation par analyse technique Copilot (2026-05-09)** :
@@ -286,13 +286,13 @@ sessions longues).
 
 #### Le vrai problème n'est pas le contexte absolu
 
-Claude Sonnet 4.6 dispose de 200K de contexte — le plafond n'est PAS 
+Claude Sonnet 4.6 dispose de 200K de contexte — le plafond n'est PAS
 atteint. **Le vrai problème est la dilution d'attention** :
-- Effet "lost in the middle" documenté pour les LLMs (le modèle prête 
+- Effet "lost in the middle" documenté pour les LLMs (le modèle prête
   moins d'attention aux règles situées au milieu d'un long contexte)
-- À chaque échange, tout le contexte est retokenisé → coût linéaire 
+- À chaque échange, tout le contexte est retokenisé → coût linéaire
   croissant
-- Sur sessions longues, les règles critiques sont "noyées" dans les 
+- Sur sessions longues, les règles critiques sont "noyées" dans les
   échanges récents
 
 #### Problèmes structurels identifiés dans le fichier
@@ -306,14 +306,14 @@ Les 3 sections traitent du même domaine sémantique (gestion de l'échec/
 blocage) mais avec des angles différents. Redondance ≈ 15-20% du fichier.
 
 **2. Hiérarchie d'attention défavorable** :
-- `## Démarrage` est en ligne 149 (fin de fichier) → faible poids 
+- `## Démarrage` est en ligne 149 (fin de fichier) → faible poids
   d'attention (biais de récence inverse)
 - `PRE-FLIGHT` en tête → bon
-- Règles de délégation et de périmètre **au milieu** → zone d'attention 
+- Règles de délégation et de périmètre **au milieu** → zone d'attention
   faible (effet lost in the middle)
 
 **3. Formatage qui peut affecter le tokenizer** :
-- Lignes vides manquantes avant certains `##` (déjà identifié et corrigé 
+- Lignes vides manquantes avant certains `##` (déjà identifié et corrigé
   partiellement dans cda0500 amendé)
 
 #### Conflits observés ↔ causes identifiées
@@ -332,39 +332,39 @@ blocage) mais avec des angles différents. Redondance ≈ 15-20% du fichier.
 3. **Extraire le mapping workflow** dans un fichier séparé chargé à la demande (gain ~600 tk systématiques)
 4. **Ajouter un "résumé des règles critiques"** de 5 lignes max en tête (ancre d'attention pour sessions longues)
 
-**Risque à surveiller** : externaliser sans précaution pourrait créer un 
-problème de chargement (l'orchestrator doit charger les fichiers externes 
+**Risque à surveiller** : externaliser sans précaution pourrait créer un
+problème de chargement (l'orchestrator doit charger les fichiers externes
 au bon moment). À tester.
 
 #### Mesure proposée pour valider
 
-**Avant correctif (état actuel)** : compter sur 5 sessions longues 
+**Avant correctif (état actuel)** : compter sur 5 sessions longues
 (>30 min) post-5.7.A le nombre d'occurrences de :
 - Réponses sans en-tête persona
 - Suppositions silencieuses (réponse sans clarification sur prompt ambigu)
 - Anti-patterns violés (création silencieuse de fichier, etc.)
 
-**Après correctif** : même mesure. Si réduction significative → 
+**Après correctif** : même mesure. Si réduction significative →
 hypothèses validées.
 
 #### Conseil stratégique
 
-À traiter **AVANT Phase 6 (Party Mode)** parce que Party Mode = plusieurs 
-personas en parallèle = encore plus de charge contexte cumulée. Si la 
-lourdeur orchestrator n'est pas traitée avant, Party Mode risque 
+À traiter **AVANT Phase 6 (Party Mode)** parce que Party Mode = plusieurs
+personas en parallèle = encore plus de charge contexte cumulée. Si la
+lourdeur orchestrator n'est pas traitée avant, Party Mode risque
 d'amplifier les frictions au lieu de les résoudre.
 
 #### Décision actuelle (Chemin A acté)
 
-**Pas d'action immédiate.** L'utilisateur va d'abord tester Phase 5.7.A 
-en usage réel sur 3-5 sessions, observer les frictions résiduelles, et 
+**Pas d'action immédiate.** L'utilisateur va d'abord tester Phase 5.7.A
+en usage réel sur 3-5 sessions, observer les frictions résiduelles, et
 décider de l'urgence de l'allègement en Phase 5.7.B sur données réelles.
 
-**Phase d'examen suggérée** : Phase 5.7.B (priorité haute si frictions 
+**Phase d'examen suggérée** : Phase 5.7.B (priorité haute si frictions
 F2/F4 persistent).
 
-**Origine** : intuition utilisateur (lourdeur ressentie) + analyse 
-technique Copilot (mesures et biais d'attention) — convergence des deux 
+**Origine** : intuition utilisateur (lourdeur ressentie) + analyse
+technique Copilot (mesures et biais d'attention) — convergence des deux
 diagnostics, 2026-05-09.
 
 **Référence** : ADR-0004 (Frictions F2 et F4).
@@ -375,28 +375,28 @@ diagnostics, 2026-05-09.
 
 ### 2026-05-09 — Mode /light officiel — 3 niveaux de workflow
 
-**Idée** : Le framework actuel a un mode unique qui s'applique à toutes les 
-demandes, peu importe leur complexité. Conséquence : les demandes simples 
-("résume ce fichier", "vérification git", "petite question") sont traitées 
-avec le même protocole complet (ANALYSE → PLAN → CONFIRM → EXECUTE → 
+**Idée** : Le framework actuel a un mode unique qui s'applique à toutes les
+demandes, peu importe leur complexité. Conséquence : les demandes simples
+("résume ce fichier", "vérification git", "petite question") sont traitées
+avec le même protocole complet (ANALYSE → PLAN → CONFIRM → EXECUTE →
 SYNTHESIS → CLOSE) que les incidents complexes.
 
-**Source** : analyse Copilot "simulation 5 sessions" du 2026-05-09 — 
+**Source** : analyse Copilot "simulation 5 sessions" du 2026-05-09 —
 session 1 (demande simple) identifie un surcoût massif :
 - Input de base : ~4 800 à 6 500 tokens
 - Réponse utile réelle : ~300 à 600 tokens
 - **Surcoût process : ~800 à 1 500 tokens pour respecter le rituel**
 
-→ Pour une question simple, le framework consomme parfois plus de tokens 
+→ Pour une question simple, le framework consomme parfois plus de tokens
 à respecter son rituel qu'à répondre au besoin.
 
 **Risque observé/anticipé** :
-- L'utilisateur contourne l'Orchestrator et revient à l'Agent par défaut 
+- L'utilisateur contourne l'Orchestrator et revient à l'Agent par défaut
   pour les petites tâches
 - Le framework devient perçu comme "bureaucratique"
 - Perte d'adoption progressive sur les usages quotidiens légers
 
-**Limite du mode `/quick` actuel** : 
+**Limite du mode `/quick` actuel** :
 - `/quick` saute uniquement la phase CONFIRM
 - Ne définit pas clairement quand éviter le Scribe
 - Ne définit pas quand utiliser un persona unique
@@ -422,28 +422,28 @@ session 1 (demande simple) identifie un surcoût massif :
 - Moins de tentation d'abandonner l'Orchestrator pour l'Agent par défaut
 
 **Distinction avec d'autres entrées IDEAS.md** :
-- *Différent* de "Pas de fast-track / mode allégé" (2026-05-02) — cette 
+- *Différent* de "Pas de fast-track / mode allégé" (2026-05-02) — cette
   entrée précise comment, pas juste si
-- *Différent* de "Orchestrator trop lourd" (2026-05-09) — celle-ci traite 
+- *Différent* de "Orchestrator trop lourd" (2026-05-09) — celle-ci traite
   la STRUCTURE du fichier, le mode /light traite la GRADUATION du protocole
-- *Complémentaire* avec les correctifs Phase 5.7.A (2.A délégation, 2.B 
-  PLAN→EXECUTION) — le mode /light n'annule pas ces règles, il les 
+- *Complémentaire* avec les correctifs Phase 5.7.A (2.A délégation, 2.B
+  PLAN→EXECUTION) — le mode /light n'annule pas ces règles, il les
   contextualise selon la complexité
 
-**Phase d'examen suggérée** : Phase 6 (Party Mode) — le mode /light est 
-naturellement lié à la sélection contextuelle de personas que prévoit 
-Phase 6. Mais à reconsidérer en Phase 5.7.B si l'usage réel post-5.7.A 
+**Phase d'examen suggérée** : Phase 6 (Party Mode) — le mode /light est
+naturellement lié à la sélection contextuelle de personas que prévoit
+Phase 6. Mais à reconsidérer en Phase 5.7.B si l'usage réel post-5.7.A
 confirme que la lourdeur est le frein principal.
 
-**Risque à surveiller** : si on introduit /light avant Party Mode, on crée 
-peut-être 2 sélections contextuelles différentes (graduation par complexité 
-+ sélection de personas). Risque de friction conceptuelle.
+**Risque à surveiller** : si on introduit /light avant Party Mode, on crée
+peut-être 2 sélections contextuelles différentes (graduation par complexité
+- sélection de personas). Risque de friction conceptuelle.
 
-**Origine** : analyse Copilot simulation 5 sessions, session 1 (demande 
-simple) — surcoût ~800-1 500 tokens identifié comme problème structurel 
+**Origine** : analyse Copilot simulation 5 sessions, session 1 (demande
+simple) — surcoût ~800-1 500 tokens identifié comme problème structurel
 non couvert par /quick actuel.
 
-**Référence** : ADR-0004, Friction F2 (orchestrator ne délègue pas vs 
+**Référence** : ADR-0004, Friction F2 (orchestrator ne délègue pas vs
 demande simple où c'est légitime), Friction F6 (coût tokens élevé).
 
 **Statut** : 🟡 ouverte (priorité haute pour Phase 6, possible préemption en 5.7.B)
