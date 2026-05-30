@@ -6,6 +6,8 @@ namespace: notif-prod
 window: 2026-05-02T01:00:00Z to 2026-05-02T05:30:00Z
 ---
 
+> **FIXTURE** — Données synthétiques créées pour les tests du MVP (Phase 4–5). Aucune donnée réelle de production.
+
 # Datadog snapshot — notification-api (nuit 2026-05-01 / 2026-05-02)
 
 > Export texte des graphiques Datadog clés sur la fenêtre d'incident. Fenêtre élargie à 01:00-05:30 pour comparer avant/pendant/après.

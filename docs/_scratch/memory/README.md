@@ -16,7 +16,20 @@ Zone des **checkpoints de reprise** inter-sessions du framework Agentic Team.
   contenu est **promu** en ADR / note d'archi dans `docs/`. Le checkpoint reste un
   brouillon de travail, jamais la source de vérité finale.
 
+## Politique de rétention
+
+- **Cycle de vie nominal** : un checkpoint par fil, mis à jour à chaque session sur
+  ce fil. Statut possible : `active` | `paused` | `closed`.
+- **Archivage** : un checkpoint `closed` peut être déplacé dans
+  `docs/_scratch/memory/archive/` lors d'un nettoyage manuel.
+- **Nettoyage suggéré** : en début de trimestre, utilise `/memory-list` pour
+  lister les checkpoints `closed` depuis > 30 jours, puis archiver ou supprimer.
+- **Règle Git** : les checkpoints sont **toujours versionnés** (ne pas gitignorer).
+
 ## Cadre de référence
 
 Voir la note de cadrage
 [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../architecture/2026-05-30-phase-7-persistent-memory.md).
+
+Règles de chargement complètes :
+[`.github/agents/modules/memory.md`](../../../.github/agents/modules/memory.md).

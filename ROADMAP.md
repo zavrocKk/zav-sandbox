@@ -15,8 +15,8 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 5.7 — Hardening usage réel — discipline (5.7.A appliquée, 5.7.B recyclée vers 5.8)
 ✅ Phase 5.8 — Hardening usage réel — performance & contexte (correctifs framework livrés ; levier thinking côté utilisateur)
 ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
-🟦 Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
-🟦 Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
+✅ Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
+✅ Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
 
 #### Phase 5.7.B — Affinages & vigilance — CLÔTURÉE (recyclée vers 5.8)
@@ -301,12 +301,19 @@ les équipes cibles.
 skill, **demander à l'utilisateur quel outil** est réellement utilisé dans son
 contexte, et ne créer que celles-là. Pas de skill « au cas où » (anti-bloat).
 
-**⏳ Sous-phase 8.2 — 1ʳᵉ skill (à venir)** : confirmer l'outil réel avec
-l'utilisateur (règle anti-bloat), puis créer la 1ʳᵉ skill au format Agent Skills.
-Candidates les mieux placées (cas de test déjà présents dans le repo) :
-**Observabilité** (inputs `datadog-snapshot.md` / `splunk-extract.md`) ou
-**root-cause-analysis** (5 Pourquoi / Ishikawa). Câblage orchestrateur (section
-« Skills » + règle de chargement scopé) à livrer avec la 1ʳᵉ skill.
+#### ✅ Phase 8.2 — 1ʳᵉ skill : root-cause-analysis (2026-05-30)
+
+**Livrables** :
+
+- Skill [`agents/skills/root-cause-analysis/SKILL.md`](agents/skills/root-cause-analysis/SKILL.md) :
+  méthodologie RCA blameless (5 Pourquoi + Ishikawa, diagramme Mermaid fishbone),
+  format standard Agent Skills (Anthropic), progressive disclosure 3 niveaux.
+- Câblage orchestrateur : section « Skills techniques » + règle de chargement scopé
+  + table des skills disponibles.
+- Ancrage [`agents/workflows/incident-response.md`](agents/workflows/incident-response.md) :
+  skill invocable à la phase 4 (Cause racine).
+- 3 entrées IDEAS tranchées (problem-resolution = skill ; personas restent personas ;
+  pentest-remediation = skill différée — règle anti-bloat).
 
 #### ✅ Phase 8.1 — Garde-fous pré-PR
 

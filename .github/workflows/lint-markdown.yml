@@ -1,0 +1,60 @@
+name: Lint Markdown
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint Markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: '**/*.md'
+          config: '.markdownlint.json'
+
+  naming-conventions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check docs/ naming conventions
+        run: |
+          set -e
+          errors=0
+
+          # docs/incidents/ and docs/architecture/ → YYYY-MM-DD-slug.md
+          for dir in docs/incidents docs/architecture; do
+            if [ -d "$dir" ]; then
+              for f in "$dir"/*.md; do
+                [ -f "$f" ] || continue
+                name=$(basename "$f")
+                [ "$name" = ".gitkeep" ] && continue
+                if ! echo "$name" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9-]+\.md$'; then
+                  echo "❌ Bad name in $dir: $name (expected YYYY-MM-DD-slug.md)"
+                  errors=$((errors+1))
+                fi
+              done
+            fi
+          done
+
+          # docs/decisions/ → NNNN-slug.md
+          if [ -d "docs/decisions" ]; then
+            for f in docs/decisions/*.md; do
+              [ -f "$f" ] || continue
+              name=$(basename "$f")
+              [ "$name" = ".gitkeep" ] && continue
+              if ! echo "$name" | grep -qE '^[0-9]{4}-[a-z0-9-]+\.md$'; then
+                echo "❌ Bad name in docs/decisions: $name (expected NNNN-slug.md)"
+                errors=$((errors+1))
+              fi
+            done
+          fi
+
+          if [ "$errors" -gt 0 ]; then
+            echo ""
+            echo "Fix naming conventions — see copilot-instructions.md (Table de localisation)."
+            exit 1
+          fi
+          echo "✅ All naming conventions OK"

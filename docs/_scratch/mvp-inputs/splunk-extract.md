@@ -7,6 +7,8 @@ window: 2026-05-02T02:00:00Z to 2026-05-02T04:30:00Z
 log-format: JSON structured (Logback + Logstash encoder)
 ---
 
+> **FIXTURE** — Données synthétiques créées pour les tests du MVP (Phase 4–5). Aucune donnée réelle de production.
+
 # Splunk extract — notification-api logs (fenêtre incident)
 
 > 60 lignes représentatives sélectionnées sur les 18 000 lignes brutes de la fenêtre 02:00-04:30. Volumes retirés mais distribution préservée. Format JSON structuré (Logback + Logstash encoder).

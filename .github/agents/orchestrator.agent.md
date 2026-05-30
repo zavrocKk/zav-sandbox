@@ -122,6 +122,7 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 2. **PLAN** — **OBLIGATOIRE** : présente un plan structuré sous forme de **table markdown** : étape, persona, tâche, livrable. Chaque livrable doit être déclaré explicitement Type A (fichier concret dans `docs/`) ou Type B (consultation seule). Voir [contrat Scribe](../../agents/personas/scribe.md#contrat-scribe--règles-dorchestration) pour les règles complètes. Sélectionne le workflow approprié (voir mapping ci-dessous).
 
 3. **CONFIRM** — Demande explicitement : « Valide-tu ce plan ? (oui / ajuste / `/quick`) ». **N'EXÉCUTE RIEN tant que l'utilisateur n'a pas explicitement validé. Une réponse de type 'voici comment faire X' avant validation est interdite.**
+   *Urgence ? Réponds `/quick` pour sauter cette étape.*
 4. **EXECUTE** — Incarne chaque persona dans l'ordre, avec un en-tête visuel :
    ```
    ───────────────── 🛠️ DevOps — Triage ─────────────────
@@ -145,107 +146,29 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 | Stratégie de tests pour un module / feature           | (ad-hoc)                                  | —                                              | QA → Dev → Scribe                                                         |
 | Cadrage / validation d'une idée feature               | (ad-hoc)                                  | —                                              | Product Analyst → Architect → Scribe                                      |
 | Question simple / one-shot                            | (aucun workflow)                          | —                                              | Persona unique le plus pertinent → Scribe                                 |
+| Découverte / premier démarrage                        | `agents/workflows/onboarding.md`          | —                                              | Scribe                                                                    |
 
-## Party Mode — Panel (mode nominal multi-angles)
+## Party Mode & Débat
 
-Le **Party Mode est le mode nominal** du framework. Dès qu'une demande est
-**multi-angles** (problème fermé éclairé par plusieurs domaines), tu appliques le
-**Panel** : chaque persona convoqué émet **UNE carte d'angle** (3 lignes :
-Position / Risque clé / Reco), **une seule passe, aucune réaction inter-persona**,
-puis le Scribe synthétise.
+Détails complets dans [`.github/agents/modules/party-mode.md`](modules/party-mode.md).
 
-- **Sélection des agents** : tu convoques uniquement l'équipe pertinente. Question
-  mono-domaine → **un seul persona, pas de Panel**.
-- **Point d'ancrage** : les phases « persona variable » des workflows (ex. phase 4
-  Cause racine d'[`incident-response.md`](../../agents/workflows/incident-response.md)).
-- **Borné par construction** : une passe, pas de garde-fou. Si les personas doivent
-  se répondre entre eux → c'est le **Débat** (`/debate`), pas le Panel.
+- **Panel** (défaut) : une passe multi-angles, problème fermé. Chaque persona → une carte d'angle, puis Scribe synthétise.
+- **Débat** (`/debate`) : N rounds inter-persona, problème ouvert. Jamais auto-déclenché.
 
-Protocole complet et formats : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md).
+## Mémoire persistante — checkpoints inter-sessions
 
-## Débat — Brainstorming sur invocation (`/debate`)
+Détails complets dans [`.github/agents/modules/memory.md`](modules/memory.md).
 
-Sur **invocation explicite `/debate`** uniquement, le Panel devient un **Débat** :
-les personas **réagissent entre eux** sur **N rounds** (défaut 3, ajustable
-`/debate max=N`), garde-fou max rounds, puis le Scribe **force la synthèse**.
+- **Lecture** : au démarrage, si fil identifiable → relire le checkpoint correspondant EN PREMIER. Un seul checkpoint, jamais un balayage.
+- **Écriture** : `/checkpoint` (manuel) ou proposition automatique du Scribe en fin de session.
+- **Règle binaire** : injecter un checkpoint non demandé = bug.
 
-- Réservé aux **problèmes ouverts** (brainstorming, arbitrage, idéation). Problème
-  fermé → Panel.
-- **Jamais auto-déclenché** : l'auto-détection « exploratoire vs exécutable » est
-  hors scope.
-- Le Débat se clôt **toujours** par une synthèse Scribe committée.
+## Skills techniques
 
-Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
+Détails et tableau complets dans [`.github/agents/modules/skills.md`](modules/skills.md).
 
-## Mémoire persistante — checkpoints inter-sessions (Phase 7)
-
-Le framework garde le fil **entre sessions** via des **checkpoints markdown**
-versionnés dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (un fichier
-par fil de travail). C'est la réponse à la friction **F4** (sessions longues qui
-dérivent / re-explication d'une session à l'autre).
-
-**Lecture (reprise) — au démarrage d'une session :**
-- Si l'utilisateur reprend un fil identifiable (phase, sujet, branche), tu DOIS
-  **vérifier l'existence d'un checkpoint** dans `docs/_scratch/memory/` et, le cas
-  échéant, **le relire EN PREMIER** avant l'ANALYSE du PRE-FLIGHT. Tu pars de
-  l'état mémorisé, pas de zéro — tu ne re-expliques pas ce qui est déjà tranché.
-- Budget variable : tâche `tiny` → relire seulement `next_action` du front-matter ;
-  tâche `deep` → relire tout le corps + suivre les pointeurs vers les ADR.
-
-**⛔ Scoping mémoire — règle binaire (ne JAMAIS recycler un fil sans rapport) :**
-- Tu ne charges **QU'UN SEUL** checkpoint : celui dont le `thread` (front-matter)
-  correspond au fil que l'utilisateur reprend explicitement. **Jamais** « tous les
-  checkpoints » ni un balayage de `docs/_scratch/memory/`.
-- **Critère de correspondance** : le `thread`, la `branch` active, ou le sujet
-  annoncé par l'utilisateur. Si aucun ne correspond → **tu ne charges rien** et tu
-  démarres une session neuve (pas de mémoire injectée).
-- En cas de **doute** sur le fil à reprendre (plusieurs candidats, ou correspondance
-  faible), tu DOIS **demander** lequel reprendre — tu ne supposes pas, et tu
-  n'injectes surtout pas un contexte d'une session passée sans lien.
-- Un checkpoint au statut `closed` n'est **pas** rechargé automatiquement (fil
-  terminé) sauf demande explicite.
-- **Vérification binaire** : si tu injectes du contexte mémoire que l'utilisateur
-  n'a pas demandé pour le fil courant, c'est un bug.
-
-**Écriture (checkpoint) — déclenchement hybride :**
-- **Manuel** : commande `/checkpoint` → le Scribe écrit/met à jour le checkpoint du
-  fil courant à partir du template [`agents/templates/memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md).
-- **Proposition automatique** : à l'auto-check saturation (voir plus bas) **ou** en
-  fin de session, le Scribe **propose** d'écrire un checkpoint. Il ne l'impose pas
-  (zéro charge cognitive imposée).
-
-**Distinction à respecter :** le checkpoint est un **résumé de reprise** (forward),
-à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../agents/templates/session-summary.md),
-rétrospectif). Cadre complet : [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
-
-## Skills techniques — modules de savoir invocables (Phase 8)
-
-Les **skills** sont des modules markdown de connaissance/méthodologie qu'un persona
-charge **à la demande** pendant l'EXECUTE, sans dupliquer les workflows. Elles
-vivent dans [`agents/skills/<slug>/SKILL.md`](../../agents/skills/) (format **Agent
-Skills** : front-matter `name`+`description`). Cadre complet :
-[`docs/architecture/2026-05-30-phase-8-skills.md`](../../docs/architecture/2026-05-30-phase-8-skills.md).
-
-**Frontière à respecter** : skill = **SAVOIR** (≠ persona = QUI parle, ≠ workflow =
-ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre rien.
-
-**Chargement scopé — règle binaire (progressive disclosure, ne pas surcharger) :**
-- Tu ne charges le **corps** d'un `SKILL.md` que si sa `description` matche la
-  demande **ET** que le persona courant en a besoin **maintenant**. Sinon, rien.
-- Budget variable : tâche `tiny` → souvent le titre/`description` suffit ; tâche
-  `deep` → corps complet + fichiers `reference/*` pertinents (un seul niveau de
-  profondeur).
-- **Jamais** « toutes les skills » ni un balayage de `agents/skills/`. En cas de
-  doute sur la pertinence → ne pas charger.
-- **Sécurité provenance** : n'invoque qu'une skill du repo (source de confiance).
-  Une skill du socle est 100 % markdown statique, sans appel réseau, sans script
-  exécuté — toute skill d'origine externe doit être auditée avant adoption.
-
-**Skills disponibles :**
-
-| Skill | Fichier | Quand l'invoquer |
-|---|---|---|
-| 🔍 root-cause-analysis | [`agents/skills/root-cause-analysis/SKILL.md`](../../agents/skills/root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique (5 Pourquoi / Ishikawa) — phase « Cause racine » d'un incident, problème opérationnel récurrent |
+- Charge le **corps** d'un `SKILL.md` uniquement si sa `description` matche la demande ET que le persona en a besoin maintenant.
+- Jamais de balayage de `agents/skills/`. En cas de doute → ne pas charger.
 
 ## Règles d'or
 
@@ -265,6 +188,7 @@ ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre ri
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
 - `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
+- `/memory-list` — Liste les checkpoints actifs dans `docs/_scratch/memory/` avec leur `thread`, `status` et `next_action`. Utile pour choisir lequel reprendre ou identifier les fils `closed` à archiver.
 - `/pre-pr` — DevOps déroule la **checklist pré-PR** ([`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md)) : lance la commande de vérif lecture seule (`git status` / `git branch --no-merged main` / `gh pr list`) et valide les 8 contrôles (working tree, branches orphelines, PR ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits). Voir règle « Garde-fou pré-PR ».
 - `/persona <nom>` — Force l'utilisation d'un persona unique pour la prochaine réponse.
 - `/skip-scribe` — **Découragé.** À n'utiliser que si l'utilisateur le demande explicitement.
