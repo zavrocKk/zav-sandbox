@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.6](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.5...v0.1.6) (2026-05-30)
+
+
+### Features
+
+* audit v0.1.4 — 15 corrections framework (P1–P15) ([#113](https://github.com/zavrocKk/zav-sandbox/issues/113)) ([b392036](https://github.com/zavrocKk/zav-sandbox/commit/b392036ca2204cd6a7d51e4084c552b3d3c35942))
+
 ## [0.1.5](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.4...v0.1.5) (2026-05-30)
 
 
