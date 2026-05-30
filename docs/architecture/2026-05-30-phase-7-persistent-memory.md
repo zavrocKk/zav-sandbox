@@ -281,6 +281,21 @@ Git** (passe les 6 filtres, portable). Les hooks `PreCompact` et `Stop` sont
 **flaggés en sous-phase 7.x optionnelle** (fournis clé-en-main, jamais requis).
 `PreToolUse` sécurité = sujet distinct, hors Phase 7.
 
+### Implémentation livrée (2026-05-30, opt-in OFF par défaut)
+
+Les hooks ont été fournis dans [`agents/hooks/`](../../agents/hooks/) — **hors**
+`.github/hooks/` exprès, donc **non auto-chargés**. Activation manuelle via
+`chat.hookFilesLocations` (voir [`agents/hooks/README.md`](../../agents/hooks/README.md)).
+Versions livrées **non risquées** uniquement :
+
+- **`PreToolUse`** (`security-guard`) : scan des patterns destructifs →
+  `permissionDecision: ask` (confirmation). N'exécute jamais la commande.
+- **`PreCompact` + `Stop`** (`memory-nudge`) : `systemMessage` non bloquant
+  rappelant `/checkpoint`. **Pas** de `decision: block` (zéro premium request,
+  zéro boucle).
+- **`SessionStart`** et **`Stop`-block** : écartés (pollution inter-fils /
+  premium requests).
+
 ---
 
 ## 6. Tensions et points non tranchés

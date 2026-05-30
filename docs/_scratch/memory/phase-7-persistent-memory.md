@@ -23,6 +23,7 @@ s'était arrêté ». Cadrage fait, mécanisme 7.1 livré.
 - ✅ Note de cadrage d'architecture rédigée et committée
 - ✅ Mécanisme 7.1 livré : template checkpoint + zone versionnée + câblage orchestrateur (`/checkpoint`, lecture-au-démarrage, auto-check saturation)
 - ✅ ROADMAP Phase 7 mise à jour (🟦 cadrage + 7.1) ; table de localisation mise à jour
+- ✅ Hooks opt-in livrés OFF par défaut (`agents/hooks/` : security-guard PreToolUse + memory-nudge PreCompact/Stop)
 - ✅ PR #108 ouverte (pas encore mergée — attente validation utilisateur)
 - 🔄 Règle de scoping de la mémoire (ne charger QUE le fil pertinent) en cours de durcissement
 - ⛔ Rien de bloqué
@@ -39,8 +40,8 @@ s'était arrêté ». Cadrage fait, mécanisme 7.1 livré.
 ## Prochaines étapes
 1. Trancher la politique de rétention / cleanup des checkpoints clos (auto-archivage ? proposition Scribe ? statut `closed` → archive)
 2. Valider à l'usage la granularité « 1 fichier par fil »
-3. (Optionnel) Hooks natifs VS Code opt-in : `PreCompact` + `Stop` pour auto-save (écartés du socle, sous-phase 7.x)
-4. (Optionnel) restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03)
+3. (Optionnel) restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03)
+4. Démarrer la Phase 8 (skills techniques) — prompt de passation rédigé
 5. Décider du merge de la PR #108
 
 ## Pointeurs (artefacts pérennes produits)
