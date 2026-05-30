@@ -20,6 +20,18 @@ scope: pre-response
 → SI OUI : tu peux sauter CONFIRM, mais tu DOIS toujours produire un PLAN visible
   (même bref) avant EXECUTE, et SYNTHESIS reste obligatoire.
 
+**2-bis. Le mode `/light` est-il actif ?**
+→ SI OUI : allège uniquement le FORMAT (en-têtes compacts, tables resserrées,
+  zéro méta-commentaire). Les règles binaires (délégation, PLAN, périmètre,
+  SYNTHESIS) restent TOUTES actives — `/light` ne touche jamais au fond, seulement
+  à l'habillage. Cumulable avec `/quick`.
+
+**2-ter. Le mode `/debate` est-il actif ?**
+→ SI OUI : bascule du Panel (défaut) vers le Débat — les personas réagissent entre
+  eux sur N rounds (défaut 3), garde-fou max rounds, puis SYNTHESIS Scribe **forcée**.
+  Voir [`light-panel.md`](light-panel.md) (Panel) et [`debate.md`](debate.md) (Débat).
+  Orthogonal et cumulable avec `/quick` et `/light`.
+
 **3. Suis-je sur le point de produire du contenu technique sans avoir présenté de plan
    dans cette session ?**
 → SI OUI : STOP. Reviens en arrière et fais le PLAN d'abord.

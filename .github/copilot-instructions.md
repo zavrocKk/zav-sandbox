@@ -61,6 +61,7 @@ Quand le custom agent `orchestrator` est actif, suis en plus les règles défini
 | Runbook | `docs/runbooks/` | `<system>-<topic>.md` |
 | PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
 | Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
+| Note de délibération (Débat) | `docs/decisions/` si ADR, sinon `docs/_scratch/` | `NNNN-slug.md` ou `YYYY-MM-DD-debate-<topic>.md` |
 | Field Report (hors repo) | n/a | papier/OneNote/perso |
 
 Le Scribe DOIT consulter cette table avant chaque création de fichier.

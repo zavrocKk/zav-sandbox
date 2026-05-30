@@ -9,9 +9,9 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 15 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 13 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
-| [Archives — traitées](#archives--traitées) | 🟢 Idées appliquées via ADR ou correctifs | 5 entrées |
+| [Archives — traitées](#archives--traitées) | 🟢 Idées appliquées via ADR ou correctifs | 7 entrées |
 
 **Convention d'hygiène** : quand un correctif est appliqué via un ADR, l'entrée IDEAS.md correspondante doit être passée en 🟢 traitée et déplacée vers la section Archives **au moment du commit du correctif** — pas plus tard.
 
@@ -103,21 +103,6 @@ Format pour ajouter une nouvelle idée :
 
 ---
 
-### 2026-05-02 — Pas de fast-track / mode allégé pour les workflows
-
-**Idée** : Tous les workflows sont conçus pour le cas complet (5-7 phases). Un user qui a une demande simple va sauter des phases sans mode officiel pour le faire. Risque de drift.
-
-**Questions sous-jacentes** :
-- Concevoir un mode "allégé" (3-4 phases) pour les cas simples ?
-- Ou utiliser le futur Party Mode (Phase 6) pour faire la sélection contextuelle qui évite les phases inutiles ?
-- Comment l'orchestrator décide-t-il du mode (complet vs allégé) — signal explicite de l'utilisateur ? heuristique ?
-
-**Phase d'examen suggérée** : Phase 6 (Party Mode) — c'est probablement la solution naturelle, pas un mode allégé séparé.
-
-**Statut** : 🟡 ouverte
-
----
-
 ### 2026-05-02 — Workflow problem-resolution (5 Pourquoi / Ishikawa)
 
 **Idée** : Workflow pour traiter des problèmes complexes qui ne sont ni un incident urgent ni un audit de code localisé. Cas type : *« notre process de déploiement est lent et personne ne sait pourquoi »*.
@@ -133,27 +118,6 @@ Format pour ajouter une nouvelle idée :
 - Risque de chevauchement avec les **skills méthodologiques** prévues en Phase 8 (5 Pourquoi, RCA, RACI). Faut-il faire le workflow OU les skills, pas les deux ?
 
 **Phase d'examen suggérée** : Phase 6 ou Phase 8 — décision à trancher : workflow ou skill ?
-
-**Statut** : 🟡 ouverte
-
----
-
-### 2026-05-02 — Brainstorming : workflow standalone ou phase ?
-
-**Idée** : Permettre à l'orchestrator de mener une session de brainstorming structurée. Mais à arbitrer : workflow standalone OU phase initiale disponible dans plusieurs workflows existants ?
-
-**Tension à résoudre** :
-- Si workflow standalone → quel **livrable markdown** est produit ? (filtre 6 VISION : tout doit produire un livrable)
-- Si phase amont → l'attacher à `feature-development.md`, `architecture-design.md`, `problem-resolution.md` (si retenu) ?
-
-**Inspiration BMAD** : Carson (brainstorming-coach) au bureau est un agent dédié dans le module CIS. Mais on a dit : pas de copie BMAD. À reconcevoir proprement.
-
-**Questions sous-jacentes** :
-- Format livrable possible : `docs/brainstorming/YYYY-MM-DD-slug.md` avec sections "Question initiale / Idées générées / Clusters / Top 3 retenues / Next steps" ?
-- Quand l'utilisateur veut un brainstorming pur, c'est pas pour produire un livrable, c'est pour explorer. Conflit avec le filtre 6 ?
-- Pourrait-on en faire une **phase optionnelle** (drapeau `--with-brainstorm`) dans certains workflows ?
-
-**Phase d'examen suggérée** : Phase 6 (lié au Party Mode — brainstorming est un cas idéal de multi-personas).
 
 **Statut** : 🟡 ouverte
 
@@ -625,6 +589,34 @@ instrumentée. Validation par usage réel en continu (discipline d'enrichissemen
 ## Archives — traitées
 
 > Idées qui ont été appliquées via un ADR ou un correctif framework. Conservées pour traçabilité historique.
+
+---
+
+### 2026-05-02 — Pas de fast-track / mode allégé pour les workflows
+
+**Idée originale** : pas de mode officiel pour alléger les workflows complets sur les demandes simples → risque de drift.
+
+**Traitement** : Phase 6 — résolu par le **Panel** (Party Mode par défaut). Pas de mode allégé séparé : la sélection intelligente des agents convoque un seul persona sur une demande mono-domaine, l'équipe pertinente sur du multi-angles. La verbosité par tour relève de `/light` (Phase 5.8).
+
+**Référence** : `docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`, `agents/protocols/light-panel.md`
+
+**Date de traitement** : 2026-05-30
+
+**Statut** : 🟢 traitée
+
+---
+
+### 2026-05-02 — Brainstorming : workflow standalone ou phase ?
+
+**Idée originale** : permettre une session de brainstorming structurée — workflow standalone ou phase amont ?
+
+**Traitement** : Phase 6 — tranché. Le brainstorming est le moteur du **Débat** (`/debate`), surcouche du Panel, pas un workflow standalone. Livrable : note de délibération (`docs/decisions/` si ADR, sinon `docs/_scratch/YYYY-MM-DD-debate-<topic>.md`). Filtre 6 VISION respecté : le Débat se clôt toujours par une synthèse Scribe committée.
+
+**Référence** : `agents/protocols/debate.md`, `.github/copilot-instructions.md` (table de localisation)
+
+**Date de traitement** : 2026-05-30
+
+**Statut** : 🟢 traitée
 
 ---
 

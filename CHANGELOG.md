@@ -2,6 +2,23 @@
 
 ---
 
+## [2026-05-30] - Phase 6 — Party Mode : Panel (défaut) + Débat (/debate)
+
+### Added
+
+Party Mode opérationnel : Panel par défaut (multi-angles, 1 passe) et Débat sur
+invocation `/debate` (N rounds, défaut 3, garde-fou max rounds, synthèse Scribe
+forcée). L'auto-détection « exploratoire vs exécutable » est explicitement hors scope.
+Fichiers créés : `agents/protocols/light-panel.md`, `agents/protocols/debate.md`
+Fichiers modifiés : `.github/agents/orchestrator.agent.md` (sections Panel + Débat,
+commande `/debate`), `agents/workflows/incident-response.md` (ancrage Panel phase 4),
+`agents/protocols/preflight.md` (question 2-ter `/debate`),
+`.github/copilot-instructions.md` (ligne « note de délibération »),
+`README.md`, `ROADMAP.md` (Phase 6 ✅), `IDEAS.md` (2 entrées archivées 🟢)
+Réf : `docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`
+
+---
+
 ## [0.1.2](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.1...v0.1.2) (2026-05-30)
 
 

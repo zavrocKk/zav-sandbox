@@ -13,8 +13,8 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 4.5 — Clarification stratégique (vision, cible, différenciation)
 ✅ Phase 5 — MVP basé sur la vision (MVP validé 8/8 — clôturé Phase 5.5)
 ✅ Phase 5.7 — Hardening usage réel — discipline (5.7.A appliquée, 5.7.B recyclée vers 5.8)
-🟡 Phase 5.8 — Hardening usage réel — performance & contexte ← PRIORITÉ ACTUELLE
-⬜ Phase 6 — Party Mode (exécution parallèle) ← après Phase 5.8
+✅ Phase 5.8 — Hardening usage réel — performance & contexte (correctifs framework livrés ; levier thinking côté utilisateur)
+✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
 ⬜ Phase 7 — Mémoire persistante (artefacts de contexte)
 ⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.)
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
@@ -42,8 +42,6 @@ la dégradation de performance au-delà de ~30K tokens. La Phase 5.8 redéfinit 
 combat autour de cette douleur réelle.
 
 ### 🟡 Phase 5.8 — Hardening usage réel — performance & contexte
-
-**Ouverte le 2026-05-10** suite au diagnostic empirique de performance.
 
 **Objectif** : repousser le seuil de dégradation de performance en session, en
 réduisant la consommation de contexte **par interaction** — sans sacrifier les
@@ -83,6 +81,24 @@ thinking étendu (~9K/tour, levier dominant) + verbosité protocole (~1,5–3K/t
 - ✅ Aucune régression des garde-fous 5.7.A (délégation, périmètre, discipline)
 - ✅ Qualité perçue stable plus longtemps en session
 
+#### Clôture (2026-05-30)
+
+**Statut : ✅ close.** Correctifs framework livrés :
+
+| Levier | Livré | Emplacement |
+|---|---|---|
+| 2 — Mode `/light` | ✅ commande + règle PRE-FLIGHT Q2-bis (allège le format, pas les règles binaires, cumulable `/quick`) | `.github/agents/orchestrator.agent.md`, `agents/protocols/preflight.md` |
+| 3 — Auto-check saturation (2.C) | ✅ section « Auto-check saturation » + proposition de checkpoint | `.github/agents/orchestrator.agent.md` |
+| 4 — Anti-bavardage (2.D) | ✅ fusion des 3 sections anti-pattern en une seule (déduplication ~300-400 tk) + `/light` | `.github/agents/orchestrator.agent.md` |
+| Allègement orchestrator | ✅ ancre « Règles critiques » en tête (contre le lost-in-the-middle en session longue) | `.github/agents/orchestrator.agent.md` |
+
+**Action restante côté utilisateur (hors code)** : Levier 1 — réglage du thinking
+(off/low pour tâches simples) dans Copilot. Non committable, à appliquer en usage.
+
+**Report assumé** : externalisation du mapping workflow (~600 tk) — écartée car
+flaggée risquée (chargement au bon moment) dans IDEAS 2026-05-09 ; gain marginal
+face au risque. À reconsidérer seulement si la lourdeur persiste.
+
 #### Lien VISION
 
 Cette phase sert directement la promesse VISION « Drift en session longue :
@@ -91,42 +107,76 @@ artefacts » reste, elle, du ressort de la Phase 7 (distincte).
 
 Référence : entrée IDEAS.md 2026-05-10 « Diagnostic performance sessions ».
 
-### ⬜ Phase 6 — Party Mode (délibération multi-agents)
+### ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
 
-#### Définition (recadrée 2026-05-10)
+> **Statut : CLOSE le 2026-05-30.** Livré : protocoles
+> [`agents/protocols/light-panel.md`](agents/protocols/light-panel.md) (Panel) et
+> [`agents/protocols/debate.md`](agents/protocols/debate.md) (Débat) ; branchement
+> Panel par défaut + commande `/debate` dans
+> [`.github/agents/orchestrator.agent.md`](.github/agents/orchestrator.agent.md) ;
+> ancrage Panel sur la phase 4 (Cause racine) d'`incident-response.md` ; ligne
+> « note de délibération » ajoutée à la table de localisation de
+> `copilot-instructions.md` (Débat exploratoire → `docs/_scratch/`, ADR →
+> `docs/decisions/`). Garde-fou Débat : N=3 rounds par défaut (ajustable).
 
-Le Party Mode n'est PAS de l'exécution parallèle. C'est un **mode délibératif** :
-plusieurs personas débattent en direct sur un problème, sous la conduite de
-l'orchestrateur, pour l'explorer sous plusieurs angles AVANT de produire.
+#### Définition (recadrée 2026-05-30 — voir [ADR de cadrage](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md))
 
-Distinction fondamentale avec le mode Orchestrator actuel :
+> ⚠️ **Cette définition remplace celle de 2026-05-10** (« Party Mode = mode
+> délibératif »). Voir la note de décision
+> [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md)
+> pour le détail du renommage et la justification.
 
-| Aspect | Mode Orchestrator (actuel) | Party Mode (Phase 6) |
+Le **Party Mode est le mode nominal du framework**, toujours actif. Il se décline
+en **deux réglages de la même mécanique** — la sélection intelligente des agents
+par l'orchestrateur — qui ne diffèrent que par le nombre de passes :
+
+| | **Panel** — Party Mode (défaut) | **Débat** — Brainstorming (sur invocation) |
 |---|---|---|
-| Structure | Séquentielle (A finit → B commence) | Délibérative (les personas se répondent) |
-| Objectif | **Produire** un livrable | **Explorer** un problème |
-| Quand | On sait quoi faire | On ne sait pas encore quoi faire |
-| Sortie | Artefact direct | Note de délibération + clarté pour décider |
+| Statut | Mode nominal, **toujours actif** | Activé explicitement (`/debate`) |
+| Nature du problème | **Fermé** : une réponse à trouver | **Ouvert** : on bloque ou on explore |
+| Travail type | Incident, analyse, doc, design | Brainstorming, arbitrage, idéation |
+| Friction | Coûteuse → on l'évite | Productive → on la cherche |
+| Mécanique | Chaque expert → son angle **une fois** → synthèse | Les experts se répondent sur **N rounds** → synthèse |
+| Coût tokens | Borné par construction | Volontairement plus élevé (assumé) |
+| Garde-fou | Aucun nécessaire | Max rounds avant synthèse forcée |
 
-**Cas d'usage** : brainstorming, exploration d'un problème mal défini, arbitrage
-entre options, décision d'architecture où plusieurs angles s'opposent. Typiquement
-en amont d'une session Orchestrator classique.
+**Brique centrale commune** : la sélection intelligente des agents par
+l'orchestrateur. Panel et Débat ne sont que deux réglages — *une passe* vs
+*N rounds* — de cette même brique.
+
+**Changement clé vs définition précédente** : l'**auto-détection**
+« exploratoire vs exécutable » sort du scope. Elle est remplacée par l'invocation
+manuelle `/debate` — ce qui supprime le seul morceau réellement risqué (piège
+classique du sur-déclenchement multi-agents) et rend le Panel quasi-immédiatement
+constructible.
+
+#### Règle binaire de séparation
+
+> **Panel** : aucun persona ne réagit à un autre. Une passe, puis Scribe synthétise.
+> **Débat** : les personas réagissent entre eux, max N rounds, puis Scribe force la synthèse.
+
+Le garde-fou anti-saturation (max rounds) ne s'applique **qu'au Débat** — le Panel
+est borné par construction.
 
 #### Mécanique cible
 
-1. **Déclenchement automatique par l'orchestrateur** selon la nature de la demande.
-   - Question simple/spécifique à un domaine → un seul persona invoqué (pas de party).
-   - Demande complexe/multi-angles/exploratoire → l'orchestrateur convoque l'équipe
-     pertinente et ouvre le débat.
-   - L'orchestrateur décide QUELS personas sont pertinents (toutes les sessions
-     n'ont pas besoin d'un QA ou d'un Architecte).
+1. **Sélection des agents par l'orchestrateur** selon la nature de la demande
+   (déjà le cœur du mode Orchestrator actuel). Question simple/mono-domaine → un
+   seul persona. Demande multi-angles → l'orchestrateur convoque l'équipe
+   pertinente (toutes les sessions n'ont pas besoin d'un QA ou d'un Architecte).
 
-2. **Conduite du débat** : l'orchestrateur assigne les tours de parole, empêche
-   les dérives, relance sur les angles morts. Pas de monologue parallèle — un
-   échange ordonné.
+2. **Panel (défaut)** : chaque persona convoqué émet **une carte d'angle** au
+   format contraint (3 lignes : Position / Risque clé / Reco), puis le Scribe
+   synthétise. Point d'ancrage naturel : les phases « persona variable » des
+   workflows existants (ex. phase 4 Cause racine d'`incident-response.md`).
 
-3. **Synthèse + livrable** : le Scribe agrège les points de vue en fin de
-   délibération et produit un artefact committable (voir format ci-dessous).
+3. **Débat (`/debate`)** : surcouche au-dessus du Panel — les personas se
+   répondent sur N rounds sous la conduite de l'orchestrateur (tours de parole,
+   anti-dérive, relance sur les angles morts), garde-fou max rounds, puis
+   synthèse Scribe.
+
+4. **Synthèse + livrable** : le Scribe agrège les points de vue et produit un
+   artefact committable (voir format ci-dessous). Vrai pour les deux réglages.
 
 #### Notions empruntées au référentiel agentique (pioche chirurgicale)
 
@@ -147,30 +197,36 @@ hooks, etc., explicitement écartés car contraires à VISION.md) :
 > Elles pourraient servir la Phase 5.8 (performance) et la Phase 7 (mémoire/recyclage
 > de contexte). À réexaminer dans ces phases sans re-fouiller le référentiel.
 
-#### Livrable du Party Mode
+#### Livrable
 
-Format de la note de délibération (à affiner) : sujet exploré, personas convoqués
-et pourquoi, positions/angles de chacun (issus des handoff packets), points de
-convergence, points de désaccord, options dégagées, recommandation ou question
-ouverte. Emplacement : à trancher (probablement `docs/decisions/` si ça débouche
-sur un ADR, ou `docs/_scratch/` si exploratoire). À aligner sur la table de
-localisation de `copilot-instructions.md`.
+**Panel** : la synthèse Scribe alimente le livrable normal du workflow en cours
+(post-mortem, ADR, note d'archi…). Pas de nouveau type d'artefact à inventer.
 
+**Débat** : note de délibération (à affiner) : sujet exploré, personas convoqués
+et pourquoi, positions/angles de chacun, convergences, désaccords, options
+dégagées, recommandation ou question ouverte. Emplacement : `docs/decisions/`
+si ça débouche sur un ADR, ou `docs/_scratch/` / `docs/brainstorming/` si
+exploratoire. À aligner sur la table de localisation de `copilot-instructions.md`.
 
-#### Tension à surveiller avec VISION.md
+#### Tension avec VISION.md (résolue par design)
 
-Le Party Mode explore plutôt qu'il ne produit, ce qui frotte avec l'orientation
-"livrables senior" de la VISION. Résolution retenue : le Party Mode se clôt
-TOUJOURS par un livrable Scribe (note de délibération committée), pour rester
-aligné avec le filtre 6 de la boussole ("produit du markdown structuré dans docs/").
+Le Débat explore plutôt qu'il ne produit, ce qui frotte avec l'orientation
+"livrables senior" de la VISION. Résolution retenue : **Panel ET Débat se closent
+TOUJOURS par une synthèse Scribe committée**, pour rester alignés avec le filtre 6
+de la boussole ("produit du markdown structuré dans docs/").
 
 #### À explorer / trancher (au moment de l'implémentation, pas avant)
 
-- Comment l'orchestrateur détecte automatiquement "exploratoire vs exécutable" sans
-  se tromper (risque : déclencher un party pour une question simple = gaspillage).
-- Faut-il une commande manuelle de secours (`/party`, `/debate`) en plus de l'auto ?
-- Format exact du task envelope et du handoff packet adaptés au format `.md` VSCode.
+- Format exact de la carte d'angle (Panel) adapté aux phases « persona variable »
+  des workflows existants.
 - Nombre max de rounds de débat avant synthèse forcée (garde-fou anti-saturation).
+- Orthogonalité des commandes : `/quick`, `/light` (Phase 5.8) et `/debate`
+  doivent rester cumulables.
+- Emplacement définitif du livrable du Débat (decisions vs scratch vs brainstorming).
+
+> **Note** : l'auto-détection « exploratoire vs exécutable » est **retirée du scope**
+> (remplacée par l'invocation manuelle `/debate`). C'était le seul morceau
+> réellement risqué ; sa suppression dé-risque toute la phase.
 
 #### Inspiration
 
