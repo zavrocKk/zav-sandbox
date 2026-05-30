@@ -34,6 +34,10 @@ flowchart LR
   - Hypothèses applicatives (logique, memory leak, query) → 💻 Developer
   - Hypothèses infra/plateforme (config, ressources, réseau) → 🛠️ DevOps
   - Hypothèses sécurité (intrusion, exfiltration, IAM anormal) → 🔒 Security + **escalade utilisateur immédiate**
+  - **Hypothèses qui chevauchent plusieurs domaines → Panel** (Party Mode) : chaque
+    persona concerné émet une carte d'angle (Position / Risque clé / Reco), une
+    seule passe, puis le Scribe synthétise. Voir [`agents/protocols/light-panel.md`](../protocols/light-panel.md).
+    Si les personas doivent se répondre entre eux → `/debate`.
 - Si la cause racine est applicative → handoff explicite vers Developer.
 - Si la cause est sécurité (intrusion, exfiltration suspecte) → handoff vers Security et **escalade utilisateur immédiate**.
 

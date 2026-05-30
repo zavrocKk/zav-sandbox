@@ -14,6 +14,27 @@ Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'ex
 
 L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives sans la complexité opérationnelle du multi-agent.
 
+## Modes multi-personas — Panel & Débat
+
+Le travail multi-personas se décline en **deux réglages de la même mécanique** —
+la sélection intelligente des agents par l'orchestrateur. Ils ne diffèrent que par
+le nombre de passes. Détails et justification :
+[docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md).
+Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
+(Panel) et [agents/protocols/debate.md](agents/protocols/debate.md) (Débat).
+
+| | **Panel** (défaut) | **Débat** (sur invocation `/debate`) |
+|---|---|---|
+| Quand | Problème **fermé** : une réponse à trouver | Problème **ouvert** : on bloque ou on brainstorme |
+| Travail type | Incident, analyse, doc, design | Brainstorming, arbitrage, idéation |
+| Mécanique | Chaque expert → son angle **une fois** → synthèse Scribe | Les experts se répondent sur **N rounds** → synthèse Scribe |
+| Friction | Coûteuse → évitée | Productive → recherchée |
+| Coût tokens | Borné par construction | Volontairement plus élevé (assumé) |
+
+> **Règle binaire** — Panel : aucun persona ne réagit à un autre (une passe).
+> Débat : les personas réagissent entre eux (max N rounds), puis le Scribe force
+> la synthèse. Dans les deux cas, le **Scribe ferme toujours** par un livrable.
+
 ## Structure du dépôt
 
 ```
