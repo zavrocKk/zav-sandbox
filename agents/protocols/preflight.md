@@ -44,3 +44,18 @@ scope: pre-response
 
 Une réponse qui contient du contenu technique sans avoir d'abord présenté un plan validé
 est une **violation du protocole**. Arrête-toi, supprime le contenu, reviens au PLAN.
+
+## Template — signal de saturation de contexte
+
+Quand la session devient longue (nombreux échanges, contexte volumineux, baisse de
+précision perceptible), utilise **exactement** ce message :
+
+```
+⚠️ Session longue — la qualité peut commencer à se dégrader.
+Veux-tu :
+(a) que le Scribe produise un checkpoint (`/checkpoint`) et qu'on reparte sur
+    une session neuve ?
+(b) continuer en l'état ?
+```
+
+Ne jamais continuer **silencieusement** une session manifestement saturée.

@@ -57,6 +57,18 @@ Pour **désactiver** : repasse la valeur à `false` ou retire l'entrée.
 - Dépendance-free : PowerShell est natif Windows ; la version `.sh` n'utilise pas
   `jq` (scan regex sur le payload brut).
 
+## Git hooks — système distinct (scripts/hooks/)
+
+Ce dossier (`agents/hooks/`) contient des **Copilot Agent hooks** (runtime AI). Il coexiste avec un second système de hooks **sans lien** :
+
+| Système | Dossier | Déclencheur | Rôle |
+|---|---|---|---|
+| Copilot Agent hooks | `agents/hooks/` | Actions IA (PreToolUse, PreCompact) | Sécurité des commandes exécutées par l'agent |
+| Git hooks | `scripts/hooks/` | Opérations Git (pre-push) | Bloque les push directs sur `main` |
+
+Installation des Git hooks : `bash scripts/install-hooks.sh`  
+Ces deux systèmes sont **complémentaires**, pas concurrents. Ne pas confondre.
+
 ## Référence
 
 - Doc officielle : <https://code.visualstudio.com/docs/copilot/customization/hooks>

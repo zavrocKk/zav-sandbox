@@ -1,4 +1,4 @@
-## 📌 AMENDEMENT 2026-05-10 — Mesure empirique contredisant la base théorique
+﻿## 📌 AMENDEMENT 2026-05-10 — Mesure empirique contredisant la base théorique
 
 > Cet amendement est ajouté le jour même de la création de l'ADR, suite à une
 > investigation empirique de l'overhead de contexte. Il **invalide partiellement

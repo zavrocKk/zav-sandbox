@@ -113,7 +113,6 @@ docs/_scratch/
 > (auto-archivage après N jours ? suppression manuelle proposée par le Scribe ?).
 > Reliée à l'entrée IDEAS « cycle de vie des artefacts ». **Non tranchée ici** —
 > proposée pour une sous-phase 7.x dédiée au cleanup.
-
 > **Question ouverte (gitignore)** : `docs/_scratch/memory/` doit-il être versionné
 > ou gitignored ? Arbitrage : **versionné** (la mémoire DOIT survivre et suivre le
 > repo, c'est la promesse VISION), contrairement aux inputs bruts qui, eux,

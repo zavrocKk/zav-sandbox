@@ -6,6 +6,8 @@ namespace: notif-prod
 captured-at: 2026-05-02T09:30:00Z
 ---
 
+> **FIXTURE** — Données synthétiques créées pour les tests du MVP (Phase 4–5). Aucune donnée réelle de production.
+
 # Runtime configuration — notification-api
 
 > Configuration en vigueur au moment de l'incident, captée lors du diagnostic le matin (09:30 UTC). Aucun changement appliqué depuis 7 jours.

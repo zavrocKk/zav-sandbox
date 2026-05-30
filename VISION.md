@@ -1,4 +1,4 @@
-# Vision — Agentic Team Framework
+﻿# Vision — Agentic Team Framework
 
 > Document de référence stratégique. Cette vision est la **boussole** du projet :
 > à chaque décision future, on s'y réfère pour rester aligné.

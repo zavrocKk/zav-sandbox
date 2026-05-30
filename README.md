@@ -1,18 +1,10 @@
 # zav-sandbox — Système d'agents virtuels mono-session
 
-Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'experts virtuels** — DevOps, Developer, QA, Security, Architect, Product Analyst, Data Engineer, Scribe — au sein d'**une seule conversation**. Inspiré de [BMAD-METHOD](https://github.com/bmadcode/BMAD-METHOD), mais radicalement simplifié.
+Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'experts virtuels** — DevOps, Developer, QA, Security, Architect, Product Analyst, Data Engineer, Scribe — au sein d'**une seule conversation**.
 
-## Philosophie : mono-session vs BMAD multi-session
+## Philosophie : mono-session
 
-| Aspect                | BMAD-METHOD (multi-session)                       | Ce système (mono-session)                            |
-| --------------------- | ------------------------------------------------- | ---------------------------------------------------- |
-| Architecture          | Plusieurs agents dans plusieurs sessions/fichiers | **1 orchestrateur** qui incarne tour à tour les rôles |
-| État partagé          | Fichiers d'état entre agents                      | Aucun — l'historique de la conversation suffit       |
-| Transitions           | Switch de session                                 | En-têtes visuels `───── 🛠️ DevOps — Titre ─────`     |
-| Coût d'entrée         | Élevé (multi-session, conventions, fichiers)      | Faible : 1 agent + des fichiers de référence         |
-| Cas d'usage           | Projets longs, équipes, workflows complexes       | Single-dev, sandbox, prototypage, support quotidien  |
-
-L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives sans la complexité opérationnelle du multi-agent.
+L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent. Un seul orchestrateur, une seule conversation, des fichiers de référence markdown — zéro infrastructure supplémentaire.
 
 ## Modes multi-personas — Panel & Débat
 
@@ -59,7 +51,8 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 │   │   ├── code-analysis.md             # Audit / review d'un module
 │   │   ├── feature-development.md       # Nouvelle fonctionnalité
 │   │   ├── architecture-design.md       # Choix techno, refonte
-│   │   └── data-pipeline.md             # ETL, migration, modélisation BI
+   │   ├── data-pipeline.md             # ETL, migration, modélisation BI
+   │   └── onboarding.md                # 👋 Guide 5 minutes — premier démarrage
 │   ├── templates/
 │   │   ├── incident-report.md           # Post-mortem blameless
 │   │   ├── adr.md                       # Architecture Decision Record (Nygard)
@@ -80,6 +73,8 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 ```
 
 ## Activer l'agent Orchestrator dans VS Code
+
+> **Nouveau ?** Commence par le guide 5 minutes : [`agents/workflows/onboarding.md`](agents/workflows/onboarding.md).
 
 1. Ouvre le workspace `zav-sandbox` dans VS Code (avec l'extension **GitHub Copilot Chat**).
 2. Ouvre la vue **Chat** (raccourci : `Ctrl+Alt+I` sur Windows/Linux, `⌃⌘I` sur macOS).
@@ -137,6 +132,44 @@ Nouvelle feature. Besoin à cadrer avant tout design. Workflow : feature-develop
 
 Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 ```
+## Architecture du framework
+
+```mermaid
+flowchart TD
+    U[👤 Utilisateur] --> O[orchestrator.agent.md]
+    O --> P[agents/personas/]
+    O --> W[agents/workflows/]
+    O --> PR[agents/protocols/]
+    P --> S[agents/skills/]
+    O --> D[docs/]
+    D --> DEC[decisions/ ADRs]
+    D --> SCR[_scratch/memory/ checkpoints]
+    W --> CHKL[agents/checklists/]
+    O -.-> MOD[".github/agents/modules/\nparty-mode | skills | memory"]
+```
+
+## Fonctionnalités optionnelles
+
+Le framework fonctionne sans rien activer. Ces fonctionnalités sont opt-in :
+
+| Fonctionnalité | Description | Activation |
+|---|---|---|
+| **Security guard** | Bloque les commandes destructives de l'IA (rm -rf, DROP, force push…) en demandant une confirmation | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
+| **Memory nudge** | Rappelle de lancer `/checkpoint` avant compaction ou fin de session | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
+| **Git hook pre-push** | Bloque les push directs sur `main` | `bash scripts/install-hooks.sh` |
+
+## Usage en équipe
+
+Le framework est conçu pour une session 1:1. En équipe, suivre ces conventions
+pour éviter les conflits :
+
+| Risque | Convention |
+|---|---|
+| Checkpoints conflictuels | Nommer les checkpoints avec tes initiales : `phase-9-<initiales>.md` |
+| ADRs aux mêmes numéros | Réserver une plage : ex. Zav = 0001–0099, contributeur A = 0100–0199 |
+| ROADMAP.md divergent | Un seul éditeur à la fois, commits fréquents sur `main` |
+| Checkpoints `closed` qui s'accumulent | `/memory-list` + nettoyage trimestriel (politique dans `docs/_scratch/memory/README.md`) |
+
 ## Comment ajouter un persona
 
 1. Crée `agents/personas/<nom>.md` avec les sections : `Identité`, `Ton`, `Domaines`, `Quand intervenir`, `Output type`, `Handoffs`, `Anti-patterns`.
