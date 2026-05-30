@@ -15,7 +15,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 5.7 — Hardening usage réel — discipline (5.7.A appliquée, 5.7.B recyclée vers 5.8)
 ✅ Phase 5.8 — Hardening usage réel — performance & contexte (correctifs framework livrés ; levier thinking côté utilisateur)
 ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
-⬜ Phase 7 — Mémoire persistante (artefacts de contexte)
+🟦 Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
 ⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.)
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
 
@@ -234,7 +234,7 @@ de la boussole ("produit du markdown structuré dans docs/").
 - Système au bureau (sélection d'équipe intelligente, optimisation tokens ~70%).
 - Contrats markdown : référentiel agentique Guilhem-Bonnet (envelope + handoff).
 
-### ⬜ Phase 7 — Mémoire persistante
+### 🟦 Phase 7 — Mémoire persistante
 
 **Concept** : artefacts de contexte qui persistent entre sessions, permettant
 au framework de "reprendre où il s'était arrêté".
@@ -242,11 +242,32 @@ au framework de "reprendre où il s'était arrêté".
 **Inspiration** : système au bureau qui produit un artefact mémoire, reset
 le contexte, et relit pour reprendre sans perte.
 
-**À explorer** :
+> **Cadrage fait le 2026-05-30** — voir la note d'architecture
+> [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](docs/architecture/2026-05-30-phase-7-persistent-memory.md).
+> Décisions de cadrage : (1) **quoi** = résumé de reprise en 6 rubriques (pas un
+> transcript), distinction pérenne/session/éphémère ; (2) **où** =
+> `docs/_scratch/memory/<slug>.md`, 1 fichier par fil, versionné, promu vers
+> `docs/` si structurant ; (3) **format** = markdown structuré + front-matter YAML
+> léger ; (4) **comment** = écrire (manuel `/checkpoint` + proposition auto Scribe
+> à saturation/fin) ↔ relire en premier au démarrage ; (5) **articulation** =
+> checkpoint = handoff-packet inter-sessions, lu à budget variable tiny→deep.
+> Répond à la friction **F4**. Inspiration externe (MemPalace, In-Memoria, Mem0,
+> Letta, LocalRecall) retenue **conceptuellement seulement** — infra lourde écartée
+> (filtres VISION 2/3/4).
 
-- Format des artefacts (markdown structuré ? YAML ?)
-- Quand sauvegarder (fin de session ? checkpoint manuel ?)
-- Comment le rendre invisible mais utile pour l'utilisateur
+**✅ Sous-phase 7.1 — mécanisme minimal (2026-05-30)** : template
+[`agents/templates/memory-checkpoint.md`](agents/templates/memory-checkpoint.md) ;
+zone versionnée [`docs/_scratch/memory/`](docs/_scratch/memory/) ; câblage
+orchestrateur (commande `/checkpoint`, section « Mémoire persistante »
+lecture-au-démarrage/écriture, branchement de l'auto-check saturation) ; ligne
+« Checkpoint de mémoire » dans la table de localisation de `copilot-instructions.md`.
+
+**⏳ Reste à explorer (sous-phases 7.x)** :
+
+- Politique de rétention / cleanup des checkpoints clos (auto-archivage ? proposition Scribe ?)
+- **Hooks natifs VS Code (opt-in)** : `PreCompact` + `Stop` (nudge `/checkpoint` non bloquant) + `PreToolUse` (garde-fou `ask` sur commandes destructives). **Livrés OFF par défaut** dans [`agents/hooks/`](agents/hooks/) (non auto-chargés, activation manuelle). `SessionStart` et `Stop`-block écartés (pollution inter-fils / premium requests). Voir note de cadrage §5-bis.
+- Restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03) — décision séparée
+- Validation à l'usage de la granularité « 1 fichier par fil »
 
 ### ⬜ Phase 8 — Skills techniques
 

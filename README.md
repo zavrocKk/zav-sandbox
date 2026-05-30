@@ -60,14 +60,20 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 │   │   ├── feature-development.md       # Nouvelle fonctionnalité
 │   │   ├── architecture-design.md       # Choix techno, refonte
 │   │   └── data-pipeline.md             # ETL, migration, modélisation BI
-│   └── templates/
-│       ├── incident-report.md           # Post-mortem blameless
-│       ├── adr.md                       # Architecture Decision Record (Nygard)
-│       └── prd.md                       # Product Requirements Document léger
+│   ├── templates/
+│   │   ├── incident-report.md           # Post-mortem blameless
+│   │   ├── adr.md                       # Architecture Decision Record (Nygard)
+│   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions (Phase 7)
+│   │   └── prd.md                       # Product Requirements Document léger
+│   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
+│       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
+│       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
+│       └── hooks.json                   # Config (activation manuelle via settings)
 ├── docs/                                # Tous les livrables produits par le Scribe
 │   ├── incidents/                       # Post-mortems
 │   ├── architecture/                    # Notes d'architecture
-│   └── decisions/                       # ADRs (NNNN-slug.md)
+│   ├── decisions/                       # ADRs (NNNN-slug.md)
+│   └── _scratch/memory/                 # Checkpoints de mémoire inter-sessions (Phase 7)
 └── README.md
 ```
 

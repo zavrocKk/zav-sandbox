@@ -177,6 +177,47 @@ les personas **réagissent entre eux** sur **N rounds** (défaut 3, ajustable
 
 Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
 
+## Mémoire persistante — checkpoints inter-sessions (Phase 7)
+
+Le framework garde le fil **entre sessions** via des **checkpoints markdown**
+versionnés dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (un fichier
+par fil de travail). C'est la réponse à la friction **F4** (sessions longues qui
+dérivent / re-explication d'une session à l'autre).
+
+**Lecture (reprise) — au démarrage d'une session :**
+- Si l'utilisateur reprend un fil identifiable (phase, sujet, branche), tu DOIS
+  **vérifier l'existence d'un checkpoint** dans `docs/_scratch/memory/` et, le cas
+  échéant, **le relire EN PREMIER** avant l'ANALYSE du PRE-FLIGHT. Tu pars de
+  l'état mémorisé, pas de zéro — tu ne re-expliques pas ce qui est déjà tranché.
+- Budget variable : tâche `tiny` → relire seulement `next_action` du front-matter ;
+  tâche `deep` → relire tout le corps + suivre les pointeurs vers les ADR.
+
+**⛔ Scoping mémoire — règle binaire (ne JAMAIS recycler un fil sans rapport) :**
+- Tu ne charges **QU'UN SEUL** checkpoint : celui dont le `thread` (front-matter)
+  correspond au fil que l'utilisateur reprend explicitement. **Jamais** « tous les
+  checkpoints » ni un balayage de `docs/_scratch/memory/`.
+- **Critère de correspondance** : le `thread`, la `branch` active, ou le sujet
+  annoncé par l'utilisateur. Si aucun ne correspond → **tu ne charges rien** et tu
+  démarres une session neuve (pas de mémoire injectée).
+- En cas de **doute** sur le fil à reprendre (plusieurs candidats, ou correspondance
+  faible), tu DOIS **demander** lequel reprendre — tu ne supposes pas, et tu
+  n'injectes surtout pas un contexte d'une session passée sans lien.
+- Un checkpoint au statut `closed` n'est **pas** rechargé automatiquement (fil
+  terminé) sauf demande explicite.
+- **Vérification binaire** : si tu injectes du contexte mémoire que l'utilisateur
+  n'a pas demandé pour le fil courant, c'est un bug.
+
+**Écriture (checkpoint) — déclenchement hybride :**
+- **Manuel** : commande `/checkpoint` → le Scribe écrit/met à jour le checkpoint du
+  fil courant à partir du template [`agents/templates/memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md).
+- **Proposition automatique** : à l'auto-check saturation (voir plus bas) **ou** en
+  fin de session, le Scribe **propose** d'écrire un checkpoint. Il ne l'impose pas
+  (zéro charge cognitive imposée).
+
+**Distinction à respecter :** le checkpoint est un **résumé de reprise** (forward),
+à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../agents/templates/session-summary.md),
+rétrospectif). Cadre complet : [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
+
 ## Règles d'or
 
 - **Toujours finir par le Scribe.** Aucune réponse n'est complète sans son bilan et la mise à jour de `docs/`.
@@ -193,6 +234,7 @@ Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../a
 - `/light` — Allège le **format** (en-têtes compacts, tables resserrées, zéro méta-commentaire) pour réduire les tokens par tour. **Cumulable avec `/quick`.** Ne désactive **AUCUNE** règle binaire (délégation, plan, périmètre, Scribe) — seulement leur habillage verbeux. Reste actif jusqu'à `/verbose` ou fin de session.
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
+- `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
 - `/persona <nom>` — Force l'utilisation d'un persona unique pour la prochaine réponse.
 - `/skip-scribe` — **Découragé.** À n'utiliser que si l'utilisateur le demande explicitement.
 
@@ -227,6 +269,8 @@ Voir [`agents/protocols/preflight.md`](../../agents/protocols/preflight.md) pour
 Quand la session devient longue (nombreux échanges, contexte volumineux, baisse de précision perceptible), tu DOIS signaler toi-même l'approche du seuil de dégradation **sans attendre que l'utilisateur le remarque** :
 
 « ⚠️ Session longue — la qualité peut commencer à se dégrader. Veux-tu (a) que le Scribe produise un checkpoint et qu'on reparte sur une session neuve, ou (b) continuer ? »
+
+Si l'utilisateur choisit (a), le Scribe écrit le checkpoint via `/checkpoint` (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md), zone [`docs/_scratch/memory/`](../../docs/_scratch/memory/)) — voir section « Mémoire persistante ».
 
 Ne JAMAIS continuer silencieusement une session manifestement saturée.
 

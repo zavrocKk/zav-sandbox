@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/security-guard.ps1",
+        "windows": "pwsh -NoProfile -File agents/hooks/security-guard.ps1",
+        "linux": "bash agents/hooks/security-guard.sh",
+        "osx": "bash agents/hooks/security-guard.sh",
+        "timeout": 10
+      }
+    ],
+    "PreCompact": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/memory-nudge.ps1",
+        "windows": "pwsh -NoProfile -File agents/hooks/memory-nudge.ps1",
+        "linux": "bash agents/hooks/memory-nudge.sh",
+        "osx": "bash agents/hooks/memory-nudge.sh",
+        "timeout": 10
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/memory-nudge.ps1",
+        "windows": "pwsh -NoProfile -File agents/hooks/memory-nudge.ps1",
+        "linux": "bash agents/hooks/memory-nudge.sh",
+        "osx": "bash agents/hooks/memory-nudge.sh",
+        "timeout": 10
+      }
+    ]
+  }
+}
