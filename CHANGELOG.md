@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.3](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.2...v0.1.3) (2026-05-30)
+
+
+### Features
+
+* Phase 6 — Party Mode : Panel (défaut) + Débat (/debate) ([#106](https://github.com/zavrocKk/zav-sandbox/issues/106)) ([ff12ae5](https://github.com/zavrocKk/zav-sandbox/commit/ff12ae559a2dfc1e6d77d664157220c4867baf4d))
+
 ## [2026-05-30] - Phase 6 — Party Mode : Panel (défaut) + Débat (/debate)
 
 ### Added
