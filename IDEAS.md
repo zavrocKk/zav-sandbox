@@ -486,6 +486,81 @@ demande simple où c'est légitime), Friction F6 (coût tokens élevé).
 
 ---
 
+### 2026-05-30 — Règle thinking hybride — Low par défaut (RAISONNÉE, non instrumentée)
+
+**Contexte** : la Phase 5.8 vise à réduire la consommation de contexte par tour
+pour repousser le seuil de dégradation (~30K observé). Le thinking étendu (~9K
+tokens/tour) est le levier dominant identifié. Question : quand l'activer ?
+
+**Statut épistémique** : règle **raisonnée**, PAS validée empiriquement. Basée sur
+une simulation introspective (`docs/2026-05-30-thinking-high-vs-low-eval.md`, dont
+les chiffres sont des estimations non instrumentées explicitement étiquetées comme
+telles) + un raisonnement de design sur l'asymétrie coût/bénéfice. À confirmer ou
+infirmer par l'usage réel.
+
+**Asymétrie fondatrice** : le coût du thinking est **constant** (~9K/tour, qu'il
+serve ou non) ; son bénéfice est **conditionnel** à la nature de la tâche. La
+politique optimale exploite cette asymétrie : ne payer le coût que quand le bénéfice
+est probable.
+
+---
+
+#### RÈGLE (opérationnelle — à évaluer avant chaque tâche)
+
+**Mode nominal : `Thinking Low`.**
+
+**Bascule `High` si la tâche touche à :**
+- (a) concurrence / atomicité
+- (b) analyse de dump / heap / trace
+- (c) flux financier ou intégrité transactionnelle
+
+Évaluation binaire et instantanée : « est-ce que ça touche (a), (b) ou (c) ? » →
+oui/non. Zéro délibération requise au moment du choix.
+
+---
+
+#### NOTE (rationale — à comprendre, PAS à évaluer en live)
+
+Ces trois déclencheurs sont des **proxies observables** d'un critère plus profond :
+*« la tâche a-t-elle une seule réponse correcte difficile à atteindre, où un chemin
+plausible-mais-faux est coûteux ? »*
+
+La liste existe **parce que ce critère est vrai mais non évaluable a priori** :
+savoir si une tâche a une réponse unique demande souvent d'avoir déjà commencé à
+raisonner. C'est un critère de post-mortem, pas de décision. Les proxies (a/b/c)
+sont eux évaluables instantanément, avant de produire.
+
+**Pas de clause « doute → High »** : le doute étant l'état par défaut en début de
+tâche, une telle clause reviendrait à « High presque toujours » et annulerait la
+politique Low-par-défaut. Rejetée explicitement.
+
+---
+
+#### Discipline d'enrichissement
+
+La liste de déclencheurs est **incomplète par construction** et s'améliore par
+apprentissage, pas par contournement :
+
+> Si un cas hors liste se révèle **a posteriori** avoir mérité le High (un Low a
+> produit un résultat faux qu'un High aurait évité), on **ajoute un déclencheur**
+> à la liste, avec la raison documentée. La liste ne se contourne jamais par une
+> clause floue — elle se complète par retour d'expérience.
+
+---
+
+#### Conséquence sur le mode `/light`
+
+Le rapport de simulation suggère que `/light` est *« utile mais pas indispensable »* :
+il change le débit (verbosité) mais pas la qualité technique. **Décision** : reporter
+`/light`. Appliquer d'abord la règle thinking hybride seule, et observer si elle
+suffit à restaurer une performance acceptable en session. Si oui → `/light` reste
+au parking lot. Si non → réexaminer `/light` comme correctif complémentaire.
+
+**Statut** : ✅ règle adoptée comme mode de travail, étiquetée raisonnée/non
+instrumentée. Validation par usage réel en continu (discipline d'enrichissement).
+
+---
+
 ## Principes directeurs
 
 > Méta-règles actées qui guident toutes les futures décisions du framework. Ne sont pas des idées à examiner, mais des principes à appliquer.
