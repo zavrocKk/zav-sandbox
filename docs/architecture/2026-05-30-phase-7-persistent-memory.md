@@ -247,6 +247,42 @@ re-fouiller le référentiel ». Voici leur rôle ici :
 
 ---
 
+## 5-bis. Hooks natifs VS Code — évaluation (couche optionnelle, hors socle)
+
+> Les **agent hooks** VS Code (Preview, doc MAJ 2026-05-28) exécutent une commande
+> shell à des points de cycle de vie. Évalués ici pour la mémoire ; **écartés du
+> socle**, retenus comme accélérateur opt-in pour une sous-phase 7.x.
+
+### Pourquoi les hooks ne fondent PAS le socle
+
+1. **Filtres VISION 2 & 4** : un hook = un **script shell** (parse JSON stdin,
+   lit le front-matter, décide) + `jq`. Un non-dev ne peut ni l'écrire ni le
+   maintenir → échec du filtre 4 (« si un dev senior est nécessaire, on a échoué »).
+2. **Filtre 5 (fiabilité)** : API **Preview** (« format and behavior might
+   change »), et les **matchers sont ignorés** (un hook tourne sur *toutes* les
+   invocations). Fonder le socle dessus contredit « anti-drift / fiabilité ».
+3. **`SessionStart` rouvre le risque de pollution inter-fils** : au démarrage,
+   `source = "new"` et **aucun prompt** → le hook ne sait pas quel fil est repris.
+   Un auto-load à cet instant réinjecterait un contexte potentiellement sans
+   rapport — exactement ce que la règle de scoping par `thread` empêche.
+
+### Hooks à valeur réelle (sous-phase 7.x, opt-in uniquement)
+
+| Hook | Valeur mémoire | Verdict |
+|---|---|---|
+| **PreCompact** | Sauve le checkpoint **avant compaction** du contexte → comble le seul vrai trou (« pas d'auto-save avant perte ») | 🟢 Retenu pour 7.x opt-in |
+| **Stop** | Auto-save du checkpoint **en fin de session** | 🟢 Retenu pour 7.x opt-in |
+| **SessionStart** | Auto-load au démarrage | 🔴 Écarté (pollution inter-fils) |
+| **UserPromptSubmit / PostToolUse / SubagentStart-Stop** | Marginal pour la mémoire | ⚪ Écartés |
+| **PreToolUse** | Bloquer `rm -rf` / `DROP TABLE` | 🔵 Pertinent mais **sécurité**, pas mémoire → autre phase |
+
+**Décision** : le socle Phase 7 reste **markdown + instruction orchestrateur +
+Git** (passe les 6 filtres, portable). Les hooks `PreCompact` et `Stop` sont
+**flaggés en sous-phase 7.x optionnelle** (fournis clé-en-main, jamais requis).
+`PreToolUse` sécurité = sujet distinct, hors Phase 7.
+
+---
+
 ## 6. Tensions et points non tranchés
 
 | Sujet | Tension | Statut |

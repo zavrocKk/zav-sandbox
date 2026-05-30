@@ -265,6 +265,7 @@ lecture-au-démarrage/écriture, branchement de l'auto-check saturation) ; ligne
 **⏳ Reste à explorer (sous-phases 7.x)** :
 
 - Politique de rétention / cleanup des checkpoints clos (auto-archivage ? proposition Scribe ?)
+- **Hooks natifs VS Code (opt-in)** : `PreCompact` + `Stop` pour auto-save du checkpoint avant compaction / en fin de session. Évalués et **écartés du socle** (filtres VISION 2/4/5, API Preview) ; retenus comme accélérateur optionnel fourni clé-en-main. `SessionStart` écarté (pollution inter-fils). Voir note de cadrage §5-bis.
 - Restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03) — décision séparée
 - Validation à l'usage de la granularité « 1 fichier par fil »
 

@@ -39,8 +39,9 @@ s'était arrêté ». Cadrage fait, mécanisme 7.1 livré.
 ## Prochaines étapes
 1. Trancher la politique de rétention / cleanup des checkpoints clos (auto-archivage ? proposition Scribe ? statut `closed` → archive)
 2. Valider à l'usage la granularité « 1 fichier par fil »
-3. (Optionnel) restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03)
-4. Décider du merge de la PR #108
+3. (Optionnel) Hooks natifs VS Code opt-in : `PreCompact` + `Stop` pour auto-save (écartés du socle, sous-phase 7.x)
+4. (Optionnel) restructuration `inputs/`/`outputs/` (IDEAS 2026-05-03)
+5. Décider du merge de la PR #108
 
 ## Pointeurs (artefacts pérennes produits)
 - `docs/architecture/2026-05-30-phase-7-persistent-memory.md` — note de cadrage
