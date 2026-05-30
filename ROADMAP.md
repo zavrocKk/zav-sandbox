@@ -91,10 +91,7 @@ artefacts » reste, elle, du ressort de la Phase 7 (distincte).
 
 Référence : entrée IDEAS.md 2026-05-10 « Diagnostic performance sessions ».
 
-### ⬜ Phase 6 — Party Mode (délibération multi-agents) ← après Phase 5.8
-
-**Reportée le 2026-05-09, recadrée le 2026-05-10.** Dépend de la Phase 5.8
-(gestion de contexte) comme prérequis technique.
+### ⬜ Phase 6 — Party Mode (délibération multi-agents)
 
 #### Définition (recadrée 2026-05-10)
 
@@ -159,13 +156,6 @@ ouverte. Emplacement : à trancher (probablement `docs/decisions/` si ça débou
 sur un ADR, ou `docs/_scratch/` si exploratoire). À aligner sur la table de
 localisation de `copilot-instructions.md`.
 
-#### Dépendance critique à la Phase 5.8
-
-Un débat génère beaucoup de tours (4 personas × 3 rounds = 12 prises de parole).
-C'est le cas d'usage le plus exposé à la saturation de contexte à 30K. Le Party
-Mode ne peut donc PAS être construit avant que la Phase 5.8 ait assaini la gestion
-de contexte. Le handoff packet (paquets courts) est une mitigation native, mais
-ne suffit pas à lever la dépendance.
 
 #### Tension à surveiller avec VISION.md
 
