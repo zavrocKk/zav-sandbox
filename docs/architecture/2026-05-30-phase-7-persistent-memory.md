@@ -197,6 +197,24 @@ Déclenchement **hybride** (validé utilisateur) :
 - La relecture alimente le PRE-FLIGHT : l'ANALYSE part de l'état mémorisé, pas de
   zéro.
 
+### Scoping — ne jamais recycler un fil sans rapport
+
+> **Préoccupation utilisateur (2026-05-30)** : « je ne veux pas que l'agent garde
+> en mémoire des sessions passées qui n'ont aucun lien avec ce qu'on fait. »
+
+La mémoire est **scopée par fil**, jamais globale. Règle :
+
+- **Un seul checkpoint chargé** : celui dont le `thread` (front-matter) correspond
+  au fil explicitement repris (par `thread`, `branch` active, ou sujet annoncé).
+- **Aucune correspondance → rien n'est chargé** : session neuve, zéro mémoire
+  injectée. Pas de balayage de `docs/_scratch/memory/`.
+- **Doute → demander** lequel reprendre, jamais supposer.
+- Un checkpoint `status: closed` n'est **pas** rechargé automatiquement.
+
+C'est ce qui garantit qu'un checkpoint d'un fil A (ex. un incident résolu) ne
+vient **jamais** polluer une session sur un fil B sans rapport. La pertinence est
+assurée par le **matching de `thread`**, pas par une recherche sémantique floue.
+
 ```mermaid
 flowchart LR
     A[Session N<br/>travail] -->|saturation OU fin OU /checkpoint| B[📝 Scribe écrit/MAJ<br/>checkpoint markdown]

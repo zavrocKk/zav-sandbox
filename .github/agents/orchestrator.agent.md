@@ -192,6 +192,21 @@ dérivent / re-explication d'une session à l'autre).
 - Budget variable : tâche `tiny` → relire seulement `next_action` du front-matter ;
   tâche `deep` → relire tout le corps + suivre les pointeurs vers les ADR.
 
+**⛔ Scoping mémoire — règle binaire (ne JAMAIS recycler un fil sans rapport) :**
+- Tu ne charges **QU'UN SEUL** checkpoint : celui dont le `thread` (front-matter)
+  correspond au fil que l'utilisateur reprend explicitement. **Jamais** « tous les
+  checkpoints » ni un balayage de `docs/_scratch/memory/`.
+- **Critère de correspondance** : le `thread`, la `branch` active, ou le sujet
+  annoncé par l'utilisateur. Si aucun ne correspond → **tu ne charges rien** et tu
+  démarres une session neuve (pas de mémoire injectée).
+- En cas de **doute** sur le fil à reprendre (plusieurs candidats, ou correspondance
+  faible), tu DOIS **demander** lequel reprendre — tu ne supposes pas, et tu
+  n'injectes surtout pas un contexte d'une session passée sans lien.
+- Un checkpoint au statut `closed` n'est **pas** rechargé automatiquement (fil
+  terminé) sauf demande explicite.
+- **Vérification binaire** : si tu injectes du contexte mémoire que l'utilisateur
+  n'a pas demandé pour le fil courant, c'est un bug.
+
 **Écriture (checkpoint) — déclenchement hybride :**
 - **Manuel** : commande `/checkpoint` → le Scribe écrit/met à jour le checkpoint du
   fil courant à partir du template [`agents/templates/memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md).
