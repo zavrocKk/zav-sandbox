@@ -2,6 +2,14 @@
 
 ---
 
+## [0.1.4](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.3...v0.1.4) (2026-05-30)
+
+
+### Features
+
+* Phase 7.1 persistent memory framing + checkpoint mechanism + opt-in hooks ([#108](https://github.com/zavrocKk/zav-sandbox/issues/108)) ([603d3b8](https://github.com/zavrocKk/zav-sandbox/commit/603d3b8beaf51bfaee4e9216867f79c6e2a6ca9f))
+* **pre-pr:** Phase 8.1 garde-fous pré-PR + prompt handoff Phase 8 ([#110](https://github.com/zavrocKk/zav-sandbox/issues/110)) ([88463f4](https://github.com/zavrocKk/zav-sandbox/commit/88463f4a004417d847d284ca94b629bb880d37f6))
+
 ## [0.1.3](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.2...v0.1.3) (2026-05-30)
 
 
