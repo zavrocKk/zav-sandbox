@@ -222,6 +222,7 @@ rétrospectif). Cadre complet : [`docs/architecture/2026-05-30-phase-7-persisten
 
 - **Toujours finir par le Scribe.** Aucune réponse n'est complète sans son bilan et la mise à jour de `docs/`.
 - **Confirmation obligatoire** avant toute action destructive (suppression, `force push`, modification d'infra partagée, drop de table).
+- **Garde-fou pré-PR** : avant de **proposer ou ouvrir une PR**, DevOps DOIT dérouler la checklist [`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md) (commande `/pre-pr`). Vérifier : working tree propre, pas de branche orpheline non mergée, pas de PR déjà ouverte pour le même travail (la PR `release-please` est légitime, jamais un conflit), et `ROADMAP.md`/`README.md`/`VISION.md`/`IDEAS.md` à jour. `CHANGELOG.md` n'est PAS édité à la main (généré par `release-please`). Si un contrôle échoue → stopper et corriger avant la PR.
 - **Pas de méta-bavardage** : ne commente pas tes transitions, l'en-tête suffit.
 - **Reste dans le périmètre du persona** incarné. Si la question déborde → handoff vers un autre persona (annoncé via nouvel en-tête).
 - **Cite les fichiers** au format `chemin/relatif.ext:ligne` quand tu réfères à du code.
@@ -235,6 +236,7 @@ rétrospectif). Cadre complet : [`docs/architecture/2026-05-30-phase-7-persisten
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
 - `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
+- `/pre-pr` — DevOps déroule la **checklist pré-PR** ([`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md)) : lance la commande de vérif lecture seule (`git status` / `git branch --no-merged main` / `gh pr list`) et valide les 8 contrôles (working tree, branches orphelines, PR ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits). Voir règle « Garde-fou pré-PR ».
 - `/persona <nom>` — Force l'utilisation d'un persona unique pour la prochaine réponse.
 - `/skip-scribe` — **Découragé.** À n'utiliser que si l'utilisateur le demande explicitement.
 

@@ -16,7 +16,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 5.8 — Hardening usage réel — performance & contexte (correctifs framework livrés ; levier thinking côté utilisateur)
 ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
 🟦 Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
-⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.)
+⬜ Phase 8 — Skills techniques (Helm, K8s, Terraform, etc.) — incl. 8.1 garde-fous pré-PR
 ⬜ Phase 9 — Brainstorming et comparaison avec le marché
 
 #### Phase 5.7.B — Affinages & vigilance — CLÔTURÉE (recyclée vers 5.8)
@@ -283,6 +283,31 @@ les équipes cibles.
 - Observabilité (Prometheus, Datadog, Splunk)
 - Java / Python (analyse de stack traces)
 - Méthodologies (5 Pourquoi Toyota, RCA, RACI)
+
+**Règle de création** : ne créer **aucune** skill par anticipation. Avant chaque
+skill, **demander à l'utilisateur quel outil** est réellement utilisé dans son
+contexte, et ne créer que celles-là. Pas de skill « au cas où » (anti-bloat).
+
+#### 🟦 Phase 8.1 — Garde-fous pré-PR
+
+**Objectif** : éviter les conflits causés par des commits sans PR, des branches
+qui traînent, ou des fichiers de pilotage non synchronisés.
+
+**Livrables** :
+
+- Checklist [`agents/checklists/pre-pr.md`](agents/checklists/pre-pr.md) :
+  commande de vérif lecture seule (`git status` / `git branch --no-merged main`
+  / `gh pr list`) + 8 contrôles binaires (working tree, branches orphelines, PR
+  ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits).
+- Commande orchestrateur `/pre-pr` qui déroule la checklist avant toute PR.
+- Câblage : règle « dérouler la checklist pré-PR avant de proposer une PR ».
+
+**Décisions actées** :
+
+- Pas de script `.ps1/.sh` dédié : une commande composite documentée suffit
+  (déterministe, économe en tokens, zéro install — filtre VISION respecté).
+- `CHANGELOG.md` n'est **pas** édité à la main (généré par `release-please`).
+- La PR `release-please` est légitime, jamais traitée comme un conflit.
 
 ### ⬜ Phase 9 — Ouverture
 
