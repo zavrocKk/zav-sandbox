@@ -2,12 +2,89 @@
 
 ---
 
-## [0.1.1](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.0...v0.1.1) (2026-05-03)
+## [2026-05-09] - PRE-FLIGHT default-to-clarification (orchestrator)
 
+### Added
 
-### Documentation
+Ajout de la règle "default to clarification" dans le PRE-FLIGHT de l'orchestrator :
+en cas de doute, toujours demander plutôt que supposer. ASSUMPTION explicite requise
+si supposition inévitable. Règle renforcée sur les sessions longues (>30 min).
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 3.C
 
-* Phase 5.3 — corrections ADR-0002 (Agentic Team Framework) ([#101](https://github.com/zavrocKk/zav-sandbox/issues/101)) ([0a3aa73](https://github.com/zavrocKk/zav-sandbox/commit/0a3aa73ab6c4df29686fa9b2f9385bc80fcb78f9))
+---
+
+## [2026-05-09] - Template bilan de session (session-summary)
+
+### Added
+
+Création du template `agents/templates/session-summary.md` pour les bilans de fin
+de session. Référencé dans scribe.md (section Domaines + table Templates obligatoires).
+Destination : `docs/_scratch/YYYY-MM-DD-session-<topic>.md`.
+Fichiers modifiés : `agents/templates/session-summary.md` (créé), `agents/personas/scribe.md`
+Réf : ADR-0004 correctif 3.B
+
+---
+
+## [2026-05-09] - Table de localisation des artefacts (copilot-instructions)
+
+### Added
+
+Ajout d'une table de localisation centralisée faisant autorité dans copilot-instructions.md.
+Le Scribe doit la consulter avant toute création de fichier. Référence unique
+pour tous les types de livrables (incident, ADR, runbook, PRD, bilan, etc.).
+Fichiers modifiés : `.github/copilot-instructions.md`
+Réf : ADR-0004 correctif 3.A
+
+---
+
+## [2026-05-09] - Contrat PLAN vers EXECUTION (orchestrator)
+
+### Added
+
+Ajout de la section "Contrat PLAN → EXECUTION" : le PLAN validé est un contrat
+contraignant. Pas de persona sauté, pas d'ajout silencieux, vérification binaire
+nombre de personas exécutés vs PLAN.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 2.B
+
+---
+
+## [2026-05-09] - Règle délégation obligatoire et binaire (orchestrator)
+
+### Added
+
+Ajout d'une section "Règle de délégation — obligatoire et binaire" : toute réponse
+au fond technique DOIT avoir un en-tête persona. Vérification binaire : pas d'en-tête
+= bug. Exception procédurale via en-tête "Orchestrator (info)".
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 2.A
+
+---
+
+## [2026-05-09] - Pattern improvisation silencieuse (orchestrator + scribe)
+
+### Added
+
+Ajout d'une section "Anti-pattern — improvisation silencieuse" dans orchestrator.agent.md
+et scribe.md : quand bloqué, le persona DOIT avouer son blocage et proposer des options,
+jamais changer d'approche ou consulter une ressource non prévue silencieusement.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`, `agents/personas/scribe.md`
+Réf : ADR-0004 correctif 1.B
+
+---
+
+## [2026-05-09] - Règle périmètre projet (orchestrator)
+
+### Added
+
+Ajout d'une section "Périmètre projet — règle absolue" rendant explicite que mentionner
+un autre projet ≠ autoriser son accès. Protège contre l'interprétation extensive d'une
+mention contextuelle utilisateur.
+Fichiers modifiés : `.github/agents/orchestrator.agent.md`
+Réf : ADR-0004 correctif 1.A
+
+---
 
 ## [2026-05-02] - Référencer incident-triage dans incident-response
 
