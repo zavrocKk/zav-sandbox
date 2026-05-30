@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.5](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.4...v0.1.5) (2026-05-30)
+
+
+### Features
+
+* **skills:** Phase 8 cadrage + 1re skill root-cause-analysis ([#111](https://github.com/zavrocKk/zav-sandbox/issues/111)) ([2efea6a](https://github.com/zavrocKk/zav-sandbox/commit/2efea6ad876ae8f32f7665d68156fd9179e25fce))
+
 ## [0.1.4](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.3...v0.1.4) (2026-05-30)
 
 
