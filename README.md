@@ -1,5 +1,7 @@
 # zav-sandbox — Système d'agents virtuels mono-session
 
+[![Version](https://img.shields.io/github/v/release/zavrocKk/zav-sandbox)](https://github.com/zavrocKk/zav-sandbox/releases)
+
 Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'experts virtuels** — DevOps, Developer, QA, Security, Architect, Product Analyst, Data Engineer, Scribe — au sein d'**une seule conversation**.
 
 ## Philosophie : mono-session
@@ -84,7 +86,42 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 
 > Si `orchestrator` n'apparaît pas : recharge la fenêtre (`Developer: Reload Window`), vérifie que le fichier est bien à `.github/agents/orchestrator.agent.md` et que son frontmatter YAML est valide.
 
-## Exemple de cycle complet — Incident en production
+## Test rapide — 2 minutes
+
+1. Active l'agent Orchestrator (voir ci-dessus).
+2. Envoie ce prompt minimal :
+
+   ```
+   Mon API /checkout renvoie du 502 depuis 10 min. /quick
+   ```
+
+3. **Résultat attendu** : l'orchestrateur produit un PLAN incident (persona DevOps en tête), enchaîne les personas avec leurs en-têtes `─── emoji nom — titre ───`, et le Scribe ferme avec un post-mortem dans `docs/incidents/`.
+
+Si ce cycle s'exécute correctement, le framework est opérationnel.
+
+## Commandes disponibles
+
+| Commande | Effet |
+|---|---|
+| `/quick` | Saute la confirmation PLAN (étape CONFIRM) — exécution directe |
+| `/light` | Mode format allégé (en-têtes compacts, tables réserrées) — les règles restent actives |
+| `/debate` | Bascule en mode Débat (N rounds, défaut 3) |
+| `/debate max=N` | Débat avec N rounds maximum (ex. `/debate max=5`) |
+| `/checkpoint` | Le Scribe crée un checkpoint de mémoire dans `docs/_scratch/memory/` |
+| `/pre-pr` | Lance les garde-fous pré-PR (qualité, sécurité, conventions) |
+| `/reset` | Recalibration LLM — voir ci-dessous |
+
+## Recalibration LLM drift (`/reset`)
+
+Après une longue session ou plusieurs échanges, le modèle peut dériver (oublier des règles, mélanger les rôles, produire de la prose au lieu d'un plan). Utilise `/reset` pour forcer une recalibration :
+
+```
+/reset
+```
+
+L'orchestrateur relèse les 4 invariants du PRE-FLIGHT, réaffiche les règles binaires (délégation, ordre ANALYSE→PLAN→CONFIRM→EXECUTE→SYNTHESIS, Scribe en dernier) et redémarre le cycle sur la demande courante.
+
+**Signaux de dérive** à surveiller : réponse technique sans plan, Scribe absent, personas mélangés, oubli des en-têtes `───`. Si tu détectes l'un de ces signaux, envoie `/reset` avant de continuer.
 
 **Demande utilisateur :**
 > « L'API `/checkout` renvoie du 502 depuis 10 minutes, le dashboard montre une explosion de la latence. Help. »
