@@ -82,3 +82,19 @@ Le Panel reste **cumulable** avec les commandes existantes :
   réaction, soit on bascule explicitement en `/debate`.
 - Une carte d'angle qui dépasse 3 lignes → la retailler.
 - Un Panel qui se termine sans synthèse Scribe → l'ajouter avant de clore.
+
+## Règle tiebreaker — contradiction directe entre deux personas
+
+Si deux cartes d'angle (Panel) **se contredisent directement** (ex. Security dit « bloquer », Developer dit « livrer » sur le même point), le Scribe DOIT :
+
+1. **Signaler explicitement** la contradiction dans la synthèse :
+   ```
+   ⚠️ Contradiction directe : Security (bloquer) vs Developer (livrer) sur [point X].
+   ```
+2. **Proposer `/debate`** pour résolution :
+   ```
+   Pour arbitrer ce désaccord, lance `/debate` sur ce point spécifique.
+   ```
+3. **Ne pas trancher unilatéralement** : le Scribe ne choisit pas une position au détriment de l'autre sans consensus ou instruction utilisateur.
+
+> Le Panel n'est pas un système de vote. Une contradiction réelle = `/debate` pour délibérer, pas le Scribe qui tranche seul.
