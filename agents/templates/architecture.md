@@ -4,6 +4,7 @@ status: draft  # draft | reviewed | approved
 scope: # <périmètre : service, domaine, plateforme>
 owner: # <équipe ou persona responsable>
 last_reviewed: YYYY-MM-DD
+used_by_workflow: architecture-design  # workflow qui produit ce livrable
 ---
 
 # Architecture — <nom du système / domaine>

@@ -1,0 +1,8 @@
+# docs/_scratch — inputs bruts (non versionnés)
+# Ces fichiers peuvent contenir des données sensibles ou générées localement.
+# Ne JAMAIS committer d'inputs réels dans ce dossier.
+inputs/
+mvp-inputs/
+*.csv
+*.json
+*.log

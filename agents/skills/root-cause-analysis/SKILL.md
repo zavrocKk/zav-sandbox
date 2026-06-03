@@ -1,5 +1,6 @@
 ---
 name: root-cause-analysis
+version: "1.0.0"
 description: Structure une analyse de cause racine (RCA) avec les méthodes 5 Pourquoi (Toyota) et Ishikawa (diagramme en arêtes de poisson). À utiliser quand un persona doit remonter d'un symptôme à sa cause systémique — phase « Cause racine » d'un incident, problème opérationnel récurrent, ou tout « pourquoi ça arrive ? » qui dépasse le symptôme. Ne pas utiliser pour un simple diagnostic de surface.
 ---
 

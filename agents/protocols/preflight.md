@@ -59,3 +59,20 @@ Veux-tu :
 ```
 
 Ne jamais continuer **silencieusement** une session manifestement saturée.
+
+## Règle — Restauration de session (premier message)
+
+Au **premier message technique de la session**, l'orchestrateur DOIT scanner `docs/_scratch/memory/` et signaler tout checkpoint au statut `in-progress` ou `paused` disponible :
+
+```
+📌 Checkpoints ouverts détectés :
+- `docs/_scratch/memory/<thread-slug>.md` — statut : in-progress — next_action : "<action>"
+
+Veux-tu reprendre ce fil ou démarrer un nouveau contexte ?
+```
+
+- Si **aucun checkpoint** n'est trouvé : passer directement à l'analyse.
+- Si l'utilisateur ignore le checkpoint : continuer normalement (pas de blocage).
+- Si l'utilisateur répond « reprendre » : charger le checkpoint avant de produire le PLAN.
+
+> Cette règle s'applique **une seule fois** par session (premier message). Elle ne s'applique pas aux messages suivants.

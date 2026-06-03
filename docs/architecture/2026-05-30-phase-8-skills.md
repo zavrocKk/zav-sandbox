@@ -128,14 +128,27 @@ agents/
   **référencés à un seul niveau de profondeur** depuis `SKILL.md` (règle Anthropic :
   pas de référence imbriquée, sinon lecture partielle).
 
-### Front-matter YAML (2 champs obligatoires)
+### Front-matter YAML (champs obligatoires + versioning)
 
 ```yaml
 ---
 name: <skill-slug>          # lowercase, chiffres, tirets uniquement ; ≤ 64 car. ; pas de mot réservé
+version: "1.0.0"             # SemVer — obligatoire depuis Phase 9 (audit 2026-05-30)
 description: <quoi + quand>  # 3ᵉ personne, ≤ 1024 car. ; c'est CE champ qui déclenche la skill
 ---
 ```
+
+**Politique de versioning (SemVer)** :
+
+| Changement | Incrément |
+|---|---|
+| Correction mineure (typo, lien) | `PATCH` (ex. 1.0.0 → 1.0.1) |
+| Ajout de contenu sans rupture (nouvelle section, exemple) | `MINOR` (ex. 1.0.0 → 1.1.0) |
+| Refonte ou changement de comportement (suppression de section, renommage) | `MAJOR` (ex. 1.0.0 → 2.0.0) |
+
+- Le champ `version` est **obligatoire** dans toute skill créée ou modifiée.
+- Les skills antérieures à Phase 9 démarrent à `"1.0.0"`.
+- La version est incrémentée **dans le même commit** que le changement de contenu.
 
 - `name` : minuscules/chiffres/tirets, ≤ 64 car. Forme recommandée : **gérondif ou
   nom d'activité** (`analyzing-stack-traces`, `helm-charts`, `root-cause-analysis`).
@@ -308,6 +321,7 @@ installer ») et rouvre le vecteur d'injection (§4).
 | 5 | 3 cas IDEAS | persona reste persona · pentest-remediation = skill · 5 Pourquoi/Ishikawa = skill méthodo. |
 | 6 | Création 1ʳᵉ skill | Différée, règle anti-bloat ; critère = outil réel × fréquence × cas de test × 6 filtres. |
 | 7 | F5 MCP/APIs | Hors socle ; mentionnable en option, jamais requis. |
+| 8 | Versioning skills | SemVer obligatoire dans front-matter (`version:`) ; PATCH/MINOR/MAJOR selon niveau de changement ; version incrémentée dans le même commit. |
 
 ---
 

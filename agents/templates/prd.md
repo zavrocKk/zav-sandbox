@@ -5,6 +5,7 @@ created: YYYY-MM-DD
 target_release: # ex: Q3 2025 ou v2.1
 owner:
 stakeholders: []
+used_by_workflow: feature-development  # workflow qui produit ce livrable
 ---
 
 # PRD — <Nom de la fonctionnalité>

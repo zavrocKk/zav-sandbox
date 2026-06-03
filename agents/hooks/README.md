@@ -71,5 +71,41 @@ Ces deux systèmes sont **complémentaires**, pas concurrents. Ne pas confondre.
 
 ## Référence
 
-- Doc officielle : <https://code.visualstudio.com/docs/copilot/customization/hooks>
+- Doc officielle (API Preview) : <https://code.visualstudio.com/docs/copilot/customization/hooks>
+  > **Note version** : les Agent Hooks VS Code sont en **Preview**. L’API (structure JSON, noms d’événements) peut changer entre versions. À revalider après chaque mise à jour majeure de VS Code ou de l’extension Copilot Chat.
 - Cadrage Phase 7 : [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md)
+
+## Compatibilité OS
+
+| OS | Script recommandé | Notes |
+|---|---|---|
+| Windows | `memory-nudge.ps1`, `security-guard.ps1` | Utilise `pwsh` (PowerShell 7+). Si absent, VS Code bascule sur `powershell` (Windows PowerShell 5.1) automatiquement. Vérifier avec `Get-Command pwsh`. |
+| macOS / Linux | `memory-nudge.sh`, `security-guard.sh` | Nécessite `bash`. Aucun autre prérequis (`jq` non requis). |
+| WSL | Scripts `.sh` via `bash` | Fonctionne si VS Code est configuré pour utiliser WSL comme terminal par défaut. |
+
+VS Code charge les deux versions (`.ps1` et `.sh`) ; le runtime exécute la version compatible avec le système.
+
+## Procédure de test manuel
+
+### Vérifier que les hooks sont chargés
+
+1. Active les hooks dans les settings VS Code (voir section **Activation**).
+2. Recharge la fenêtre (`Developer: Reload Window`).
+3. Ouvre **Output** (menu View → Output) et sélectionne **GitHub Copilot Chat Hooks** dans le dropdown.
+4. Vérifie la présence de `Load Hooks` et du chemin `agents/hooks/` dans les logs.
+
+### Tester `security-guard`
+
+1. Dans le chat Copilot, demande à l’agent d’exécuter une commande destructive :
+   ```
+   Run: rm -rf /tmp/test
+   ```
+2. **Résultat attendu** : une boîte de confirmation s’affiche avant l’exécution (pattern `permissionDecision: ask`).
+
+### Tester `memory-nudge`
+
+1. Lance `/checkpoint` manuellement dans le chat.
+2. Envoie un long message pour déclencher la compaction (`PreCompact`) **ou** termine la session (`Stop`).
+3. **Résultat attendu** : le message « Memoire persistante : pense a /checkpoint… » apparaît dans le chat comme `systemMessage` (non bloquant).
+
+> Si le message n’apparaît pas, vérifie la section **Output → GitHub Copilot Chat Hooks** pour détecter une erreur de parsing ou de chargement.
