@@ -1,5 +1,7 @@
 # `docs/_scratch/memory/` — Checkpoints de mémoire (Phase 7)
 
+> ⚠️ **Sécurité** : ne jamais committer d'inputs réels (données clients, tokens, exports CSV/JSON bruts) dans `docs/_scratch/`. Ces fichiers doivent rester en local et sont couverts par `docs/_scratch/.gitignore`. Seuls les checkpoints de mémoire (ce dossier) sont intentionnellement versionnés.
+
 Zone des **checkpoints de reprise** inter-sessions du framework Agentic Team.
 
 ## Règles

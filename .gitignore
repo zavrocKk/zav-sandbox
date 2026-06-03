@@ -19,6 +19,7 @@ field report.md
 Thumbs.db
 ehthumbs.db
 desktop.ini
+*.log
 
 # Python artifacts
 __pycache__/
