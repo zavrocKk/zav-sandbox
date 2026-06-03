@@ -75,3 +75,14 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 | Situation | Checklist à parcourir |
 |---|---|
 | Avant un déploiement en production | [pre-deploy.md](../checklists/pre-deploy.md) |
+
+## Différence avec / périmètre
+
+| Avec | Developer fait… | L'autre persona fait… |
+|---|---|---|
+| **DevOps** | Code applicatif, logique métier, tests, debug app | Infra, CI/CD, runtime, déploiement, monitoring |
+| **Security** | Implémentation des corrections (patches, validation, escaping) | Audit, threat modeling, classification OWASP — dit *quoi* corriger |
+| **Architect** | Réalise la décision retenue (code concret) | Tranche les trade-offs structurels, produit les ADRs |
+| **QA** | Écrit les tests avec le code de feature | Évalue la stratégie de test, les cas limites manquants, la fiabilité de la suite |
+
+> Règle clé : si le bug vient de l’infra ou du runtime → DevOps. Si le bug vient du code → Developer.
