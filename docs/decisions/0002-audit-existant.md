@@ -184,30 +184,30 @@ VISION.md ne mentionne pas explicitement les Data Engineers/data analysts dans l
 
 ### 🟡 PRIORITÉ MOYENNE — Cohérence gouvernance
 
-4. **Alléger `orchestrator.md` (persona)** : passer de 57 lignes à ~15-20 lignes, déléguer au custom agent
+1. **Alléger `orchestrator.md` (persona)** : passer de 57 lignes à ~15-20 lignes, déléguer au custom agent
 
-5. **Mettre à jour `copilot-instructions.md`** :
+2. **Mettre à jour `copilot-instructions.md`** :
    - Ajouter pointeur vers `VISION.md` ("la boussole en cas de doute")
    - Ajouter section "Ressources de référence" listant checklists, templates, workflows
    - Retirer la liste détaillée des personas (lignes 46-55) — déléguer au custom agent
 
-6. **Adapter `data-engineer.md`** :
+3. **Adapter `data-engineer.md`** :
    - Retirer expertise pointue (Z-ordering, Iceberg vs Delta, Spark internals, formats spécifiques)
    - Garder modélisation, ETL/ELT haut niveau, idempotence, PII, qualité de données
    - Cible : passer de 103 lignes à ~50-60 lignes
 
-7. **Aligner `data-pipeline.md`** avec le persona Data Engineer allégé (workflow plus accessible)
+4. **Aligner `data-pipeline.md`** avec le persona Data Engineer allégé (workflow plus accessible)
 
 ### 🟢 PRIORITÉ BASSE — Cohérence détail
 
-8. **Workflows — corrections ciblées** :
+1. **Workflows — corrections ciblées** :
    - `incident-response.md` : clarifier critère de choix persona phase 4 (RCA)
    - `code-analysis.md` : corriger sauts de ligne ligne 37 (anti-patterns collés)
 
 ### 🆕 CRÉATIONS (Phase 5.3, après les correctifs)
 
-9. **Créer `agents/templates/runbook.md`** (dette avouée dans `orchestrator.agent.md`)
-10. **Créer `agents/templates/architecture.md`** (dette avouée dans `orchestrator.agent.md`)
+1. **Créer `agents/templates/runbook.md`** (dette avouée dans `orchestrator.agent.md`)
+2. **Créer `agents/templates/architecture.md`** (dette avouée dans `orchestrator.agent.md`)
 
 ## Implémentation
 

@@ -11,9 +11,14 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 1. **Lire `docs/_scratch/memory/`** — si un fichier de checkpoint y existe (format `<thread-slug>.md`),
    le lire silencieusement et déclarer : « Checkpoint détecté : `<fichier>`. Session reprise. »
    Si aucun checkpoint → démarrage à zéro, pas de mention.
-2. **Évaluer le mode Panel** : la demande nécessite-t-elle 2+ expertises ou 3+ composants ?
-   → Si oui : Panel. Si non : persona unique. (Voir critères complets dans
-   [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).)
+2. **Choisir le mode d'exécution** — décision automatique basée sur le nombre de personas du PLAN :
+   - **1 persona** → persona unique inline
+   - **2-3 personas** → Panel inline (impersonation)
+   - **4+ personas OU workflow complet** → **`/party-real` automatique** (sous-agents réels, sans que l'utilisateur ait à le demander)
+   - **`/debate` demandé** → Débat inline, quel que soit le nombre de personas
+   
+   L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
+   Critères détaillés : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).
 
 ## 🎯 Règles critiques — ancre d'attention (priment, même en session longue)
 
@@ -165,12 +170,19 @@ Détails complets dans [`.github/agents/modules/party-mode.md`](modules/party-mo
 - **`/party-real`** (4+ personas OU workflow complet) : sous-agents réels via `runSubagent`, handoffs dans `.party/`. **Incompatible avec `/debate`** — les sous-agents reçoivent chacun une fenêtre fraîche, la dynamique de réaction inter-rounds est impossible.
 - **Débat** (`/debate`) : N rounds inter-persona, problème ouvert. **Inline uniquement** (impersonation). Jamais auto-déclenché.
 
-### Règle de bascule Panel → `/party-real`
+### Règle de bascule — automatique, décidée par l'orchestrateur au PLAN
 
 ```
-SI session ≤ 3 personas → Panel inline (impersonation, aucun overhead)
-SI session 4+ personas OU workflow complet bout-en-bout → /party-real
-Doute → Panel inline ; basculer sur /party-real si saturation détectée
+1 persona            → persona unique inline
+2-3 personas         → Panel inline
+4+ personas          → /party-real automatique (sous-agents réels)
+workflow complet     → /party-real automatique
+/debate demandé      → Débat inline (ignoré si 4+ personas sans /debate explicite)
+```
+
+**L'utilisateur ne tape jamais `/party-real`.** L'orchestrateur déclare le mode choisi dans le PLAN :
+```
+Mode : Party Real (sous-agents) — 5 personas détectés
 ```
 
 ### Flow `/party-real`
@@ -217,7 +229,7 @@ Détails et tableau complets dans [`.github/agents/modules/skills.md`](modules/s
 - `/light` — Allège le **format** (en-têtes compacts, tables resserrées, zéro méta-commentaire) pour réduire les tokens par tour. **Cumulable avec `/quick`.** Ne désactive **AUCUNE** règle binaire (délégation, plan, périmètre, Scribe) — seulement leur habillage verbeux. Reste actif jusqu'à `/verbose` ou fin de session.
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
-- `/party-real` — Active le mode **sous-agents réels** (4+ personas). L'orchestrateur crée `.party/context.md`, invoque chaque agent via `runSubagent`, collecte les handoffs dans `.party/`, synthétise via Scribe, puis nettoie `.party/`. Voir [`agents/skills/party-mode/SKILL.md`](../../agents/skills/party-mode/SKILL.md) pour le flow complet.
+- ~~`/party-real`~~ — **Pas une commande utilisateur.** Le mode sous-agents réels est déclenché **automatiquement** par l'orchestrateur quand le PLAN requiert 4+ personas ou un workflow complet. L'orchestrateur le déclare dans le PLAN.
 - `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
 - `/memory-list` — Liste les checkpoints actifs dans `docs/_scratch/memory/` avec leur `thread`, `status` et `next_action`. Utile pour choisir lequel reprendre ou identifier les fils `closed` à archiver.
 - `/pre-pr` — DevOps déroule la **checklist pré-PR** ([`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md)) : lance la commande de vérif lecture seule (`git status` / `git branch --no-merged main` / `gh pr list`) et valide les 8 contrôles (working tree, branches orphelines, PR ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits). Voir règle « Garde-fou pré-PR ».
