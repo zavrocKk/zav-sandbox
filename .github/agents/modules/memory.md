@@ -12,9 +12,9 @@ referenced_by: .github/agents/orchestrator.agent.md
 ---
 
 Le framework garde le fil **entre sessions** via des **checkpoints markdown**
-versionnés dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (un fichier
+versionnés dans [`docs/_scratch/memory/`](../../../docs/_scratch/memory/) (un fichier
 par fil de travail). Cadre complet :
-[`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
+[`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
 
 ## Lecture (reprise) — au démarrage d'une session
 
@@ -40,7 +40,7 @@ par fil de travail). Cadre complet :
 ## Écriture (checkpoint) — déclenchement hybride
 
 - **Manuel** : commande `/checkpoint` → le Scribe écrit/met à jour le checkpoint du
-  fil courant à partir du template [`agents/templates/memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md).
+  fil courant à partir du template [`agents/templates/memory-checkpoint.md`](../../../agents/templates/memory-checkpoint.md).
 - **Proposition automatique** : à l'auto-check saturation **ou** en fin de session,
   le Scribe **propose** d'écrire un checkpoint (sans l'imposer — zéro charge
   cognitive imposée).
@@ -56,5 +56,5 @@ par fil de travail). Cadre complet :
 - **Règle Git** : les checkpoints sont **toujours versionnés** (ne pas gitignorer).
 
 **Distinction à respecter** : le checkpoint est un **résumé de reprise** (forward),
-à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../agents/templates/session-summary.md),
+à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../../agents/templates/session-summary.md),
 rétrospectif).

@@ -14,16 +14,21 @@ jobs:
         with:
           globs: |
             README.md
+            CHANGELOG.md
             CONTRIBUTING.md
             SECURITY.md
+            CODE_OF_CONDUCT.md
             ROADMAP.md
             VISION.md
             IDEAS.md
+            .github/copilot-instructions.md
+            .github/ISSUE_TEMPLATE/**/*.md
+            .github/agents/**/*.md
+            agents/**/*.md
             docs/incidents/**/*.md
             docs/architecture/**/*.md
             docs/decisions/**/*.md
             docs/runbooks/**/*.md
-            .github/ISSUE_TEMPLATE/**/*.md
           config: '.markdownlint.json'
 
   naming-conventions:
@@ -69,3 +74,93 @@ jobs:
             exit 1
           fi
           echo "✅ All naming conventions OK"
+
+  check-relative-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check relative markdown links validity
+        run: |
+          set -e
+          errors=0
+
+          # For each markdown file
+          git ls-files '*.md' | while read f; do
+            dir=$(dirname "$f")
+            # Extract relative links from markdown [text](path)
+            grep -oE '\]\(([^)#][^)]*)\)' "$f" 2>/dev/null | sed 's/\](//; s/)$//' | while read link; do
+              # Skip external URLs and anchors
+              case "$link" in
+                http*|mailto*) continue;;
+              esac
+
+              # Resolve relative path
+              path="${link%%#*}"  # Remove anchor
+              [ -z "$path" ] && continue
+
+              if [ "${path:0:1}" = "/" ]; then
+                target=".${path}"
+              else
+                target="$dir/$path"
+              fi
+
+              # Check existence
+              if [ ! -e "$target" ]; then
+                echo "❌ Dead link in $f → $link (resolved to $target)"
+                errors=$((errors+1))
+              fi
+            done
+          done
+
+          if [ "$errors" -gt 0 ]; then
+            exit 1
+          fi
+          echo "✅ All relative links are valid"
+
+  check-persona-subagent-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check persona ↔ subagent parity (excluding orchestrator)
+        run: |
+          set -e
+          errors=0
+
+          # Exclusions: orchestrator is special (no separate subagent for it)
+          excluded="orchestrator"
+
+          # List personas (agents/personas/*.md, basename without .md)
+          personas=$(ls agents/personas/*.md 2>/dev/null | xargs -I {} basename {} .md | sort)
+
+          for persona in $personas; do
+            # Skip excluded
+            if [ "$persona" = "$excluded" ]; then
+              continue
+            fi
+
+            # Check if corresponding .github/agents/<persona>.agent.md exists
+            if [ ! -f ".github/agents/${persona}.agent.md" ]; then
+              echo "❌ Persona '$persona' has no matching subagent (.github/agents/${persona}.agent.md)"
+              errors=$((errors+1))
+            fi
+          done
+
+          # Check reverse: all subagents have a persona (excluding orchestrator.agent.md)
+          subagents=$(ls .github/agents/*.agent.md 2>/dev/null | xargs -I {} basename {} .agent.md | sort)
+          for agent in $subagents; do
+            if [ "$agent" = "$excluded" ]; then
+              continue
+            fi
+
+            if [ ! -f "agents/personas/${agent}.md" ]; then
+              echo "❌ Subagent '${agent}.agent.md' has no matching persona (agents/personas/${agent}.md)"
+              errors=$((errors+1))
+            fi
+          done
+
+          if [ "$errors" -gt 0 ]; then
+            echo ""
+            echo "Fix parity between agents/personas/ and .github/agents/ (excluding orchestrator)."
+            exit 1
+          fi
+          echo "✅ All personas have matching subagents"

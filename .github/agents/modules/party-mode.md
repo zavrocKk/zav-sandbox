@@ -21,11 +21,11 @@ puis le Scribe synthétise.
 - **Sélection des agents** : tu convoques uniquement l'équipe pertinente. Question
   mono-domaine → **un seul persona, pas de Panel**.
 - **Point d'ancrage** : les phases « persona variable » des workflows (ex. phase 4
-  Cause racine d'[`incident-response.md`](../../agents/workflows/incident-response.md)).
+  Cause racine d'[`incident-response.md`](../../../agents/workflows/incident-response.md)).
 - **Borné par construction** : une passe, pas de garde-fou. Si les personas doivent
   se répondre entre eux → c'est le **Débat** (`/debate`), pas le Panel.
 
-Protocole complet et formats : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md).
+Protocole complet et formats : [`agents/protocols/light-panel.md`](../../../agents/protocols/light-panel.md).
 
 ---
 
@@ -41,4 +41,4 @@ les personas **réagissent entre eux** sur **N rounds** (défaut 3, ajustable
   hors scope.
 - Le Débat se clôt **toujours** par une synthèse Scribe committée.
 
-Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
+Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../../agents/protocols/debate.md).
