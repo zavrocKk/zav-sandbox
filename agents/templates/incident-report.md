@@ -46,9 +46,7 @@ duration_minutes:
 
 ### Cause technique
 
-
 ### Cause systémique
-
 
 ## Mitigation appliquée
 
@@ -76,11 +74,9 @@ duration_minutes:
 
 <!-- 1-3 leçons qui dépassent cet incident spécifique. Quoi appliquer ailleurs ? -->
 
-
 ## Annexes
 
 <!-- Liens vers : runs CI, dashboards, traces, code source des changements impliqués, autres incidents similaires. -->
-
 
 ---
 *Post-mortem blameless : on parle systèmes et processus, pas personnes.*

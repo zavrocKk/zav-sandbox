@@ -221,9 +221,22 @@ pour éviter les conflits :
 
 ## Comment ajouter un persona
 
+**Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas (voir [Party Mode](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md)) :
+- **≤ 3 personas** : impersonation inline (aucun sous-agent requis)
+- **≥ 4 personas ou workflow complet** : sous-agents réels via `/party-real` (subagent requis)
+
+### Procédure pour un persona qui sera utilisé en `/party-real` (recommended)
+
 1. Crée `agents/personas/<nom>.md` avec les sections : `Identité`, `Ton`, `Domaines`, `Quand intervenir`, `Output type`, `Handoffs`, `Anti-patterns`.
-2. Ajoute son emoji et sa ligne dans la table des personas de l'agent (`.github/agents/orchestrator.agent.md`).
-3. Mets à jour le mapping `demande → workflow → personas` de l'agent si ce persona ouvre de nouveaux types de demandes.
+2. **Crée `.github/agents/<nom>.agent.md`** (fichier de sous-agent) en calquant sur un agent existant (ex. `developer.agent.md`). Restreins les `tools` au périmètre du persona.
+3. Ajoute son emoji et sa ligne dans la **table des personas** de l'agent (`.github/agents/orchestrator.agent.md`, section « Personas disponibles »).
+4. Déclare-le dans la **liste des agents disponibles** pour `/party-real` (voir section « Agents disponibles » du même fichier).
+5. Mets à jour le **mapping `demande → workflow → personas`** de l'agent si ce persona ouvre de nouveaux types de demandes.
+6. Si le persona est utilisé dans un **workflow 4+ personas**, mets à jour les **modules** (`.github/agents/modules/party-mode.md`, etc.) si pertinent.
+
+### Procédure pour un persona inline-only (sessions ≤ 3 personas uniquement)
+
+1–5 comme ci-dessus, mais **omets l'étape 2** (pas de subagent). Documente l'exclusion dans les commentaires de `orchestrator.agent.md`.
 
 ## Comment ajouter un workflow
 

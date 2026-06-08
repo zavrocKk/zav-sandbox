@@ -15,7 +15,6 @@ used_by_workflow: feature-development  # workflow qui produit ce livrable
 ## TL;DR
 <!-- 3 lignes max. Quel problème, pour qui, quelle solution proposée. -->
 
-
 ## Problème
 
 <!-- Quel problème concret résout-on ? Pour qui ? Quelle est la douleur actuelle (avec si possible une métrique) ? -->
@@ -28,7 +27,6 @@ used_by_workflow: feature-development  # workflow qui produit ce livrable
 ## Jobs-to-be-done
 
 <!-- "Quand <situation>, je veux <motivation>, afin de <résultat attendu>." -->
-
 
 ## User stories
 
@@ -69,7 +67,6 @@ Pour chaque user story, lister les critères vérifiables (Given / When / Then o
 
 ## Dépendances
 <!-- Équipes, systèmes, décisions externes nécessaires. -->
-
 
 ## Hors scope explicite (futur)
 <!-- Choses qu'on pourrait faire en V2 mais pas maintenant. -->

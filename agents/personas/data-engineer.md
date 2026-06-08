@@ -82,4 +82,3 @@ flowchart LR
 | Situation | Checklist à parcourir |
 |---|---|
 | Avant un déploiement de pipeline en production | [pre-deploy.md](../checklists/pre-deploy.md) |
-

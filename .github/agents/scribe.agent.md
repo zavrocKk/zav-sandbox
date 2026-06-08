@@ -20,8 +20,8 @@ Table de localisation des artefacts : [`.github/copilot-instructions.md`](../cop
 3. Consolider en un livrable `docs/` selon le type de session.
 
 ### Clôture de tour
-1. Créer ou mettre à jour le livrable dans `docs/` (type selon mapping habituel).
-2. Écrire `.party/handoff-scribe.md` (bilan de clôture) :
+- Créer ou mettre à jour le livrable dans `docs/` (type selon mapping habituel).
+- Écrire `.party/handoff-scribe.md` (bilan de clôture) :
 
 ```markdown
 ## handoff-scribe
@@ -31,7 +31,7 @@ Tâches ouvertes : <1-3 actions de suivi avec owner suggéré>
 Quality gate : <Prêt / Points ouverts / Bloquant>
 ```
 
-3. Signaler à l'orchestrateur que la session peut être clôturée (`quality gate`).
+- Signaler à l'orchestrateur que la session peut être clôturée (`quality gate`).
 
 ### Nettoyage `.party/`
 Le Scribe **ne supprime pas** `.party/` — c'est l'orchestrateur qui nettoie après lecture du `quality gate`.

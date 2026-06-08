@@ -17,14 +17,14 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 6 — Party Mode : Panel (défaut) + Débat (sur invocation)
 ✅ Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
 ✅ Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
-⬜ Phase 9 — Correctifs DevX (Audit 2026-05-30)
-⬜ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas
+✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
+✅ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas
 ⬜ Phase 10 — Ouverture
 
 ### ⬜ Phase 9 — Correctifs DevX (Audit 2026-05-30)
 
 **Objectif** : adresser les 18 points identifiés lors de l'audit technique complet du 2026-05-30.
-Plan détaillé : [`docs/decisions/0006-plan-correctifs-audit-2026-05-30.md`](docs/decisions/0006-plan-correctifs-audit-2026-05-30.md)
+Plan détaillé : [`docs/decisions/0007-plan-correctifs-audit-2026-05-30.md`](docs/decisions/0007-plan-correctifs-audit-2026-05-30.md)
 
 | Lot | Contenu | Urgence |
 |---|---|---|
