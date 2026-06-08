@@ -18,6 +18,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
 ✅ Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
 ⬜ Phase 9 — Correctifs DevX (Audit 2026-05-30)
+⬜ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas
 ⬜ Phase 10 — Ouverture
 
 ### ⬜ Phase 9 — Correctifs DevX (Audit 2026-05-30)
@@ -37,6 +38,22 @@ Plan détaillé : [`docs/decisions/0006-plan-correctifs-audit-2026-05-30.md`](do
 | H — Personas | Section "Différence avec" 5 personas | Faible |
 
 **Critères de succès** : Lots A-E en une session (~2h), CI Markdown vert, README testable < 5 min.
+
+---
+
+### ⬜ Phase 9.1 — Sous-agents réels (`/party-real`)
+
+**Objectif** : remplacer l'impersonation séquentielle par de vrais sous-agents sur les workflows 4+ personas, réduisant les tokens input de ~80 % sur les sessions longues.
+
+**Livrables** :
+- 7 fichiers `.github/agents/<persona>.agent.md` avec tools restreints par domaine
+- Mécanisme `.party/` (contexte + handoffs transitoires, gitignore-d)
+- Commande `/party-real` dans l'orchestrateur
+- Skill `party-mode` v1.1.0 (Panel inline + `/party-real` + Débat)
+- Templates `party-context.md` et `party-handoff.md`
+- ADR-0008 (décision architecturale)
+
+**Critères de succès** : workflow `feature-development` complet (7 personas) via `/party-real` sans saturation de contexte.
 
 ---
 

@@ -15,6 +15,7 @@ Règles complètes : [`.github/agents/modules/skills.md`](../../.github/agents/m
 | Skill | Description | Quand l'invoquer | Auteur | Date |
 |---|---|---|---|---|
 | 🔍 [root-cause-analysis](root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique via 5 Pourquoi / Ishikawa | Phase « Cause racine » d'un incident ou problème opérationnel récurrent | Zav | 2026-05-30 |
+| 🎉 [party-mode](party-mode/SKILL.md) | Ancre du protocole Panel + Débat pour l'orchestrateur multi-personas | Session multi-personas, reprise de checkpoint, rappel des règles Panel/Débat | Zav | 2026-06-08 |
 
 ---
 
