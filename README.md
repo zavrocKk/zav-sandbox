@@ -4,30 +4,28 @@
 
 Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'experts virtuels** — DevOps, Developer, QA, Security, Architect, Product Analyst, Data Engineer, Scribe — au sein d'**une seule conversation**.
 
-## Philosophie : mono-session
+## Philosophie : mono-session par défaut, sous-agents réels sur demande
 
-L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent. Un seul orchestrateur, une seule conversation, des fichiers de référence markdown — zéro infrastructure supplémentaire.
+L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent.
 
-## Modes multi-personas — Panel & Débat
+- **Sessions courtes (≤ 3 personas)** : impersonation inline — un seul orchestrateur, une seule conversation, zéro infrastructure supplémentaire.
+- **Sessions longues (4+ personas, workflow complet)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Réduction estimée ~80 % des tokens input (contexte linéaire au lieu de quadratique). Voir [ADR-0008](docs/decisions/0008-subagents-party-real.md).
 
-Le travail multi-personas se décline en **deux réglages de la même mécanique** —
-la sélection intelligente des agents par l'orchestrateur. Ils ne diffèrent que par
-le nombre de passes. Détails et justification :
-[docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md).
-Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
-(Panel) et [agents/protocols/debate.md](agents/protocols/debate.md) (Débat).
+## Modes multi-personas
 
-| | **Panel** (défaut) | **Débat** (sur invocation `/debate`) |
-|---|---|---|
-| Quand | Problème **fermé** : une réponse à trouver | Problème **ouvert** : on bloque ou on brainstorme |
-| Travail type | Incident, analyse, doc, design | Brainstorming, arbitrage, idéation |
-| Mécanique | Chaque expert → son angle **une fois** → synthèse Scribe | Les experts se répondent sur **N rounds** → synthèse Scribe |
-| Friction | Coûteuse → évitée | Productive → recherchée |
-| Coût tokens | Borné par construction | Volontairement plus élevé (assumé) |
+Trois modes, un même principe de sélection intelligente par l'orchestrateur :
 
-> **Règle binaire** — Panel : aucun persona ne réagit à un autre (une passe).
-> Débat : les personas réagissent entre eux (max N rounds), puis le Scribe force
-> la synthèse. Dans les deux cas, le **Scribe ferme toujours** par un livrable.
+| | **Panel inline** (défaut, ≤ 3 personas) | **`/party-real`** (4+ personas) | **Débat** (`/debate`) |
+|---|---|---|---|
+| Quand | Problème **fermé**, session courte | Workflow complet bout-en-bout | Problème **ouvert** |
+| Travail type | Incident, analyse, doc, design | Feature complète, audit complet | Brainstorming, arbitrage |
+| Mécanique | Impersonation inline, une passe | `runSubagent` + `.party/` handoffs | N rounds inter-persona |
+| Tokens | Borné par construction | ~80 % moins que Panel inline sur 4+ personas | Volontairement plus élevé |
+| Déclenchement | Automatique | `/party-real` explicite | `/debate` explicite |
+
+Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md), [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
+
+> **Règle tiebreaker** — Panel : aucun persona ne réagit à un autre. `/party-real` : chaque agent reçoit uniquement `context.md` + les handoffs précédents (≤ 500 tokens chacun). Dans tous les cas, le **Scribe ferme toujours** par un livrable.
 
 ## Structure du dépôt
 
@@ -35,7 +33,14 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 .
 ├── .github/
 │   ├── agents/
-│   │   └── orchestrator.agent.md        # Le custom agent
+│   │   ├── orchestrator.agent.md        # 🎼 Orchestrateur — custom agent principal
+│   │   ├── devops.agent.md              # 🛠️ Sous-agent DevOps (/party-real)
+│   │   ├── developer.agent.md           # 💻 Sous-agent Developer (/party-real)
+│   │   ├── security.agent.md            # 🔒 Sous-agent Security (/party-real)
+│   │   ├── architect.agent.md           # 🏗️ Sous-agent Architect (/party-real)
+│   │   ├── qa.agent.md                  # 🧪 Sous-agent QA (/party-real)
+│   │   ├── product-analyst.agent.md     # 📊 Sous-agent Product Analyst (/party-real)
+│   │   └── scribe.agent.md              # 📝 Sous-agent Scribe (/party-real)
 │   └── copilot-instructions.md          # Instructions globales (français, livrables, sécu)
 ├── agents/
 │   ├── personas/
@@ -53,15 +58,18 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 │   │   ├── code-analysis.md             # Audit / review d'un module
 │   │   ├── feature-development.md       # Nouvelle fonctionnalité
 │   │   ├── architecture-design.md       # Choix techno, refonte
-   │   ├── data-pipeline.md             # ETL, migration, modélisation BI
-   │   └── onboarding.md                # 👋 Guide 5 minutes — premier démarrage
+│   │   ├── data-pipeline.md             # ETL, migration, modélisation BI
+│   │   └── onboarding.md                # 👋 Guide 5 minutes — premier démarrage
 │   ├── templates/
 │   │   ├── incident-report.md           # Post-mortem blameless
 │   │   ├── adr.md                       # Architecture Decision Record (Nygard)
-│   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions (Phase 7)
-│   │   └── prd.md                       # Product Requirements Document léger
-│   ├── skills/                          # Skills techniques invocables (Phase 8, format Agent Skills)
-│   │   └── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
+│   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions
+│   │   ├── prd.md                       # Product Requirements Document léger
+│   │   ├── party-context.md             # Template context.md pour /party-real
+│   │   └── party-handoff.md             # Template handoff-{agent}.md pour /party-real
+│   ├── skills/                          # Skills techniques invocables (format Agent Skills)
+│   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
+│   │   └── party-mode/SKILL.md          # 🎉 Ancre protocole Panel/Débat//party-real (v1.1.0)
 │   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
 │       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
@@ -70,10 +78,11 @@ Protocoles opérationnels : [agents/protocols/light-panel.md](agents/protocols/l
 │   ├── incidents/                       # Post-mortems
 │   ├── architecture/                    # Notes d'architecture
 │   ├── decisions/                       # ADRs (NNNN-slug.md)
-│   └── _scratch/memory/                 # Checkpoints de mémoire inter-sessions (Phase 7)
+│   └── _scratch/memory/                 # Checkpoints de mémoire inter-sessions
 └── README.md
 ```
 
+> **Note `.party/`** : lors d'une session `/party-real`, l'orchestrateur crée un dossier `.party/` transitoire à la racine (gitignore-d) pour les échanges inter-agents (`context.md` + `handoff-{agent}.md`). Ce dossier est **supprimé à la clôture** de chaque session.
 ## Activer l'agent Orchestrator dans VS Code
 
 > **Nouveau ?** Commence par le guide 5 minutes : [`agents/workflows/onboarding.md`](agents/workflows/onboarding.md).
@@ -107,6 +116,7 @@ Si ce cycle s'exécute correctement, le framework est opérationnel.
 | `/light` | Mode format allégé (en-têtes compacts, tables réserrées) — les règles restent actives |
 | `/debate` | Bascule en mode Débat (N rounds, défaut 3) |
 | `/debate max=N` | Débat avec N rounds maximum (ex. `/debate max=5`) |
+| `/party-real` | Active le mode sous-agents réels (4+ personas) — fenêtres fraîches, ~80 % tokens en moins |
 | `/checkpoint` | Le Scribe crée un checkpoint de mémoire dans `docs/_scratch/memory/` |
 | `/pre-pr` | Lance les garde-fous pré-PR (qualité, sécurité, conventions) |
 | `/reset` | Recalibration LLM — voir ci-dessous |
@@ -174,10 +184,13 @@ Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 ```mermaid
 flowchart TD
     U[👤 Utilisateur] --> O[orchestrator.agent.md]
-    O --> P[agents/personas/]
+    O -->|Panel inline ≤3 personas| P[agents/personas/ impersonation]
+    O -->|/party-real 4+ personas| SA[.github/agents/*.agent.md]
+    SA -->|runSubagent + handoffs| PARTY[".party/ transitoire\ncontext.md + handoff-*.md"]
     O --> W[agents/workflows/]
     O --> PR[agents/protocols/]
     P --> S[agents/skills/]
+    SA --> S
     O --> D[docs/]
     D --> DEC[decisions/ ADRs]
     D --> SCR[_scratch/memory/ checkpoints]

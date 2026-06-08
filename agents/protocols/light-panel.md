@@ -31,6 +31,20 @@ aucun garde-fou max rounds nécessaire.
 - Point d'ancrage naturel : les phases « persona variable » des workflows
   (ex. phase 4 Cause racine d'[`incident-response.md`](../workflows/incident-response.md)).
 
+## Critères de déclenchement Panel (règle binaire)
+
+Convoquer le Panel **si au moins un critère est vrai** :
+
+| Critère | Exemple |
+|---|---|
+| 2+ expertises distinctes requises | Sécurité + Infra, ou Dev + QA |
+| Tâche implique analyse ET implémentation ET validation | Incident complet |
+| Modification touchant 3+ composants distincts | Refonte cross-couches |
+
+**Sinon → persona unique**, pas de Panel.
+
+Doute ? → Démarrer avec un persona unique ; l'orchestrateur peut élargir si un angle manque.
+
 ## Format — Carte d'angle (plafond strict : 3 lignes)
 
 Chaque persona convoqué émet exactement :
