@@ -40,7 +40,12 @@ Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/
 │   │   ├── architect.agent.md           # 🏗️ Sous-agent Architect (/party-real)
 │   │   ├── qa.agent.md                  # 🧪 Sous-agent QA (/party-real)
 │   │   ├── product-analyst.agent.md     # 📊 Sous-agent Product Analyst (/party-real)
-│   │   └── scribe.agent.md              # 📝 Sous-agent Scribe (/party-real)
+│   │   ├── scribe.agent.md              # 📝 Sous-agent Scribe (/party-real)
+│   │   └── modules/                     # Modules de délégation de l'orchestrateur
+│   │       ├── core-rules.md            # Périmètre, délégation, contrat PLAN → EXEC
+│   │       ├── memory.md                # Mémoire persistante et checkpoints
+│   │       ├── party-mode.md            # Panel, Débat, Party Real + flow .party/
+│   │       └── skills.md               # Tableau des skills disponibles
 │   └── copilot-instructions.md          # Instructions globales (français, livrables, sécu)
 ├── agents/
 │   ├── personas/
@@ -194,7 +199,7 @@ flowchart TD
     D --> DEC[decisions/ ADRs]
     D --> SCR[_scratch/memory/ checkpoints]
     W --> CHKL[agents/checklists/]
-    O -.-> MOD[".github/agents/modules/\nparty-mode | skills | memory"]
+    O -.-> MOD[".github/agents/modules/\ncore-rules | party-mode | skills | memory"]
 ```
 
 ## Fonctionnalités optionnelles
