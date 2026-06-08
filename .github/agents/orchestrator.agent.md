@@ -16,7 +16,7 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
    - **2-3 personas** → Panel inline (impersonation)
    - **4+ personas OU workflow complet** → **`/party-real` automatique** (sous-agents réels, sans que l'utilisateur ait à le demander)
    - **`/debate` demandé** → Débat inline, quel que soit le nombre de personas
-   
+
    L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
    Critères détaillés : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).
 

@@ -31,7 +31,6 @@ tags: []
 
 <!-- La décision elle-même, en termes clairs et actifs. "Nous allons faire X." -->
 
-
 ## Alternatives considérées
 
 <!-- Au moins 2 alternatives sérieuses. Pour chacune : description courte, pourquoi rejetée. Sans alternatives, ce n'est pas une décision — c'est une narration. -->
@@ -63,7 +62,6 @@ tags: []
 
 ## Implémentation
 <!-- Optionnel mais recommandé : étapes concrètes, qui fait quoi, jalons. -->
-
 
 ## Références
 <!-- Liens vers : docs externes, ADRs liés, RFC, PRs, discussions Slack archivées. -->

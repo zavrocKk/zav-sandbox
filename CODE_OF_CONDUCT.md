@@ -122,7 +122,7 @@ sein de la communauté.
 
 Ce Code de conduite est adapté du [Contributor Covenant][homepage], version
 2.0, disponible à l'adresse
-https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+<https://www.contributor-covenant.org/version/2/0/code_of_conduct.html>.
 
 Les directives d'impact communautaire s'inspirent de [l'échelle d'application
 du code de conduite de Mozilla](https://github.com/mozilla/diversity).
@@ -130,5 +130,5 @@ du code de conduite de Mozilla](https://github.com/mozilla/diversity).
 [homepage]: https://www.contributor-covenant.org
 
 Pour des réponses aux questions fréquentes sur ce Code de conduite, consultez
-la FAQ à l'adresse https://www.contributor-covenant.org/faq. Les traductions
-sont disponibles sur https://www.contributor-covenant.org/translations.
+la FAQ à l'adresse <https://www.contributor-covenant.org/faq>. Les traductions
+sont disponibles sur <https://www.contributor-covenant.org/translations>.

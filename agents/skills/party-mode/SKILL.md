@@ -29,7 +29,7 @@ formats, voir les protocoles sources :
 | Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) | Commande utilisateur |
 
 > **L'utilisateur n'a jamais à taper `/party-real`.** L'orchestrateur choisit le mode au moment du PLAN et l'annonce : `Mode : Party Real (sous-agents) — N personas détectés`.
-
+>
 > **⚠️ Incompatibilité `/debate` + Party Real** : le Débat exige que les personas voient les réactions des autres en temps réel (même fenêtre). Les sous-agents reçoivent chacun une fenêtre fraîche — la dynamique de réaction inter-rounds est impossible. **`/debate` fonctionne exclusivement en mode inline (impersonation).**
 
 ---

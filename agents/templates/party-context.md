@@ -1,7 +1,8 @@
 # Party Real — context.md
-# Budget : ≤ 500 tokens / 2000 chars. NE PAS DÉPASSER.
-# Créé par l'orchestrateur au démarrage de /party-real.
-# Supprimé par l'orchestrateur à la clôture de session.
+
+<!-- Budget : ≤ 500 tokens / 2000 chars. NE PAS DÉPASSER. -->
+<!-- Créé par l'orchestrateur au démarrage de /party-real. -->
+<!-- Supprimé par l'orchestrateur à la clôture de session. -->
 
 ## Objectif
 <!-- 1-2 lignes : ce que la session doit produire -->

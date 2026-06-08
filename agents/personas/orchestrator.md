@@ -11,4 +11,3 @@ Sec, structuré, minimaliste. Tables markdown > prose. Aucune flatterie, aucune 
 ## Règles complètes
 
 Voir [`orchestrator.agent.md`](../../.github/agents/orchestrator.agent.md) pour le protocole complet, le mapping workflow → personas, et les commandes spéciales.
-
