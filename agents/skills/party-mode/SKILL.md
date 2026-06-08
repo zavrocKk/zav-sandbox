@@ -25,8 +25,10 @@ formats, voir les protocoles sources :
 |---|---|
 | Problème **fermé**, ≤ 3 personas, session courte | **Panel inline** (défaut) |
 | Problème **fermé**, 4+ personas OU workflow complet bout-en-bout | **`/party-real`** (sous-agents) |
-| Problème **ouvert** + `/debate` explicite | **Débat** |
+| Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) |
 | Mono-domaine ou question simple | **Persona unique** — pas de Panel |
+
+> **⚠️ Incompatibilité `/debate` + `/party-real`** : le Débat exige que les personas voient les réactions des autres en temps réel (même fenêtre de contexte). Les sous-agents `/party-real` reçoivent chacun une fenêtre fraîche — la dynamique de réaction inter-rounds est impossible sans perdre la nuance. **`/debate` fonctionne exclusivement en mode inline (impersonation).** Si tu lances `/debate` avec 4+ personas, l'orchestrateur reste en impersonation pour ce cycle.
 
 ---
 

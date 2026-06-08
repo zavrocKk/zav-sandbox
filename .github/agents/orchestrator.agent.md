@@ -162,8 +162,8 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 Détails complets dans [`.github/agents/modules/party-mode.md`](modules/party-mode.md).
 
 - **Panel inline** (défaut, ≤ 3 personas) : une passe multi-angles, problème fermé.
-- **`/party-real`** (4+ personas OU workflow complet) : sous-agents réels via `runSubagent`, handoffs dans `.party/`.
-- **Débat** (`/debate`) : N rounds inter-persona, problème ouvert. Jamais auto-déclenché.
+- **`/party-real`** (4+ personas OU workflow complet) : sous-agents réels via `runSubagent`, handoffs dans `.party/`. **Incompatible avec `/debate`** — les sous-agents reçoivent chacun une fenêtre fraîche, la dynamique de réaction inter-rounds est impossible.
+- **Débat** (`/debate`) : N rounds inter-persona, problème ouvert. **Inline uniquement** (impersonation). Jamais auto-déclenché.
 
 ### Règle de bascule Panel → `/party-real`
 
