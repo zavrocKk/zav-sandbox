@@ -18,10 +18,11 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 7 — Mémoire persistante (cadrage + 7.1 mécanisme livrés ; cleanup à venir)
 ✅ Phase 8 — Skills techniques (cadrage + 8.1 garde-fous + 8.2 1ʳᵉ skill RCA livrés)
 ✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
-✅ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas
+✅ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas (ADR-0008)
+✅ Phase 9.2 — Abaissement seuil Panel ≤ 2 personas + allègement orchestrateur −29 % (ADR-0009)
 ⬜ Phase 10 — Ouverture
 
-### ⬜ Phase 9 — Correctifs DevX (Audit 2026-05-30)
+### ✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
 
 **Objectif** : adresser les 18 points identifiés lors de l'audit technique complet du 2026-05-30.
 Plan détaillé : [`docs/decisions/0007-plan-correctifs-audit-2026-05-30.md`](docs/decisions/0007-plan-correctifs-audit-2026-05-30.md)
@@ -41,19 +42,36 @@ Plan détaillé : [`docs/decisions/0007-plan-correctifs-audit-2026-05-30.md`](do
 
 ---
 
-### ⬜ Phase 9.1 — Sous-agents réels (`/party-real`)
+### ✅ Phase 9.1 — Sous-agents réels (`/party-real`)
 
 **Objectif** : remplacer l'impersonation séquentielle par de vrais sous-agents sur les workflows 4+ personas, réduisant les tokens input de ~80 % sur les sessions longues.
 
 **Livrables** :
+
 - 7 fichiers `.github/agents/<persona>.agent.md` avec tools restreints par domaine
 - Mécanisme `.party/` (contexte + handoffs transitoires, gitignore-d)
-- Commande `/party-real` dans l'orchestrateur
-- Skill `party-mode` v1.1.0 (Panel inline + `/party-real` + Débat)
+- Mode `/party-real` **automatique** (l'orchestrateur décide, l'utilisateur ne tape rien)
+- Skill `party-mode` v1.1.0 (Panel inline + Party Real + Débat)
 - Templates `party-context.md` et `party-handoff.md`
 - ADR-0008 (décision architecturale)
 
-**Critères de succès** : workflow `feature-development` complet (7 personas) via `/party-real` sans saturation de contexte.
+**Critères de succès** : workflow `feature-development` complet (7 personas) via Party Real sans saturation de contexte. ✔
+
+---
+
+### ✅ Phase 9.2 — Abaissement seuil Panel + allègement orchestrateur
+
+**Objectif** : abaisser le seuil de bascule Panel → Party Real de ≤ 3 à ≤ 2 personas, et réduire la charge contextuelle de `orchestrator.agent.md` sans perdre d'information.
+
+**Livrables** :
+
+- ADR-0009 (seuil ≤ 2 personas — raffinement d'ADR-0008)
+- `orchestrator.agent.md` : 284 → 202 lignes (−29 %) par extraction vers modules
+- Nouveau module `.github/agents/modules/core-rules.md` (périmètre, délégation, contrat PLAN)
+- `agents/protocols/preflight.md` étendu : « default to clarification » + « Pattern Avouer l'échec »
+- `.github/agents/modules/party-mode.md` étendu : cycle Party Real complet (Qui/Quand/Pourquoi + flow)
+
+**Critères de succès** : orchestrateur allégé, markdownlint 0 erreur, règles de bascule cohérentes sur tous les fichiers. ✔
 
 ---
 
