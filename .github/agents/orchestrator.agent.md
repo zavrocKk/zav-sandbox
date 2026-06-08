@@ -13,12 +13,13 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
    Si aucun checkpoint → démarrage à zéro, pas de mention.
 2. **Choisir le mode d'exécution** — décision automatique basée sur le nombre de personas du PLAN :
    - **1 persona** → persona unique inline
-   - **2-3 personas** → Panel inline (impersonation)
-   - **4+ personas OU workflow complet** → **`/party-real` automatique** (sous-agents réels, sans que l'utilisateur ait à le demander)
+   - **2 personas** → Panel inline (impersonation, une seule passe)
+   - **3+ personas OU workflow complet** → **`/party-real` automatique** (sous-agents réels, sans que l'utilisateur ait à le demander — aucune borne supérieure)
    - **`/debate` demandé** → Débat inline, quel que soit le nombre de personas
 
    L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
    Critères détaillés : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).
+   Décision : [`docs/decisions/0009-abaisser-seuil-panel-inline.md`](../../docs/decisions/0009-abaisser-seuil-panel-inline.md).
 
 ## 🎯 Règles critiques — ancre d'attention (priment, même en session longue)
 
@@ -166,24 +167,30 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 
 Détails complets dans [`.github/agents/modules/party-mode.md`](modules/party-mode.md).
 
-- **Panel inline** (défaut, ≤ 3 personas) : une passe multi-angles, problème fermé.
-- **`/party-real`** (4+ personas OU workflow complet) : sous-agents réels via `runSubagent`, handoffs dans `.party/`. **Incompatible avec `/debate`** — les sous-agents reçoivent chacun une fenêtre fraîche, la dynamique de réaction inter-rounds est impossible.
+- **Panel inline** (1-2 personas) : une passe multi-angles, problème fermé. Mode minoritaire — réservé aux sessions très courtes.
+- **`/party-real`** (3+ personas OU workflow complet — **mode par défaut du multi-persona**) : sous-agents réels via `runSubagent`, handoffs dans `.party/`. Aucune borne supérieure. **Incompatible avec `/debate`** — les sous-agents reçoivent chacun une fenêtre fraîche, la dynamique de réaction inter-rounds est impossible.
 - **Débat** (`/debate`) : N rounds inter-persona, problème ouvert. **Inline uniquement** (impersonation). Jamais auto-déclenché.
 
 ### Règle de bascule — automatique, décidée par l'orchestrateur au PLAN
 
 ```
 1 persona            → persona unique inline
-2-3 personas         → Panel inline
-4+ personas          → /party-real automatique (sous-agents réels)
+2 personas           → Panel inline
+3+ personas          → /party-real automatique (sous-agents réels, sans borne sup.)
 workflow complet     → /party-real automatique
-/debate demandé      → Débat inline (ignoré si 4+ personas sans /debate explicite)
+/debate demandé      → Débat inline (ignoré si 3+ personas sans /debate explicite)
 ```
 
 **L'utilisateur ne tape jamais `/party-real`.** L'orchestrateur déclare le mode choisi dans le PLAN :
 ```
 Mode : Party Real (sous-agents) — 5 personas détectés
 ```
+
+### Qui invoquer, quand, pourquoi — référence opérationnelle
+
+- **QUI** : les personas listés dans le PLAN (dérivés du mapping `demande → workflow → personas` ci-dessus). Chaque persona du PLAN = un appel `runSubagent("<persona>")`.
+- **QUAND** : après validation du PLAN (phase CONFIRM), dans l'ordre exact du PLAN. Ni saut, ni ajout silencieux, ni réordonnancement.
+- **POURQUOI** : chaque sous-agent reçoit une **fenêtre fraîche** (pas de croissance quadratique du contexte). Le Scribe lit uniquement les handoffs condensés (≤ 500 tokens chacun) au lieu de l'historique brut de tous ses prédécesseurs. Justification complète : [`docs/decisions/0009-abaisser-seuil-panel-inline.md`](../../docs/decisions/0009-abaisser-seuil-panel-inline.md).
 
 ### Flow `/party-real`
 
@@ -229,7 +236,7 @@ Détails et tableau complets dans [`.github/agents/modules/skills.md`](modules/s
 - `/light` — Allège le **format** (en-têtes compacts, tables resserrées, zéro méta-commentaire) pour réduire les tokens par tour. **Cumulable avec `/quick`.** Ne désactive **AUCUNE** règle binaire (délégation, plan, périmètre, Scribe) — seulement leur habillage verbeux. Reste actif jusqu'à `/verbose` ou fin de session.
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
-- ~~`/party-real`~~ — **Pas une commande utilisateur.** Le mode sous-agents réels est déclenché **automatiquement** par l'orchestrateur quand le PLAN requiert 4+ personas ou un workflow complet. L'orchestrateur le déclare dans le PLAN.
+- ~~`/party-real`~~ — **Pas une commande utilisateur.** Le mode sous-agents réels est déclenché **automatiquement** par l'orchestrateur dès que le PLAN requiert 3+ personas ou un workflow complet (aucune borne supérieure). L'orchestrateur le déclare dans le PLAN.
 - `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
 - `/memory-list` — Liste les checkpoints actifs dans `docs/_scratch/memory/` avec leur `thread`, `status` et `next_action`. Utile pour choisir lequel reprendre ou identifier les fils `closed` à archiver.
 - `/pre-pr` — DevOps déroule la **checklist pré-PR** ([`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md)) : lance la commande de vérif lecture seule (`git status` / `git branch --no-merged main` / `gh pr list`) et valide les 8 contrôles (working tree, branches orphelines, PR ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits). Voir règle « Garde-fou pré-PR ».

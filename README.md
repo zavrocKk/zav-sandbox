@@ -8,19 +8,19 @@ Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'ex
 
 L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent.
 
-- **Sessions courtes (≤ 3 personas)** : impersonation inline — un seul orchestrateur, une seule conversation, zéro infrastructure supplémentaire.
-- **Sessions longues (4+ personas, workflow complet)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Réduction estimée ~80 % des tokens input (contexte linéaire au lieu de quadratique). Voir [ADR-0008](docs/decisions/0008-subagents-party-real.md).
+- **Sessions très courtes (1-2 personas)** : impersonation inline — un seul orchestrateur, une seule conversation, zéro infrastructure supplémentaire.
+- **Sessions multi-personas (3+, mode par défaut)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Aucune borne supérieure (3, 5, 7… personas, même traitement). Réduction estimée ~50 à 80 % des tokens input selon la taille de la session. Voir [ADR-0008](docs/decisions/0008-subagents-party-real.md) et [ADR-0009](docs/decisions/0009-abaisser-seuil-panel-inline.md).
 
 ## Modes multi-personas
 
 Trois modes, un même principe de sélection intelligente par l'orchestrateur :
 
-| | **Panel inline** (défaut, ≤ 3 personas) | **Party Real** (4+ personas, automatique) | **Débat** (`/debate`) |
+| | **Panel inline** (1-2 personas, mode minoritaire) | **Party Real** (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
 |---|---|---|---|
-| Quand | Problème **fermé**, session courte | Workflow complet bout-en-bout | Problème **ouvert** |
-| Travail type | Incident, analyse, doc, design | Feature complète, audit complet | Brainstorming, arbitrage |
+| Quand | Problème **fermé**, session très courte | Workflow complet ou multi-angle (≥ 3 personas) | Problème **ouvert** |
+| Travail type | Question rapide à 2 angles, mini-design | Feature, audit, incident, stratégie tests, pipeline | Brainstorming, arbitrage |
 | Mécanique | Impersonation inline, une passe | `runSubagent` + `.party/` handoffs | N rounds inter-persona |
-| Tokens | Borné par construction | ~80 % moins que Panel inline sur 4+ personas | Volontairement plus élevé |
+| Tokens | Borné par construction | ~50-80 % moins que Panel inline équivalent | Volontairement plus élevé |
 | Déclenchement | **Automatique** | **Automatique** (l'orchestrateur décide au PLAN) | `/debate` explicite |
 
 Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md), [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
@@ -183,8 +183,8 @@ Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 ```mermaid
 flowchart TD
     U[👤 Utilisateur] --> O[orchestrator.agent.md]
-    O -->|PLAN: ≤3 personas → Panel inline| P[agents/personas/ impersonation]
-    O -->|PLAN: 4+ personas → Party Real auto| SA[.github/agents/*.agent.md]
+    O -->|PLAN: 1-2 personas → Panel inline| P[agents/personas/ impersonation]
+    O -->|PLAN: 3+ personas → Party Real auto| SA[.github/agents/*.agent.md]
     SA -->|runSubagent + handoffs| PARTY[".party/ transitoire\ncontext.md + handoff-*.md"]
     O --> W[agents/workflows/]
     O --> PR[agents/protocols/]
@@ -221,9 +221,9 @@ pour éviter les conflits :
 
 ## Comment ajouter un persona
 
-**Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas (voir [Party Mode](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md)) :
-- **≤ 3 personas** : impersonation inline (aucun sous-agent requis)
-- **≥ 4 personas ou workflow complet** : sous-agents réels via `/party-real` (subagent requis)
+**Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas (voir [ADR-0009](docs/decisions/0009-abaisser-seuil-panel-inline.md)) :
+- **1-2 personas** : impersonation inline (aucun sous-agent requis)
+- **≥ 3 personas ou workflow complet** : sous-agents réels via `/party-real` (subagent requis — mode par défaut du multi-persona)
 
 ### Procédure pour un persona qui sera utilisé en `/party-real` (recommended)
 
@@ -232,9 +232,9 @@ pour éviter les conflits :
 3. Ajoute son emoji et sa ligne dans la **table des personas** de l'agent (`.github/agents/orchestrator.agent.md`, section « Personas disponibles »).
 4. Déclare-le dans la **liste des agents disponibles** pour `/party-real` (voir section « Agents disponibles » du même fichier).
 5. Mets à jour le **mapping `demande → workflow → personas`** de l'agent si ce persona ouvre de nouveaux types de demandes.
-6. Si le persona est utilisé dans un **workflow 4+ personas**, mets à jour les **modules** (`.github/agents/modules/party-mode.md`, etc.) si pertinent.
+6. Si le persona est utilisé dans un **workflow 3+ personas** (la majorité), mets à jour les **modules** (`.github/agents/modules/party-mode.md`, etc.) si pertinent.
 
-### Procédure pour un persona inline-only (sessions ≤ 3 personas uniquement)
+### Procédure pour un persona inline-only (sessions 1-2 personas uniquement — cas rare)
 
 1–5 comme ci-dessus, mais **omets l'étape 2** (pas de subagent). Documente l'exclusion dans les commentaires de `orchestrator.agent.md`.
 

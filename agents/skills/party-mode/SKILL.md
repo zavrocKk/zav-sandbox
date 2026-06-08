@@ -24,8 +24,8 @@ formats, voir les protocoles sources :
 | Condition | Mode | Déclenchement |
 |---|---|---|
 | Problème **fermé**, 1 persona | **Persona unique inline** | Automatique |
-| Problème **fermé**, 2-3 personas, session courte | **Panel inline** | Automatique |
-| Problème **fermé**, 4+ personas OU workflow complet | **Party Real (sous-agents)** | **Automatique** — l'utilisateur ne tape rien |
+| Problème **fermé**, 2 personas, session courte | **Panel inline** | Automatique |
+| Problème **fermé**, 3+ personas OU workflow complet | **Party Real (sous-agents)** | **Automatique** — l'utilisateur ne tape rien, aucune borne supérieure |
 | Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) | Commande utilisateur |
 
 > **L'utilisateur n'a jamais à taper `/party-real`.** L'orchestrateur choisit le mode au moment du PLAN et l'annonce : `Mode : Party Real (sous-agents) — N personas détectés`.
@@ -73,7 +73,7 @@ Orchestrateur sélectionne personas (critères ci-dessus)
 
 ---
 
-## Cycle Party Real (sous-agents, 4+ personas — automatique)
+## Cycle Party Real (sous-agents, 3+ personas — automatique, sans borne supérieure)
 
 ```
 1. Orchestrateur écrit .party/context.md (template agents/templates/party-context.md)

@@ -16,6 +16,7 @@ tags: [orchestration, party-mode, subagents, tokens]
 **État actuel** : accepted
 **Décidé le** : 2026-06-08
 **Décideurs** : Zav
+**Raffinement** : [ADR-0009](0009-abaisser-seuil-panel-inline.md) abaisse le seuil de bascule à `3+ personas` (au lieu de `4+`). L'infrastructure et le mécanisme `/party-real` décrits ci-dessous restent valides intégralement ; seul le seuil numérique change.
 
 ---
 
