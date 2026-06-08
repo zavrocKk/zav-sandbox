@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.9](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.8...v0.1.9) (2026-06-08)
+
+
+### Bug Fixes
+
+* audit coherence — links, data-engineer, ROADMAP, CI guards ([#123](https://github.com/zavrocKk/zav-sandbox/issues/123)) ([5283976](https://github.com/zavrocKk/zav-sandbox/commit/528397665a3e4a72def603e7c08fdc5948f5e3c9))
+
 ## [0.1.8](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.7...v0.1.8) (2026-06-08)
 
 
