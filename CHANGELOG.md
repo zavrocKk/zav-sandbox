@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.8](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.7...v0.1.8) (2026-06-08)
+
+
+### Features
+
+* /party-real - sous-agents reels pour workflows 4+ personas (Phase 9.1) ([#120](https://github.com/zavrocKk/zav-sandbox/issues/120)) ([df91e80](https://github.com/zavrocKk/zav-sandbox/commit/df91e8006391a38ffa59f881367d3d75dad17251))
+
 ## [0.1.7](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.6...v0.1.7) (2026-05-30)
 
 
