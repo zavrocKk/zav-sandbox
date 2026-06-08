@@ -15,17 +15,17 @@ L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspecti
 
 Trois modes, un même principe de sélection intelligente par l'orchestrateur :
 
-| | **Panel inline** (défaut, ≤ 3 personas) | **`/party-real`** (4+ personas) | **Débat** (`/debate`) |
+| | **Panel inline** (défaut, ≤ 3 personas) | **Party Real** (4+ personas, automatique) | **Débat** (`/debate`) |
 |---|---|---|---|
 | Quand | Problème **fermé**, session courte | Workflow complet bout-en-bout | Problème **ouvert** |
 | Travail type | Incident, analyse, doc, design | Feature complète, audit complet | Brainstorming, arbitrage |
 | Mécanique | Impersonation inline, une passe | `runSubagent` + `.party/` handoffs | N rounds inter-persona |
 | Tokens | Borné par construction | ~80 % moins que Panel inline sur 4+ personas | Volontairement plus élevé |
-| Déclenchement | Automatique | `/party-real` explicite | `/debate` explicite |
+| Déclenchement | **Automatique** | **Automatique** (l'orchestrateur décide au PLAN) | `/debate` explicite |
 
 Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md), [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
 
-> **Règle tiebreaker** — Panel : aucun persona ne réagit à un autre. `/party-real` : chaque agent reçoit uniquement `context.md` + les handoffs précédents (≤ 500 tokens chacun). Dans tous les cas, le **Scribe ferme toujours** par un livrable.
+> **L'utilisateur n'a pas à spécifier le mode.** L'orchestrateur choisit Panel ou Party Real selon le nombre de personas du PLAN, et le déclare explicitement. Seul `/debate` requiert une action de l'utilisateur.
 
 ## Structure du dépôt
 
@@ -183,8 +183,8 @@ Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 ```mermaid
 flowchart TD
     U[👤 Utilisateur] --> O[orchestrator.agent.md]
-    O -->|Panel inline ≤3 personas| P[agents/personas/ impersonation]
-    O -->|/party-real 4+ personas| SA[.github/agents/*.agent.md]
+    O -->|PLAN: ≤3 personas → Panel inline| P[agents/personas/ impersonation]
+    O -->|PLAN: 4+ personas → Party Real auto| SA[.github/agents/*.agent.md]
     SA -->|runSubagent + handoffs| PARTY[".party/ transitoire\ncontext.md + handoff-*.md"]
     O --> W[agents/workflows/]
     O --> PR[agents/protocols/]
