@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.10](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.9...v0.1.10) (2026-06-08)
+
+
+### Features
+
+* abaisser seuil Panel inline a &lt;= 2 personas (ADR-0009) ([#125](https://github.com/zavrocKk/zav-sandbox/issues/125)) ([3198c10](https://github.com/zavrocKk/zav-sandbox/commit/3198c10a533f129a5a59538ff6ab9be216034301))
+
 ## [0.1.9](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.8...v0.1.9) (2026-06-08)
 
 
