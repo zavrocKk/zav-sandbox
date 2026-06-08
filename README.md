@@ -116,7 +116,6 @@ Si ce cycle s'exécute correctement, le framework est opérationnel.
 | `/light` | Mode format allégé (en-têtes compacts, tables réserrées) — les règles restent actives |
 | `/debate` | Bascule en mode Débat (N rounds, défaut 3) |
 | `/debate max=N` | Débat avec N rounds maximum (ex. `/debate max=5`) |
-| `/party-real` | Active le mode sous-agents réels (4+ personas) — fenêtres fraîches, ~80 % tokens en moins |
 | `/checkpoint` | Le Scribe crée un checkpoint de mémoire dans `docs/_scratch/memory/` |
 | `/pre-pr` | Lance les garde-fous pré-PR (qualité, sécurité, conventions) |
 | `/reset` | Recalibration LLM — voir ci-dessous |
