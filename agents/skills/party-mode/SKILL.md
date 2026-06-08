@@ -19,16 +19,18 @@ formats, voir les protocoles sources :
 
 ---
 
-## Choix du mode — règle ternaire
+## Choix du mode — règle ternaire (automatique, décidée par l'orchestrateur)
 
-| Condition | Mode |
-|---|---|
-| Problème **fermé**, ≤ 3 personas, session courte | **Panel inline** (défaut) |
-| Problème **fermé**, 4+ personas OU workflow complet bout-en-bout | **`/party-real`** (sous-agents) |
-| Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) |
-| Mono-domaine ou question simple | **Persona unique** — pas de Panel |
+| Condition | Mode | Déclenchement |
+|---|---|---|
+| Problème **fermé**, 1 persona | **Persona unique inline** | Automatique |
+| Problème **fermé**, 2-3 personas, session courte | **Panel inline** | Automatique |
+| Problème **fermé**, 4+ personas OU workflow complet | **Party Real (sous-agents)** | **Automatique** — l'utilisateur ne tape rien |
+| Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) | Commande utilisateur |
 
-> **⚠️ Incompatibilité `/debate` + `/party-real`** : le Débat exige que les personas voient les réactions des autres en temps réel (même fenêtre de contexte). Les sous-agents `/party-real` reçoivent chacun une fenêtre fraîche — la dynamique de réaction inter-rounds est impossible sans perdre la nuance. **`/debate` fonctionne exclusivement en mode inline (impersonation).** Si tu lances `/debate` avec 4+ personas, l'orchestrateur reste en impersonation pour ce cycle.
+> **L'utilisateur n'a jamais à taper `/party-real`.** L'orchestrateur choisit le mode au moment du PLAN et l'annonce : `Mode : Party Real (sous-agents) — N personas détectés`.
+
+> **⚠️ Incompatibilité `/debate` + Party Real** : le Débat exige que les personas voient les réactions des autres en temps réel (même fenêtre). Les sous-agents reçoivent chacun une fenêtre fraîche — la dynamique de réaction inter-rounds est impossible. **`/debate` fonctionne exclusivement en mode inline (impersonation).**
 
 ---
 
@@ -71,11 +73,12 @@ Orchestrateur sélectionne personas (critères ci-dessus)
 
 ---
 
-## Cycle `/party-real` — sous-agents réels (4+ personas)
+## Cycle Party Real (sous-agents, 4+ personas — automatique)
 
 ```
-1. Orchestrateur crée .party/context.md (template agents/templates/party-context.md)
+1. Orchestrateur écrit .party/context.md (template agents/templates/party-context.md)
    → objectif, scope, contraintes, séquence agents (≤ 500 tokens)
+   → DéCLARATION dans le PLAN : "Mode : Party Real (sous-agents) — N personas détectés"
 
 2. Pour chaque agent dans la séquence :
    runSubagent("<agent>")
