@@ -10,6 +10,18 @@ referenced_by: .github/agents/orchestrator.agent.md
 
 ---
 
+## Modèle : format × mécanisme
+
+Deux axes indépendants :
+
+- **Format** (interaction des personas) : `persona-unique` | `Panel` (une passe, aucune réaction) | `Débat` (N rounds réactifs).
+- **Mécanisme** (exécution) : `inline` (impersonation) | `sous-agents` (`runSubagent` + `.party/`).
+
+« **Party Real** » n'est pas un format à part : c'est **Panel × sous-agents** (3+ personas).
+Le mécanisme se choisit par nombre de personas (voir orchestrator § OUVERTURE).
+
+---
+
 ## Panel (mode nominal multi-angles)
 
 Le **Party Mode est le mode nominal** du framework. Dès qu'une demande est
@@ -84,6 +96,8 @@ manuellement → continue la séquence.
 **Agents disponibles** : `devops`, `developer`, `security`, `architect`, `qa`,
 `product-analyst`, `scribe`. Fichiers : `.github/agents/<agent>.agent.md`.
 
-**Incompatibilité `/debate`** : les sous-agents reçoivent chacun une fenêtre
-fraîche → la dynamique de réaction inter-rounds est impossible. `/debate` reste
-**inline uniquement**.
+**Débat = inline — choix de design, pas une limite technique.** Un débat est
+*réactif* : chaque persona doit voir l'argumentation complète des rounds précédents.
+En sous-agents, il faudrait ré-injecter tout l'historique à chaque round → le gain
+« handoffs condensés » disparaît, et on ajoute latence + relais. Donc `/debate` reste
+**inline uniquement** ; la case *Débat × sous-agents* est **volontairement vide**.

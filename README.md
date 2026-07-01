@@ -13,7 +13,7 @@ L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspecti
 
 ## Modes multi-personas
 
-Trois modes, un même principe de sélection intelligente par l'orchestrateur :
+Deux axes — **format** (Panel / Débat) × **mécanisme** (inline / sous-agents) — sélectionnés automatiquement par l'orchestrateur. « Party Real » = Panel exécuté en sous-agents (3+ personas) :
 
 | | **Panel inline** (1-2 personas, mode minoritaire) | **Party Real** (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
 |---|---|---|---|

@@ -127,7 +127,7 @@ Mode : Party Real (sous-agents) — N personas détectés
 
 **Rappels critiques** :
 
-- **Incompatibilité `/debate` + Party Real** : `/debate` reste **inline uniquement**.
+- **Débat = inline** : `/debate` reste **inline uniquement** — choix de design (les sous-agents n'apportent aucun gain pour un débat réactif), pas une limite technique.
 - **Nettoyage `.party/`** : purger au **démarrage** d'un Party Real (résidus d'une session interrompue = contexte périmé) **et** supprimer en **clôture**. Ne pas omettre.
 - **Fallback** : si `runSubagent` échoue → impersonation + handoff manuel.
 
