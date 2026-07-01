@@ -22,7 +22,6 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 | Sémantique Débat (N rounds, garde-fou, formats) | [`agents/protocols/debate.md`](../../../agents/protocols/debate.md) |
 | Mécanique Party Real (sous-agents, flow `.party/`, budgets, fallback) | [`.github/agents/modules/party-mode.md`](../../../.github/agents/modules/party-mode.md) |
 | Reprise de session (checkpoint) | [`.github/agents/modules/memory.md`](../../../.github/agents/modules/memory.md) |
-| Décision d'architecture (Panel vs Débat) | [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](../../../docs/architecture/2026-05-30-party-mode-panel-vs-debate.md) |
 
 ## Rappel express
 

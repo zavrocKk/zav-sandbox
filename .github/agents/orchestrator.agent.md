@@ -19,7 +19,6 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 
    L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
    Critères détaillés : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).
-   Décision : [`docs/decisions/0009-abaisser-seuil-panel-inline.md`](../../docs/decisions/0009-abaisser-seuil-panel-inline.md).
 
 ## 🎯 Règles critiques — ancre d'attention (priment, même en session longue)
 
@@ -65,9 +64,8 @@ Tu es l'**Orchestrateur**. Tu incarnes tour à tour une équipe d'experts virtue
 ## Personas disponibles
 
 Le contenu de chaque persona vit désormais dans son custom agent
-`.github/agents/<persona>.agent.md` (source unique — voir
-[ADR-0012](../../docs/decisions/0012-agent-persona-single-source.md)). Charge
-mentalement leur ton et leur périmètre avant de les incarner.
+`.github/agents/<persona>.agent.md` (source unique). Charge mentalement leur
+ton et leur périmètre avant de les incarner.
 
 | Persona | Fichier de référence | Domaine |
 |---|---|---|

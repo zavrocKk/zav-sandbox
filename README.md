@@ -9,7 +9,7 @@ Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'ex
 L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent.
 
 - **Sessions très courtes (1-2 personas)** : impersonation inline — un seul orchestrateur, une seule conversation, zéro infrastructure supplémentaire.
-- **Sessions multi-personas (3+, mode par défaut)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Aucune borne supérieure (3, 5, 7… personas, même traitement). Réduction estimée ~50 à 80 % des tokens input selon la taille de la session. Voir [ADR-0008](docs/decisions/0008-subagents-party-real.md) et [ADR-0009](docs/decisions/0009-abaisser-seuil-panel-inline.md).
+- **Sessions multi-personas (3+, mode par défaut)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Aucune borne supérieure (3, 5, 7… personas, même traitement). Réduction estimée ~50 à 80 % des tokens input selon la taille de la session.
 
 ## Modes multi-personas
 
@@ -23,7 +23,7 @@ Trois modes, un même principe de sélection intelligente par l'orchestrateur :
 | Tokens | Borné par construction | ~50-80 % moins que Panel inline équivalent | Volontairement plus élevé |
 | Déclenchement | **Automatique** | **Automatique** (l'orchestrateur décide au PLAN) | `/debate` explicite |
 
-Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/architecture/2026-05-30-party-mode-panel-vs-debate.md), [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
+Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
 
 > **L'utilisateur n'a pas à spécifier le mode.** L'orchestrateur choisit Panel ou Party Real selon le nombre de personas du PLAN, et le déclare explicitement. Seul `/debate` requiert une action de l'utilisateur.
 
@@ -48,7 +48,7 @@ Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/
 │   │       └── skills.md               # Tableau des skills disponibles
 │   └── copilot-instructions.md          # Instructions globales (français, livrables, sécu)
 ├── agents/
-│   ├── personas/                        # Pointeurs inverses — source : .github/agents/*.agent.md (ADR-0012)
+│   ├── personas/                        # Pointeurs inverses — source : .github/agents/*.agent.md
 │   │   ├── orchestrator.md              # 🎼 Meta-agent
 │   │   ├── devops.md                    # 🛠️ Infra, CI/CD, monitoring
 │   │   ├── developer.md                 # 💻 Code, tests, debug
@@ -226,7 +226,7 @@ pour éviter les conflits :
 
 ## Comment ajouter un persona
 
-**Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas (voir [ADR-0009](docs/decisions/0009-abaisser-seuil-panel-inline.md)) :
+**Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas :
 - **1-2 personas** : impersonation inline (aucun sous-agent requis)
 - **≥ 3 personas ou workflow complet** : sous-agents réels via `/party-real` (subagent requis — mode par défaut du multi-persona)
 
