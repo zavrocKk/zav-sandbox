@@ -2,6 +2,18 @@
 
 ---
 
+## [0.1.11](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.10...v0.1.11) (2026-07-01)
+
+
+### Features
+
+* **hooks:** secrets-scanner + security-guard enriched (Tool Guardian patterns) ([#129](https://github.com/zavrocKk/zav-sandbox/issues/129)) ([ff76d71](https://github.com/zavrocKk/zav-sandbox/commit/ff76d71acc0377af050b2fb81fe961b2332a8d43))
+
+
+### Documentation
+
+* README modules/ + ROADMAP Phase 9.2 (✅) ([#127](https://github.com/zavrocKk/zav-sandbox/issues/127)) ([c1f3dcc](https://github.com/zavrocKk/zav-sandbox/commit/c1f3dccbc3d802e7388556046a069bc794d44469))
+
 ## [0.1.10](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.9...v0.1.10) (2026-06-08)
 
 
