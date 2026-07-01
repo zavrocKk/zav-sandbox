@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.12](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.11...v0.1.12) (2026-07-01)
+
+
+### Bug Fixes
+
+* artifact location governance — table, workflows, and cleanup ([#134](https://github.com/zavrocKk/zav-sandbox/issues/134)) ([28c0598](https://github.com/zavrocKk/zav-sandbox/commit/28c05988882620ddc10218b0c1a97eebadcf75ee))
+
 ## [0.1.11](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.10...v0.1.11) (2026-07-01)
 
 
