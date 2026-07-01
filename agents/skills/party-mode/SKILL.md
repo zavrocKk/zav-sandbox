@@ -1,116 +1,34 @@
 ---
 name: party-mode
-version: "1.1.0"
+version: "2.0.0"
 description: >
-  Ancre le protocole d'orchestration multi-personas (Panel inline, Débat, et Party Real sous-agents).
-  À charger quand une session implique plusieurs personas, que le mode Panel/Débat/Party-Real doit
-  être rappelé, ou qu'un checkpoint de reprise est à traiter. Ne pas utiliser pour une tâche
-  mono-persona ou une question simple.
+  Index des modes d'orchestration multi-personas (Panel, Débat, Party Real sous-agents)
+  et cheat-sheet des anti-patterns. À charger quand une session implique plusieurs personas
+  ou qu'un rappel des règles Panel/Débat/Party-Real est nécessaire. Ne pas utiliser pour une
+  tâche mono-persona ou une question simple.
 ---
 
-# Party Mode — Protocole d'orchestration multi-personas
+# Party Mode — Index des modes multi-personas
 
-Référence opérationnelle rapide pour l'orchestrateur. Pour la définition complète et les
-formats, voir les protocoles sources :
+Skill **routeur** : chaque règle vit dans **une seule** source canonique (ci-dessous).
+Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolidé en bas.
 
-- Panel (défaut) → [`agents/protocols/light-panel.md`](../../../agents/protocols/light-panel.md)
-- Débat (sur invocation) → [`agents/protocols/debate.md`](../../../agents/protocols/debate.md)
-- Décision d'architecture → [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](../../../docs/architecture/2026-05-30-party-mode-panel-vs-debate.md)
+## Où vit chaque règle (source unique)
 
----
+| Sujet | Source canonique |
+|---|---|
+| Règle de bascule (1 / 2 / 3+ personas, `/debate`) | [`.github/agents/orchestrator.agent.md`](../../../.github/agents/orchestrator.agent.md) § OUVERTURE DE SESSION |
+| Sémantique + format Panel (carte d'angle, critères, tiebreaker) | [`agents/protocols/light-panel.md`](../../../agents/protocols/light-panel.md) |
+| Sémantique Débat (N rounds, garde-fou, formats) | [`agents/protocols/debate.md`](../../../agents/protocols/debate.md) |
+| Mécanique Party Real (sous-agents, flow `.party/`, budgets, fallback) | [`.github/agents/modules/party-mode.md`](../../../.github/agents/modules/party-mode.md) |
+| Reprise de session (checkpoint) | [`.github/agents/modules/memory.md`](../../../.github/agents/modules/memory.md) |
+| Décision d'architecture (Panel vs Débat) | [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](../../../docs/architecture/2026-05-30-party-mode-panel-vs-debate.md) |
 
-## Choix du mode — règle ternaire (automatique, décidée par l'orchestrateur)
+## Rappel express
 
-| Condition | Mode | Déclenchement |
-|---|---|---|
-| Problème **fermé**, 1 persona | **Persona unique inline** | Automatique |
-| Problème **fermé**, 2 personas, session courte | **Panel inline** | Automatique |
-| Problème **fermé**, 3+ personas OU workflow complet | **Party Real (sous-agents)** | **Automatique** — l'utilisateur ne tape rien, aucune borne supérieure |
-| Problème **ouvert** + `/debate` explicite | **Débat** (inline uniquement) | Commande utilisateur |
-
-> **L'utilisateur n'a jamais à taper `/party-real`.** L'orchestrateur choisit le mode au moment du PLAN et l'annonce : `Mode : Party Real (sous-agents) — N personas détectés`.
->
-> **⚠️ Incompatibilité `/debate` + Party Real** : le Débat exige que les personas voient les réactions des autres en temps réel (même fenêtre). Les sous-agents reçoivent chacun une fenêtre fraîche — la dynamique de réaction inter-rounds est impossible. **`/debate` fonctionne exclusivement en mode inline (impersonation).**
-
----
-
-## Critères de déclenchement Panel
-
-Convoquer le Panel **si au moins un critère est vrai** :
-- 2+ expertises distinctes requises
-- Tâche implique analyse ET implémentation ET validation simultanément
-- Modification touchant 3+ composants distincts
-
-Doute → persona unique d'abord ; élargir si un angle manque.
-
----
-
-## Reprise de session (checkpoint)
-
-À l'ouverture, vérifier `docs/_scratch/memory/` :
-
-```
-SI fichier <thread-slug>.md présent
-→ lire silencieusement
-→ annoncer : "Checkpoint détecté : <fichier>. Session reprise."
-SI aucun checkpoint → démarrage à zéro, pas de mention
-```
-
----
-
-## Cycle Panel inline (rappel)
-
-```
-Orchestrateur sélectionne personas (critères ci-dessus)
-→ Chaque persona : carte d'angle 3 lignes max
-    ─── 🛠️ DevOps — Angle ───
-    Position : <1 ligne>
-    Risque clé : <1 ligne>
-    Reco : <1 ligne>
-→ Scribe : synthèse (Convergences / Divergences / Options / Reco)
-→ Contradiction directe → signaler + proposer /debate, ne pas trancher
-```
-
----
-
-## Cycle Party Real (sous-agents, 3+ personas — automatique, sans borne supérieure)
-
-```
-1. Orchestrateur écrit .party/context.md (template agents/templates/party-context.md)
-   → objectif, scope, contraintes, séquence agents (≤ 500 tokens)
-   → DéCLARATION dans le PLAN : "Mode : Party Real (sous-agents) — N personas détectés"
-
-2. Pour chaque agent dans la séquence :
-   runSubagent("<agent>")
-   → l'agent lit .party/context.md + tous les .party/handoff-*.md existants
-   → l'agent produit son travail
-   → l'agent écrit .party/handoff-<agent>.md (≤ 500 tokens)
-
-3. Orchestrateur lit handoff-scribe.md (quality gate)
-
-4. Orchestrateur DOIT supprimer .party/ à la clôture
-   (dossier transitoire, .gitignore-d)
-
-Fallback si runSubagent échoue :
-→ orchestrateur impersonne le persona
-→ écrit le handoff manuellement dans .party/
-→ continue la séquence
-```
-
-**Agents disponibles** : `devops`, `developer`, `security`, `architect`, `qa`, `product-analyst`, `scribe`
-**Fichiers agents** : `.github/agents/<agent>.agent.md`
-**Budget tokens** : `context.md` ≤ 500 tokens, `handoff-*.md` ≤ 500 tokens chacun
-
----
-
-## Cycle Débat — uniquement sur `/debate` explicite
-
-```
-Round 1 = Panel (positions initiales)
-Rounds 2..N = réactions croisées entre personas
-Garde-fou : N=3 par défaut (ajustable /debate max=N)
-À N rounds : Scribe force la synthèse, même sans convergence
-```
+- **Panel** — 1 passe, chaque persona 1 carte d'angle (3 lignes), aucune réaction inter-persona → Scribe synthétise.
+- **Débat** (`/debate`) — N rounds de réactions croisées, garde-fou max rounds, synthèse Scribe forcée. **Inline uniquement.**
+- **Party Real** — 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`).
 
 ---
 
@@ -123,5 +41,5 @@ Garde-fou : N=3 par défaut (ajustable /debate max=N)
 | Persona réagit à un autre en mode Panel | Couper ou basculer `/debate` |
 | Cycle clos sans synthèse Scribe | Ajouter avant de terminer |
 | Dépassement N rounds sans synthèse | Couper, forcer le Scribe |
-| `/party-real` sans nettoyage `.party/` à la clôture | Supprimer `.party/` |
+| `.party/` non purgé au démarrage OU non supprimé à la clôture | Purger avant, supprimer après |
 | `context.md` ou `handoff-*.md` > 500 tokens | Condenser avant de passer au suivant |

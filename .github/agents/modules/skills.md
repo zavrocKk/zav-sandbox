@@ -37,6 +37,6 @@ ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre ri
 | Skill | Fichier | Quand l'invoquer |
 |---|---|---|
 | 🔍 root-cause-analysis | [`agents/skills/root-cause-analysis/SKILL.md`](../../../agents/skills/root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique (5 Pourquoi / Ishikawa) — phase « Cause racine » d'un incident, problème opérationnel récurrent |
-| 🎉 party-mode | [`agents/skills/party-mode/SKILL.md`](../../../agents/skills/party-mode/SKILL.md) | Ancre du protocole Panel + Débat — session multi-personas, reprise de checkpoint, rappel des règles Panel/Débat/anti-patterns |
+| 🎉 party-mode | [`agents/skills/party-mode/SKILL.md`](../../../agents/skills/party-mode/SKILL.md) | Index des modes multi-personas (Panel/Débat/Party Real) + cheat-sheet anti-patterns — session multi-personas, rappel des règles |
 
 > Registre complet et procédure d'ajout : [`agents/skills/README.md`](../../../agents/skills/README.md).
