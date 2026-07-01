@@ -1,6 +1,6 @@
 ---
 type: incident-report
-status: draft
+status: archived
 created: 2026-05-02
 incident_date: 2026-05-02
 severity: SEV2

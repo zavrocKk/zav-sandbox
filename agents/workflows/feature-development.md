@@ -24,7 +24,7 @@ flowchart LR
 | 4 | Implémentation         | 💻 Developer       | Diff(s), tests (unit + intégration), gestion d'erreurs, observabilité              |
 | 5 | Stratégie de tests     | 🧪 QA              | Matrice de tests, gaps identifiés, tests E2E / de régression à ajouter             |
 | 6 | Infra / déploiement    | 🛠️ DevOps          | Config infra/IaC, pipeline, métriques/alertes, plan de rollback                    |
-| 7 | Doc + ADR              | 📝 Scribe          | PRD ou note dans `docs/`, ADR si décision structurante, changelog                  |
+| 7 | Doc + ADR              | 📝 Scribe          | PRD ou note dans `docs/`, ADR si décision structurante, entrée dans `CHANGELOG.md` |
 
 ## Règles spécifiques
 
@@ -51,3 +51,13 @@ flowchart LR
 
 - `docs/YYYY-MM-DD-feature-<slug>.md` (PRD + notes d'implé + stratégie de tests + déploiement).
 - Optionnel : `docs/decisions/NNNN-<slug>.md` (ADR si décision structurante).
+
+**Règle Scribe — placement par type :**
+
+| Ce que le Scribe produit | Emplacement |
+|---|---|
+| PRD ou synthèse de feature | `docs/YYYY-MM-DD-feature-slug.md` |
+| Décision structurante (techno, pattern, contrat d'API) | `docs/decisions/NNNN-slug.md` |
+
+> Pour les autres types (note d'archi, plan de travail, bilan), consulter la table de localisation dans `.github/copilot-instructions.md`.
+> ❌ Ne pas créer d'ADR pour une analyse ou un bilan de phase — un ADR est une décision irréversible, pas une synthèse.

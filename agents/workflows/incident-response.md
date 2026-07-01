@@ -56,3 +56,13 @@ flowchart LR
 ## Livrable final
 
 `docs/incidents/YYYY-MM-DD-<slug-court>.md` produit avec le template `agents/templates/incident-report.md`.
+
+**Cycle de vie du statut :** `draft` → `in-review` → `closed`.
+
+**Inputs bruts associés :**
+- Fixtures synthétiques de test → `docs/_scratch/mvp-inputs/<source>-<topic>.md` (versionnées, référencées depuis le rapport)
+- Données réelles (logs, exports) → `docs/_scratch/inputs/` (git-ignoré, jamais committé)
+
+**Si l'incident révèle une décision structurante** (ex. : refonte d'architecture, changement de stratégie de pool) → l'Architect ouvre un ADR dans `docs/decisions/NNNN-slug.md` en complément.
+
+> ❌ Les plans de correctifs et action items vont dans `docs/_scratch/YYYY-MM-DD-plan-<slug>.md` — jamais dans `docs/decisions/`.

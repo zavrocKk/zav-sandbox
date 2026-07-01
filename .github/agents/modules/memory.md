@@ -54,6 +54,20 @@ par fil de travail).
   les checkpoints `closed` depuis > 30 jours → archiver ou supprimer.
 - **Règle Git** : les checkpoints sont **toujours versionnés** (ne pas gitignorer).
 
+## Limite de taille et élagage
+
+- **Maximum : 50 lignes** (hors front-matter YAML). Au-delà, le Scribe DOIT élaguer
+  avant de sauvegarder.
+- **Règle d'élagage** : à chaque mise à jour, supprimer :
+  - Les items `✅` dans `## État` qui datent de la session précédente ou plus
+    (ils sont faits — inutile de les garder en mémoire forward)
+  - Les entrées `## Hypothèses / risques ouverts` qui ont été tranchées
+  - Les `## Prochaines étapes` déjà exécutées
+- **Ce qu'on garde toujours** : `next_action` (front-matter), `## Décisions arrêtées`,
+  `## Pointeurs`, et l'état courant (`🔄` + `⛔`).
+- **Principe** : le checkpoint est un **résumé de reprise forward**, pas un journal.
+  Toute ligne qui regarde en arrière plutôt qu'en avant est candidate à la suppression.
+
 **Distinction à respecter** : le checkpoint est un **résumé de reprise** (forward),
 à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../../agents/templates/session-summary.md),
 rétrospectif).

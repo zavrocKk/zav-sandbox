@@ -55,3 +55,7 @@ flowchart LR
   - Data dictionary (table des colonnes, types, descriptions, PII flag)
   - Runbook d'exploitation (relance, monitoring, SLA, alertes)
   - Plan de rollback de la migration (si applicable)
+
+> Le runbook d'exploitation est inclus dans le document principal si court (≤ 1 page). Si le pipeline est complexe, l'extraire dans `docs/runbooks/<pipeline>-exploitation.md`.
+> Si la migration implique un choix structurant (nouvelle technologie, stratégie de backfill) → l'Architect crée un ADR dans `docs/decisions/`.
+> ❌ Les plans de correctifs et lots d'actions → `docs/_scratch/YYYY-MM-DD-plan-<slug>.md` — pas dans `docs/decisions/`.

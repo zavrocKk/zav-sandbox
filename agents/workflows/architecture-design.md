@@ -41,3 +41,11 @@ flowchart LR
 ## Livrable final
 
 `docs/decisions/NNNN-<slug>.md` produit avec le template `agents/templates/adr.md`.
+
+**Règle de placement :**
+- Le livrable principal → `docs/decisions/NNNN-slug.md` (ADR, toujours)
+- Une **note de cadrage préalable** (optionnel — si le contexte est complexe, avant la décision) → `docs/architecture/YYYY-MM-DD-slug.md`
+- Un **plan de travail** issu du durcissement → `docs/_scratch/YYYY-MM-DD-plan-slug.md`
+
+> ❌ Ne pas confondre note de cadrage (étape intermédiaire, `architecture/`) et ADR (décision finale, `decisions/`). Le livrable de ce workflow est toujours un ADR.
+> ❌ Ne pas créer un ADR pour un plan de correctifs — un ADR est une décision, pas une todo-list.

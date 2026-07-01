@@ -49,3 +49,6 @@ flowchart LR
 - Findings priorisés (table)
 - Plan d'attaque proposé (3 horizons : quick wins / court terme / fond)
 - Annexes (cartographie, métriques)
+
+> Si l'audit révèle une décision structurante (refonte, choix d'outil), l'Architect crée un ADR dans `docs/decisions/` en complément. Le rapport d'analyse lui-même **n'est pas un ADR**.
+> Un plan de correctifs découlant de l'audit va dans `docs/_scratch/YYYY-MM-DD-plan-<slug>.md` — pas dans `docs/decisions/`.

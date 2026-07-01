@@ -2,7 +2,8 @@
 # Ces fichiers peuvent contenir des données sensibles ou générées localement.
 # Ne JAMAIS committer d'inputs réels dans ce dossier.
 inputs/
-mvp-inputs/
+# mvp-inputs/ intentionnellement versionné : fixtures synthétiques référencées
+# depuis docs/incidents/. Pour des inputs réels, utiliser inputs/ (git-ignoré).
 *.csv
 *.json
 *.log
