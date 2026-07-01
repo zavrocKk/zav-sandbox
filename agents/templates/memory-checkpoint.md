@@ -37,3 +37,10 @@ next_action: "<la toute prochaine action, en une ligne>"
 
 ## Hypothèses / risques ouverts
 - <ce qui reste incertain à valider>
+
+---
+
+> **Règle de taille** : ce fichier ne doit pas dépasser ~50 lignes (hors front-matter).
+> À chaque mise à jour, élaguer : supprimer les ✅ de la session précédente,
+> les risques tranchés, les étapes déjà exécutées. Garder uniquement
+> ce qui est nécessaire pour **reprendre**, pas pour retracer l'historique.
