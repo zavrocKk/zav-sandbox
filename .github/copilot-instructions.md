@@ -57,14 +57,21 @@ Quand le custom agent `orchestrator` est actif, suis en plus les règles défini
 |---|---|---|
 | Rapport d'incident | `docs/incidents/` | `YYYY-MM-DD-slug.md` |
 | ADR | `docs/decisions/` | `NNNN-slug.md` |
-| Note d'architecture | `docs/architecture/` | `YYYY-MM-DD-slug.md` |
+| Note d'architecture / cadrage de phase | `docs/architecture/` | `YYYY-MM-DD-slug.md` |
 | Runbook | `docs/runbooks/` | `<system>-<topic>.md` |
 | PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
+| Rapport d'analyse / audit | `docs/` | `YYYY-MM-DD-<type>-<slug>.md` |
 | Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
+| Handoff de phase | `docs/_scratch/` | `YYYY-MM-DD-handoff-<topic>.md` |
+| Plan d'action opérationnel | `docs/_scratch/` | `YYYY-MM-DD-plan-<topic>.md` |
+| Archive d'idées | `docs/_scratch/` | `YYYY-MM-DD-ideas-archives.md` |
 | Checkpoint de mémoire | `docs/_scratch/memory/` | `<thread-slug>.md` |
+| Fixture de test / inputs MVP | `docs/_scratch/mvp-inputs/` | `<source>-<topic>.md` (versionné) |
+| Télémétrie runtime | `docs/_scratch/telemetry/` | `*.jsonl` (git-ignoré, local uniquement) |
 | Skill technique | `agents/skills/<slug>/` | `SKILL.md` (+ `reference/*.md` optionnels) |
 | Note de délibération (Débat) | `docs/decisions/` si ADR, sinon `docs/_scratch/` | `NNNN-slug.md` ou `YYYY-MM-DD-debate-<topic>.md` |
-| Field Report (hors repo) | n/a | papier/OneNote/perso |
+| Field Report (synthèse versionnée) | `docs/architecture/` | `YYYY-MM-DD-field-report.md` |
+| Field Report (notes brutes) | Hors repo | papier/OneNote/perso |
 
 Le Scribe DOIT consulter cette table avant chaque création de fichier.
 Cette table est l'unique référence — toute autre indication dans personas
@@ -73,6 +80,21 @@ ou workflows doit pointer vers elle.
 Si un type de livrable n'est pas dans cette table, le Scribe DOIT
 demander à l'utilisateur où le placer ET proposer d'ajouter une ligne
 dans cette table.
+
+### Règle anti-dérive — choisir entre `decisions/`, `architecture/` et `_scratch/`
+
+Avant de créer un fichier, appliquer cet arbre :
+
+1. La décision est-elle **fermée et immuable** une fois acceptée ? → `docs/decisions/` (ADR, numéro séquentiel)
+2. Le document **cadre ou analyse** et peut évoluer avec le projet ? → `docs/architecture/`
+3. C'est **temporaire** (plan, bilan, handoff, archive d'idées) ? → `docs/_scratch/`
+4. Aucun des trois → demander à l'utilisateur, proposer une ligne dans la table.
+
+**Signaux d'alerte :**
+- Le document dit lui-même "décision de X" ou "fige la sémantique" → `decisions/`
+- C'est un plan de correctifs, lots de travail ou liste d'actions → `_scratch/`, **jamais** `decisions/`
+- Le document peut être révisé lors d'une prochaine phase → `architecture/`, **pas** `decisions/`
+- C'est une synthèse d'usage terrain structurée et versionnée → `architecture/`
 
 ## Ressources de référence
 
