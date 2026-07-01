@@ -79,7 +79,7 @@ une explosion de latence. Aide-moi.
 ## Structure du repo en 30 secondes
 
 ```
-agents/personas/       → Les 8 experts (DevOps, Dev, QA, Security, Architect, PA, DE, Scribe)
+agents/personas/       → Pointeurs vers les 8 experts (source : .github/agents/*.agent.md)
 agents/workflows/      → Les recettes par type de problème (incident, feature, archi...)
 agents/skills/         → Modules de connaissance invocables à la demande
 docs/                  → Tous les livrables produits par le Scribe

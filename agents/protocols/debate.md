@@ -7,8 +7,6 @@ related: [agents/protocols/light-panel.md, docs/architecture/2026-05-30-party-mo
 
 # Protocole DÉBAT — Brainstorming sur invocation (`/debate`, N rounds)
 
-> Sémantique figée par
-> [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](../../docs/architecture/2026-05-30-party-mode-panel-vs-debate.md).
 > Le Débat est la **surcouche** au-dessus du [Panel](light-panel.md) : même brique
 > de sélection d'agents, mais **N rounds** au lieu d'une passe.
 

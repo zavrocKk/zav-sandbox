@@ -87,6 +87,3 @@ manuellement → continue la séquence.
 **Incompatibilité `/debate`** : les sous-agents reçoivent chacun une fenêtre
 fraîche → la dynamique de réaction inter-rounds est impossible. `/debate` reste
 **inline uniquement**.
-
-Décision : [`docs/decisions/0008-subagents-party-real.md`](../../../docs/decisions/0008-subagents-party-real.md)
-et [`docs/decisions/0009-abaisser-seuil-panel-inline.md`](../../../docs/decisions/0009-abaisser-seuil-panel-inline.md).

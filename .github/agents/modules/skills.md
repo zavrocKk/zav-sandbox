@@ -13,8 +13,7 @@ referenced_by: .github/agents/orchestrator.agent.md
 Les **skills** sont des modules markdown de connaissance/méthodologie qu'un persona
 charge **à la demande** pendant l'EXECUTE, sans dupliquer les workflows. Elles
 vivent dans [`agents/skills/<slug>/SKILL.md`](../../../agents/skills/) (format **Agent
-Skills** : front-matter `name`+`description`). Cadre complet :
-[`docs/architecture/2026-05-30-phase-8-skills.md`](../../../docs/architecture/2026-05-30-phase-8-skills.md).
+Skills** : front-matter `name`+`description`).
 
 **Frontière à respecter** : skill = **SAVOIR** (≠ persona = QUI parle, ≠ workflow =
 ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre rien.

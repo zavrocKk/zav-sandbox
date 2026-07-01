@@ -7,10 +7,8 @@ related: [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md]
 
 # Protocole PANEL — Party Mode par défaut (multi-angles, une passe)
 
-> Sémantique figée par
-> [`docs/architecture/2026-05-30-party-mode-panel-vs-debate.md`](../../docs/architecture/2026-05-30-party-mode-panel-vs-debate.md).
-> Ce protocole en est la mise en œuvre opérationnelle. Ne pas re-discuter la
-> définition ici.
+> Ce protocole est la mise en œuvre opérationnelle du Party Mode. Ne pas
+> re-discuter la définition ici.
 
 ## Règle binaire
 

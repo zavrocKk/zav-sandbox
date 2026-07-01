@@ -13,8 +13,7 @@ referenced_by: .github/agents/orchestrator.agent.md
 
 Le framework garde le fil **entre sessions** via des **checkpoints markdown**
 versionnés dans [`docs/_scratch/memory/`](../../../docs/_scratch/memory/) (un fichier
-par fil de travail). Cadre complet :
-[`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../../docs/architecture/2026-05-30-phase-7-persistent-memory.md).
+par fil de travail).
 
 ## Lecture (reprise) — au démarrage d'une session
 

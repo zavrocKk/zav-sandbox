@@ -25,7 +25,6 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ### ✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
 
 **Objectif** : adresser les 18 points identifiés lors de l'audit technique complet du 2026-05-30.
-Plan détaillé : [`docs/decisions/0007-plan-correctifs-audit-2026-05-30.md`](docs/decisions/0007-plan-correctifs-audit-2026-05-30.md)
 
 | Lot | Contenu | Urgence |
 |---|---|---|
