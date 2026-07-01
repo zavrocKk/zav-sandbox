@@ -24,7 +24,7 @@ Un persona ne répond pas comme attendu ? Un workflow produit le mauvais livrabl
 
 ### Ajouter une persona
 
-1. Crée `agents/personas/<nom>.md` avec les sections : `Identité`, `Ton`,
+1. Crée `.github/agents/<nom>.agent.md` (frontmatter `name`/`description`/`tools` + corps de persona ; source unique, ADR-0012) et son pointeur inverse `agents/personas/<nom>.md`, avec les sections : `Identité`, `Ton`,
    `Domaines`, `Quand intervenir`, `Output type`, `Handoffs`, `Anti-patterns`.
 2. Ajoute la ligne dans le tableau personas de
    `.github/agents/orchestrator.agent.md`.

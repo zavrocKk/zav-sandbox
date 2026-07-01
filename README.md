@@ -48,7 +48,7 @@ Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/
 │   │       └── skills.md               # Tableau des skills disponibles
 │   └── copilot-instructions.md          # Instructions globales (français, livrables, sécu)
 ├── agents/
-│   ├── personas/
+│   ├── personas/                        # Pointeurs inverses — source : .github/agents/*.agent.md (ADR-0012)
 │   │   ├── orchestrator.md              # 🎼 Meta-agent
 │   │   ├── devops.md                    # 🛠️ Infra, CI/CD, monitoring
 │   │   ├── developer.md                 # 💻 Code, tests, debug

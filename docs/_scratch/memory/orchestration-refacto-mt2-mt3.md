@@ -5,7 +5,7 @@ phase: "post-9.2 — refacto orchestration"
 branch: feat/mt3-agent-source-unique (à créer)
 status: in-progress
 last_session: 2026-07-01
-next_action: "Valider ADR-0012 (accepted) ; après merge PR #130, créer feat/mt3-agent-source-unique et implémenter option C (inliner personas dans les .agent.md)"
+next_action: "MT3 implémenté (PR draft) — attendre revue/merge, puis attaquer MT2 (/debate 2 axes format×mécanisme, ADR-0013)"
 ---
 
 # Checkpoint de mémoire — Refacto orchestration (MT2 / MT3)
@@ -39,13 +39,17 @@ Cadrer puis exécuter deux refontes issues de l'audit du framework :
 - 📝 **MT3 — ADR-0012 (brouillon)** créé : `docs/decisions/0012-agent-persona-single-source.md`,
   statut `proposed`. Recommande **Option C** (fusion : persona inlinée dans `.agent.md`,
   source unique) ; A (générateur) éliminé par filtre VISION #4, B (drift-check) = faux problème.
-- ✅ **Inconnue empirique LEVÉE (2026-07-01)** : test `runSubagent("developer")` (zéro outil,
-  demande verbatim) → le sous-agent rapporte « INFO ABSENTE DE MON CONTEXTE » : son contexte =
-  stub `.agent.md` + un lien vers la persona, **sans le contenu**. Donc **pas d'inlining
-  automatique** → la persona n'est PAS chargée → Option C corrige un **bug réel**. ADR-0012
-  bloqueur levé, prêt pour `accepted` sur validation Zav.
+- ✅ **MT3 IMPLÉMENTÉ (2026-07-01)** — option C : les 8 personas inlinées dans leurs
+  `.github/agents/*.agent.md` (source unique) ; `agents/personas/*.md` réduits en pointeurs
+  inverses ; liens `../checklists/` recalculés ; références maj (orchestrator table + 3 ancres
+  Contrat Scribe, README, CONTRIBUTING, onboarding). **Validation end-to-end** : re-test
+  `runSubagent("developer")` → récite désormais règle clé + 4 anti-patterns **verbatim sans
+  lire de fichier** (avant = INFO ABSENTE). Lint/liens/parité OK. Sur branche
+  `feat/mt3-agent-source-unique` (ADR-0012 commit d57dd8f). PR draft à ouvrir.
+  NB : le check CI `check-relative-links` est un **no-op** (bug subshell bash : `errors`
+  incrémenté dans un pipe → jamais propagé). À corriger un jour (hors scope MT3).
 - 🔄 **MT2** — cadrage à faire. Rien codé.
-- ⛔ Rien de bloqué. MT3 : ne reste que la validation ADR-0012 + l'implémentation (après #130).
+- ⛔ Rien de bloqué.
 
 ## Décisions arrêtées (NE PAS rouvrir)
 
