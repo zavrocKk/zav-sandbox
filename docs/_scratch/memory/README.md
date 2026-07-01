@@ -27,6 +27,10 @@ Zone des **checkpoints de reprise** inter-sessions du framework Agentic Team.
 - **Nettoyage suggéré** : en début de trimestre, utilise `/memory-list` pour
   lister les checkpoints `closed` depuis > 30 jours, puis archiver ou supprimer.
 - **Règle Git** : les checkpoints sont **toujours versionnés** (ne pas gitignorer).
+- **Limite de taille** : ~50 lignes (hors front-matter YAML). À chaque mise à jour,
+  élaguer : supprimer les ✅ de la session précédente, les étapes exécutées et les
+  risques tranchés. Voir les règles détaillées dans
+  [`.github/agents/modules/memory.md`](../../../.github/agents/modules/memory.md).
 
 ## Cadre de référence
 

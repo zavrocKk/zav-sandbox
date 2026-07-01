@@ -80,10 +80,13 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
 │       └── hooks.json                   # Config (activation manuelle via settings)
 ├── docs/                                # Tous les livrables produits par le Scribe
-│   ├── incidents/                       # Post-mortems
-│   ├── architecture/                    # Notes d'architecture
-│   ├── decisions/                       # ADRs (NNNN-slug.md)
-│   └── _scratch/memory/                 # Checkpoints de mémoire inter-sessions
+│   ├── incidents/                       # Post-mortems (rapports d'incident)
+│   ├── architecture/                    # Notes d'archi, cadrages de phase (évolutifs)
+│   ├── decisions/                       # ADRs (NNNN-slug.md) — décisions fermées
+│   └── _scratch/                        # Temporaire : bilans, plans, handoffs
+│       ├── memory/                      # Checkpoints de reprise inter-sessions
+│       ├── mvp-inputs/                  # Fixtures synthétiques de test (versionnées)
+│       └── telemetry/                   # Télémétrie runtime (git-ignorée)
 └── README.md
 ```
 
@@ -197,7 +200,8 @@ flowchart TD
     SA --> S
     O --> D[docs/]
     D --> DEC[decisions/ ADRs]
-    D --> SCR[_scratch/memory/ checkpoints]
+    D --> ARC[architecture/ cadrages]
+    D --> SCR[_scratch/ bilans + checkpoints]
     W --> CHKL[agents/checklists/]
     O -.-> MOD[".github/agents/modules/\ncore-rules | party-mode | skills | memory"]
 ```
