@@ -28,6 +28,44 @@
         "linux": "bash agents/hooks/memory-nudge.sh",
         "osx": "bash agents/hooks/memory-nudge.sh",
         "timeout": 10
+      },
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/secrets-scanner.ps1",
+        "windows": "pwsh -NoProfile -File agents/hooks/secrets-scanner.ps1",
+        "linux": "bash agents/hooks/secrets-scanner.sh",
+        "osx": "bash agents/hooks/secrets-scanner.sh",
+        "timeout": 20
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 PostToolUse",
+        "windows": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 PostToolUse",
+        "linux": "bash agents/hooks/agent-telemetry.sh PostToolUse",
+        "osx": "bash agents/hooks/agent-telemetry.sh PostToolUse",
+        "timeout": 5
+      }
+    ],
+    "SubagentStart": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 SubagentStart",
+        "windows": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 SubagentStart",
+        "linux": "bash agents/hooks/agent-telemetry.sh SubagentStart",
+        "osx": "bash agents/hooks/agent-telemetry.sh SubagentStart",
+        "timeout": 5
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 SubagentStop",
+        "windows": "pwsh -NoProfile -File agents/hooks/agent-telemetry.ps1 SubagentStop",
+        "linux": "bash agents/hooks/agent-telemetry.sh SubagentStop",
+        "osx": "bash agents/hooks/agent-telemetry.sh SubagentStop",
+        "timeout": 5
       }
     ]
   }
