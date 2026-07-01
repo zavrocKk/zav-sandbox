@@ -69,7 +69,9 @@ Mode : Party Real (sous-agents) — N personas détectés
 
 **Flow opérationnel** :
 
-1. Créer `.party/context.md` (template [`party-context.md`](../../../agents/templates/party-context.md))
+1. **Purger `.party/` s'il contient des fichiers** (résidus d'une session Party Real
+   interrompue = contexte périmé à ne jamais réutiliser), puis créer
+   `.party/context.md` (template [`party-context.md`](../../../agents/templates/party-context.md))
    — objectif, scope, séquence agents.
 2. Pour chaque agent : `runSubagent("<agent>")` → lit `.party/context.md` + handoffs
    précédents → produit → écrit `.party/handoff-<agent>.md` (≤ 500 tokens).
@@ -86,6 +88,5 @@ manuellement → continue la séquence.
 fraîche → la dynamique de réaction inter-rounds est impossible. `/debate` reste
 **inline uniquement**.
 
-Détail opérationnel complet : [`agents/skills/party-mode/SKILL.md`](../../../agents/skills/party-mode/SKILL.md).
 Décision : [`docs/decisions/0008-subagents-party-real.md`](../../../docs/decisions/0008-subagents-party-real.md)
 et [`docs/decisions/0009-abaisser-seuil-panel-inline.md`](../../../docs/decisions/0009-abaisser-seuil-panel-inline.md).

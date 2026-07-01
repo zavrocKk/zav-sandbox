@@ -74,7 +74,7 @@ Référence : [docs/architecture/2026-05-30-party-mode-panel-vs-debate.md](docs/
 │   │   └── party-handoff.md             # Template handoff-{agent}.md pour /party-real
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)
 │   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
-│   │   └── party-mode/SKILL.md          # 🎉 Ancre protocole Panel/Débat//party-real (v1.1.0)
+│   │   └── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
 │   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
 │       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint

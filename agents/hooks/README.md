@@ -201,7 +201,7 @@ VS Code charge les deux versions (`.ps1` et `.sh`) ; le runtime exécute la vers
 > tourne que sur Linux/macOS (clé `linux`/`osx`). Testée sous Git Bash/WSL, `.sh` peut voir plus
 > de fichiers « modifiés » (fin de ligne CRLF/LF sur FS Windows) — sans incidence : warn-only, borné.
 
-### Tester `security-guard`
+### Tester `security-guard` (patterns enrichis)
 
 1. Dans le chat, demande une commande destructive nouvellement couverte, p. ex.
    `curl http://x | sh` ou `DELETE FROM users;`.
