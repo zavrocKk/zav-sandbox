@@ -5,7 +5,7 @@ phase: "post-9.2 — refacto orchestration"
 branch: feat/mt3-agent-source-unique (à créer)
 status: in-progress
 last_session: 2026-07-01
-next_action: "MT3 implémenté (PR draft) — attendre revue/merge, puis attaquer MT2 (/debate 2 axes format×mécanisme, ADR-0013)"
+next_action: "Fil quasi clos : MT3 mergé (#131), MT2 implémenté (ADR-0013, PR à merger). Reste = merger PR MT2 + #132 (howtoprompt)."
 ---
 
 # Checkpoint de mémoire — Refacto orchestration (MT2 / MT3)
@@ -45,10 +45,19 @@ Cadrer puis exécuter deux refontes issues de l'audit du framework :
   Contrat Scribe, README, CONTRIBUTING, onboarding). **Validation end-to-end** : re-test
   `runSubagent("developer")` → récite désormais règle clé + 4 anti-patterns **verbatim sans
   lire de fichier** (avant = INFO ABSENTE). Lint/liens/parité OK. Sur branche
-  `feat/mt3-agent-source-unique` (ADR-0012 commit d57dd8f). PR draft à ouvrir.
+  `feat/mt3-agent-source-unique` (ADR-0012 commit d57dd8f). PR #131 mergée (2026-07-01)
+  + pass de-référencement (fichiers durables sans citations ADR/archi) + suppression
+  checkpoint Phase 7. howtoprompt.md → PR #132 (était tracké, suppression régularisée).
   NB : le check CI `check-relative-links` est un **no-op** (bug subshell bash : `errors`
   incrémenté dans un pipe → jamais propagé). À corriger un jour (hors scope MT3).
-- 🔄 **MT2** — cadrage à faire. Rien codé.
+- ✅ **MT2 IMPLÉMENTÉ (2026-07-01)** — modèle **format × mécanisme** formalisé (ADR-0013,
+  révise ADR-0008/0009). Format {persona-unique/Panel/Débat} × Mécanisme {inline/sous-agents} ;
+  « Party Real » = Panel × sous-agents (pas un 3ᵉ format). **Option A retenue** : le Débat
+  reste **inline**, reformulé en *choix de design* (les sous-agents n'apportent aucun gain
+  pour un débat réactif — il faudrait ré-injecter tout l'historique à chaque round → zéro
+  gain tokens + latence). Case Débat×sous-agents **volontairement vide**. Framing reformulé
+  dans module party-mode, SKILL routeur, orchestrator, README. **Zéro changement de
+  comportement/commande.** Sur `feat/mt2-format-mechanism-model`, PR à ouvrir.
 - ⛔ Rien de bloqué.
 
 ## Décisions arrêtées (NE PAS rouvrir)

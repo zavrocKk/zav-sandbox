@@ -25,9 +25,11 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 
 ## Rappel express
 
-- **Panel** — 1 passe, chaque persona 1 carte d'angle (3 lignes), aucune réaction inter-persona → Scribe synthétise.
-- **Débat** (`/debate`) — N rounds de réactions croisées, garde-fou max rounds, synthèse Scribe forcée. **Inline uniquement.**
-- **Party Real** — 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`).
+**2 axes** : *format* (`Panel` / `Débat`) × *mécanisme* (`inline` / `sous-agents`).
+
+- **Panel** (format) — 1 passe, chaque persona 1 carte d'angle (3 lignes), aucune réaction inter-persona → Scribe synthétise.
+- **Débat** (`/debate`, format) — N rounds de réactions croisées, garde-fou max rounds, synthèse Scribe forcée. **Inline uniquement** (choix de design : aucun gain sous-agents pour un débat réactif).
+- **Party Real** (mécanisme) — **Panel × sous-agents** : 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`).
 
 ---
 
