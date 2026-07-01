@@ -2,7 +2,7 @@
 
 > **Couche optionnelle « power-user ».** Ces hooks ne sont **pas** un prérequis du
 > framework. Le socle Agentic Team reste 100 % markdown + instruction
-> orchestrateur + Git (voir [note de cadrage Phase 7](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md), §5-bis).
+> orchestrateur + Git.
 > Ce dossier n'est **pas** dans `.github/hooks/` exprès : il n'est donc **pas
 > chargé automatiquement**. Tu actives ces hooks **manuellement** (voir ci-dessous).
 
@@ -133,7 +133,6 @@ Ces deux systèmes sont **complémentaires**, pas concurrents. Ne pas confondre.
 
 - Doc officielle (API Preview) : <https://code.visualstudio.com/docs/copilot/customization/hooks>
   > **Note version** : les Agent Hooks VS Code sont en **Preview**. L’API (structure JSON, noms d’événements) peut changer entre versions. À revalider après chaque mise à jour majeure de VS Code ou de l’extension Copilot Chat.
-- Cadrage Phase 7 : [`docs/architecture/2026-05-30-phase-7-persistent-memory.md`](../../docs/architecture/2026-05-30-phase-7-persistent-memory.md)
 
 ## Compatibilité OS
 
