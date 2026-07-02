@@ -1,6 +1,6 @@
 ---
 name: party-mode
-version: "2.0.0"
+version: "2.1.0"
 description: >
   Index des modes d'orchestration multi-personas (Panel, Débat, Party Real sous-agents)
   et cheat-sheet des anti-patterns. À charger quand une session implique plusieurs personas
@@ -29,7 +29,7 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 
 - **Panel** (format) — 1 passe, chaque persona 1 carte d'angle (3 lignes), aucune réaction inter-persona → Scribe synthétise.
 - **Débat** (`/debate`, format) — N rounds de réactions croisées, garde-fou max rounds, synthèse Scribe forcée. **Inline uniquement** (choix de design : aucun gain sous-agents pour un débat réactif).
-- **Party Real** (mécanisme) — **Panel × sous-agents** : 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`).
+- **Party Real** (mécanisme) — **Panel × sous-agents** : 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`). Deux **régimes** de lecture des handoffs : **convergent** (construction séquentielle, défaut) / **divergent** (diagnostic — chaque agent lit `context.md` seulement, anti-ancrage). Source : module party-mode.
 
 ---
 
@@ -44,3 +44,5 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 | Dépassement N rounds sans synthèse | Couper, forcer le Scribe |
 | `.party/` non purgé au démarrage OU non supprimé à la clôture | Purger avant, supprimer après |
 | `context.md` ou `handoff-*.md` > 500 tokens | Condenser avant de passer au suivant |
+| Sous-agent qui lit les handoffs en régime **divergent** | Angle contaminé : re-invoquer sans les handoffs |
+| Handoff non conforme (sections manquantes, budget dépassé, « Done quand » non satisfait) | Gate orchestrateur : re-invoquer 1×, puis fallback |

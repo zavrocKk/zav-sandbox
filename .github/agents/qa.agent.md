@@ -71,6 +71,14 @@ describe('<module>', () => {
 \`\`\`
 ```
 
+## Done quand — critères binaires de complétion
+
+L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incomplet, à reprendre) :
+
+- [ ] La matrice couvre **nominal + cas limites + erreurs** — jamais le happy path seul.
+- [ ] Chaque gap identifié a une **priorité** (P0-P2) et un fichier concerné.
+- [ ] Chaque test manquant a un **type** (unit/integ/E2E) et un **owner suggéré**.
+
 ## Handoffs
 
 | Vers           | Quand                                                              |
@@ -103,7 +111,7 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.
-2. Lire tous les `.party/handoff-*.md` existants — en particulier `handoff-developer.md`.
+2. Si `context.md` déclare `Régime : convergent` → lire tous les `.party/handoff-*.md` existants, en particulier `handoff-developer.md`. Si `Régime : divergent` → **ne PAS les lire** : l'indépendance de ton angle prime (anti-ancrage).
 3. Analyser la stratégie de tests au regard des critères d'acceptation définis dans `context.md`.
 
 ### Clôture de tour

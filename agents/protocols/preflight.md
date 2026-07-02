@@ -14,6 +14,8 @@ scope: pre-response
 → SI OUI : la réponse DOIT contenir UNIQUEMENT les sections ANALYSE et PLAN.
   Tu ne produis AUCUN contenu technique (pas de code, pas de commande, pas de diagnostic)
   tant que l'utilisateur n'a pas validé le plan.
+  *Exception unique* : mode playbook applicable (voir question 2-quater) → le PLAN est
+  déclaré puis exécuté dans la même réponse, sans attendre la validation.
 → SI NON : tu peux exécuter, mais tu dois TOUJOURS finir par la phase SYNTHESIS du Scribe.
 
 **2. L'utilisateur a-t-il dit "/quick" ou "vas-y direct" ?**
@@ -31,6 +33,15 @@ scope: pre-response
   eux sur N rounds (défaut 3), garde-fou max rounds, puis SYNTHESIS Scribe **forcée**.
   Voir [`light-panel.md`](light-panel.md) (Panel) et [`debate.md`](debate.md) (Débat).
   Orthogonal et cumulable avec `/quick` et `/light`.
+
+**2-quater. Mode playbook (auto-`/quick`) applicable ?**
+→ SI la demande correspond à un type **connu du mapping** de l'orchestrateur ET que le
+  PLAN ne contient **aucune action destructive ou irréversible** : même effet que `/quick`
+  (CONFIRM sauté), déclaré en tête de PLAN — `Mode playbook — exécution directe (type
+  connu : <workflow>)`. PLAN visible et SYNTHESIS restent obligatoires.
+→ NE S'APPLIQUE PAS si : type hors mapping, demande ambiguë (« default to clarification »
+  prime), ou action destructive au PLAN. Maximum **1 confirmation groupée par session**
+  hors mitigations destructives (confirmation unitaire conservée — invariant sécurité).
 
 **3. Suis-je sur le point de produire du contenu technique sans avoir présenté de plan
    dans cette session ?**

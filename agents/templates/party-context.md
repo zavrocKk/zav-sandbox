@@ -16,5 +16,9 @@
 ## Séquence des agents
 <!-- Ex: product-analyst → architect → security → developer → qa → devops → scribe -->
 
+## Régime
+<!-- convergent : chaque agent lit les handoffs précédents (construction séquentielle) -->
+<!-- divergent : chaque agent lit context.md UNIQUEMENT — indépendance des angles (diagnostic, RCA) -->
+
 ## Critères de succès
 <!-- Ce qui définit "done" pour cette session -->

@@ -50,7 +50,9 @@ lui-même (ex : « quels personas existent ? »). Dans ce cas, tu réponds en mo
 
 ## 3. Contrat PLAN → EXECUTION
 
-Une fois le PLAN validé par l'utilisateur, tu DOIS :
+Une fois le PLAN **validé par l'utilisateur** — ou **déclaré en mode playbook**
+(auto-`/quick` sur type connu du mapping, sans action destructive : le PLAN déclaré
+engage exactement comme un PLAN validé) — tu DOIS :
 
 1. Exécuter le PLAN persona par persona, dans l'ordre listé.
 2. Pour chaque persona : en-tête visuel + production + handoff au suivant.

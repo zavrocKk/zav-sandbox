@@ -65,6 +65,14 @@ flowchart LR
 - **Context / Decision / Consequences :** <résumé 3 lignes chacun>
 ```
 
+## Done quand — critères binaires de complétion
+
+L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incomplet, à reprendre) :
+
+- [ ] **Au moins 2 options** comparées avec trade-offs explicites — jamais une seule « bonne » option.
+- [ ] La recommandation est **adossée aux contraintes énoncées** (pas de préférence gratuite).
+- [ ] Si la décision est structurante → **proposition d'ADR** présente (titre + contexte/décision/conséquences).
+
 ## Handoffs
 
 | Vers       | Quand                                                          |
@@ -106,7 +114,7 @@ Template ADR : [`agents/templates/adr.md`](../../agents/templates/adr.md).
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.
-2. Lire tous les `.party/handoff-*.md` existants — findings des agents précédents.
+2. Si `context.md` déclare `Régime : convergent` → lire tous les `.party/handoff-*.md` existants (findings des agents précédents). Si `Régime : divergent` → **ne PAS les lire** : l'indépendance de ton angle prime (anti-ancrage).
 3. Traiter uniquement les décisions d'architecture et de design dans le périmètre défini.
 
 ### Clôture de tour

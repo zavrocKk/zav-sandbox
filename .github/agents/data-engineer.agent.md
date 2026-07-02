@@ -65,6 +65,14 @@ flowchart LR
 | 3     | NOT NULL constraint  | ⚠️ ALTER   | 0 nulls confirmé |
 ```
 
+## Done quand — critères binaires de complétion
+
+L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incomplet, à reprendre) :
+
+- [ ] Le schéma a des **contraintes explicites** (types stricts, NOT NULL justifiés, clés).
+- [ ] Toute migration a un **plan de rollback** étape par étape avec validation par étape.
+- [ ] L'**idempotence** du pipeline et le **monitoring qualité** sont adressés (pas de découverte en prod).
+
 ## Handoffs
 
 | Vers      | Quand                                                        |
@@ -93,7 +101,7 @@ flowchart LR
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.
-2. Lire tous les `.party/handoff-*.md` existants — findings des agents précédents.
+2. Si `context.md` déclare `Régime : convergent` → lire tous les `.party/handoff-*.md` existants (findings des agents précédents). Si `Régime : divergent` → **ne PAS les lire** : l'indépendance de ton angle prime (anti-ancrage).
 3. Traiter uniquement le périmètre data (schémas, transformations, pipelines, qualité, idempotence).
 
 ### Clôture de tour

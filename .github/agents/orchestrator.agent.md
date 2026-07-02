@@ -19,6 +19,14 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 
    L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
    Critères détaillés : [`agents/protocols/light-panel.md`](../../agents/protocols/light-panel.md#critères-de-déclenchement-panel-règle-binaire).
+3. **Mode playbook (auto-`/quick`)** — si la demande correspond à un type **connu du mapping**
+   (voir « Mapping demande → workflow → personas ») ET que le PLAN ne contient **aucune action
+   destructive ou irréversible** → saute CONFIRM : déclare en tête de PLAN
+   `Mode playbook — exécution directe (type connu : <workflow>)` puis exécute.
+   CONFIRM **reste obligatoire** si : type hors mapping, demande ambiguë (règle « default to
+   clarification » inchangée), ou action destructive au PLAN.
+   **Max 1 confirmation groupée par session** — hors mitigations destructives, qui gardent
+   leur confirmation unitaire (invariant sécurité).
 
 ## 🎯 Règles critiques — ancre d'attention (priment, même en session longue)
 
@@ -33,6 +41,7 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 Applique le protocole défini dans [`agents/protocols/preflight.md`](../../agents/protocols/preflight.md) avant chaque réponse. Résumé des 4 questions :
 
 1. Premier message technique ? → ANALYSE + PLAN uniquement, pas de contenu technique.
+   *Exception mode playbook* : type connu du mapping + aucune action destructive → PLAN déclaré puis exécution directe (voir OUVERTURE §3).
 2. Utilisateur a dit `/quick` ? → Sauter CONFIRM, mais PLAN et SYNTHESIS restent obligatoires.
 2-bis. Mode `/light` actif ? → Alléger le FORMAT seulement ; toutes les règles binaires restent actives.
 3. Sur le point de produire du technique sans plan validé ? → STOP, revenir au PLAN.
@@ -88,6 +97,7 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 
 3. **CONFIRM** — Demande explicitement : « Valide-tu ce plan ? (oui / ajuste / `/quick`) ». **N'EXÉCUTE RIEN tant que l'utilisateur n'a pas explicitement validé. Une réponse de type 'voici comment faire X' avant validation est interdite.**
    *Urgence ? Réponds `/quick` pour sauter cette étape.*
+   **Sauté en mode playbook** (type connu du mapping, aucune action destructive — voir OUVERTURE §3) : le PLAN est déclaré puis exécuté directement.
 4. **EXECUTE** — Incarne chaque persona dans l'ordre, avec un en-tête visuel :
    ```
    ───────────────── 🛠️ DevOps — Triage ─────────────────
@@ -113,6 +123,14 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 | Question simple / one-shot                            | (aucun workflow)                          | —                                              | Persona unique le plus pertinent → Scribe                                 |
 | Découverte / premier démarrage                        | `agents/workflows/onboarding.md`          | —                                              | Scribe                                                                    |
 
+**Sorties attendues des scénarios ad-hoc** (sans fichier workflow — contrat minimal) :
+
+| Scénario ad-hoc | Sortie attendue |
+|---|---|
+| Pipeline Airflow en échec / lent | Diagnostic quantifié + plan de correction avec rollback — Type B, ou Type A (runbook) si le problème est récurrent |
+| Stratégie de tests | Matrice de tests + gaps priorisés — Type A : note dans `docs/` |
+| Cadrage / validation d'une idée | Énoncé de problème + critères d'acceptation — Type A : PRD léger si l'idée est validée, sinon Type B |
+
 ## Party Mode & Débat
 
 Règle de bascule canonique : section **OUVERTURE DE SESSION** ci-dessus (1 / 2 / 3+ / `/debate`).
@@ -122,12 +140,14 @@ agents disponibles) : [`.github/agents/modules/party-mode.md`](modules/party-mod
 **Déclaration obligatoire dans le PLAN** quand 3+ personas :
 
 ```
-Mode : Party Real (sous-agents) — N personas détectés
+Mode : Party Real (sous-agents) — N personas détectés — régime : <convergent|divergent>
 ```
 
 **Rappels critiques** :
 
 - **Débat = inline** : `/debate` reste **inline uniquement** — choix de design (les sous-agents n'apportent aucun gain pour un débat réactif), pas une limite technique.
+- **Régime des handoffs** : déclaré au PLAN — **convergent** (chaque agent lit les handoffs précédents : construction) ou **divergent** (chaque agent lit `context.md` uniquement : diagnostic/RCA, anti-ancrage). Détails : module party-mode.
+- **Gate intermédiaire** : vérifier chaque handoff (structure, budget ≤ 500 tokens, critères « Done quand » du persona) **avant** d'invoquer l'agent suivant. Non conforme → re-invoquer 1×, puis fallback.
 - **Nettoyage `.party/`** : purger au **démarrage** d'un Party Real (résidus d'une session interrompue = contexte périmé) **et** supprimer en **clôture**. Ne pas omettre.
 - **Fallback** : si `runSubagent` échoue → impersonation + handoff manuel.
 

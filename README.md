@@ -40,6 +40,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   │   ├── architect.agent.md           # 🏗️ Sous-agent Architect (/party-real)
 │   │   ├── qa.agent.md                  # 🧪 Sous-agent QA (/party-real)
 │   │   ├── product-analyst.agent.md     # 📊 Sous-agent Product Analyst (/party-real)
+│   │   ├── data-engineer.agent.md       # 🗄️ Sous-agent Data Engineer (/party-real)
 │   │   ├── scribe.agent.md              # 📝 Sous-agent Scribe (/party-real)
 │   │   └── modules/                     # Modules de délégation de l'orchestrateur
 │   │       ├── core-rules.md            # Périmètre, délégation, contrat PLAN → EXEC
@@ -77,6 +78,8 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   │   └── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
 │   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
+│       ├── secrets-scanner.ps1/.sh      # Stop : scan de secrets fin de session (warn-only)
+│       ├── agent-telemetry.ps1/.sh      # PostToolUse/Subagent* : journal JSONL passif
 │       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
 │       └── hooks.json                   # Config (activation manuelle via settings)
 ├── docs/                                # Tous les livrables produits par le Scribe
@@ -127,6 +130,8 @@ Si ce cycle s'exécute correctement, le framework est opérationnel.
 | `/checkpoint` | Le Scribe crée un checkpoint de mémoire dans `docs/_scratch/memory/` |
 | `/pre-pr` | Lance les garde-fous pré-PR (qualité, sécurité, conventions) |
 | `/reset` | Recalibration LLM — voir ci-dessous |
+
+> **Mode playbook (automatique)** : sur un type de demande **connu du mapping** (incident, audit, stratégie de tests…) sans action destructive au plan, l'orchestrateur applique `/quick` de lui-même et le déclare dans le PLAN (`Mode playbook — exécution directe`). Tu n'as rien à taper ; pour forcer une confirmation, dis simplement « confirme d'abord ».
 
 ## Recalibration LLM drift (`/reset`)
 
@@ -213,8 +218,10 @@ Le framework fonctionne sans rien activer. Ces fonctionnalités sont opt-in :
 | Fonctionnalité | Description | Activation |
 |---|---|---|
 | **Security guard** | Bloque les commandes destructives de l'IA (rm -rf, DROP, force push…) en demandant une confirmation | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
+| **Secrets scanner** | Scan de fin de session des fichiers modifiés (~25 familles de secrets) — warn-only, fail-open, findings rédigés dans un log local git-ignoré | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
+| **Agent telemetry** | Journal JSONL passif des événements agent (perf, sous-agents) — métadonnées seulement, jamais le contenu | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
 | **Memory nudge** | Rappelle de lancer `/checkpoint` avant compaction ou fin de session | Voir [`agents/hooks/README.md`](agents/hooks/README.md) |
-| **Git hook pre-push** | Bloque les push directs sur `main` | `bash scripts/install-hooks.sh` |
+| **Git hook pre-push** | Bloque les push directs sur `main` | `bash scripts/install-hooks.sh` (Windows : `scripts/install-hooks.ps1`) |
 
 ## Usage en équipe
 
@@ -239,7 +246,7 @@ pour éviter les conflits :
 1. Crée `agents/personas/<nom>.md` avec les sections : `Identité`, `Ton`, `Domaines`, `Quand intervenir`, `Output type`, `Handoffs`, `Anti-patterns`.
 2. **Crée `.github/agents/<nom>.agent.md`** (fichier de sous-agent) en calquant sur un agent existant (ex. `developer.agent.md`). Restreins les `tools` au périmètre du persona.
 3. Ajoute son emoji et sa ligne dans la **table des personas** de l'agent (`.github/agents/orchestrator.agent.md`, section « Personas disponibles »).
-4. Déclare-le dans la **liste des agents disponibles** pour `/party-real` (voir section « Agents disponibles » du même fichier).
+4. Déclare-le dans la **liste des agents disponibles** pour `/party-real` (section « Agents disponibles » de [`.github/agents/modules/party-mode.md`](.github/agents/modules/party-mode.md)).
 5. Mets à jour le **mapping `demande → workflow → personas`** de l'agent si ce persona ouvre de nouveaux types de demandes.
 6. Si le persona est utilisé dans un **workflow 3+ personas** (la majorité), mets à jour les **modules** (`.github/agents/modules/party-mode.md`, etc.) si pertinent.
 
