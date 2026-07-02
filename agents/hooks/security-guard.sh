@@ -13,10 +13,10 @@ raw="$(cat)"
 
 # "REGEX:::MESSAGE" -- ::: delimiter avoids clashes with regex pipe characters.
 rules=(
-  "rm[[:space:]]+-rf:::rm -rf (recursive delete): target specific paths, or mv to back up first"
+  "rm[[:space:]]+-(rf|fr):::rm -rf (recursive delete): target specific paths, or mv to back up first"
   "(rm|del|unlink)[[:space:]].*\\.env:::removing a .env file: back it up with mv before deleting"
   "(rm|del|unlink)[[:space:]].*\\.git($|[^A-Za-z]):::deleting the .git directory: use git commands to manage repo state"
-  "git[[:space:]]+push[[:space:]].*--force:::force push: use git push --force-with-lease, or push to a feature branch"
+  "git[[:space:]]+push[[:space:]].*--force([^-]|$):::force push: use git push --force-with-lease, or push to a feature branch"
   "git[[:space:]]+push[[:space:]].*-f([[:space:]]|$):::force push: use git push --force-with-lease, or push to a feature branch"
   "git[[:space:]]+reset[[:space:]]+--hard:::hard reset: use git stash or git reset --soft to preserve changes"
   "git[[:space:]]+clean[[:space:]]+-[a-z]*f:::git clean: run git clean -n (dry run) first to preview deletions"

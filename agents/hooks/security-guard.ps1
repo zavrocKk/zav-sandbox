@@ -14,10 +14,10 @@ $raw = [Console]::In.ReadToEnd()
 
 # Ordered rules: @{ Rx = <regex> ; Msg = <safe-alternative hint, ASCII only> }
 $rules = @(
-    @{ Rx = 'rm\s+-rf'; Msg = 'rm -rf (recursive delete): target specific paths, or mv to back up first' },
+    @{ Rx = 'rm\s+-(rf|fr)'; Msg = 'rm -rf (recursive delete): target specific paths, or mv to back up first' },
     @{ Rx = '(rm|del|unlink)\b.*\.env'; Msg = 'removing a .env file: back it up with mv before deleting' },
     @{ Rx = '(rm|del|unlink)\b.*\.git($|[^A-Za-z])'; Msg = 'deleting the .git directory: use git commands to manage repo state' },
-    @{ Rx = 'git\s+push\s+.*--force'; Msg = 'force push: use git push --force-with-lease, or push to a feature branch' },
+    @{ Rx = 'git\s+push\s+.*--force([^-]|$)'; Msg = 'force push: use git push --force-with-lease, or push to a feature branch' },
     @{ Rx = 'git\s+push\s+.*\s-f(\s|$)'; Msg = 'force push: use git push --force-with-lease, or push to a feature branch' },
     @{ Rx = 'git\s+reset\s+--hard'; Msg = 'hard reset: use git stash or git reset --soft to preserve changes' },
     @{ Rx = 'git\s+clean\s+-\w*f'; Msg = 'git clean: run git clean -n (dry run) first to preview deletions' },

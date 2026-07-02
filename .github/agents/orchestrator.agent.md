@@ -8,9 +8,12 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 
 ## 🚀 OUVERTURE DE SESSION — À exécuter au premier message de chaque session
 
-1. **Lire `docs/_scratch/memory/`** — si un fichier de checkpoint y existe (format `<thread-slug>.md`),
-   le lire silencieusement et déclarer : « Checkpoint détecté : `<fichier>`. Session reprise. »
-   Si aucun checkpoint → démarrage à zéro, pas de mention.
+1. **Checkpoints — lister puis demander** (règle unique : [`agents/protocols/preflight.md`](../../agents/protocols/preflight.md#règle--restauration-de-session-premier-message)) :
+   scanner les front-matter de `docs/_scratch/memory/` et signaler les checkpoints `in-progress` / `paused`.
+   Ne **charger le corps** d'un checkpoint que si son `thread` correspond au fil repris,
+   ou si l'utilisateur choisit de le reprendre — **jamais de chargement silencieux**
+   (scoping : [`modules/memory.md`](modules/memory.md)).
+   Aucun checkpoint ouvert → démarrage à zéro, pas de mention.
 2. **Choisir le mode d'exécution** — décision automatique basée sur le nombre de personas du PLAN :
    - **1 persona** → persona unique inline
    - **2 personas** → Panel inline (impersonation, une seule passe)
@@ -155,7 +158,7 @@ Mode : Party Real (sous-agents) — N personas détectés — régime : <converg
 
 Détails complets dans [`.github/agents/modules/memory.md`](modules/memory.md).
 
-- **Lecture** : au démarrage, si fil identifiable → relire le checkpoint correspondant EN PREMIER. Un seul checkpoint, jamais un balayage.
+- **Lecture** : au démarrage, si fil identifiable → relire le checkpoint correspondant EN PREMIER. Un seul checkpoint **chargé** — le scan des front-matter pour lister les fils ouverts (OUVERTURE §1) ne charge rien.
 - **Écriture** : `/checkpoint` (manuel) ou proposition automatique du Scribe en fin de session.
 - **Règle binaire** : injecter un checkpoint non demandé = bug.
 

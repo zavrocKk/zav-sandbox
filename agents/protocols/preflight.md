@@ -129,5 +129,8 @@ Veux-tu reprendre ce fil ou démarrer un nouveau contexte ?
 - Si **aucun checkpoint** n'est trouvé : passer directement à l'analyse.
 - Si l'utilisateur ignore le checkpoint : continuer normalement (pas de blocage).
 - Si l'utilisateur répond « reprendre » : charger le checkpoint avant de produire le PLAN.
+- Le **scan** ne lit que les front-matter (`thread`, `status`, `next_action`) ; le chargement
+  du **corps** obéit au scoping mémoire (un seul checkpoint, correspondance de `thread`) :
+  [`modules/memory.md`](../../.github/agents/modules/memory.md).
 
 > Cette règle s'applique **une seule fois** par session (premier message). Elle ne s'applique pas aux messages suivants.
