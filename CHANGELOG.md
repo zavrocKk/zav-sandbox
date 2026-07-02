@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.15](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.14...v0.1.15) (2026-07-02)
+
+
+### Bug Fixes
+
+* **framework:** audit 2026-07-02 high-confidence fixes ([#141](https://github.com/zavrocKk/zav-sandbox/issues/141)) ([c460a91](https://github.com/zavrocKk/zav-sandbox/commit/c460a919c8435b5067492e95df1f82b4f05b52a0))
+
 ## [0.1.14](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.13...v0.1.14) (2026-07-02)
 
 
