@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.14](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.13...v0.1.14) (2026-07-02)
+
+
+### Features
+
+* **party:** handoff budget 500/1000 + README/ROADMAP sync ([#139](https://github.com/zavrocKk/zav-sandbox/issues/139)) ([3bd44a2](https://github.com/zavrocKk/zav-sandbox/commit/3bd44a24e6dbadb85b57c1fe19999ab7df3848b0))
+
 ## [0.1.13](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.12...v0.1.13) (2026-07-02)
 
 
