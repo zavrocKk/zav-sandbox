@@ -2,6 +2,18 @@
 
 ---
 
+## [0.1.13](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.12...v0.1.13) (2026-07-02)
+
+
+### Features
+
+* **framework:** playbook mode, party regimes, completion contracts ([#138](https://github.com/zavrocKk/zav-sandbox/issues/138)) ([70adc81](https://github.com/zavrocKk/zav-sandbox/commit/70adc817d6f2825d3c014ee092c5363aa35ae210))
+
+
+### Documentation
+
+* update README and memory README — artifact governance follow-up ([#136](https://github.com/zavrocKk/zav-sandbox/issues/136)) ([d6112cc](https://github.com/zavrocKk/zav-sandbox/commit/d6112cc89dcbce17f777cd60df179d2ba2cada99))
+
 ## [0.1.12](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.11...v0.1.12) (2026-07-01)
 
 
