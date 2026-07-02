@@ -27,7 +27,12 @@ par fil de travail).
 
 - Tu ne charges **QU'UN SEUL** checkpoint : celui dont le `thread` (front-matter)
   correspond au fil que l'utilisateur reprend explicitement. **Jamais** « tous les
-  checkpoints » ni un balayage de `docs/_scratch/memory/`.
+  checkpoints » chargés en contexte.
+- **Lister ≠ charger** : le scan des seuls front-matter (`thread`, `status`,
+  `next_action`) au premier message — règle « Restauration de session » du
+  [preflight](../../../agents/protocols/preflight.md#règle--restauration-de-session-premier-message) —
+  est autorisé et n'est **pas** un chargement. L'interdit porte sur le chargement
+  du **corps** d'un checkpoint sans correspondance de fil.
 - **Critère de correspondance** : le `thread`, la `branch` active, ou le sujet
   annoncé par l'utilisateur. Si aucun ne correspond → **tu ne charges rien** et tu
   démarres une session neuve (pas de mémoire injectée).

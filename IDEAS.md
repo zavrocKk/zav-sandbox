@@ -9,7 +9,7 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 6 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 10 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
 | [Cas théoriques et résiliences](#cas-théoriques-et-résiliences--phase-57b-conditionnels) | 🟡 Projections théoriques non confirmées — Phase 5.7.B | 7 entrées |
 
@@ -127,6 +127,64 @@ Format pour ajouter une nouvelle idée :
 **Phase d'examen suggérée** : Phase 6.0 ou Phase 7 (mémoire persistante) — la migration sera structurellement nécessaire à ce moment, on la fait avec une vraie raison technique.
 
 **Origine** : question utilisateur du 2026-05-03 — instinct juste mais pas urgent.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-02 — security-guard : scanner le seul champ commande du payload (audit SEC-01)
+
+**Idée** : `security-guard` (`.ps1`/`.sh`) matche ses patterns destructifs sur le **payload stdin entier** au lieu du seul champ commande → faux positifs quand l'agent édite un fichier dont le contenu cite `rm -rf`, `sudo`, `DROP TABLE`… (cas réel : `copilot-instructions.md`, le README des hooks). Correctif : parser le JSON du payload et ne scanner que le champ commande.
+
+**Questions sous-jacentes** :
+- Structure exacte du payload `PreToolUse` (API VS Code Preview) — quel chemin JSON pour la commande selon l'outil (`runInTerminal` vs autres) ?
+- Le hook doit-il rester silencieux pour les outils sans champ commande (editFiles, readFile) ?
+- Parsing JSON sans dépendance côté `.sh` (pas de `jq` — promesse dependency-free) ?
+
+**Phase d'examen suggérée** : après revalidation de l'API hooks (le README impose déjà une revalidation à chaque mise à jour majeure VS Code/Copilot). La limite est documentée dans `agents/hooks/README.md` depuis l'audit 2026-07-02.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-02 — Dé-dupliquer les règles répétées (budget handoff ×5, playbook ×4) (audit TOK-01)
+
+**Idée** : le budget handoff est défini en ≥ 5 endroits (module party-mode, chaque `.agent.md`, template `party-handoff.md`, skill party-mode, orchestrator) et le mode playbook en 4. Chaque copie porte une obligation de synchro manuelle → risque de drift. Piste : faire du template/module la source unique et remplacer les copies par des pointeurs.
+
+**Questions sous-jacentes** :
+- Un sous-agent en fenêtre fraîche suit-il fiablement un pointeur « voir template » au lieu d'un format inline ? (à valider en test terrain — risque de dégrader la conformité des handoffs)
+- Tension avec le principe « ancre d'attention » (les règles critiques sont dupliquées exprès contre la dilution en session longue) — trancher copie par copie.
+- Lien avec la rationalisation de `agents/templates/party-handoff.md` (aujourd'hui jamais référencé par un fichier agent) et des stubs `agents/personas/*` (maintenus pour le check CI de parité).
+
+**Phase d'examen suggérée** : après le test terrain job (protocole du 2026-07-01) — on aura des observations réelles sur la conformité des handoffs.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-02 — `model:` par sous-agent (coût par persona) (audit TOK-02)
+
+**Idée** : aucun frontmatter `.agent.md` ne fixe de modèle — tous les sous-agents (y compris le Scribe, purement rédactionnel) tournent sur le modèle par défaut. Si les custom agents VS Code supportent un champ `model:`, affecter un modèle plus léger aux personas rédactionnels réduirait le coût des sessions Party Real.
+
+**Questions sous-jacentes** :
+- Le champ `model:` est-il supporté (et stable) dans les custom agents VS Code Copilot ? (**NON VÉRIFIÉ** au 2026-07-02)
+- Quels personas tolèrent un modèle plus léger sans perte de qualité (Scribe ? Product Analyst ?) ?
+
+**Phase d'examen suggérée** : quand la dépense en premium requests devient un point de friction mesuré (télémétrie).
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-02 — Tests automatisés des scripts de hooks (Pester / bats) (audit OBS-01)
+
+**Idée** : les 8 scripts de `agents/hooks/` n'ont qu'une procédure de test **manuelle** (README). Un smoke test automatisé (Pester pour `.ps1`, bats pour `.sh`) en CI validerait : payload bénin → silence + exit 0, payload destructif → `ask`, parité `.ps1`/`.sh` sur un jeu de cas partagé.
+
+**Questions sous-jacentes** :
+- CI Windows (runner `windows-latest` pour pwsh) ou pwsh sur ubuntu suffit-il ?
+- Tension avec la promesse « 100 % markdown, lisible par un non-dev » (filtre VISION) — les tests restent dans `scripts/` ou `agents/hooks/tests/` ?
+
+**Phase d'examen suggérée** : à la prochaine évolution des hooks (l'audit 2026-07-02 a modifié les regex de `security-guard` — les cas de test existent déjà dans la procédure manuelle du README).
 
 **Statut** : 🟡 ouverte
 
