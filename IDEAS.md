@@ -9,7 +9,7 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 6 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 9 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
 | [Cas théoriques et résiliences](#cas-théoriques-et-résiliences--phase-57b-conditionnels) | 🟡 Projections théoriques non confirmées — Phase 5.7.B | 7 entrées |
 
@@ -151,6 +151,55 @@ Format pour ajouter une nouvelle idée :
 **Référence** : `docs/decisions/0004-field-report-analysis-phase-5-7.md` — Friction F5.
 
 **Phase d'examen suggérée** : Phase 8 (skills techniques + MCP).
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-01 — Failure log (mémoire des erreurs, inspirée du « Failure Museum »)
+
+**Idée** : La mémoire actuelle regarde uniquement **en avant** (checkpoints de reprise). Aucune mémoire des **erreurs passées** n'existe : les frictions récurrentes observées en field report (mauvais routage, artefacts mal placés) se reproduisent car elles ne sont mémorisées nulle part. Créer un `docs/_scratch/memory/failure-log.md` catégorisé (ex. `WRONG-ROUTING`, `WRONG-LOCATION`, `HALLUCINATION`, `PROCESS-SKIP`), consulté par l'orchestrateur à l'ouverture de session (lecture bornée : entrées critiques seulement).
+
+**Questions sous-jacentes** :
+- Qui écrit ? Le Scribe en fin de session (proposition, jamais imposé — cohérent avec le checkpoint) ?
+- Rétention : archiver les entrées corrigées par un ADR (convention d'hygiène de ce fichier) ?
+- Comment borner la lecture pour ne pas gonfler le contexte (top 5 critiques max ?) ?
+
+**Origine** : benchmark Grimoire-kit du 2026-07-01 (pattern « Failure Museum » + `agent-learnings`). 100 % markdown, passe les 6 filtres VISION.
+
+**Phase d'examen suggérée** : après le test terrain (protocole `docs/_scratch/2026-07-01-plan-job-test-protocol.md`) — le journal des sessions fournira les premières entrées réelles.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-01 — Incertitude graduée (VERT/JAUNE/ROUGE) dans le PRE-FLIGHT
+
+**Idée** : La règle « default to clarification » est binaire (clarifier OU supposer + `ASSUMPTION :`). La raffiner en 3 niveaux : **VERT** = exécuter ; **JAUNE** = exécuter en étiquetant chaque hypothèse `HYPOTHÈSE :` inline (jamais présenter une hypothèse comme un fait) ; **ROUGE** = stop + rapport d'incertitude structuré (ce que je comprends / ce qui manque / ce que j'ai tenté / options) avec **preuve d'effort obligatoire** — un « je ne sais pas » sans effort documenté est interdit (clause anti-évitement).
+
+**Questions sous-jacentes** :
+- Compatible avec la boucle de clarification bornée déjà en réflexion (`max_clarification_turns`, entrée 2026-05-10) ? Le JAUNE pourrait être le fallback naturel après 2 cycles.
+- Le niveau se déclare-t-il dans le PLAN (règle binaire vérifiable) ?
+
+**Origine** : benchmark Grimoire-kit du 2026-07-01 (pattern « Honest Uncertainty Protocol »). Raffinement de `agents/protocols/preflight.md`, markdown pur.
+
+**Phase d'examen suggérée** : après le test terrain — croiser avec les observations réelles de sur/sous-clarification.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-01 — Entrypoints multi-assistants (CLAUDE.md, AGENTS.md)
+
+**Idée** : Le framework n'est utilisable que par Copilot aujourd'hui. Créer des points d'entrée légers `CLAUDE.md` et `AGENTS.md` à la racine qui **pointent vers** `.github/copilot-instructions.md` (zéro duplication de règles — doctrine source-unique préservée). Le repo devient utilisable par Claude Code, Codex et autres assistants sans rien changer au socle. Cas d'usage immédiat : l'entretien du framework se fait déjà via Claude Code.
+
+**Questions sous-jacentes** :
+- Le custom agent orchestrator (`.agent.md`) est propre à Copilot — documenter ce qui est portable (instructions, personas, workflows) vs ce qui ne l'est pas (runSubagent, hooks VS Code) ?
+- `AGENTS.md` (standard émergent multi-outils) suffit-il seul ?
+
+**Origine** : benchmark Grimoire-kit du 2026-07-01 (entrypoints portables générés par `grimoire init`). Coût trivial (~3 lignes par fichier), passe les 6 filtres VISION.
+
+**Phase d'examen suggérée** : Phase 10 (Ouverture) — ou avant si l'usage bi-assistant (Copilot au bureau / Claude Code à la maison) le justifie.
 
 **Statut** : 🟡 ouverte
 
