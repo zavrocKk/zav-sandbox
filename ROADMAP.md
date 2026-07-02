@@ -20,6 +20,7 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 ✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
 ✅ Phase 9.1 — Sous-agents réels (`/party-real`) — fenêtres fraîches par persona, ~80 % tokens en moins sur workflows 4+ personas (ADR-0008)
 ✅ Phase 9.2 — Abaissement seuil Panel ≤ 2 personas + allègement orchestrateur −29 % (ADR-0009)
+✅ Phase 9.3 — Optimisation tours & contrats de complétion (playbook, régimes party, « Done quand », gate + budget handoffs) — validation terrain en cours
 ⬜ Phase 10 — Ouverture
 
 ### ✅ Phase 9 — Correctifs DevX (Audit 2026-05-30)
@@ -71,6 +72,32 @@ Mis à jour au fur et à mesure des sessions avec Claude.
 - `.github/agents/modules/party-mode.md` étendu : cycle Party Real complet (Qui/Quand/Pourquoi + flow)
 
 **Critères de succès** : orchestrateur allégé, markdownlint 0 erreur, règles de bascule cohérentes sur tous les fichiers. ✔
+
+---
+
+### ✅ Phase 9.3 — Optimisation tours & contrats de complétion (2026-07-01)
+
+**Objectif** : réduire le coût en **tours** (premium requests — levier n°1 identifié par
+l'audit du 2026-07-01) et fermer les **contrats de complétion** des personas, en restant
+100 % markdown et réversible. Livré via PR #138.
+
+**Livrables** :
+
+- **Mode playbook (auto-`/quick`)** : type connu du mapping + aucune action destructive
+  → CONFIRM sauté, déclaré dans le PLAN ; max 1 confirmation groupée/session
+- **Régimes Party Real** : convergent (construction séquentielle, défaut) / divergent
+  (diagnostic — chaque sous-agent ne lit que `context.md`, anti-ancrage)
+- **Contrats « Done quand »** : 3 critères binaires de complétion par persona (8 agents),
+  avec **gate intermédiaire** de l'orchestrateur sur chaque handoff (re-invocation 1×, puis fallback)
+- **Budget handoff** : cible ≤ 500 tokens, plafond 1000 / 4000 chars, règle binaire
+  « pointeur > recopie » — skill party-mode v2.1.0
+- Hygiène : `data-engineer` au roster Party Real, README synchronisé, logs de hooks
+  (`*.jsonl`) définitivement non committables, sorties attendues des scénarios ad-hoc
+
+**Critères de succès** : validation terrain sur ~5-10 sessions réelles — 3 métriques
+(tours pour livrer, confirmations subies, routage correct) selon le protocole
+`docs/_scratch/2026-07-01-plan-job-test-protocol.md`. 🔄 **En cours** — les décisions
+structurantes (roster, workflows JIRA/ServiceNow, MCP) sont différées aux données.
 
 ---
 

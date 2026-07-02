@@ -94,6 +94,8 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 ```
 
 > **Note `.party/`** : lors d'une session `/party-real`, l'orchestrateur crée un dossier `.party/` transitoire à la racine (gitignore-d) pour les échanges inter-agents (`context.md` + `handoff-{agent}.md`). Ce dossier est **supprimé à la clôture** de chaque session.
+>
+> Chaque handoff est **borné** (cible ≤ 500 tokens, plafond 1000 — pointeur vers les fichiers du repo plutôt que recopie) et **validé par un gate** (structure, budget, critères « Done quand » du persona) avant d'invoquer l'agent suivant. Le PLAN déclare aussi le **régime** de lecture des handoffs : **convergent** (construction séquentielle, défaut) ou **divergent** (diagnostic/RCA — chaque agent ne lit que `context.md`, indépendance des angles). Détails : [`.github/agents/modules/party-mode.md`](.github/agents/modules/party-mode.md).
 ## Activer l'agent Orchestrator dans VS Code
 
 > **Nouveau ?** Commence par le guide 5 minutes : [`agents/workflows/onboarding.md`](agents/workflows/onboarding.md).

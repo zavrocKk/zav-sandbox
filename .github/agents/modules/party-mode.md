@@ -92,7 +92,7 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
   Ni saut, ni ajout silencieux, ni réordonnancement.
 - **POURQUOI** : chaque sous-agent reçoit une **fenêtre fraîche** (pas de croissance
   quadratique du contexte). Le Scribe lit uniquement les handoffs condensés
-  (≤ 500 tokens chacun) au lieu de l'historique brut de tous ses prédécesseurs.
+  (cible ≤ 500 tokens, plafond 1000) au lieu de l'historique brut de tous ses prédécesseurs.
 
 **Flow opérationnel** :
 
@@ -102,14 +102,27 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
    — objectif, scope, séquence agents, **régime** (convergent / divergent).
 2. Pour chaque agent : `runSubagent("<agent>")` → lit `.party/context.md` (+ handoffs
    précédents **en régime convergent uniquement**) → produit → écrit
-   `.party/handoff-<agent>.md` (≤ 500 tokens).
+   `.party/handoff-<agent>.md` (budget : voir règle ci-dessous).
 3. **Gate intermédiaire (orchestrateur)** — avant d'invoquer l'agent suivant, vérifier le
-   handoff produit : 4 sections présentes, budget ≤ 500 tokens respecté, critères
+   handoff produit : 4 sections présentes, budget respecté (plafond 1000 tokens ; un
+   handoff gonflé sans signal est non conforme même sous le plafond), critères
    « Done quand » du persona satisfaits (section dédiée de son `.agent.md`).
    Handoff non conforme → re-invoquer l'agent (**1 seule fois**), puis fallback
    impersonation si l'échec persiste. La qualité ne repose jamais sur le seul Scribe.
 4. Lire `handoff-scribe.md` (quality gate final).
 5. **Supprimer `.party/`** (transitoire, `.gitignore`-d). Ne pas omettre.
+
+**Budget handoff — le nécessaire, pas le maximum** :
+
+- **Cible ≤ 500 tokens** ; **plafond absolu 1000 tokens / 4000 chars**. Le plafond est
+  un filet de sécurité, jamais un objectif de remplissage.
+- **Règle binaire pointeur > recopie** : une info qui existe dans un fichier du repo
+  (diff, table, analyse) est **référencée** (`voir path/to/file`), jamais recopiée dans
+  le handoff. Le suivant lit le fichier s'il en a besoin.
+- Au-delà de la cible, chaque ligne doit être du **signal** (findings conclusifs,
+  contexte critique, risques) — la transcription du raisonnement est une violation.
+- `context.md` reste à **≤ 500 tokens** (écrit par l'orchestrateur : objectif/scope,
+  pas de matière longue).
 
 **Fallback** : si `runSubagent` échoue → impersonne le persona + écrit le handoff
 manuellement → continue la séquence.

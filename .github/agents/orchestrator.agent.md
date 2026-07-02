@@ -147,7 +147,7 @@ Mode : Party Real (sous-agents) — N personas détectés — régime : <converg
 
 - **Débat = inline** : `/debate` reste **inline uniquement** — choix de design (les sous-agents n'apportent aucun gain pour un débat réactif), pas une limite technique.
 - **Régime des handoffs** : déclaré au PLAN — **convergent** (chaque agent lit les handoffs précédents : construction) ou **divergent** (chaque agent lit `context.md` uniquement : diagnostic/RCA, anti-ancrage). Détails : module party-mode.
-- **Gate intermédiaire** : vérifier chaque handoff (structure, budget ≤ 500 tokens, critères « Done quand » du persona) **avant** d'invoquer l'agent suivant. Non conforme → re-invoquer 1×, puis fallback.
+- **Gate intermédiaire** : vérifier chaque handoff (structure, budget — cible ~500, plafond 1000 tokens, pointeur > recopie, critères « Done quand » du persona) **avant** d'invoquer l'agent suivant. Non conforme → re-invoquer 1×, puis fallback.
 - **Nettoyage `.party/`** : purger au **démarrage** d'un Party Real (résidus d'une session interrompue = contexte périmé) **et** supprimer en **clôture**. Ne pas omettre.
 - **Fallback** : si `runSubagent` échoue → impersonation + handoff manuel.
 

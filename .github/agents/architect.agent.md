@@ -118,7 +118,7 @@ Template ADR : [`agents/templates/adr.md`](../../agents/templates/adr.md).
 3. Traiter uniquement les décisions d'architecture et de design dans le périmètre défini.
 
 ### Clôture de tour
-Écrire `.party/handoff-architect.md` au format strict (≤ 500 tokens / 2000 chars) :
+Écrire `.party/handoff-architect.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-architect

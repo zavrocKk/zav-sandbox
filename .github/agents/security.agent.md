@@ -112,7 +112,7 @@ Quand tu utilises une checklist, mentionne-le explicitement dans ton output : "*
 3. Analyser uniquement la surface de sécurité du périmètre défini dans `context.md`.
 
 ### Clôture de tour
-Écrire `.party/handoff-security.md` au format strict (≤ 500 tokens / 2000 chars) :
+Écrire `.party/handoff-security.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-security
