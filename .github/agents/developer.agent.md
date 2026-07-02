@@ -109,7 +109,7 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 3. Traiter uniquement le périmètre code applicatif.
 
 ### Clôture de tour
-Écrire `.party/handoff-developer.md` au format strict (≤ 500 tokens / 2000 chars) :
+Écrire `.party/handoff-developer.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-developer

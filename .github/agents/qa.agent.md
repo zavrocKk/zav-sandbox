@@ -115,7 +115,7 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 3. Analyser la stratégie de tests au regard des critères d'acceptation définis dans `context.md`.
 
 ### Clôture de tour
-Écrire `.party/handoff-qa.md` au format strict (≤ 500 tokens / 2000 chars) :
+Écrire `.party/handoff-qa.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-qa

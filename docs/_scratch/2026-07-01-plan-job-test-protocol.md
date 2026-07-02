@@ -46,6 +46,7 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | Régime divergent utilisé et utile (angles réellement différents) | Conserver ; sinon simplifier (retour au convergent seul) |
 | Besoin JIRA / ServiceNow / Confluence ressenti à chaque session | Ouvrir le chantier templates de sortie, puis évaluer MCP (ADR) |
 | Handoffs rejetés par le gate ≥ 2 fois | Les critères « Done quand » travaillent — les affiner par persona |
+| Handoffs systématiquement proches du plafond (1000) malgré la cible ~500 | Soit la cible est irréaliste (l'acter par ADR), soit la règle « pointeur > recopie » n'est pas appliquée (renforcer le gate) |
 
 ## 4. Journal des sessions
 

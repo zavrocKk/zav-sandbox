@@ -43,6 +43,7 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 | Cycle clos sans synthèse Scribe | Ajouter avant de terminer |
 | Dépassement N rounds sans synthèse | Couper, forcer le Scribe |
 | `.party/` non purgé au démarrage OU non supprimé à la clôture | Purger avant, supprimer après |
-| `context.md` ou `handoff-*.md` > 500 tokens | Condenser avant de passer au suivant |
+| `context.md` > 500 tokens OU `handoff-*.md` > 1000 tokens (plafond) | Condenser avant de passer au suivant |
+| Handoff gonflé sans signal (transcription, recopie d'un fichier du repo) | Cible ~500 tokens ; pointeur `voir path` plutôt que recopie |
 | Sous-agent qui lit les handoffs en régime **divergent** | Angle contaminé : re-invoquer sans les handoffs |
 | Handoff non conforme (sections manquantes, budget dépassé, « Done quand » non satisfait) | Gate orchestrateur : re-invoquer 1×, puis fallback |

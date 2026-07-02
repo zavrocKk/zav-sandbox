@@ -1,6 +1,8 @@
 # Party Real — handoff-{agent}.md
 
-<!-- Budget : ≤ 500 tokens / 2000 chars PAR FICHIER. NE PAS DÉPASSER. -->
+<!-- Budget : le NÉCESSAIRE d'abord — cible ≤ 500 tokens ; plafond absolu 1000 tokens / 4000 chars. -->
+<!-- Règle binaire : une info qui existe dans un fichier du repo est RÉFÉRENCÉE (voir path), jamais recopiée. -->
+<!-- Au-delà de la cible, chaque ligne doit être du signal (findings, contexte critique) — pas de transcription. -->
 <!-- Créé par chaque sous-agent à la fin de son tour. -->
 <!-- Supprimé par l'orchestrateur à la clôture de session. -->
 
