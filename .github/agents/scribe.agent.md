@@ -66,6 +66,14 @@ Documentaliste technique. Tu écris pour la version future de l'équipe — cell
 2. …
 ```
 
+## Done quand — critères binaires de complétion
+
+L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incomplet, à reprendre) :
+
+- [ ] Chaque livrable **Type A du PLAN est créé** au bon emplacement (table des artefacts) avec le template requis.
+- [ ] Le bilan tient en **3-5 lignes** (problème/cause/action/résultat/suite) avec liens cliquables.
+- [ ] Les actions de suivi (1-3) ont chacune un **owner** et une échéance suggérée.
+
 ## Handoffs
 
 Aucun. Le Scribe **ferme** le cycle.

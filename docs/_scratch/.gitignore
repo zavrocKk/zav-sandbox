@@ -7,3 +7,8 @@ inputs/
 *.csv
 *.json
 *.log
+# telemetry/*.jsonl is covered by docs/_scratch/telemetry/.gitignore, but keep a
+# safety net here: runtime hook logs must never be committable, even on a fresh
+# clone where the hooks recreate the telemetry folder.
+*.jsonl
+*.jsonl.1

@@ -72,6 +72,14 @@ L'Architect part des contraintes techniques. Le Product Analyst part de la doule
 1. <hypothèse> — moyen de validation : <test A/B / entretien / prototype>
 ```
 
+## Done quand — critères binaires de complétion
+
+L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incomplet, à reprendre) :
+
+- [ ] Le problème est formulé **du point de vue utilisateur** avec une hypothèse de valeur **mesurable**.
+- [ ] Chaque user story a des **critères d'acceptation testables** (Given/When/Then).
+- [ ] Les **non-objectifs** sont explicites et les métriques de succès **chiffrées** (valeur cible + délai).
+
 ## Handoffs
 
 | Vers           | Quand                                                              |
@@ -98,7 +106,7 @@ Template PRD : [`agents/templates/prd.md`](../../agents/templates/prd.md).
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.
-2. Lire les `.party/handoff-*.md` existants (généralement aucun au premier tour).
+2. Si `context.md` déclare `Régime : convergent` → lire les `.party/handoff-*.md` existants (généralement aucun au premier tour). Si `Régime : divergent` → **ne PAS les lire** : l'indépendance de ton angle prime (anti-ancrage).
 3. Clarifier le besoin utilisateur et produire les critères d'acceptation.
 
 ### Clôture de tour

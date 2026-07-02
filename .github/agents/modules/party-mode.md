@@ -66,8 +66,23 @@ Aucune borne supérieure.
 **Déclaration dans le PLAN** :
 
 ```
-Mode : Party Real (sous-agents) — N personas détectés
+Mode : Party Real (sous-agents) — N personas détectés — régime : <convergent|divergent>
 ```
+
+## Régime de lecture des handoffs — convergent vs divergent
+
+Le bénéfice cognitif du multi-personas est l'**indépendance des angles** (anti-ancrage).
+Or un sous-agent qui lit les handoffs de ses prédécesseurs avant de former son angle
+est **contaminé** par leurs conclusions. D'où deux régimes, choisis au PLAN :
+
+| Régime | Quand | Lecture des handoffs par les sous-agents |
+|---|---|---|
+| **Convergent** (défaut) | Chaque persona **construit sur** le travail du précédent : feature, pipeline, refonte, implémentation | `context.md` + tous les handoffs précédents (comportement historique) |
+| **Divergent** | Diagnostic multi-hypothèses, RCA, audit — l'indépendance des angles prime | `context.md` **UNIQUEMENT**. Seul le **Scribe** lit tous les handoffs et confronte les angles |
+
+Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pouvoir se
+**contredire** (divergent) ? Cause inconnue à diagnostiquer → divergent. Solution connue
+à construire → convergent. Le régime est déclaré dans `.party/context.md` (champ `Régime`).
 
 **Qui / Quand / Pourquoi** :
 
@@ -84,17 +99,23 @@ Mode : Party Real (sous-agents) — N personas détectés
 1. **Purger `.party/` s'il contient des fichiers** (résidus d'une session Party Real
    interrompue = contexte périmé à ne jamais réutiliser), puis créer
    `.party/context.md` (template [`party-context.md`](../../../agents/templates/party-context.md))
-   — objectif, scope, séquence agents.
-2. Pour chaque agent : `runSubagent("<agent>")` → lit `.party/context.md` + handoffs
-   précédents → produit → écrit `.party/handoff-<agent>.md` (≤ 500 tokens).
-3. Lire `handoff-scribe.md` (quality gate).
-4. **Supprimer `.party/`** (transitoire, `.gitignore`-d). Ne pas omettre.
+   — objectif, scope, séquence agents, **régime** (convergent / divergent).
+2. Pour chaque agent : `runSubagent("<agent>")` → lit `.party/context.md` (+ handoffs
+   précédents **en régime convergent uniquement**) → produit → écrit
+   `.party/handoff-<agent>.md` (≤ 500 tokens).
+3. **Gate intermédiaire (orchestrateur)** — avant d'invoquer l'agent suivant, vérifier le
+   handoff produit : 4 sections présentes, budget ≤ 500 tokens respecté, critères
+   « Done quand » du persona satisfaits (section dédiée de son `.agent.md`).
+   Handoff non conforme → re-invoquer l'agent (**1 seule fois**), puis fallback
+   impersonation si l'échec persiste. La qualité ne repose jamais sur le seul Scribe.
+4. Lire `handoff-scribe.md` (quality gate final).
+5. **Supprimer `.party/`** (transitoire, `.gitignore`-d). Ne pas omettre.
 
 **Fallback** : si `runSubagent` échoue → impersonne le persona + écrit le handoff
 manuellement → continue la séquence.
 
 **Agents disponibles** : `devops`, `developer`, `security`, `architect`, `qa`,
-`product-analyst`, `scribe`. Fichiers : `.github/agents/<agent>.agent.md`.
+`product-analyst`, `data-engineer`, `scribe`. Fichiers : `.github/agents/<agent>.agent.md`.
 
 **Débat = inline — choix de design, pas une limite technique.** Un débat est
 *réactif* : chaque persona doit voir l'argumentation complète des rounds précédents.
