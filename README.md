@@ -78,7 +78,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)
 │   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
 │   │   ├── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
-│   │   ├── observability-triage/        # 📡 Évidence Splunk/Datadog/CloudWatch/K8s-EKS (annexes reference/)
+│   │   ├── observability-triage/        # 📡 Évidence Splunk/Datadog/AWS (CloudWatch, Batch, FinOps, session SSO)/K8s-EKS
 │   │   ├── jira-issue/SKILL.md          # 🎫 Billet bug/defect prêt à coller (format Atlassian)
 │   │   ├── snow-change/SKILL.md         # 📋 Change request ITIL/ServiceNow (backout obligatoire)
 │   │   └── confluence-doc/SKILL.md      # 📚 Page Confluence par intention + fraîcheur
@@ -86,7 +86,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
 │       ├── secrets-scanner.ps1/.sh      # Stop : scan de secrets fin de session (warn-only)
 │       ├── agent-telemetry.ps1/.sh      # PostToolUse/Subagent* : journal JSONL passif
-│       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint
+│       ├── memory-nudge.ps1/.sh         # PreCompact/Stop : rappel /checkpoint + journal test terrain
 │       └── hooks.json                   # Config (activation manuelle via settings)
 ├── docs/                                # Tous les livrables produits par le Scribe
 │   ├── incidents/                       # Post-mortems (rapports d'incident)
