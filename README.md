@@ -96,6 +96,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │       ├── memory/                      # Checkpoints de reprise inter-sessions
 │       ├── mvp-inputs/                  # Fixtures synthétiques de test (versionnées)
 │       └── telemetry/                   # Télémétrie runtime (git-ignorée)
+├── .env.example                         # Gabarit jetons JIRA/Confluence/Control-M → copier vers .env (git-ignoré)
 └── README.md
 ```
 
