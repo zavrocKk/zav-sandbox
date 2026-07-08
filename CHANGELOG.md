@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.18](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.17...v0.1.18) (2026-07-08)
+
+
+### Features
+
+* **skills:** AWS annexes (session/Batch/FinOps/K8s + DynamoDB/RDS/EC2/S3) + workflow wiring ([#149](https://github.com/zavrocKk/zav-sandbox/issues/149)) ([930b4e1](https://github.com/zavrocKk/zav-sandbox/commit/930b4e179198a8f43b3347da36404f9eb3285a71))
+
 ## [0.1.17](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.16...v0.1.17) (2026-07-08)
 
 
