@@ -15,7 +15,7 @@ L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspecti
 
 Deux axes — **format** (Panel / Débat) × **mécanisme** (inline / sous-agents) — sélectionnés automatiquement par l'orchestrateur. « Party Real » = Panel exécuté en sous-agents (3+ personas) :
 
-| | **Panel inline** (1-2 personas, mode minoritaire) | **Party Real** (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
+| | **Panel inline** (1-2 personas, mode minoritaire) | **Panel en sous-agents** — dit « Party Real » (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
 |---|---|---|---|
 | Quand | Problème **fermé**, session très courte | Workflow complet ou multi-angle (≥ 3 personas) | Problème **ouvert** |
 | Travail type | Question rapide à 2 angles, mini-design | Feature, audit, incident, stratégie tests, pipeline | Brainstorming, arbitrage |

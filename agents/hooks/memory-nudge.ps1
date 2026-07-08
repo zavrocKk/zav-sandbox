@@ -12,5 +12,7 @@
 # partout, independamment de la console ou du profil PowerShell actif.
 $ErrorActionPreference = 'Stop'
 $null = [Console]::In.ReadToEnd()
-Write-Output '{"systemMessage":"Memoire persistante : pense a /checkpoint pour sauver l etat du fil dans docs/_scratch/memory/ avant de perdre du contexte."}'
+# Le rappel "journal de session" est temporaire : a retirer quand le test terrain
+# (docs/_scratch/2026-07-01-plan-job-test-protocol.md) sera clos.
+Write-Output '{"systemMessage":"Memoire persistante : pense a /checkpoint pour sauver l etat du fil dans docs/_scratch/memory/ avant de perdre du contexte. Test terrain en cours : logue la session (tours / confirmations / routage) dans le journal section 4 de docs/_scratch/2026-07-01-plan-job-test-protocol.md."}'
 exit 0
