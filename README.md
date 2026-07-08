@@ -77,7 +77,11 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   │   └── party-handoff.md             # Template handoff-{agent}.md pour /party-real
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)
 │   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
-│   │   └── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
+│   │   ├── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
+│   │   ├── observability-triage/        # 📡 Évidence Splunk/Datadog/CloudWatch (annexes reference/)
+│   │   ├── jira-issue/SKILL.md          # 🎫 Billet bug/defect prêt à coller (format Atlassian)
+│   │   ├── snow-change/SKILL.md         # 📋 Change request ITIL/ServiceNow (backout obligatoire)
+│   │   └── confluence-doc/SKILL.md      # 📚 Page Confluence par intention + fraîcheur
 │   └── hooks/                           # Agent hooks VS Code (opt-in, OFF par défaut)
 │       ├── security-guard.ps1/.sh       # PreToolUse : confirmation sur commandes destructives
 │       ├── secrets-scanner.ps1/.sh      # Stop : scan de secrets fin de session (warn-only)

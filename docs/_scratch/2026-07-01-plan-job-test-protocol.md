@@ -44,7 +44,8 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | Sous-agents rarement déclenchés (télémétrie `SubagentStart` ≈ 0) | Party Real reste tel quel — dé-prioriser son optimisation |
 | Tours toujours élevés malgré le mode playbook | Chercher le goulot suivant (SYNTHESIS trop lourde ? relances ?) |
 | Régime divergent utilisé et utile (angles réellement différents) | Conserver ; sinon simplifier (retour au convergent seul) |
-| Besoin JIRA / ServiceNow / Confluence ressenti à chaque session | Ouvrir le chantier templates de sortie, puis évaluer MCP (ADR) |
+| Besoin JIRA / ServiceNow / Confluence ressenti à chaque session | Skills de sortie livrées (ADR-0015) : les adapter à l'instance (fixtures `mvp-inputs/`), puis évaluer MCP (ADR) |
+| Skills mal sélectionnées entre les 4 de la famille analyste (mauvais matching de description) | Affiner les `description` des SKILL.md concernées (ADR-0015) |
 | Handoffs rejetés par le gate ≥ 2 fois | Les critères « Done quand » travaillent — les affiner par persona |
 | Handoffs systématiquement proches du plafond (1000) malgré la cible ~500 | Soit la cible est irréaliste (l'acter par ADR), soit la règle « pointeur > recopie » n'est pas appliquée (renforcer le gate) |
 | Routage `bilan-remediation` confondu avec incident-response / code-analysis ≥ 2 fois | Affiner la désambiguïsation du mapping (ADR-0014) |
