@@ -78,7 +78,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)
 │   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
 │   │   ├── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
-│   │   ├── observability-triage/        # 📡 Évidence Splunk/Datadog/CloudWatch (annexes reference/)
+│   │   ├── observability-triage/        # 📡 Évidence Splunk/Datadog/CloudWatch/K8s-EKS (annexes reference/)
 │   │   ├── jira-issue/SKILL.md          # 🎫 Billet bug/defect prêt à coller (format Atlassian)
 │   │   ├── snow-change/SKILL.md         # 📋 Change request ITIL/ServiceNow (backout obligatoire)
 │   │   └── confluence-doc/SKILL.md      # 📚 Page Confluence par intention + fraîcheur

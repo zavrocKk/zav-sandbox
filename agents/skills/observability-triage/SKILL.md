@@ -1,7 +1,7 @@
 ---
 name: observability-triage
 version: "1.0.0"
-description: Méthode d'extraction d'évidence depuis les outils d'observabilité — Splunk, Datadog, AWS CloudWatch (annexes reference/) — pour étayer un diagnostic ou un bilan. Golden signals, rétrécissement temps → service → classe d'erreur, règle de preuve re-exécutable (requête exacte + fenêtre + extrait anonymisé). À utiliser en phase Diagnostic d'un incident ou en phase Analyse d'un bilan, quand il faut transformer « ça a l'air cassé » en évidence citable.
+description: Méthode d'extraction d'évidence depuis les outils d'observabilité — Splunk, Datadog, AWS CloudWatch, Kubernetes/EKS (annexes reference/) — pour étayer un diagnostic ou un bilan. Golden signals, rétrécissement temps → service → classe d'erreur, règle de preuve re-exécutable (requête exacte + fenêtre + extrait anonymisé). À utiliser en phase Diagnostic d'un incident ou en phase Analyse d'un bilan, quand il faut transformer « ça a l'air cassé » en évidence citable.
 ---
 
 # Observability Triage — de l'alerte à la preuve
@@ -9,8 +9,9 @@ description: Méthode d'extraction d'évidence depuis les outils d'observabilit�
 Méthode **outil-agnostique** pour extraire de l'évidence exploitable. La syntaxe
 par outil vit dans les annexes : [`reference/splunk.md`](reference/splunk.md),
 [`reference/datadog.md`](reference/datadog.md),
-[`reference/aws-cloudwatch.md`](reference/aws-cloudwatch.md). Ajouter un outil =
-ajouter une annexe, pas une skill.
+[`reference/aws-cloudwatch.md`](reference/aws-cloudwatch.md),
+[`reference/kubernetes-eks.md`](reference/kubernetes-eks.md) (kubectl/k9s).
+Ajouter un outil = ajouter une annexe, pas une skill.
 
 Skill de **méthode** : elle guide ce que l'analyste exécute dans ses outils et
 comment il en documente le résultat. Aucune connexion, aucun appel API — les
