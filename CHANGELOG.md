@@ -2,6 +2,18 @@
 
 ---
 
+## [0.1.17](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.16...v0.1.17) (2026-07-08)
+
+
+### Features
+
+* **skills:** analyst skills family — evidence in, tool formats out (ADR-0015) ([#147](https://github.com/zavrocKk/zav-sandbox/issues/147)) ([f19b818](https://github.com/zavrocKk/zav-sandbox/commit/f19b8181a78bd86a2e7c4ad95eb67838e08c5ad5))
+
+
+### Bug Fixes
+
+* **framework:** README party-mode label + field-test journal nudge ([#146](https://github.com/zavrocKk/zav-sandbox/issues/146)) ([d514988](https://github.com/zavrocKk/zav-sandbox/commit/d514988dc704bfc0f961acd3804ffbcfbc49ed2e))
+
 ## [0.1.16](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.15...v0.1.16) (2026-07-08)
 
 
