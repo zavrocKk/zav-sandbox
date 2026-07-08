@@ -2,9 +2,9 @@
 name: party-mode
 version: "2.1.0"
 description: >
-  Index des modes d'orchestration multi-personas (Panel, Débat, Party Real sous-agents)
+  Index des modes d'orchestration multi-personas (Panel, Débat, Party mode (sous-agents) sous-agents)
   et cheat-sheet des anti-patterns. À charger quand une session implique plusieurs personas
-  ou qu'un rappel des règles Panel/Débat/Party-Real est nécessaire. Ne pas utiliser pour une
+  ou qu'un rappel des règles Panel/Débat/Party mode (sous-agents) est nécessaire. Ne pas utiliser pour une
   tâche mono-persona ou une question simple.
 ---
 
@@ -20,7 +20,7 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 | Règle de bascule (1 / 2 / 3+ personas, `/debate`) | [`.github/agents/orchestrator.agent.md`](../../../.github/agents/orchestrator.agent.md) § OUVERTURE DE SESSION |
 | Sémantique + format Panel (carte d'angle, critères, tiebreaker) | [`agents/protocols/light-panel.md`](../../../agents/protocols/light-panel.md) |
 | Sémantique Débat (N rounds, garde-fou, formats) | [`agents/protocols/debate.md`](../../../agents/protocols/debate.md) |
-| Mécanique Party Real (sous-agents, flow `.party/`, budgets, fallback) | [`.github/agents/modules/party-mode.md`](../../../.github/agents/modules/party-mode.md) |
+| Mécanique Party mode (sous-agents) (sous-agents, flow `.party/`, budgets, fallback) | [`.github/agents/modules/party-mode.md`](../../../.github/agents/modules/party-mode.md) |
 | Reprise de session (checkpoint) | [`.github/agents/modules/memory.md`](../../../.github/agents/modules/memory.md) |
 
 ## Rappel express
@@ -29,7 +29,7 @@ Rien n'est redéfini ici — seul le cheat-sheet des anti-patterns est consolid�
 
 - **Panel** (format) — 1 passe, chaque persona 1 carte d'angle (3 lignes), aucune réaction inter-persona → Scribe synthétise.
 - **Débat** (`/debate`, format) — N rounds de réactions croisées, garde-fou max rounds, synthèse Scribe forcée. **Inline uniquement** (choix de design : aucun gain sous-agents pour un débat réactif).
-- **Party Real** (mécanisme) — **Panel × sous-agents** : 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais `/party-real`). Deux **régimes** de lecture des handoffs : **convergent** (construction séquentielle, défaut) / **divergent** (diagnostic — chaque agent lit `context.md` seulement, anti-ancrage). Source : module party-mode.
+- **Party mode (sous-agents)** (mécanisme) — **Panel × sous-agents** : 3+ personas → sous-agents réels via `.party/`, décidé automatiquement par l'orchestrateur (l'utilisateur ne tape jamais Party mode (sous-agents)). Deux **régimes** de lecture des handoffs : **convergent** (construction séquentielle, défaut) / **divergent** (diagnostic — chaque agent lit `context.md` seulement, anti-ancrage). Source : module party-mode.
 
 ---
 

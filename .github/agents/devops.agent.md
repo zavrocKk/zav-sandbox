@@ -107,7 +107,7 @@ Quand tu utilises une checklist, mentionne-le explicitement dans ton output : "*
 
 Checklists obligatoires : [`agents/checklists/incident-triage.md`](../../agents/checklists/incident-triage.md), [`agents/checklists/pre-deploy.md`](../../agents/checklists/pre-deploy.md).
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

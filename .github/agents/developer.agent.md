@@ -101,7 +101,7 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 
 > Règle clé : si le bug vient de l’infra ou du runtime → DevOps. Si le bug vient du code → Developer.
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

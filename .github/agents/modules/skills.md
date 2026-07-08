@@ -36,7 +36,7 @@ ORDRE des phases). Une skill est invoquée *par* un persona, elle n'orchestre ri
 | Skill | Fichier | Quand l'invoquer |
 |---|---|---|
 | 🔍 root-cause-analysis | [`agents/skills/root-cause-analysis/SKILL.md`](../../../agents/skills/root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique (5 Pourquoi / Ishikawa) — phase « Cause racine » d'un incident, problème opérationnel récurrent |
-| 🎉 party-mode | [`agents/skills/party-mode/SKILL.md`](../../../agents/skills/party-mode/SKILL.md) | Index des modes multi-personas (Panel/Débat/Party Real) + cheat-sheet anti-patterns — session multi-personas, rappel des règles |
+| 🎉 party-mode | [`agents/skills/party-mode/SKILL.md`](../../../agents/skills/party-mode/SKILL.md) | Index des modes multi-personas (Panel/Débat/Party mode (sous-agents)) + cheat-sheet anti-patterns — session multi-personas, rappel des règles |
 | 📡 observability-triage | [`agents/skills/observability-triage/SKILL.md`](../../../agents/skills/observability-triage/SKILL.md) | Extraire une évidence re-exécutable depuis Splunk / Datadog / AWS (CloudWatch : ALB, Lambda, ECS, SQS, DynamoDB, RDS, EC2, S3 ; Batch ; FinOps ; session SSO) / Kubernetes-EKS — Diagnostic (incident), Analyse (bilan), anomalie de coût |
 | 🎫 jira-issue | [`agents/skills/jira-issue/SKILL.md`](../../../agents/skills/jira-issue/SKILL.md) | Billet JIRA bug/defect prêt à coller — préparer un ticket, ou convertir un finding de bilan (sortie markdown, aucune connexion) |
 | 📋 snow-change | [`agents/skills/snow-change/SKILL.md`](../../../agents/skills/snow-change/SKILL.md) | Change request ServiceNow au format ITIL, backout plan obligatoire (sortie markdown, aucune connexion) |
