@@ -8,8 +8,16 @@ Réponse à un incident en production : panne, alerte, dégradation, comportemen
 flowchart LR
   T[1. Triage<br/>🛠️ DevOps] --> D[2. Diagnostic<br/>🛠️ DevOps + 💻 Dev]
   D --> M{3. Mitigation<br/>⚠️ confirm user}
-  M --> R[4. Cause racine<br/>persona variable]
-  R --> H[5. Durcissement<br/>🏗️ Architect ± autres]
+  M -->|refusée ou échec| D
+  M -->|appliquée| R{4. Cause racine<br/>routage par hypothèse}
+  R -->|applicative| DEV[💻 Developer]
+  R -->|infra / plateforme| OPS[🛠️ DevOps]
+  R -->|sécurité ⚠️ escalade| SEC[🔒 Security]
+  R -->|multi-domaines| PAN[Panel divergent]
+  DEV --> H[5. Durcissement<br/>🏗️ Architect ± autres]
+  OPS --> H
+  SEC --> H
+  PAN --> H
   H --> P[6. Post-mortem<br/>📝 Scribe]
 ```
 
@@ -29,6 +37,7 @@ flowchart LR
 - **Phase 1 (Triage) — utiliser la checklist** `agents/checklists/incident-triage.md` dès le déclenchement. Couvrir les 2 premières minutes avant tout diagnostic.
 
 - **Phase 3 (Mitigation) bloque sur confirmation utilisateur** dès que l'action est destructive ou irréversible (rollback, restart de service en prod, purge de cache, modification de config live).
+- **Mitigation refusée ou inefficace → retour phase 2 (Diagnostic)** avec une nouvelle hypothèse. Jamais de passage en force ni de ré-application de la même action.
 - Le DevOps ouvre toujours, le Scribe ferme toujours.
 - **Phase 4 (Cause racine) — choix du persona** selon la nature des hypothèses qualifiées en phase 2 :
   - Hypothèses applicatives (logique, memory leak, query) → 💻 Developer

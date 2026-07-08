@@ -62,6 +62,7 @@ Quand le custom agent `orchestrator` est actif, suis en plus les règles défini
 | Runbook | `docs/runbooks/` | `<system>-<topic>.md` |
 | PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
 | Rapport d'analyse / audit | `docs/` | `YYYY-MM-DD-<type>-<slug>.md` |
+| Bilan d'analyse (remise développeur, cycle `bilan-remediation`) | `docs/` | `YYYY-MM-DD-bilan-<slug>.md` |
 | Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
 | Handoff de phase | `docs/_scratch/` | `YYYY-MM-DD-handoff-<topic>.md` |
 | Plan d'action opérationnel | `docs/_scratch/` | `YYYY-MM-DD-plan-<topic>.md` |
@@ -102,6 +103,6 @@ Avant de créer un fichier, appliquer cet arbre :
 | Type | Chemin |
 |---|---|
 | Checklists | `agents/checklists/incident-triage.md`, `security-review.md`, `pre-deploy.md` |
-| Templates | `agents/templates/incident-report.md`, `adr.md`, `prd.md` |
-| Workflows | `agents/workflows/incident-response.md`, `code-analysis.md`, `feature-development.md`, `architecture-design.md`, `data-pipeline.md` |
+| Templates | `agents/templates/incident-report.md`, `adr.md`, `prd.md`, `bilan.md` |
+| Workflows | `agents/workflows/incident-response.md`, `code-analysis.md`, `bilan-remediation.md`, `feature-development.md`, `architecture-design.md`, `data-pipeline.md` |
 | Protocoles | `agents/protocols/preflight.md` |

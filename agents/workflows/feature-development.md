@@ -9,8 +9,9 @@ flowchart LR
   P[1. Cadrage produit<br/>📊 Product Analyst] --> C[2. Cadrage archi<br/>🏗️ Architect]
   C --> S[3. Sécurité by design<br/>🔒 Security]
   S --> I[4. Implémentation<br/>💻 Dev]
-  I --> Q[5. Stratégie de tests<br/>🧪 QA]
-  Q --> O[6. Infra / déploiement<br/>🛠️ DevOps]
+  I --> Q{5. Stratégie de tests<br/>🧪 QA}
+  Q -->|gaps bloquants| I
+  Q -->|critères phase 1 couverts| O[6. Infra / déploiement<br/>🛠️ DevOps]
   O --> D[7. Doc + ADR si besoin<br/>📝 Scribe]
 ```
 
@@ -33,7 +34,7 @@ flowchart LR
 - **Phase 1 obligatoire** : le Product Analyst produit un PRD léger (template `agents/templates/prd.md`) avec les critères d'acceptation **avant** tout design technique.
 - **Phase 2** : l'Architect part des critères d'acceptation du Product Analyst pour proposer des options.
 - La **sécurité by design** est obligatoire dès qu'il y a : input externe, données utilisateur, secret, intégration tierce, endpoint exposé.
-- La **phase QA** valide que la stratégie de tests couvre les critères d'acceptation définis en phase 1 (boucle fermée).
+- La **phase QA** valide que la stratégie de tests couvre les critères d'acceptation définis en phase 1 (boucle fermée). Un gap **bloquant** (critère d'acceptation non couvert) renvoie en phase 4 (Implémentation) ; un gap mineur est consigné dans le livrable sans bloquer.
 - L'**ADR** n'est produit que si la feature implique un choix structurant (techno, pattern, contrat d'API public). Sinon une simple note suffit.
 - Le DevOps valide qu'il y a au moins **une métrique** et **une alerte** liées à la nouvelle feature.
 

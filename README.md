@@ -62,6 +62,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   ├── workflows/
 │   │   ├── incident-response.md         # Panne / alerte production
 │   │   ├── code-analysis.md             # Audit / review d'un module
+│   │   ├── bilan-remediation.md         # Bilan d'analyse → remise dev → vérification fix
 │   │   ├── feature-development.md       # Nouvelle fonctionnalité
 │   │   ├── architecture-design.md       # Choix techno, refonte
 │   │   ├── data-pipeline.md             # ETL, migration, modélisation BI
@@ -71,6 +72,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   │   ├── adr.md                       # Architecture Decision Record (Nygard)
 │   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions
 │   │   ├── prd.md                       # Product Requirements Document léger
+│   │   ├── bilan.md                     # Bilan d'analyse destiné à un développeur
 │   │   ├── party-context.md             # Template context.md pour /party-real
 │   │   └── party-handoff.md             # Template handoff-{agent}.md pour /party-real
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)

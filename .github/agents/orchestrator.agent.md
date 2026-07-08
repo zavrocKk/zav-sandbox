@@ -117,6 +117,7 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 | ----------------------------------------------------- | ----------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------- |
 | Panne, alerte, comportement anormal prod              | `agents/workflows/incident-response.md`   | `agents/checklists/incident-triage.md`         | DevOps → Dev → Architect → Scribe                                         |
 | Audit / review d'un module existant                   | `agents/workflows/code-analysis.md`       | `agents/checklists/security-review.md`         | Dev → QA → Security → Architect → Scribe                                  |
+| Bilan d'analyse à remettre à un dev / vérification d'un fix remis | `agents/workflows/bilan-remediation.md` | —                                    | Persona domaine (Dev/DevOps/Security) → Scribe ; vérification : QA + persona d'origine → Scribe |
 | Nouvelle fonctionnalité                               | `agents/workflows/feature-development.md` | —                                              | Product Analyst → Architect → Security → Dev → QA → DevOps → Scribe       |
 | Choix techno, refonte, design système                 | `agents/workflows/architecture-design.md` | —                                              | Architect → Security → DevOps → Architect → Scribe                        |
 | Pipeline data, ETL, migration schéma, modélisation BI | `agents/workflows/data-pipeline.md`       | —                                              | Product Analyst → Data Engineer → Security → Data Engineer + Dev → DevOps → QA → Scribe |
@@ -125,6 +126,13 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 | Cadrage / validation d'une idée feature               | (ad-hoc)                                  | —                                              | Product Analyst → Architect → Scribe                                      |
 | Question simple / one-shot                            | (aucun workflow)                          | —                                              | Persona unique le plus pertinent → Scribe                                 |
 | Découverte / premier démarrage                        | `agents/workflows/onboarding.md`          | —                                              | Scribe                                                                    |
+
+> **Désambiguïsation** : incident en cours à mitiger → `incident-response` ; audit complet d'un
+> module → `code-analysis` ; livrable = **bilan destiné à un tiers** ou **vérification d'un fix
+> remis** → `bilan-remediation`.
+> **Exclusion playbook (validation terrain)** : `bilan-remediation` ne bénéficie **pas** du mode
+> playbook — CONFIRM obligatoire tant que le protocole de test 2026-07-01 n'a pas levé
+> l'exclusion (ADR-0014).
 
 **Sorties attendues des scénarios ad-hoc** (sans fichier workflow — contrat minimal) :
 
