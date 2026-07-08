@@ -43,5 +43,5 @@ github-copilot.mcp.json
 .env.*
 !.env.example
 
-# Party Real — artefacts transitoires inter-agents (supprimés à la clôture de session)
+# Party mode (sous-agents) — artefacts transitoires inter-agents (supprimés à la clôture de session)
 .party/
