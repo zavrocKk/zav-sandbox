@@ -6,9 +6,11 @@
 
 ## Pré-requis de session
 
+Session AWS **vérifiée** d'abord — profil SSO, `aws sso login`,
+`get-caller-identity` : voir [`aws-session.md`](aws-session.md). Puis :
+
 ```text
-<cloudlogin / aws sso login>                     # session SSO active
-aws eks update-kubeconfig --name <cluster> --region <region>
+aws eks update-kubeconfig --name <cluster> --region <region> --profile <profil>
 ```
 
 ## Étape 2 — golden signals (état des pods)

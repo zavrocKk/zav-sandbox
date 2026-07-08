@@ -1,8 +1,9 @@
 # Annexe AWS CloudWatch — logs, métriques, alarmes
 
 > Annexe de [`observability-triage`](../SKILL.md). La méthode vit dans la skill ;
-> ici, seulement la syntaxe. Comptes/régions/ARN = à rédiger (`<REDACTED>`) dans
-> les preuves versionnées.
+> ici, seulement la syntaxe. Pré-requis : session vérifiée
+> ([`aws-session.md`](aws-session.md)). Comptes/régions/ARN = à rédiger
+> (`<REDACTED>`) dans les preuves versionnées.
 
 ## Par symptôme — où regarder d'abord
 
