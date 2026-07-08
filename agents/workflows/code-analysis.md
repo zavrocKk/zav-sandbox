@@ -7,11 +7,18 @@ Audit / review d'un module, d'un repo ou d'un domaine fonctionnel existant.
 ```mermaid
 flowchart LR
   I[1. Inventaire<br/>💻 Dev] --> Q[2. Qualité code<br/>💻 Dev]
-  Q --> T[3. Qualité tests<br/>🧪 QA]
-  T --> S[4. Sécurité<br/>🔒 Security]
-  S --> A[5. Architecture<br/>🏗️ Architect]
-  A --> P[6. Synthèse priorisée<br/>📝 Scribe]
+  I --> T[3. Qualité tests<br/>🧪 QA]
+  I --> S[4. Sécurité<br/>🔒 Security]
+  I --> A[5. Architecture<br/>🏗️ Architect]
+  Q --> P[6. Synthèse priorisée<br/>📝 Scribe]
+  T --> P
+  S --> P
+  A --> P
 ```
+
+> Les phases 2 à 5 sont des **angles indépendants** sur le même code — en Party Real,
+> régime **divergent** : chaque persona ne lit que `context.md`, seul le Scribe confronte
+> les angles. Voir [`.github/agents/modules/party-mode.md`](../../.github/agents/modules/party-mode.md).
 
 ## Personas par étape
 
