@@ -1,8 +1,9 @@
 # Annexe AWS CloudWatch — logs, métriques, alarmes
 
 > Annexe de [`observability-triage`](../SKILL.md). La méthode vit dans la skill ;
-> ici, seulement la syntaxe. Comptes/régions/ARN = à rédiger (`<REDACTED>`) dans
-> les preuves versionnées.
+> ici, seulement la syntaxe. Pré-requis : session vérifiée
+> ([`aws-session.md`](aws-session.md)). Comptes/régions/ARN = à rédiger
+> (`<REDACTED>`) dans les preuves versionnées.
 
 ## Par symptôme — où regarder d'abord
 
@@ -12,6 +13,10 @@
 | Lambda en erreur | `Errors`, `Throttles`, `Duration` (p99), `ConcurrentExecutions` | Logs Insights sur le log group |
 | ECS dégradé | `CPUUtilization`, `MemoryUtilization` + **Service events** (console ECS) | Logs conteneur |
 | File qui gonfle | SQS `ApproximateAgeOfOldestMessage`, `ApproximateNumberOfMessagesVisible` | Consommateur (Lambda/ECS) |
+| DynamoDB lent / rejets | `ThrottledRequests`, `Read/WriteThrottleEvents`, `ConsumedRead/WriteCapacityUnits` vs provisionné, `SystemErrors` | `UserErrors` = côté client (mauvaise requête), pas la table ; throttling localisé = hot partition probable |
+| RDS dégradé | `CPUUtilization`, `DatabaseConnections` (vs `max_connections`), `FreeableMemory`, `FreeStorageSpace`, `Read/WriteLatency` | `aws rds describe-events` (failover, maintenance) ; Performance Insights si activé ; logs error/slowquery si exportés vers CloudWatch |
+| EC2 instable | `StatusCheckFailed_System` (AWS) vs `StatusCheckFailed_Instance` (OS), `CPUUtilization`, `CPUCreditBalance` (familles t*) | ⚠️ pas de métrique mémoire/disque native — CloudWatch Agent requis |
+| S3 erreurs / lenteur | `5xxErrors`, `4xxErrors`, `FirstByteLatency` (request metrics — **opt-in**) | Server access logs si activés ; sinon côté client appelant |
 
 ## Étapes 2-3 — Logs Insights (rétrécir)
 

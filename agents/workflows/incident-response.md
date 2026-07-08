@@ -36,6 +36,11 @@ flowchart LR
 
 - **Phase 1 (Triage) — utiliser la checklist** `agents/checklists/incident-triage.md` dès le déclenchement. Couvrir les 2 premières minutes avant tout diagnostic.
 
+- **Phase 2 (Diagnostic) — invoquer la skill** [`observability-triage`](../skills/observability-triage/SKILL.md)
+  pour la collecte d'évidence : golden signals, rétrécissement, preuve **re-exécutable**
+  (requête exacte + fenêtre UTC + extrait anonymisé). Ne charger que l'annexe `reference/`
+  de l'outil concerné (Splunk, Datadog, CloudWatch, Kubernetes-EKS).
+
 - **Phase 3 (Mitigation) bloque sur confirmation utilisateur** dès que l'action est destructive ou irréversible (rollback, restart de service en prod, purge de cache, modification de config live).
 - **Mitigation refusée ou inefficace → retour phase 2 (Diagnostic)** avec une nouvelle hypothèse. Jamais de passage en force ni de ré-application de la même action.
 - Le DevOps ouvre toujours, le Scribe ferme toujours.

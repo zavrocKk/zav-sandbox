@@ -36,6 +36,14 @@ flowchart LR
   **non conforme** — pas de passage en phase 3. Objectif : le bilan enseigne la méthode
   (trajectoire SRE de l'analyste), pas seulement le résultat. Pour structurer l'analyse,
   invoquer la skill [`root-cause-analysis`](../skills/root-cause-analysis/SKILL.md).
+- **Phase 2 — collecte d'évidence** : invoquer la skill
+  [`observability-triage`](../skills/observability-triage/SKILL.md) (charger uniquement
+  l'annexe de l'outil concerné) — les champs Signal et Preuve en sortent conformes
+  (requête + fenêtre UTC + extrait) sans coller de dump brut en session.
+- **Phase 5 — format du paquet** : si l'outil cible est connu, invoquer la skill de
+  format correspondante — [`jira-issue`](../skills/jira-issue/SKILL.md),
+  [`snow-change`](../skills/snow-change/SKILL.md) ou
+  [`confluence-doc`](../skills/confluence-doc/SKILL.md). Sinon, markdown générique.
 - **Critère de vérification écrit avant remise** : chaque recommandation porte un critère
   **binaire et observable** (« le endpoint X répond < 200 ms », « le log Y n'apparaît plus
   sur 24 h »). Pas de critère → pas de remise.
