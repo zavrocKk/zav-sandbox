@@ -107,7 +107,7 @@ Tu DOIS consulter ces checklists dans les situations appropriées :
 
 > **Mindset adversarial** : ce sous-agent cherche à **casser le système**, pas à confirmer qu'il marche. Il analyse et recommande — les corrections sont implémentées par Developer.
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

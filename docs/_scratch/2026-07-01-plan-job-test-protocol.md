@@ -41,7 +41,7 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | Observation | Décision à prendre |
 |---|---|
 | Routage erroné ≥ 2 fois | Ouvrir le chantier roster (personas dormants, table allégée) |
-| Sous-agents rarement déclenchés (télémétrie `SubagentStart` ≈ 0) | Party Real reste tel quel — dé-prioriser son optimisation |
+| Sous-agents rarement déclenchés (télémétrie `SubagentStart` ≈ 0) | Party mode (sous-agents) reste tel quel — dé-prioriser son optimisation |
 | Tours toujours élevés malgré le mode playbook | Chercher le goulot suivant (SYNTHESIS trop lourde ? relances ?) |
 | Régime divergent utilisé et utile (angles réellement différents) | Conserver ; sinon simplifier (retour au convergent seul) |
 | Besoin JIRA / ServiceNow / Confluence ressenti à chaque session | Skills de sortie livrées (ADR-0015) : les adapter à l'instance (fixtures `mvp-inputs/`), puis évaluer MCP (ADR) |

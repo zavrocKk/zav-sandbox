@@ -17,7 +17,7 @@ Deux axes indépendants :
 - **Format** (interaction des personas) : `persona-unique` | `Panel` (une passe, aucune réaction) | `Débat` (N rounds réactifs).
 - **Mécanisme** (exécution) : `inline` (impersonation) | `sous-agents` (`runSubagent` + `.party/`).
 
-« **Party Real** » n'est pas un format à part : c'est **Panel × sous-agents** (3+ personas).
+« **Party mode (sous-agents)** » — anciennement « Party Real » (ADR-0013) — n'est pas un format à part : c'est **Panel × sous-agents** (3+ personas).
 Le mécanisme se choisit par nombre de personas (voir orchestrator § OUVERTURE).
 
 ---
@@ -57,16 +57,16 @@ Protocole complet, formats et garde-fou : [`agents/protocols/debate.md`](../../.
 
 ---
 
-## Party Real — sous-agents réels (3+ personas, défaut multi-persona)
+## Party mode (sous-agents) — sous-agents réels (3+ personas, défaut multi-persona)
 
 Dès que le PLAN liste **3+ personas** ou un **workflow complet**, l'orchestrateur
-bascule **automatiquement** en `/party-real` (l'utilisateur ne tape rien).
+bascule **automatiquement** en Party mode sous-agents (l'utilisateur ne tape rien).
 Aucune borne supérieure.
 
 **Déclaration dans le PLAN** :
 
 ```
-Mode : Party Real (sous-agents) — N personas détectés — régime : <convergent|divergent>
+Mode : Party mode (sous-agents) — N personas détectés — régime : <convergent|divergent>
 ```
 
 ## Régime de lecture des handoffs — convergent vs divergent
@@ -96,7 +96,7 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
 
 **Flow opérationnel** :
 
-1. **Purger `.party/` s'il contient des fichiers** (résidus d'une session Party Real
+1. **Purger `.party/` s'il contient des fichiers** (résidus d'une session Party mode
    interrompue = contexte périmé à ne jamais réutiliser), puis créer
    `.party/context.md` (template [`party-context.md`](../../../agents/templates/party-context.md))
    — objectif, scope, séquence agents, **régime** (convergent / divergent).

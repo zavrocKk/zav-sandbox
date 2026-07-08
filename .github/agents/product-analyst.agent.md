@@ -102,7 +102,7 @@ Template PRD : [`agents/templates/prd.md`](../../agents/templates/prd.md).
 
 > **Règle d'ordre** : le Product Analyst est **toujours invoqué en premier** sur une feature. L'Architect ne démarre pas sans ses critères d'acceptation.
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

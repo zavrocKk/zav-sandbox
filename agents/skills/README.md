@@ -15,7 +15,7 @@ Règles complètes : [`.github/agents/modules/skills.md`](../../.github/agents/m
 | Skill | Description | Quand l'invoquer | Auteur | Date |
 |---|---|---|---|---|
 | 🔍 [root-cause-analysis](root-cause-analysis/SKILL.md) | Remonter d'un symptôme à sa cause systémique via 5 Pourquoi / Ishikawa | Phase « Cause racine » d'un incident ou problème opérationnel récurrent | Zav | 2026-05-30 |
-| 🎉 [party-mode](party-mode/SKILL.md) | Index des modes multi-personas (Panel/Débat/Party Real) + cheat-sheet anti-patterns | Session multi-personas, rappel des règles Panel/Débat/Party-Real | Zav | 2026-06-08 |
+| 🎉 [party-mode](party-mode/SKILL.md) | Index des modes multi-personas (Panel/Débat/Party mode (sous-agents)) + cheat-sheet anti-patterns | Session multi-personas, rappel des règles Panel/Débat/Party mode (sous-agents) | Zav | 2026-06-08 |
 | 📡 [observability-triage](observability-triage/SKILL.md) | Extraire une évidence re-exécutable (requête + fenêtre UTC + extrait) depuis Splunk / Datadog / AWS (CloudWatch : ALB, Lambda, ECS, SQS, DynamoDB, RDS, EC2, S3 ; Batch ; FinOps ; session SSO) / Kubernetes-EKS (annexes `reference/`) | Phase Diagnostic d'un incident, Analyse d'un bilan, ou anomalie de coût AWS | Zav | 2026-07-07 |
 | 🎫 [jira-issue](jira-issue/SKILL.md) | Billet JIRA bug/defect prêt à coller (Summary Quoi-Où-Quand, Steps, Expected/Actual, evidence, acceptance criteria) | Préparer un billet de bug, ou transformer un finding de bilan en ticket actionnable | Zav | 2026-07-07 |
 | 📋 [snow-change](snow-change/SKILL.md) | Change request ServiceNow prêt à coller (justification, implementation/test/backout plans, risk & impact) | Préparer un change normal/standard/emergency au format ITIL | Zav | 2026-07-07 |
