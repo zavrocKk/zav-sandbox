@@ -9,7 +9,7 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 10 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 12 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
 | [Cas théoriques et résiliences](#cas-théoriques-et-résiliences--phase-57b-conditionnels) | 🟡 Projections théoriques non confirmées — Phase 5.7.B | 7 entrées |
 
@@ -209,6 +209,45 @@ Format pour ajouter une nouvelle idée :
 **Référence** : `docs/decisions/0004-field-report-analysis-phase-5-7.md` — Friction F5.
 
 **Phase d'examen suggérée** : Phase 8 (skills techniques + MCP).
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-07 — Workflow documentation (la doc comme objectif demandé)
+
+**Idée** : Aucun workflow n'a la documentation comme **objectif de la demande** — le Scribe ferme
+les cycles, mais « produis/rafraîchis un runbook », « documente ce système », « audite la doc
+existante » n'ont pas de route dans le mapping. Constat de l'analyse du 2026-07-07 (même session
+qu'ADR-0014) : c'est le 2ᵉ cas d'usage métier de l'utilisateur (bilans pour correctif **ou**
+pour documentation).
+
+**Questions sous-jacentes** :
+
+- Un workflow dédié, ou des scénarios ad-hoc suffisent-ils (le runbook est déjà dans la table de localisation) ?
+- Quelles phases : inventaire de la doc existante → gaps → production → validation par qui ?
+- Chevauchement de routage avec `bilan-remediation` (un bilan peut viser la doc) — désambiguïsation à prévoir.
+
+**Phase d'examen suggérée** : après le test terrain job (protocole 2026-07-01) — déclencheur : ≥ 2 sessions réelles de type documentation mal routées ou sans structure.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-07 — Traçabilité finding → ticket
+
+**Idée** : Les findings des bilans/audits citent `fichier:ligne`, mais rien ne relie un finding
+à un identifiant suivi (JIRA/SNOW) ni à son état de traitement — un finding sans état de
+traitement est un finding perdu. Le front-matter du bilan (ADR-0014) trace le cycle du
+**document**, pas celui des findings individuels.
+
+**Questions sous-jacentes** :
+
+- Un champ `ticket:` optionnel par finding dans le template `bilan.md` (référence textuelle pure, pas d'intégration) suffit-il ?
+- Tension avec l'exclusion explicite des intégrations JIRA/ServiceNow/Confluence — rester markdown copiable tant qu'elle tient.
+- La table de vérification (phase 6 du workflow) fait-elle déjà office d'état par finding ?
+
+**Phase d'examen suggérée** : après le test terrain, conjointement avec le critère « besoin JIRA/SNOW ressenti à chaque session » du protocole §3 (chantier templates de sortie).
 
 **Statut** : 🟡 ouverte
 
