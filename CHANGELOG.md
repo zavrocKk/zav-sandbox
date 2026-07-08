@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.16](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.15...v0.1.16) (2026-07-08)
+
+
+### Bug Fixes
+
+* **workflows:** mermaid/prose alignment + bilan-remediation workflow (ADR-0014) ([#143](https://github.com/zavrocKk/zav-sandbox/issues/143)) ([c46d32e](https://github.com/zavrocKk/zav-sandbox/commit/c46d32e596933ddd19f912affeaecc5782f10cf8))
+
 ## [0.1.15](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.14...v0.1.15) (2026-07-02)
 
 
