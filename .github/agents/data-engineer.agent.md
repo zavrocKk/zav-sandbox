@@ -97,7 +97,7 @@ L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incompl
 |---|---|
 | Avant un déploiement de pipeline en production | [pre-deploy.md](../../agents/checklists/pre-deploy.md) |
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

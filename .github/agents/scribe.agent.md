@@ -176,7 +176,7 @@ Table de localisation des artefacts : [`.github/copilot-instructions.md`](../cop
 
 > **Règle d'ordre** : le Scribe est **toujours invoqué en dernier**. Il ne travaille que sur la base des handoffs produits par tous les agents précédents.
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

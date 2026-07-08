@@ -9,13 +9,13 @@ Un orchestrateur unique (custom chat mode VS Code) qui simule une **équipe d'ex
 L'idée : conserver le **bénéfice cognitif** de la multiplicité des perspectives (chaque persona apporte son angle) sans la complexité opérationnelle du multi-agent.
 
 - **Sessions très courtes (1-2 personas)** : impersonation inline — un seul orchestrateur, une seule conversation, zéro infrastructure supplémentaire.
-- **Sessions multi-personas (3+, mode par défaut)** : `/party-real` — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Aucune borne supérieure (3, 5, 7… personas, même traitement). Réduction estimée ~50 à 80 % des tokens input selon la taille de la session.
+- **Sessions multi-personas (3+, mode par défaut)** : Party mode (sous-agents) — chaque persona est invoqué comme **sous-agent réel** avec une fenêtre de contexte fraîche. Aucune borne supérieure (3, 5, 7… personas, même traitement). Réduction estimée ~50 à 80 % des tokens input selon la taille de la session.
 
 ## Modes multi-personas
 
-Deux axes — **format** (Panel / Débat) × **mécanisme** (inline / sous-agents) — sélectionnés automatiquement par l'orchestrateur. « Party Real » = Panel exécuté en sous-agents (3+ personas) :
+Deux axes — **format** (Panel / Débat) × **mécanisme** (inline / sous-agents) — sélectionnés automatiquement par l'orchestrateur. Le **Party mode (sous-agents)** — anciennement « Party Real » — est le Panel exécuté en sous-agents (3+ personas) :
 
-| | **Panel inline** (1-2 personas, mode minoritaire) | **Panel en sous-agents** — dit « Party Real » (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
+| | **Panel inline** (1-2 personas, mode minoritaire) | **Party mode (sous-agents)** (3+ personas — défaut multi-persona, sans borne sup.) | **Débat** (`/debate`) |
 |---|---|---|---|
 | Quand | Problème **fermé**, session très courte | Workflow complet ou multi-angle (≥ 3 personas) | Problème **ouvert** |
 | Travail type | Question rapide à 2 angles, mini-design | Feature, audit, incident, stratégie tests, pipeline | Brainstorming, arbitrage |
@@ -25,7 +25,7 @@ Deux axes — **format** (Panel / Débat) × **mécanisme** (inline / sous-agent
 
 Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md), [agents/protocols/debate.md](agents/protocols/debate.md).
 
-> **L'utilisateur n'a pas à spécifier le mode.** L'orchestrateur choisit Panel ou Party Real selon le nombre de personas du PLAN, et le déclare explicitement. Seul `/debate` requiert une action de l'utilisateur.
+> **L'utilisateur n'a pas à spécifier le mode.** L'orchestrateur choisit Panel ou Party mode (sous-agents) selon le nombre de personas du PLAN, et le déclare explicitement. Seul `/debate` requiert une action de l'utilisateur.
 
 ## Structure du dépôt
 
@@ -34,18 +34,18 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 ├── .github/
 │   ├── agents/
 │   │   ├── orchestrator.agent.md        # 🎼 Orchestrateur — custom agent principal
-│   │   ├── devops.agent.md              # 🛠️ Sous-agent DevOps (/party-real)
-│   │   ├── developer.agent.md           # 💻 Sous-agent Developer (/party-real)
-│   │   ├── security.agent.md            # 🔒 Sous-agent Security (/party-real)
-│   │   ├── architect.agent.md           # 🏗️ Sous-agent Architect (/party-real)
-│   │   ├── qa.agent.md                  # 🧪 Sous-agent QA (/party-real)
-│   │   ├── product-analyst.agent.md     # 📊 Sous-agent Product Analyst (/party-real)
-│   │   ├── data-engineer.agent.md       # 🗄️ Sous-agent Data Engineer (/party-real)
-│   │   ├── scribe.agent.md              # 📝 Sous-agent Scribe (/party-real)
+│   │   ├── devops.agent.md              # 🛠️ Sous-agent DevOps (Party mode sous-agents)
+│   │   ├── developer.agent.md           # 💻 Sous-agent Developer (Party mode sous-agents)
+│   │   ├── security.agent.md            # 🔒 Sous-agent Security (Party mode sous-agents)
+│   │   ├── architect.agent.md           # 🏗️ Sous-agent Architect (Party mode sous-agents)
+│   │   ├── qa.agent.md                  # 🧪 Sous-agent QA (Party mode sous-agents)
+│   │   ├── product-analyst.agent.md     # 📊 Sous-agent Product Analyst (Party mode sous-agents)
+│   │   ├── data-engineer.agent.md       # 🗄️ Sous-agent Data Engineer (Party mode sous-agents)
+│   │   ├── scribe.agent.md              # 📝 Sous-agent Scribe (Party mode sous-agents)
 │   │   └── modules/                     # Modules de délégation de l'orchestrateur
 │   │       ├── core-rules.md            # Périmètre, délégation, contrat PLAN → EXEC
 │   │       ├── memory.md                # Mémoire persistante et checkpoints
-│   │       ├── party-mode.md            # Panel, Débat, Party Real + flow .party/
+│   │       ├── party-mode.md            # Panel, Débat, Party mode (sous-agents) + flow .party/
 │   │       └── skills.md               # Tableau des skills disponibles
 │   └── copilot-instructions.md          # Instructions globales (français, livrables, sécu)
 ├── agents/
@@ -73,8 +73,8 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   │   ├── memory-checkpoint.md         # Checkpoint de mémoire inter-sessions
 │   │   ├── prd.md                       # Product Requirements Document léger
 │   │   ├── bilan.md                     # Bilan d'analyse destiné à un développeur
-│   │   ├── party-context.md             # Template context.md pour /party-real
-│   │   └── party-handoff.md             # Template handoff-{agent}.md pour /party-real
+│   │   ├── party-context.md             # Template context.md pour Party mode (sous-agents)
+│   │   └── party-handoff.md             # Template handoff-{agent}.md pour Party mode (sous-agents)
 │   ├── skills/                          # Skills techniques invocables (format Agent Skills)
 │   │   ├── root-cause-analysis/SKILL.md # 🔍 RCA : 5 Pourquoi / Ishikawa
 │   │   ├── party-mode/SKILL.md          # 🎉 Index modes multi-personas + anti-patterns (v2.0.0)
@@ -99,7 +99,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 └── README.md
 ```
 
-> **Note `.party/`** : lors d'une session `/party-real`, l'orchestrateur crée un dossier `.party/` transitoire à la racine (gitignore-d) pour les échanges inter-agents (`context.md` + `handoff-{agent}.md`). Ce dossier est **supprimé à la clôture** de chaque session.
+> **Note `.party/`** : lors d'une session Party mode (sous-agents), l'orchestrateur crée un dossier `.party/` transitoire à la racine (gitignore-d) pour les échanges inter-agents (`context.md` + `handoff-{agent}.md`). Ce dossier est **supprimé à la clôture** de chaque session.
 >
 > Chaque handoff est **borné** (cible ≤ 500 tokens, plafond 1000 — pointeur vers les fichiers du repo plutôt que recopie) et **validé par un gate** (structure, budget, critères « Done quand » du persona) avant d'invoquer l'agent suivant. Le PLAN déclare aussi le **régime** de lecture des handoffs : **convergent** (construction séquentielle, défaut) ou **divergent** (diagnostic/RCA — chaque agent ne lit que `context.md`, indépendance des angles). Détails : [`.github/agents/modules/party-mode.md`](.github/agents/modules/party-mode.md).
 ## Activer l'agent Orchestrator dans VS Code
@@ -205,7 +205,7 @@ Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 flowchart TD
     U[👤 Utilisateur] --> O[orchestrator.agent.md]
     O -->|PLAN: 1-2 personas → Panel inline| P[agents/personas/ impersonation]
-    O -->|PLAN: 3+ personas → Party Real auto| SA[.github/agents/*.agent.md]
+    O -->|PLAN: 3+ personas → Party mode (sous-agents) auto| SA[.github/agents/*.agent.md]
     SA -->|runSubagent + handoffs| PARTY[".party/ transitoire\ncontext.md + handoff-*.md"]
     O --> W[agents/workflows/]
     O --> PR[agents/protocols/]
@@ -247,14 +247,14 @@ pour éviter les conflits :
 
 **Note** : l'orchestrateur supporte 2 modes d'exécution pour les personas :
 - **1-2 personas** : impersonation inline (aucun sous-agent requis)
-- **≥ 3 personas ou workflow complet** : sous-agents réels via `/party-real` (subagent requis — mode par défaut du multi-persona)
+- **≥ 3 personas ou workflow complet** : sous-agents réels via Party mode (sous-agents) (subagent requis — mode par défaut du multi-persona)
 
-### Procédure pour un persona qui sera utilisé en `/party-real` (recommended)
+### Procédure pour un persona qui sera utilisé en Party mode (sous-agents) (recommended)
 
 1. Crée `agents/personas/<nom>.md` avec les sections : `Identité`, `Ton`, `Domaines`, `Quand intervenir`, `Output type`, `Handoffs`, `Anti-patterns`.
 2. **Crée `.github/agents/<nom>.agent.md`** (fichier de sous-agent) en calquant sur un agent existant (ex. `developer.agent.md`). Restreins les `tools` au périmètre du persona.
 3. Ajoute son emoji et sa ligne dans la **table des personas** de l'agent (`.github/agents/orchestrator.agent.md`, section « Personas disponibles »).
-4. Déclare-le dans la **liste des agents disponibles** pour `/party-real` (section « Agents disponibles » de [`.github/agents/modules/party-mode.md`](.github/agents/modules/party-mode.md)).
+4. Déclare-le dans la **liste des agents disponibles** pour Party mode (sous-agents) (section « Agents disponibles » de [`.github/agents/modules/party-mode.md`](.github/agents/modules/party-mode.md)).
 5. Mets à jour le **mapping `demande → workflow → personas`** de l'agent si ce persona ouvre de nouveaux types de demandes.
 6. Si le persona est utilisé dans un **workflow 3+ personas** (la majorité), mets à jour les **modules** (`.github/agents/modules/party-mode.md`, etc.) si pertinent.
 

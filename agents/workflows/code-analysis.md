@@ -16,7 +16,7 @@ flowchart LR
   A --> P
 ```
 
-> Les phases 2 à 5 sont des **angles indépendants** sur le même code — en Party Real,
+> Les phases 2 à 5 sont des **angles indépendants** sur le même code — en Party mode (sous-agents),
 > régime **divergent** : chaque persona ne lit que `context.md`, seul le Scribe confronte
 > les angles. Voir [`.github/agents/modules/party-mode.md`](../../.github/agents/modules/party-mode.md).
 

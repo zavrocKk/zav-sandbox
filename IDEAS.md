@@ -9,7 +9,7 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 14 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 13 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
 | [Cas théoriques et résiliences](#cas-théoriques-et-résiliences--phase-57b-conditionnels) | 🟡 Projections théoriques non confirmées — Phase 5.7.B | 7 entrées |
 
@@ -164,7 +164,7 @@ Format pour ajouter une nouvelle idée :
 
 ### 2026-07-02 — `model:` par sous-agent (coût par persona) (audit TOK-02)
 
-**Idée** : aucun frontmatter `.agent.md` ne fixe de modèle — tous les sous-agents (y compris le Scribe, purement rédactionnel) tournent sur le modèle par défaut. Si les custom agents VS Code supportent un champ `model:`, affecter un modèle plus léger aux personas rédactionnels réduirait le coût des sessions Party Real.
+**Idée** : aucun frontmatter `.agent.md` ne fixe de modèle — tous les sous-agents (y compris le Scribe, purement rédactionnel) tournent sur le modèle par défaut. Si les custom agents VS Code supportent un champ `model:`, affecter un modèle plus léger aux personas rédactionnels réduirait le coût des sessions Party mode (sous-agents).
 
 **Questions sous-jacentes** :
 - Le champ `model:` est-il supporté (et stable) dans les custom agents VS Code Copilot ? (**NON VÉRIFIÉ** au 2026-07-02)
@@ -248,28 +248,6 @@ traitement est un finding perdu. Le front-matter du bilan (ADR-0014) trace le cy
 - La table de vérification (phase 6 du workflow) fait-elle déjà office d'état par finding ?
 
 **Phase d'examen suggérée** : après le test terrain, conjointement avec le critère « besoin JIRA/SNOW ressenti à chaque session » du protocole §3 (chantier templates de sortie).
-
-**Statut** : 🟡 ouverte
-
----
-
-### 2026-07-07 — Renommage unifié « Party mode » (tuer le 3ᵉ mode lexical)
-
-**Idée** : [ADR-0013](docs/decisions/0013-format-mechanism-model.md) a réglé le **concept**
-(format × mécanisme ; « Party Real » = Panel × sous-agents, pas un 3ᵉ mode) mais pas le
-**lexique** : « Party Real » apparaît ~94 fois dans 26 fichiers, et le tableau du README
-présente 3 colonnes (Panel inline | Party Real | Débat) qui recréent visuellement la lecture
-« 3 modes ». Preuve que l'explication seule ne suffit pas : l'auteur de l'ADR a reposé la
-question le 2026-07-07. Piste : « Party mode » comme concept unique, mécanisme déclaré en
-adjectif dans le PLAN (« Party — mécanisme : sous-agents »).
-
-**Questions sous-jacentes** :
-
-- Renommer `/party-real` et ses mentions dans les 8 `.agent.md` sans casser le routage ni les références croisées ?
-- À faire en **une seule passe avec TOK-01** (dé-duplication) — les deux chantiers touchent les mêmes fichiers.
-- Les ADRs 0008/0009/0013 restent tels quels (immuables) — seul le vocabulaire vivant est renommé.
-
-**Phase d'examen suggérée** : après le test terrain, conjointement avec TOK-01.
 
 **Statut** : 🟡 ouverte
 

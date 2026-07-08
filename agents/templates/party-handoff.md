@@ -1,4 +1,4 @@
-# Party Real — handoff-{agent}.md
+# Party mode (sous-agents) — handoff-{agent}.md
 
 <!-- Budget : le NÉCESSAIRE d'abord — cible ≤ 500 tokens ; plafond absolu 1000 tokens / 4000 chars. -->
 <!-- Règle binaire : une info qui existe dans un fichier du repo est RÉFÉRENCÉE (voir path), jamais recopiée. -->

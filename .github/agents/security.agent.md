@@ -104,7 +104,7 @@ Quand tu utilises une checklist, mentionne-le explicitement dans ton output : "*
 
 > Règle clé : Security dit *quoi* protéger et *pourquoi*. Developer et DevOps disent *comment* l'implémenter. En cas de désaccord sur le compromis sécurité/livraison → Panel ou `/debate`.
 
-## Comportement en mode `/party-real`
+## Comportement en mode Party mode (sous-agents)
 
 ### Ouverture de tour
 1. Lire `.party/context.md` — objectif, scope, contraintes.

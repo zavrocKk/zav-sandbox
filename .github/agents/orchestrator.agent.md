@@ -17,7 +17,7 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 2. **Choisir le mode d'exécution** — décision automatique basée sur le nombre de personas du PLAN :
    - **1 persona** → persona unique inline
    - **2 personas** → Panel inline (impersonation, une seule passe)
-   - **3+ personas OU workflow complet** → **`/party-real` automatique** (sous-agents réels, sans que l'utilisateur ait à le demander — aucune borne supérieure)
+   - **3+ personas OU workflow complet** → **Party mode (sous-agents) automatique** (sous-agents réels, sans que l'utilisateur ait à le demander — aucune borne supérieure)
    - **`/debate` demandé** → Débat inline, quel que soit le nombre de personas
 
    L'utilisateur n'a pas à spécifier le mode — l'orchestrateur le déclare dans le PLAN.
@@ -145,13 +145,13 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 ## Party Mode & Débat
 
 Règle de bascule canonique : section **OUVERTURE DE SESSION** ci-dessus (1 / 2 / 3+ / `/debate`).
-Détails opérationnels (Panel, Débat, Party Real + flow `.party/`, fallback,
+Détails opérationnels (Panel, Débat, Party mode (sous-agents) + flow `.party/`, fallback,
 agents disponibles) : [`.github/agents/modules/party-mode.md`](modules/party-mode.md).
 
 **Déclaration obligatoire dans le PLAN** quand 3+ personas :
 
 ```
-Mode : Party Real (sous-agents) — N personas détectés — régime : <convergent|divergent>
+Mode : Party mode (sous-agents) — N personas détectés — régime : <convergent|divergent>
 ```
 
 **Rappels critiques** :
@@ -159,7 +159,7 @@ Mode : Party Real (sous-agents) — N personas détectés — régime : <converg
 - **Débat = inline** : `/debate` reste **inline uniquement** — choix de design (les sous-agents n'apportent aucun gain pour un débat réactif), pas une limite technique.
 - **Régime des handoffs** : déclaré au PLAN — **convergent** (chaque agent lit les handoffs précédents : construction) ou **divergent** (chaque agent lit `context.md` uniquement : diagnostic/RCA, anti-ancrage). Détails : module party-mode.
 - **Gate intermédiaire** : vérifier chaque handoff (structure, budget — cible ~500, plafond 1000 tokens, pointeur > recopie, critères « Done quand » du persona) **avant** d'invoquer l'agent suivant. Non conforme → re-invoquer 1×, puis fallback.
-- **Nettoyage `.party/`** : purger au **démarrage** d'un Party Real (résidus d'une session interrompue = contexte périmé) **et** supprimer en **clôture**. Ne pas omettre.
+- **Nettoyage `.party/`** : purger au **démarrage** d'un Party mode (sous-agents) (résidus d'une session interrompue = contexte périmé) **et** supprimer en **clôture**. Ne pas omettre.
 - **Fallback** : si `runSubagent` échoue → impersonation + handoff manuel.
 
 ## Mémoire persistante — checkpoints inter-sessions
@@ -194,7 +194,7 @@ Détails et tableau complets dans [`.github/agents/modules/skills.md`](modules/s
 - `/light` — Allège le **format** (en-têtes compacts, tables resserrées, zéro méta-commentaire) pour réduire les tokens par tour. **Cumulable avec `/quick`.** Ne désactive **AUCUNE** règle binaire (délégation, plan, périmètre, Scribe) — seulement leur habillage verbeux. Reste actif jusqu'à `/verbose` ou fin de session.
 - `/verbose` — Désactive `/light`, retour au format complet.
 - `/debate` — Bascule le Panel (défaut) en **Débat** : N rounds de réaction inter-persona, garde-fou max rounds, synthèse Scribe forcée. **Cumulable avec `/quick` et `/light`.** Voir [`agents/protocols/debate.md`](../../agents/protocols/debate.md).
-- ~~`/party-real`~~ — **Pas une commande utilisateur.** Le mode sous-agents réels est déclenché **automatiquement** par l'orchestrateur dès que le PLAN requiert 3+ personas ou un workflow complet (aucune borne supérieure). L'orchestrateur le déclare dans le PLAN.
+- **Party mode (sous-agents)** — **pas une commande utilisateur.** Le mode sous-agents réels est déclenché **automatiquement** par l'orchestrateur dès que le PLAN requiert 3+ personas ou un workflow complet (aucune borne supérieure). L'orchestrateur le déclare dans le PLAN.
 - `/checkpoint` — Le Scribe écrit/met à jour le **checkpoint de mémoire** du fil courant dans [`docs/_scratch/memory/`](../../docs/_scratch/memory/) (template [`memory-checkpoint.md`](../../agents/templates/memory-checkpoint.md)). Permet de reprendre le fil dans une session ultérieure sans re-explication. Voir section « Mémoire persistante ».
 - `/memory-list` — Liste les checkpoints actifs dans `docs/_scratch/memory/` avec leur `thread`, `status` et `next_action`. Utile pour choisir lequel reprendre ou identifier les fils `closed` à archiver.
 - `/pre-pr` — DevOps déroule la **checklist pré-PR** ([`agents/checklists/pre-pr.md`](../../agents/checklists/pre-pr.md)) : lance la commande de vérif lecture seule (`git status` / `git branch --no-merged main` / `gh pr list`) et valide les 8 contrôles (working tree, branches orphelines, PR ouvertes, ROADMAP/README/VISION/IDEAS à jour, CHANGELOG via commits). Voir règle « Garde-fou pré-PR ».
