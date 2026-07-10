@@ -2,6 +2,14 @@
 
 ---
 
+## [0.1.19](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.18...v0.1.19) (2026-07-10)
+
+
+### Features
+
+* **memory:** OKF apps bundle + agent-memory contracts — pre-registered experiment (ADR-0017) ([#154](https://github.com/zavrocKk/zav-sandbox/issues/154)) ([b3c9df2](https://github.com/zavrocKk/zav-sandbox/commit/b3c9df273ead989790f15992878f68bc578a37dc))
+* **party:** evidence gate — falsifiable proof pointer per handoff finding ([#153](https://github.com/zavrocKk/zav-sandbox/issues/153)) ([755ac00](https://github.com/zavrocKk/zav-sandbox/commit/755ac009fb193b08150056fd5ca1e20712cf6731))
+
 ## [0.1.18](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.17...v0.1.18) (2026-07-08)
 
 
