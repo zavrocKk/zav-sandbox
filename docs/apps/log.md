@@ -5,8 +5,6 @@ description: Historique des créations et mises à jour de fiches — une ligne 
 timestamp: 2026-07-09
 ---
 
-# Journal des écritures
-
 > Toute écriture dans `docs/apps/` passe par ici ([ADR-0017](../decisions/0017-okf-apps-bundle.md)).
 > Le détail vit dans Git ; ce journal donne le « quoi/quand/pourquoi » lisible d'un coup d'œil.
 

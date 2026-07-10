@@ -9,8 +9,6 @@ verified: <YYYY-MM-DD>        # dernière vérification humaine du contenu
 criticality: <P1 | P2 | P3>
 ---
 
-# <Nom de l'application>
-
 > **≤ 100 lignes** (hors front-matter). Règle « pointeur > recopie » : les détails
 > vivent dans les documents liés, la fiche donne la carte, pas le territoire.
 > `verified` > 90 jours → l'orchestrateur le déclare au PLAN avant d'utiliser la fiche.

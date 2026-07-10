@@ -29,7 +29,7 @@ La mémoire du framework est indexée par *fil* (checkpoints) et par *décision*
 traversent fils et décisions. Sans mémoire d'entités, chaque session repaie la
 redécouverte de l'app. Le design retenu (session du 2026-07-08) s'appuie sur
 l'**Open Knowledge Format** (Google Cloud, v0.1, juin 2026) : répertoire markdown
-+ frontmatter, `index.md`/`log.md` réservés, chemin = identité, champs custom
+avec frontmatter, `index.md`/`log.md` réservés, chemin = identité, champs custom
 tolérés. Trois implémentations indépendantes du même pattern (OKF, MemPalace,
 mémoire Claude Code) convergent — évidence de structure. Le repo est déjà
 proto-OKF (`type:` dans tous les templates).
@@ -101,9 +101,9 @@ pourra pas être réinterprété avec complaisance.
 
 ## Implémentation
 
-`docs/apps/{index.md,log.md}` + `agents/templates/app-card.md` + module
-`memory.md` (4 contrats) + `party-context.md` (§ Mémoire pertinente + consigne Δ)
-+ protocole §3 (H1-H4) + table de localisation + arborescence README.
+`docs/apps/{index.md,log.md}`, `agents/templates/app-card.md`, module
+`memory.md` (4 contrats), `party-context.md` (§ Mémoire pertinente et consigne Δ),
+protocole §3 (H1-H4), table de localisation, arborescence README.
 
 ## Références
 

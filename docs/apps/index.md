@@ -6,8 +6,6 @@ description: Index des applications connues — une ligne par app. Seul fichier 
 timestamp: 2026-07-09
 ---
 
-# Applications — index
-
 > **Règle de chargement** (module [`memory.md`](../../.github/agents/modules/memory.md)) :
 > cet index est le **seul** fichier scanné au PLAN, et **seulement** si la demande
 > nomme une application ou un alias. Corps d'une fiche chargé sur match uniquement —
