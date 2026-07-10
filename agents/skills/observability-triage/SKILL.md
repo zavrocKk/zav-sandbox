@@ -25,9 +25,13 @@ exports vont dans `docs/_scratch/inputs/` (git-ignoré), anonymisés.
 
 ## La méthode (dans l'ordre — ne pas sauter d'étape)
 
-1. **Cadrer la fenêtre temporelle** depuis le symptôme : début du signal anormal
-   − 30 min, jusqu'à maintenant. Élargir seulement si la fenêtre est vide.
-   Chercher la cause avant d'avoir cadré la fenêtre = noyade garantie.
+1. **Cadrer la fenêtre temporelle — jamais la supposer.** Si la demande ne donne
+   pas (a) le **début approximatif** et (b) le **fuseau horaire**, **demander avant
+   toute requête** (règle binaire : requête émise sans fenêtre confirmée = non
+   conforme). Convertir en **UTC** et confirmer la conversion à l'utilisateur
+   (« 9h EDT = 13:00 UTC — je requête 12:30 → maintenant »). Fenêtre = début
+   confirmé − 30 min → maintenant ; élargir seulement si vide. Chercher la cause
+   avant d'avoir cadré la fenêtre = noyade garantie.
 2. **Golden signals d'abord** — dans cet ordre : **erreurs** (taux, nouveaux
    codes), **latence** (p95/p99, pas la moyenne), **trafic** (volume anormal ?),
    **saturation** (CPU/mémoire/connexions/quotas).

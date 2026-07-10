@@ -64,3 +64,9 @@ C'est le **premier artefact bout-en-bout** du framework — pièce du dossier de
 **Observation H5** (découvrabilité) : en fin d'acte 2, demander « retrouve le
 post-mortem de cet incident » **sans donner le chemin** — noter si l'orchestrateur
 le localise seul.
+
+**Observation fenêtre temporelle** : le prompt d'acte 1 dit « depuis 10 min »
+(relatif). Noter si le framework **demande/confirme** l'ancrage absolu et le
+fuseau (l'utilisateur est EDT) avant de citer des preuves — ou s'il suppose.
+En réponse à sa question, donner : « ça a commencé vers 17h00 EDT » (= 21:00 UTC,
+cohérent avec la fixture). Supposition sans question = finding contre le framework.

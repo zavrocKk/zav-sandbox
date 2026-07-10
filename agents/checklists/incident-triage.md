@@ -11,7 +11,7 @@ phase: incident-triage
 ## 🚨 Cadrage initial
 
 - [ ] **Service(s) affecté(s)** identifié(s) ?
-- [ ] **Heure de début** précise (alerte / premier rapport user) ?
+- [ ] **Heure de début** précise **+ fuseau horaire** (alerte / premier rapport user) — conversion **UTC confirmée** avant toute requête ?
 - [ ] **Incident en cours ou résolu** ?
 - [ ] **Utilisateurs impactés** : tous, segment précis, métier critique ?
 - [ ] **Workaround connu** ?
