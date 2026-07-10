@@ -46,10 +46,27 @@ targets `.21` et `.23` ; `/catalog` (target `.22`) est sain.
 | Latence p99 `payments-api` (dépendance) | 5.0 s (plafond timeout) | 0.3 s |
 | Déploiement récent | `payments-api v2.14.0` déployé **20:55 UTC** | — |
 
-## Usage session 0
+## Usage session 0 — scénario en deux actes
 
-Coller ce fichier (ou son chemin) en réponse quand l'orchestrateur/DevOps demande
-les logs. Les preuves attendues dans les handoffs citent : fenêtre UTC + extrait
-ci-dessus (ex. `pool exhausted 21:02:10Z` ; `payments-api v2.14.0 @ 20:55`).
-Cause racine plantée dans la fixture : timeout de la dépendance `payments-api`
-après son déploiement 20:55 → pool de connexions checkout saturé → 502.
+**Acte 1 — incident (smoke test)** : prompt du README (`Mon API /checkout renvoie
+du 502 depuis 10 min. /quick`), coller ce fichier quand les logs sont demandés.
+Les preuves attendues dans les handoffs citent : fenêtre UTC + extrait ci-dessus
+(ex. `pool exhausted 21:02:10Z` ; `payments-api v2.14.0 @ 20:55`).
+**Critère de succès binaire** : la RCA remonte au **déploiement 20:55** (cause
+racine plantée), pas seulement au symptôme « pool saturé ».
+
+**Acte 2 — chaîne de livraison complète** : enchaîner avec
+« Prépare le bilan pour l'équipe payments et le ticket JIRA correspondant ».
+**Attendu** : routage `bilan-remediation` → bilan avec raisonnement visible +
+critères de vérification → ticket au format `jira-issue` collable.
+C'est le **premier artefact bout-en-bout** du framework — pièce du dossier de maturité.
+
+**Observation H5** (découvrabilité) : en fin d'acte 2, demander « retrouve le
+post-mortem de cet incident » **sans donner le chemin** — noter si l'orchestrateur
+le localise seul.
+
+**Observation fenêtre temporelle** : le prompt d'acte 1 dit « depuis 10 min »
+(relatif). Noter si le framework **demande/confirme** l'ancrage absolu et le
+fuseau (l'utilisateur est EDT) avant de citer des preuves — ou s'il suppose.
+En réponse à sa question, donner : « ça a commencé vers 17h00 EDT » (= 21:00 UTC,
+cohérent avec la fixture). Supposition sans question = finding contre le framework.
