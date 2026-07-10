@@ -7,7 +7,10 @@
 <!-- Supprimé par l'orchestrateur à la clôture de session. -->
 
 ## handoff-{agent}
-Findings : <!-- Résumé conclusif de ce que l'agent a produit / découvert -->
+Findings : <!-- Résumé conclusif de ce que l'agent a produit / découvert.
+  Règle binaire : chaque finding porte son pointeur de preuve FALSIFIABLE
+  (fichier:ligne, requête + fenêtre UTC, lien doc) — une affirmation
+  invérifiable est non conforme (rejetée par le gate). -->
 Tâches ouvertes : <!-- Ce que le prochain agent doit traiter -->
 Contexte critique : <!-- Ce que le suivant NE DOIT PAS perdre -->
 Risques : <!-- Points d'attention transmis -->

@@ -106,7 +106,10 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
 3. **Gate intermédiaire (orchestrateur)** — avant d'invoquer l'agent suivant, vérifier le
    handoff produit : 4 sections présentes, budget respecté (plafond 1000 tokens ; un
    handoff gonflé sans signal est non conforme même sous le plafond), critères
-   « Done quand » du persona satisfaits (section dédiée de son `.agent.md`).
+   « Done quand » du persona satisfaits (section dédiée de son `.agent.md`),
+   et **chaque finding porte un pointeur de preuve falsifiable** (fichier:ligne,
+   requête + fenêtre UTC, lien doc) — une affirmation qui ne pourrait pas être
+   contredite par une observation n'est pas un finding, c'est une opinion.
    Handoff non conforme → re-invoquer l'agent (**1 seule fois**), puis fallback
    impersonation si l'échec persiste. La qualité ne repose jamais sur le seul Scribe.
 4. Lire `handoff-scribe.md` (quality gate final).
