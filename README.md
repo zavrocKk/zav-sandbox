@@ -201,25 +201,34 @@ Nouvelle feature. Besoin à cadrer avant tout design. Workflow : feature-develop
 
 Confirmes-tu ce plan ? (oui / ajuste / `/quick`)
 ```
-## Architecture du framework
+## Architecture — le cycle d'une session
+
+Ce que le diagramme montre : le **flux réel entre agents** — boucles de gate,
+mémoire, approbation humaine — pas l'arborescence des dossiers (elle est plus haut).
 
 ```mermaid
 flowchart TD
-    U[👤 Utilisateur] --> O[orchestrator.agent.md]
-    O -->|PLAN: 1-2 personas → Panel inline| P[agents/personas/ impersonation]
-    O -->|PLAN: 3+ personas → Party mode (sous-agents) auto| SA[.github/agents/*.agent.md]
-    SA -->|runSubagent + handoffs| PARTY[".party/ transitoire\ncontext.md + handoff-*.md"]
-    O --> W[agents/workflows/]
-    O --> PR[agents/protocols/]
-    P --> S[agents/skills/]
-    SA --> S
-    O --> D[docs/]
-    D --> DEC[decisions/ ADRs]
-    D --> ARC[architecture/ cadrages]
-    D --> SCR[_scratch/ bilans + checkpoints]
-    W --> CHKL[agents/checklists/]
-    O -.-> MOD[".github/agents/modules/\ncore-rules | party-mode | skills | memory"]
+    U[👤 Demande] --> O["🎼 Orchestrateur<br/>ANALYSE → PLAN<br/>(workflow + personas + fenêtre confirmée)"]
+    O -.->|"app nommée ?"| IDX[("docs/apps/index.md<br/>max 2 fiches pointées")]
+    IDX -.-> CTX
+    O -->|"1-2 personas"| INL["Panel inline<br/>(même cycle, sans .party/)"]
+    O -->|"3+ personas — auto"| CTX[".party/context.md<br/>objectif + régime + mémoire"]
+    CTX --> P["Persona du PLAN<br/>fenêtre fraîche + skills à la demande"]
+    P -->|"handoff ≤ 500 tokens"| G{"Gate binaire<br/>4 sections + budget +<br/>preuves falsifiables + Done quand"}
+    G -->|"non conforme — 1 re-essai"| P
+    G -->|conforme| Q{"Personas<br/>restants ?"}
+    Q -->|oui| P
+    Q -->|non| SC["📝 Scribe — SYNTHESIS<br/>lit tous les handoffs, consolide les Δ-mémoire"]
+    INL --> SC
+    SC --> LIV["Livrable : post-mortem / bilan / ADR<br/>+ ticket collable (skills jira-issue, snow-change, confluence-doc)"]
+    LIV --> H{"👤 Approbation<br/>humaine"}
+    H -->|amende| P
+    H -->|approuvé| DOCS[("docs/ — table de localisation<br/>+ fiches apps & log.md si Δ approuvé")]
 ```
+
+> Le détail des phases par type de demande vit dans les
+> [workflows](agents/workflows/) (chacun avec son propre diagramme) ; les règles
+> du cycle dans les [modules](.github/agents/modules/).
 
 ## Fonctionnalités optionnelles
 
