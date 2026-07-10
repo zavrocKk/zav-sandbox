@@ -53,7 +53,12 @@ Format pour ajouter une nouvelle idée :
 
 **Phase d'examen suggérée** : Phase 7 (mémoire persistante) — la distinction pérenne/éphémère et le cleanup automatique sont structurellement liés à la mémoire.
 
-**Statut** : 🟡 ouverte
+**Statut** : 🟡 ouverte — **partiellement traitée le 2026-07-09** : le volet
+« retrouver » est livré (registre [`docs/index.md`](docs/index.md) + règle
+d'index binaire dans copilot-instructions + règle de clôture des post-mortems :
+action items cochés ou transférés, sinon `in-review`). **Reste** : politique de
+purge/archivage de `_scratch/` — examen après la session 0 (H5 mesure
+maintenant l'efficacité de l'index, plus l'existence du problème).
 
 ---
 

@@ -80,6 +80,12 @@ Le Scribe DOIT consulter cette table avant chaque création de fichier.
 Cette table est l'unique référence — toute autre indication dans personas
 ou workflows doit pointer vers elle.
 
+**Règle d'index (binaire)** : toute création ou changement de statut d'un
+livrable dans `docs/` (hors `_scratch/` et `decisions/`, auto-indexés) ajoute ou
+met à jour sa ligne dans [`docs/index.md`](../docs/index.md) — création sans
+ligne d'index = non conforme. La table dit **où écrire** ; l'index permet de
+**retrouver**.
+
 Si un type de livrable n'est pas dans cette table, le Scribe DOIT
 demander à l'utilisateur où le placer ET proposer d'ajouter une ligne
 dans cette table.

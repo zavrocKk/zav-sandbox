@@ -73,6 +73,12 @@ flowchart LR
 
 **Cycle de vie du statut :** `draft` → `in-review` → `closed`.
 
+**Règle de clôture (binaire)** : un post-mortem ne passe `closed` que si chaque
+action item est **coché** ou **transféré avec pointeur** (plan
+`docs/_scratch/YYYY-MM-DD-plan-<slug>.md` ou ticket). Un action item orphelin =
+post-mortem qui reste `in-review`. Changement de statut = mettre à jour la ligne
+dans [`docs/index.md`](../../docs/index.md).
+
 **Inputs bruts associés :**
 - Fixtures synthétiques de test → `docs/_scratch/mvp-inputs/<source>-<topic>.md` (versionnées, référencées depuis le rapport)
 - Données réelles (logs, exports) → `docs/_scratch/inputs/` (git-ignoré, jamais committé)
