@@ -1,0 +1,55 @@
+# Fixture synthétique — incident 502 sur /checkout
+
+> **100 % SYNTHÉTIQUE** — aucune donnée réelle. Sert de matière première au
+> smoke test « session 0 » (prompt du README § Test rapide) : sans elle, le gate
+> d'évidence rejetterait tout finding faute de preuve citables.
+> Fenêtre simulée : **2026-07-09 21:00 → 21:20 UTC**.
+
+## Extrait ALB (access logs — 12 lignes représentatives)
+
+```text
+2026-07-09T21:02:11Z alb-prod-web  502 0.087 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:02:14Z alb-prod-web  502 0.091 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:02:19Z alb-prod-web  200 0.412 "GET /catalog HTTP/1.1"  target=10.0.4.22:8080 target_status=200
+2026-07-09T21:03:02Z alb-prod-web  502 0.089 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:04:47Z alb-prod-web  502 0.090 "POST /checkout HTTP/1.1" target=10.0.4.23:8080 target_status=-
+2026-07-09T21:05:33Z alb-prod-web  200 0.398 "GET /catalog HTTP/1.1"  target=10.0.4.22:8080 target_status=200
+2026-07-09T21:06:08Z alb-prod-web  502 0.088 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:08:41Z alb-prod-web  502 0.092 "POST /checkout HTTP/1.1" target=10.0.4.23:8080 target_status=-
+2026-07-09T21:11:15Z alb-prod-web  502 0.087 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:14:52Z alb-prod-web  502 0.090 "POST /checkout HTTP/1.1" target=10.0.4.23:8080 target_status=-
+2026-07-09T21:17:30Z alb-prod-web  502 0.089 "POST /checkout HTTP/1.1" target=10.0.4.21:8080 target_status=-
+2026-07-09T21:19:44Z alb-prod-web  200 0.405 "GET /catalog HTTP/1.1"  target=10.0.4.22:8080 target_status=200
+```
+
+Signal : `target_status=-` (la target ne répond pas) — uniquement sur `POST /checkout`,
+targets `.21` et `.23` ; `/catalog` (target `.22`) est sain.
+
+## Extrait logs applicatifs — service checkout (conteneur, target .21)
+
+```text
+2026-07-09T21:01:58Z INFO  checkout-svc starting connection pool (max=10)
+2026-07-09T21:02:10Z ERROR checkout-svc PaymentGatewayTimeout: upstream payments-api timed out after 5000ms (attempt 1/1) request_id=req-8842
+2026-07-09T21:02:10Z ERROR checkout-svc pool exhausted: 10/10 connections waiting on payments-api
+2026-07-09T21:03:01Z ERROR checkout-svc PaymentGatewayTimeout: upstream payments-api timed out after 5000ms (attempt 1/1) request_id=req-8907
+2026-07-09T21:03:01Z WARN  checkout-svc healthcheck /health responding 503 (pool exhausted)
+2026-07-09T21:06:07Z ERROR checkout-svc PaymentGatewayTimeout: upstream payments-api timed out after 5000ms (attempt 1/1) request_id=req-9114
+```
+
+## Métriques agrégées (fenêtre 21:00-21:20 UTC)
+
+| Métrique | Valeur | Baseline (veille, même heure) |
+|---|---|---|
+| `HTTPCode_Target_5XX_Count` (checkout) | 214 | 0-2 |
+| `TargetResponseTime` p99 (checkout) | 5.1 s | 0.4 s |
+| `UnHealthyHostCount` | 2/3 | 0/3 |
+| Latence p99 `payments-api` (dépendance) | 5.0 s (plafond timeout) | 0.3 s |
+| Déploiement récent | `payments-api v2.14.0` déployé **20:55 UTC** | — |
+
+## Usage session 0
+
+Coller ce fichier (ou son chemin) en réponse quand l'orchestrateur/DevOps demande
+les logs. Les preuves attendues dans les handoffs citent : fenêtre UTC + extrait
+ci-dessus (ex. `pool exhausted 21:02:10Z` ; `payments-api v2.14.0 @ 20:55`).
+Cause racine plantée dans la fixture : timeout de la dépendance `payments-api`
+après son déploiement 20:55 → pool de connexions checkout saturé → 502.
