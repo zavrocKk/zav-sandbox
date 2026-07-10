@@ -2,6 +2,19 @@
 
 ---
 
+## [0.1.20](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.19...v0.1.20) (2026-07-10)
+
+
+### Bug Fixes
+
+* **artifacts:** docs/ index registry + binary post-mortem closing rule ([#160](https://github.com/zavrocKk/zav-sandbox/issues/160)) ([a6180da](https://github.com/zavrocKk/zav-sandbox/commit/a6180dabf1a018073035a99757603f61525e9aa8))
+* **triage:** time window elicited, never assumed (timezone-aware) + orphan recovery ([#157](https://github.com/zavrocKk/zav-sandbox/issues/157)) ([764b39d](https://github.com/zavrocKk/zav-sandbox/commit/764b39d83ea87067be08f269862e208ae9d36166))
+
+
+### Documentation
+
+* **readme:** architecture diagram = real session flow (gates, loops, approval) ([#158](https://github.com/zavrocKk/zav-sandbox/issues/158)) ([83202c2](https://github.com/zavrocKk/zav-sandbox/commit/83202c27bc77134a223b3fa1cb50f4d842d71c3d))
+
 ## [0.1.19](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.18...v0.1.19) (2026-07-10)
 
 
