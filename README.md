@@ -92,6 +92,7 @@ Référence : [agents/protocols/light-panel.md](agents/protocols/light-panel.md)
 │   ├── incidents/                       # Post-mortems (rapports d'incident)
 │   ├── architecture/                    # Notes d'archi, cadrages de phase (évolutifs)
 │   ├── decisions/                       # ADRs (NNNN-slug.md) — décisions fermées
+│   ├── apps/                            # Bundle OKF — fiches d'applications (index.md + log.md)
 │   └── _scratch/                        # Temporaire : bilans, plans, handoffs
 │       ├── memory/                      # Checkpoints de reprise inter-sessions
 │       ├── mvp-inputs/                  # Fixtures synthétiques de test (versionnées)

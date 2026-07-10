@@ -63,6 +63,7 @@ Quand le custom agent `orchestrator` est actif, suis en plus les règles défini
 | PRD | `docs/prd/` ou `docs/` | `<slug>.md` |
 | Rapport d'analyse / audit | `docs/` | `YYYY-MM-DD-<type>-<slug>.md` |
 | Bilan d'analyse (remise développeur, cycle `bilan-remediation`) | `docs/` | `YYYY-MM-DD-bilan-<slug>.md` |
+| Fiche d'application (bundle OKF, écriture Scribe + approbation) | `docs/apps/` | `<slug>.md` + ligne dans `log.md` |
 | Bilan de session | `docs/_scratch/` | `YYYY-MM-DD-session-<topic>.md` |
 | Handoff de phase | `docs/_scratch/` | `YYYY-MM-DD-handoff-<topic>.md` |
 | Plan d'action opérationnel | `docs/_scratch/` | `YYYY-MM-DD-plan-<topic>.md` |
