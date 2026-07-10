@@ -54,6 +54,7 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | **H2** — une fiche app doit dépasser 100 lignes pour être utile | Revoir le plafond ou la structure de fiche (ADR-0017) |
 | **H3** — budget 2 fiches/session dépassé ou insuffisant ≥ 2 fois | Recalibrer le budget mémoire (ADR-0017) |
 | **H4** — aucun Δ-mémoire utile après ~5 sessions touchant des apps fichées | Le contrat Δ-mémoire ne paie pas — simplifier ou retirer (ADR-0017) |
+| **H5** — l'orchestrateur ne retrouve pas un artefact produit précédemment (bilan, post-mortem) sans chemin exact fourni, ≥ 2 fois | La découvrabilité de `docs/` est insuffisante → étendre le pattern OKF (index des livrables) |
 
 ## 4. Journal des sessions
 
