@@ -32,6 +32,10 @@ exports vont dans `docs/_scratch/inputs/` (git-ignoré), anonymisés.
    (« 9h EDT = 13:00 UTC — je requête 12:30 → maintenant »). Fenêtre = début
    confirmé − 30 min → maintenant ; élargir seulement si vide. Chercher la cause
    avant d'avoir cadré la fenêtre = noyade garantie.
+   **En Party mode (sous-agents)** : cette élucidation appartient à
+   l'**orchestrateur, avant l'invocation** (un sous-agent ne peut pas questionner
+   l'utilisateur — seul l'orchestrateur a `askQuestions`) ; la fenêtre confirmée
+   voyage dans `.party/context.md` (§ Contraintes).
 2. **Golden signals d'abord** — dans cet ordre : **erreurs** (taux, nouveaux
    codes), **latence** (p95/p99, pas la moyenne), **trafic** (volume anormal ?),
    **saturation** (CPU/mémoire/connexions/quotas).
