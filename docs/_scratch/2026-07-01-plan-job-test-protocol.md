@@ -50,6 +50,10 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | Handoffs systématiquement proches du plafond (1000) malgré la cible ~500 | Soit la cible est irréaliste (l'acter par ADR), soit la règle « pointeur > recopie » n'est pas appliquée (renforcer le gate) |
 | Routage `bilan-remediation` confondu avec incident-response / code-analysis ≥ 2 fois | Affiner la désambiguïsation du mapping (ADR-0014) |
 | Routage `bilan-remediation` correct sur ≥ 3 sessions et gate d'approbation utile | Lever l'exclusion playbook du workflow (ADR-0014) |
+| **H1** — app nommée mais fiche non trouvée (nom/alias) ≥ 2 fois | Enrichir les `aliases`, sinon invalider le rappel par nom (ADR-0017) |
+| **H2** — une fiche app doit dépasser 100 lignes pour être utile | Revoir le plafond ou la structure de fiche (ADR-0017) |
+| **H3** — budget 2 fiches/session dépassé ou insuffisant ≥ 2 fois | Recalibrer le budget mémoire (ADR-0017) |
+| **H4** — aucun Δ-mémoire utile après ~5 sessions touchant des apps fichées | Le contrat Δ-mémoire ne paie pas — simplifier ou retirer (ADR-0017) |
 
 ## 4. Journal des sessions
 

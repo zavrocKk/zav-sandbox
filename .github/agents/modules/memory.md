@@ -76,3 +76,22 @@ par fil de travail).
 **Distinction à respecter** : le checkpoint est un **résumé de reprise** (forward),
 à ne pas confondre avec le **bilan de session** ([`session-summary.md`](../../../agents/templates/session-summary.md),
 rétrospectif).
+
+## Mémoire d'entités — fiches d'applications (bundle OKF)
+
+Le savoir **par application** vit dans [`docs/apps/`](../../../docs/apps/index.md)
+(format OKF — [ADR-0017](../../../docs/decisions/0017-okf-apps-bundle.md)).
+Quatre contrats binaires :
+
+1. **Résolution par l'orchestrateur seul** : au PLAN, si la demande nomme une app
+   ou un alias de l'index → pointer la fiche dans `.party/context.md`
+   § « Mémoire pertinente » — **max 2 fiches par session**. Pas de match → **rien**.
+   Un sous-agent qui scanne `docs/apps/` lui-même = bug.
+2. **Fraîcheur déclarée** : fiche dont `verified` > 90 jours → le déclarer dans le
+   PLAN avant usage. Chargement silencieux d'une fiche périmée = bug.
+3. **Δ-mémoire** : un agent qui observe une **contradiction ou un complément** à une
+   fiche pointée l'écrit en une ligne `Δ mémoire : …` dans « Contexte critique » de
+   son handoff. Le Scribe consolide à la SYNTHESIS et **propose** la mise à jour.
+4. **Écrivain unique** : seul le **Scribe** écrit dans `docs/apps/`, à la SYNTHESIS,
+   **après approbation utilisateur**, avec une ligne dans
+   [`log.md`](../../../docs/apps/log.md). Un diff `docs/apps/` hors SYNTHESIS = bug.
