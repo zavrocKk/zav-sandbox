@@ -9,7 +9,7 @@ Ce fichier collecte les idées et questions qui débordent du focus actuel. **Ri
 | Section | Contenu | Volume |
 |---|---|---|
 | [Format](#format) | Convention pour ajouter une nouvelle idée | référence |
-| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 13 entrées |
+| [En attente](#en-attente) | Idées 🟡 ouvertes à examiner aux phases prévues | 14 entrées |
 | [Principes directeurs](#principes-directeurs) | 🟢 Méta-règles actées du framework | 2 entrées |
 | [Cas théoriques et résiliences](#cas-théoriques-et-résiliences--phase-57b-conditionnels) | 🟡 Projections théoriques non confirmées — Phase 5.7.B | 7 entrées |
 
@@ -276,6 +276,37 @@ vérifie la règle « sortie sans en-tête `───` = bug » ; (3) autres rè
 - Quel seuil de drift observé justifie la migration d'une règle (≥ 2 violations en test terrain ?) ?
 
 **Phase d'examen suggérée** : après le test terrain — prioriser selon les règles réellement violées en session réelle.
+
+**Statut** : 🟡 ouverte
+
+---
+
+### 2026-07-10 — Finaliser l'architecture mémoire OKF (3 pièces restantes)
+
+**Idée** : l'architecture OKF (ADR-0017) est déclarée mais incomplète — trois pièces
+restent, plan prêt, aucune construction avant déclencheur :
+
+1. **Fiches app pilotes** — le bundle `docs/apps/` est vide ; H1-H4 immesurables sans
+   elles. Pré-requis : l'utilisateur remplit le mini-formulaire par app (anonymisé) :
+   nom/pseudo, **alias/surnoms/code JIRA** (c'est eux qui font marcher le rappel par
+   nom), rôle 1-2 lignes, stack, dépendances clés, environnements (comptes rédigés),
+   quirks connus, où sont les logs (index Splunk / log group).
+2. **CI `check-okf-bundle`** (zéro token, bash) : frontmatter requis par type
+   (registre de l'index), fiche ↔ ligne d'index ↔ entrée `log.md`, sync de
+   `docs/index.md` — la couche « verify, don't trust » (à faire avec le chantier
+   « règles binaires → hooks » ci-dessus).
+3. **CLAUDE.md racine** — instructions permanentes pour les sessions **Claude Code**
+   (mentorat/build, PAS lu par Copilot) : discipline `gh pr view` avant push, lint en
+   code de sortie, conventions de branches, contrat de collaboration. ROI : payé une
+   fois, économisé à chaque session.
+
+**Questions sous-jacentes** :
+
+- Les fiches pilotes : sur 2 vraies apps (anonymisées) ou attendre la 1ʳᵉ session terrain qui en touche une ?
+- CLAUDE.md : pointeurs vers copilot-instructions (zéro duplication) ou contenu autonome ?
+
+**Phase d'examen suggérée** : pièce 1 dès que l'utilisateur fournit les 2 apps ;
+pièces 2-3 après le test terrain (ou avant, sur décision explicite).
 
 **Statut** : 🟡 ouverte
 
