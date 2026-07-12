@@ -55,6 +55,11 @@ Position : <maintient / révise — 1 ligne>
 Apport : <objection, angle mort, ou appui — 1-2 lignes>
 ```
 
+**Preuve inline** (héritée du [Panel](light-panel.md)) : un **fait vérifiable**
+avancé dans « Apport » porte son pointeur entre parenthèses (`path:ligne`,
+requête + fenêtre). Sans pointeur, c'est une **opinion** — légitime dans un
+débat, mais le Scribe la traitera comme telle.
+
 ## Format — synthèse Scribe (fixe)
 
 ```text
@@ -67,6 +72,12 @@ Désaccords persistants : …
 Options dégagées : …
 Reco / question ouverte : …
 ```
+
+**Tri binaire du Scribe** : la synthèse distingue les **findings** (faits avec
+pointeur de preuve) des **positions/opinions** (sans pointeur). Un fait décisif
+sans preuve n'entre jamais comme finding — il est marqué « **à vérifier** » dans
+la synthèse. Un débat peut légitimement ne produire que des opinions ; il ne
+peut pas les déguiser en faits.
 
 ## Livrable
 
