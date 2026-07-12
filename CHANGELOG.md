@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.21](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.20...v0.1.21) (2026-07-12)
+
+
+### Bug Fixes
+
+* **agents:** QA/Security handoff bug + tool-gap escalation + anti-panic + pentest routing ([#161](https://github.com/zavrocKk/zav-sandbox/issues/161)) ([e74e0b7](https://github.com/zavrocKk/zav-sandbox/commit/e74e0b7f91298a5cd7cee35d595ecae67361d6c9))
+
 ## [0.1.20](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.19...v0.1.20) (2026-07-10)
 
 
