@@ -47,7 +47,8 @@ sous-agents : `docs/_scratch/telemetry/agent-telemetry.jsonl` (local, git-ignor�
 | Besoin JIRA / ServiceNow / Confluence ressenti à chaque session | Skills de sortie livrées (ADR-0015) : les adapter à l'instance (fixtures `mvp-inputs/`), puis évaluer MCP (ADR) |
 | Skills mal sélectionnées entre les 4 de la famille analyste (mauvais matching de description) | Affiner les `description` des SKILL.md concernées (ADR-0015) |
 | Handoffs rejetés par le gate ≥ 2 fois | Les critères « Done quand » travaillent — les affiner par persona |
-| Handoffs systématiquement proches du plafond (1000) malgré la cible ~500 | Soit la cible est irréaliste (l'acter par ADR), soit la règle « pointeur > recopie » n'est pas appliquée (renforcer le gate) |
+| **H6** — dépassements déclarés fréquents ET jugés utiles (signal dense, preuves) | Relever la cible ~500 par ADR (ADR-0018) |
+| **H6bis** — dépassements = remplissage ou recopie de fichiers | « Pointeur > recopie » n'est pas appliquée — la renforcer, **sans rétablir le rejet-taille** (ADR-0018) |
 | Routage `bilan-remediation` confondu avec incident-response / code-analysis ≥ 2 fois | Affiner la désambiguïsation du mapping (ADR-0014) |
 | Routage `bilan-remediation` correct sur ≥ 3 sessions et gate d'approbation utile | Lever l'exclusion playbook du workflow (ADR-0014) |
 | **H1** — app nommée mais fiche non trouvée (nom/alias) ≥ 2 fois | Enrichir les `aliases`, sinon invalider le rappel par nom (ADR-0017) |

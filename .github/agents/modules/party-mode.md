@@ -104,8 +104,10 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
    précédents **en régime convergent uniquement**) → produit → écrit
    `.party/handoff-<agent>.md` (budget : voir règle ci-dessous).
 3. **Gate intermédiaire (orchestrateur)** — avant d'invoquer l'agent suivant, vérifier le
-   handoff produit : 4 sections présentes, budget respecté (plafond 1000 tokens ; un
-   handoff gonflé sans signal est non conforme même sous le plafond), critères
+   handoff produit : 4 sections présentes, budget tenu **ou dépassement déclaré**
+   (« Budget dépassé : <raison> » en tête — la **taille seule ne rejette jamais** ;
+   rejettent : le remplissage sans signal, même sous le seuil, et le dépassement
+   **non déclaré** — ADR-0018), critères
    « Done quand » du persona satisfaits (section dédiée de son `.agent.md`),
    et **chaque finding porte un pointeur de preuve falsifiable** (fichier:ligne,
    requête + fenêtre UTC, lien doc) — une affirmation qui ne pourrait pas être
@@ -117,8 +119,12 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
 
 **Budget handoff — le nécessaire, pas le maximum** :
 
-- **Cible ≤ 500 tokens** ; **plafond absolu 1000 tokens / 4000 chars**. Le plafond est
-  un filet de sécurité, jamais un objectif de remplissage.
+- **Cible ≤ 500 tokens** (comptée **hors lignes de preuve** — les pointeurs exigés
+  par le gate ne pénalisent pas le budget) ; **seuil de déclaration : 1000 tokens /
+  4000 chars**. Au-delà, le handoff s'ouvre par « Budget dépassé : <raison> » — un
+  dépassement **dense et prouvé passe**, un dépassement silencieux est non conforme
+  ([ADR-0018](../../../docs/decisions/0018-handoff-soft-cap.md)). Le seuil n'est
+  jamais un objectif de remplissage.
 - **Règle binaire pointeur > recopie** : une info qui existe dans un fichier du repo
   (diff, table, analyse) est **référencée** (`voir path/to/file`), jamais recopiée dans
   le handoff. Le suivant lit le fichier s'il en a besoin.
