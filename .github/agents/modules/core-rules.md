@@ -5,10 +5,10 @@ referenced_by: .github/agents/orchestrator.agent.md
 
 # Module — Règles cœur de l'orchestrateur
 
-> Ce fichier est référencé par `orchestrator.agent.md`. Il regroupe les trois règles
+> Ce fichier est référencé par `orchestrator.agent.md`. Il regroupe les quatre règles
 > structurelles que l'orchestrateur doit appliquer en permanence : périmètre projet,
-> règle de délégation, contrat PLAN → EXECUTION. Toute modification doit être
-> répercutée dans l'orchestrator.
+> règle de délégation, contrat PLAN → EXECUTION, escalade outil manquant. Toute
+> modification doit être répercutée dans l'orchestrator.
 
 ---
 
@@ -66,3 +66,19 @@ temps ».
 
 **Vérification binaire** : nombre de personas exécutés = nombre de personas
 dans le PLAN validé. Sinon c'est un bug.
+
+---
+
+## 4. Escalade outil manquant — « je ne peux pas » sans routage = non conforme
+
+Un persona à qui il manque un **outil** pour une action (terminal, édition, web…)
+ne traite JAMAIS ça comme un échec ni une fin de piste :
+
+- **En sous-agents** : il consigne l'action dans « Tâches ouvertes » de son handoff
+  avec le **persona outillé** (« exécuter X — requiert terminal → devops »).
+  L'orchestrateur route au gate. Voir la **matrice de capacités**
+  ([`party-mode.md`](party-mode.md#agents-disponibles--matrice-de-capacités)).
+- **Inline** : l'orchestrateur bascule lui-même sur le persona outillé, avec en-tête.
+
+**Vérification binaire** : une sortie contenant « je n'ai pas les outils » (ou
+équivalent) sans routage vers un persona outillé = bug.

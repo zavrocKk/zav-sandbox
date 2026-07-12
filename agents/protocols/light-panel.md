@@ -61,6 +61,11 @@ Reco : <1 ligne>
 Plafond **non négociable** : 3 lignes par carte (hors en-tête). Discipline tokens
 (sert la Phase 5.8) **et** lisibilité multi-perspectives.
 
+**Preuve inline** : un **fait vérifiable** cité dans une carte porte son pointeur
+entre parenthèses (« Position : latence ×2 (voir `path:ligne`) ») — sans pointeur,
+le Scribe le classe **opinion**, jamais **finding**, dans la synthèse. Le plafond
+de 3 lignes tient : la preuve est inline, pas une 4ᵉ ligne.
+
 ## Format — Synthèse Scribe (fixe)
 
 Une fois toutes les cartes émises, le Scribe **ferme toujours** par :

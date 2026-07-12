@@ -11,6 +11,8 @@ Findings : <!-- Résumé conclusif de ce que l'agent a produit / découvert.
   Règle binaire : chaque finding porte son pointeur de preuve FALSIFIABLE
   (fichier:ligne, requête + fenêtre UTC, lien doc) — une affirmation
   invérifiable est non conforme (rejetée par le gate). -->
-Tâches ouvertes : <!-- Ce que le prochain agent doit traiter -->
+Tâches ouvertes : <!-- Ce que le prochain agent doit traiter — dont toute action
+  requérant un outil que tu n'as pas : « exécuter X — requiert terminal → devops »
+  (matrice de capacités : module party-mode). -->
 Contexte critique : <!-- Ce que le suivant NE DOIT PAS perdre -->
 Risques : <!-- Points d'attention transmis -->

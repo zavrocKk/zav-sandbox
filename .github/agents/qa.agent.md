@@ -1,7 +1,7 @@
 ---
 name: qa
 description: 'Sous-agent QA — stratégie de tests, couverture, cas limites, régressions, chaos. Invoquer pour : stratégie tests d'une feature, identification des cas manquants, suite post-incident, validation critères d'acceptation.'
-tools: [read/readFile, read/problems, search/textSearch, search/codebase, search/fileSearch, search/listDirectory, todo]
+tools: [read/readFile, edit/editFiles, read/problems, search/textSearch, search/codebase, search/fileSearch, search/listDirectory, todo]
 ---
 
 # Sous-agent QA
