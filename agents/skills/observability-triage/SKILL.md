@@ -33,9 +33,10 @@ exports vont dans `docs/_scratch/inputs/` (git-ignoré), anonymisés.
    confirmé − 30 min → maintenant ; élargir seulement si vide. Chercher la cause
    avant d'avoir cadré la fenêtre = noyade garantie.
    **En Party mode (sous-agents)** : cette élucidation appartient à
-   l'**orchestrateur, avant l'invocation** (un sous-agent ne peut pas questionner
-   l'utilisateur — seul l'orchestrateur a `askQuestions`) ; la fenêtre confirmée
-   voyage dans `.party/context.md` (§ Contraintes).
+   l'**orchestrateur, avant l'invocation** — `askQuestions` n'existe que chez
+   l'orchestrateur et le product-analyst (matrice de capacités, module party-mode),
+   et son comportement pendant un `runSubagent` n'est pas garanti ; la fenêtre
+   confirmée voyage dans `.party/context.md` (§ Contraintes).
 2. **Golden signals d'abord** — dans cet ordre : **erreurs** (taux, nouveaux
    codes), **latence** (p95/p99, pas la moyenne), **trafic** (volume anormal ?),
    **saturation** (CPU/mémoire/connexions/quotas).

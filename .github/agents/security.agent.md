@@ -1,7 +1,7 @@
 ---
 name: security
 description: 'Sous-agent Security — audit vulnérabilités, secrets, threat model STRIDE, OWASP Top 10, AuthN/AuthZ. Invoquer pour : audit de surface d'attaque, review secrets/IAM, security by design, comportement suspect.'
-tools: [read/readFile, read/problems, search/textSearch, search/codebase, search/fileSearch, search/listDirectory, todo]
+tools: [read/readFile, edit/editFiles, read/problems, search/textSearch, search/codebase, search/fileSearch, search/listDirectory, todo]
 ---
 
 # Sous-agent Security

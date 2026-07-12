@@ -128,10 +128,24 @@ Règle de choix : les personas doivent-ils se **compléter** (convergent) ou pou
   pas de matière longue).
 
 **Fallback** : si `runSubagent` échoue → impersonne le persona + écrit le handoff
-manuellement → continue la séquence.
+manuellement → continue la séquence. **Le fallback est DÉCLARÉ obligatoirement**
+en tête de sortie (« Fallback : runSubagent a échoué car <raison> ») — un fallback
+silencieux = bug. Il ne s'applique qu'après échec réel du mécanisme, jamais comme
+raccourci quand un sous-agent rencontre un problème.
 
-**Agents disponibles** : `devops`, `developer`, `security`, `architect`, `qa`,
-`product-analyst`, `data-engineer`, `scribe`. Fichiers : `.github/agents/<agent>.agent.md`.
+## Agents disponibles — matrice de capacités
+
+`devops`, `developer`, `security`, `architect`, `qa`, `product-analyst`,
+`data-engineer`, `scribe`. Fichiers : `.github/agents/<agent>.agent.md`.
+Pour router une action qui exige un outil (règle 4 de [`core-rules.md`](core-rules.md)) :
+
+| Capacité | Qui l'a |
+|---|---|
+| Terminal (`runInTerminal`) | **devops** uniquement (+ orchestrateur) |
+| Édition de fichiers | tous les agents |
+| Questions à l'utilisateur (`askQuestions`) | orchestrateur, product-analyst (comportement en sous-agent non garanti) |
+| Web (`fetch`) | orchestrateur uniquement |
+| Invoquer un agent (`runSubagent`) | orchestrateur uniquement — un sous-agent ne se re-route jamais lui-même |
 
 **Débat = inline — choix de design, pas une limite technique.** Un débat est
 *réactif* : chaque persona doit voir l'argumentation complète des rounds précédents.

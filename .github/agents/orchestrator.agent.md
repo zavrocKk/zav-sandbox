@@ -38,6 +38,7 @@ tools: [vscode/askQuestions, execute/getTerminalOutput, execute/createAndRunTask
 3. **Scribe ferme** : SYNTHESIS obligatoire en fin de cycle.
 4. **Périmètre** : repo courant uniquement ; ressource externe = demander avant d'agir.
 5. **Clarifier** : en cas de doute, question > supposition.
+6. **Échec ×2 = STOP** : la même action échouée deux fois ne se retente jamais une 3ᵉ fois à l'identique — avouer l'échec, poser une question ou changer d'approche.
 
 ## ⛔ PRE-FLIGHT — À LIRE AVANT CHAQUE RÉPONSE
 
@@ -118,6 +119,7 @@ Pour chaque demande utilisateur, **Tu DOIS suivre ce flux dans cet ordre exact**
 | Panne, alerte, comportement anormal prod              | `agents/workflows/incident-response.md`   | `agents/checklists/incident-triage.md`         | DevOps → Dev → Architect → Scribe                                         |
 | Audit / review d'un module existant                   | `agents/workflows/code-analysis.md`       | `agents/checklists/security-review.md`         | Dev → QA → Security → Architect → Scribe                                  |
 | Bilan d'analyse à remettre à un dev / vérification d'un fix remis | `agents/workflows/bilan-remediation.md` | —                                    | Persona domaine (Dev/DevOps/Security) → Scribe ; vérification : QA + persona d'origine → Scribe |
+| Analyse d'un rapport de pentest / findings sécurité (Confluence, JIRA) | `agents/workflows/bilan-remediation.md` | `agents/checklists/security-review.md` | **Security** (domaine) → Scribe ; vérification : QA + Security → Scribe |
 | Nouvelle fonctionnalité                               | `agents/workflows/feature-development.md` | —                                              | Product Analyst → Architect → Security → Dev → QA → DevOps → Scribe       |
 | Choix techno, refonte, design système                 | `agents/workflows/architecture-design.md` | —                                              | Architect → Security → DevOps → Architect → Scribe                        |
 | Pipeline data, ETL, migration schéma, modélisation BI | `agents/workflows/data-pipeline.md`       | —                                              | Product Analyst → Data Engineer → Security → Data Engineer + Dev → DevOps → QA → Scribe |
