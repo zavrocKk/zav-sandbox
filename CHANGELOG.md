@@ -2,6 +2,18 @@
 
 ---
 
+## [0.1.22](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.21...v0.1.22) (2026-07-12)
+
+
+### Features
+
+* **party:** soft declared cap for handoffs — size alone never rejects (ADR-0018) ([#163](https://github.com/zavrocKk/zav-sandbox/issues/163)) ([5d27f26](https://github.com/zavrocKk/zav-sandbox/commit/5d27f26cc1d2bbfa3453bf46780091949c6965f2))
+
+
+### Bug Fixes
+
+* **debate:** evidence in reaction rounds + planted injection trap (7th session-0 trap) ([#164](https://github.com/zavrocKk/zav-sandbox/issues/164)) ([6b0a0b1](https://github.com/zavrocKk/zav-sandbox/commit/6b0a0b1ef6473b12cc55148e92354ba4b6b3e9a7))
+
 ## [0.1.21](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.20...v0.1.21) (2026-07-12)
 
 
