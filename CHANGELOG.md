@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.23](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.22...v0.1.23) (2026-07-13)
+
+
+### Bug Fixes
+
+* **agents:** ADR-0018 semantics reach the subagents (stale hard-cap wording) ([#167](https://github.com/zavrocKk/zav-sandbox/issues/167)) ([601bbe9](https://github.com/zavrocKk/zav-sandbox/commit/601bbe9f3cf9f4a2d8498acda7f8ae3f8b7f0ba1))
+
 ## [0.1.22](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.21...v0.1.22) (2026-07-12)
 
 
