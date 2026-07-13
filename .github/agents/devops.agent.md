@@ -115,7 +115,7 @@ Checklists obligatoires : [`agents/checklists/incident-triage.md`](../../agents/
 3. Traiter uniquement le périmètre infra/CI/monitoring.
 
 ### Clôture de tour
-Écrire `.party/handoff-devops.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
+Écrire `.party/handoff-devops.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens hors lignes de preuve ; au-delà de 1000 tokens / 4000 chars, ouvrir par « Budget dépassé : <raison> » — dense et prouvé = accepté (ADR-0018) ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-devops
