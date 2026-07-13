@@ -105,7 +105,7 @@ L'output n'est acceptable que si **les 3 critères** sont vrais (sinon : incompl
 3. Traiter uniquement le périmètre data (schémas, transformations, pipelines, qualité, idempotence).
 
 ### Clôture de tour
-Écrire `.party/handoff-data-engineer.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens, plafond 1000 / 4000 chars ; pointeur `voir path` plutôt que recopie) :
+Écrire `.party/handoff-data-engineer.md` au format strict (le nécessaire d'abord — cible ≤ 500 tokens hors lignes de preuve ; au-delà de 1000 tokens / 4000 chars, ouvrir par « Budget dépassé : <raison> » — dense et prouvé = accepté (ADR-0018) ; pointeur `voir path` plutôt que recopie) :
 
 ```markdown
 ## handoff-data-engineer
