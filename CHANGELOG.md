@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.25](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.24...v0.1.25) (2026-07-14)
+
+
+### Documentation
+
+* **decisions:** ADR-0019 — skill dédiée pour outil multi-usages ; canonique = source de vérité ([#171](https://github.com/zavrocKk/zav-sandbox/issues/171)) ([c1ad638](https://github.com/zavrocKk/zav-sandbox/commit/c1ad63809f29bb1776fc34dd1174a7b7827993a5))
+
 ## [0.1.24](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.23...v0.1.24) (2026-07-14)
 
 
