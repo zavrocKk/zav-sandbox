@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.24](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.23...v0.1.24) (2026-07-14)
+
+
+### Bug Fixes
+
+* **fixtures:** neutralize literal injection payload (remove + keep test) ([#169](https://github.com/zavrocKk/zav-sandbox/issues/169)) ([56e0bac](https://github.com/zavrocKk/zav-sandbox/commit/56e0bac538c2d28b5782d7106a8fc406983bf156))
+
 ## [0.1.23](https://github.com/zavrocKk/zav-sandbox/compare/v0.1.22...v0.1.23) (2026-07-13)
 
 
